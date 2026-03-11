@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  password  String
+  projects  Project[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Project {
+  id            String          @id @default(cuid())
+  userId        String
+  user          User            @relation(fields: [userId], references: [id])
+  name          String
+  brandName     String
+  niche         String
+  targetMarkets String          @default("[]") // JSON array of strings
+  logoUrl       String?
+  brandColors   String?         // JSON: { primary, secondary, accent }
+  status        String          @default("DRAFT")
+  currentPhase  Int             @default(1)
+  domain        Domain?
+  website       Website?
+  seoConfig     SeoConfig?
+  socialProfiles SocialProfile[]
+  socialPosts   SocialPost[]
+  contentBank   ContentBank[]
+  timeline      TimelineEvent[]
+  analytics     Analytics[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Domain {
+  id             String   @id @default(cuid())
+  projectId      String   @unique
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  suggestions    String?  // JSON array
+  selectedDomain String?
+  score          Int?
+  registrar      String?
+  registeredAt   DateTime?
+  status         String   @default("PENDING")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Website {
+  id           String        @id @default(cuid())
+  projectId    String        @unique
+  project      Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  templateType String
+  deployUrl    String?
+  cmsUrl       String?
+  status       String        @default("PENDING")
+  pages        WebsitePage[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model WebsitePage {
+  id              String   @id @default(cuid())
+  websiteId       String
+  website         Website  @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  slug            String
+  title           String
+  pageType        String
+  content         String   @default("{}") // JSON
+  metaTitle       String?
+  metaDescription String?
+  status          String   @default("draft")
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([websiteId, slug])
+}
+
+model SeoConfig {
+  id             String   @id @default(cuid())
+  projectId      String   @unique
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  keywords       String?  // JSON array
+  geoTargets     String?  // JSON array
+  sitemapUrl     String?
+  seoScore       Int?
+  metaTags       String?  // JSON
+  technicalAudit String?  // JSON
+  backlinks      String?  // JSON
+  status         String   @default("pending")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model SocialProfile {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  platform    String
+  profileUrl  String?
+  username    String?
+  bio         String?
+  configured  Boolean  @default(false)
+  accessToken String?
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([projectId, platform])
+}
+
+model SocialPost {
+  id             String   @id @default(cuid())
+  projectId      String
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  platform       String
+  content        String
+  mediaUrls      String   @default("[]") // JSON array
+  hashtags       String   @default("[]") // JSON array
+  postType       String
+  scheduledAt    DateTime
+  publishedAt    DateTime?
+  status         String   @default("DRAFT")
+  engagementData String?  // JSON
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model ContentBank {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type      String
+  category  String
+  content   String   @default("{}") // JSON
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TimelineEvent {
+  id            String    @id @default(cuid())
+  projectId     String
+  project       Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  phase         Int
+  milestone     String
+  description   String?
+  scheduledDate DateTime
+  completedDate DateTime?
+  status        String    @default("pending")
+  order         Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Analytics {
+  id              String   @id @default(cuid())
+  projectId       String
+  project         Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  date            DateTime
+  traffic         Int      @default(0)
+  keywordsRanked  Int      @default(0)
+  socialFollowers Int      @default(0)
+  leads           Int      @default(0)
+  data            String?  // JSON
+  createdAt       DateTime @default(now())
+
+  @@unique([projectId, date])
+}
