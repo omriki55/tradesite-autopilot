@@ -18,6 +18,8 @@ import {
   Rocket,
   ChevronLeft,
   Check,
+  BookOpen,
+  BarChart3,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -34,6 +36,11 @@ const phases = [
   { num: 4, label: 'Social Media', icon: Share2, href: 'social' },
   { num: 5, label: 'Daily Posting', icon: Calendar, href: 'posting' },
   { num: 6, label: 'Timeline', icon: Flag, href: 'timeline' },
+]
+
+const extraPages = [
+  { label: 'Content Library', icon: BookOpen, href: 'content' },
+  { label: 'Analytics', icon: BarChart3, href: 'analytics' },
 ]
 
 export function Sidebar() {
@@ -121,6 +128,34 @@ export function Sidebar() {
                         Current
                       </span>
                     )}
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* Extra pages */}
+            <div className="px-3 mt-4 mb-2">
+              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Tools</p>
+            </div>
+            <div className="space-y-0.5">
+              {extraPages.map((page) => {
+                const Icon = page.icon
+                const pageHref = `/dashboard/projects/${projectId}/${page.href}`
+                const isActive = pathname === pageHref
+
+                return (
+                  <Link
+                    key={page.href}
+                    href={pageHref}
+                    className={cn(
+                      'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors',
+                      isActive
+                        ? 'bg-primary/10 text-primary font-medium'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span className="truncate">{page.label}</span>
                   </Link>
                 )
               })}

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { router, protectedProcedure } from '../trpc'
+import { seedContentBank, seedMockAnalytics } from '@/lib/content-seeder'
 
 export const projectRouter = router({
   list: protectedProcedure.query(async ({ ctx }) => {
@@ -7,9 +8,9 @@ export const projectRouter = router({
       where: { userId: ctx.userId },
       include: {
         domain: { select: { selectedDomain: true, status: true } },
-        website: { select: { status: true, deployUrl: true } },
+        website: { select: { status: true, deployUrl: true, templateId: true } },
         seoConfig: { select: { seoScore: true, status: true } },
-        _count: { select: { socialProfiles: true, socialPosts: true } },
+        _count: { select: { socialProfiles: true, socialPosts: true, contentBank: true } },
       },
       orderBy: { createdAt: 'desc' },
     })
@@ -70,6 +71,7 @@ export const projectRouter = router({
       const milestones = [
         { phase: 1, milestone: 'Domain search & scoring', day: 1 },
         { phase: 1, milestone: 'Domain registration', day: 2 },
+        { phase: 2, milestone: 'Website template selected', day: 3 },
         { phase: 2, milestone: 'Website generation started', day: 4 },
         { phase: 2, milestone: 'All pages generated', day: 5 },
         { phase: 2, milestone: 'Website deployed & live', day: 7 },
@@ -78,6 +80,7 @@ export const projectRouter = router({
         { phase: 3, milestone: 'GEO pages created', day: 12 },
         { phase: 3, milestone: 'Search Console connected', day: 14 },
         { phase: 4, milestone: 'Social profiles created', day: 15 },
+        { phase: 4, milestone: 'Social accounts connected', day: 17 },
         { phase: 4, milestone: 'Content bank generated', day: 18 },
         { phase: 4, milestone: 'Profiles fully configured', day: 21 },
         { phase: 5, milestone: 'Daily posting begins', day: 22 },
@@ -99,6 +102,20 @@ export const projectRouter = router({
           order: i,
         })),
       })
+
+      // Seed content bank with best-practice templates
+      try {
+        await seedContentBank(ctx.prisma, project.id, input.niche)
+      } catch {
+        // Non-critical — don't fail project creation
+      }
+
+      // Seed mock analytics data
+      try {
+        await seedMockAnalytics(ctx.prisma, project.id)
+      } catch {
+        // Non-critical
+      }
 
       return project
     }),

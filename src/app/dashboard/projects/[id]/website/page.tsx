@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import { trpc } from '@/trpc/client'
 import { useState } from 'react'
-import { Layout, FileText, Eye, Rocket, Check, Loader2 } from 'lucide-react'
+import { Layout, FileText, Eye, Rocket, Check, Loader2, Sparkles } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { parseJson } from '@/lib/json-helpers'
 import { PhaseLayout } from '@/components/dashboard/phase-layout'
@@ -12,12 +12,16 @@ export default function WebsitePage() {
   const { id } = useParams<{ id: string }>()
   const { data: project } = trpc.project.getById.useQuery({ id })
   const { data: website, refetch } = trpc.website.get.useQuery({ projectId: id })
+  const { data: templates } = trpc.website.getTemplates.useQuery()
   const [selectedPage, setSelectedPage] = useState<string | null>(null)
   const { data: pageData } = trpc.website.getPage.useQuery(
     { pageId: selectedPage! },
     { enabled: !!selectedPage }
   )
 
+  const selectTemplateMutation = trpc.website.selectTemplate.useMutation({
+    onSuccess: () => refetch(),
+  })
   const generateMutation = trpc.website.generate.useMutation({
     onSuccess: () => refetch(),
   })
@@ -26,6 +30,8 @@ export default function WebsitePage() {
   })
 
   const pages = website?.pages || []
+  const hasTemplate = !!website?.templateId
+  const selectedTemplate = templates?.find((t) => t.id === website?.templateId)
 
   return (
     <PhaseLayout
@@ -33,7 +39,7 @@ export default function WebsitePage() {
       projectName={project?.name}
       phaseNum={2}
       title="Website Factory"
-      subtitle="Generate and manage your trading website pages"
+      subtitle="Choose a template, generate pages, and deploy your trading website"
       isComplete={website?.status === 'DEPLOYED'}
       headerAction={
         website?.status === 'DEPLOYED' ? (
@@ -44,12 +50,51 @@ export default function WebsitePage() {
           >
             <Check className="w-4 h-4" /> Live at {website.deployUrl}
           </a>
+        ) : selectedTemplate ? (
+          <span className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+            {selectedTemplate.icon} {selectedTemplate.name}
+          </span>
         ) : undefined
       }
     >
+      {/* Template Selection Step */}
+      {!hasTemplate && !pages.length && templates && (
+        <div className="mb-8">
+          <h2 className="text-lg font-semibold text-foreground mb-1">Choose Your Template</h2>
+          <p className="text-sm text-muted-foreground mb-4">Select the template that best matches your business type</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {templates.map((template) => (
+              <button
+                key={template.id}
+                onClick={() => selectTemplateMutation.mutate({ projectId: id, templateId: template.id })}
+                disabled={selectTemplateMutation.isPending}
+                className="text-left p-5 rounded-xl border-2 border-border hover:border-primary/50 bg-card transition-all group"
+              >
+                <div className="text-3xl mb-3">{template.icon}</div>
+                <h3 className="text-lg font-bold text-foreground mb-1">{template.name}</h3>
+                <p className="text-sm text-muted-foreground mb-3">{template.description}</p>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                    {template.pageCount} pages
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {template.features.map((f) => (
+                    <span key={f} className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{f}</span>
+                  ))}
+                </div>
+                <div className="mt-4 flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Sparkles className="w-4 h-4" /> Select Template
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Actions */}
       <div className="flex gap-3 mb-6">
-        {(!website || website.status === 'PENDING') && (
+        {hasTemplate && (!website || website.status === 'PENDING') && (
           <button
             onClick={() => generateMutation.mutate({ projectId: id })}
             disabled={generateMutation.isPending}
@@ -58,7 +103,7 @@ export default function WebsitePage() {
             {generateMutation.isPending ? (
               <><Loader2 className="w-4 h-4 animate-spin" /> Generating Pages...</>
             ) : (
-              <><Layout className="w-4 h-4" /> Generate Website</>
+              <><Layout className="w-4 h-4" /> Generate Website ({selectedTemplate?.pageCount || 0} pages)</>
             )}
           </button>
         )}
@@ -80,7 +125,7 @@ export default function WebsitePage() {
       {generateMutation.isPending && (
         <div className="text-center py-12 bg-card border border-border rounded-xl mb-6">
           <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-foreground font-medium">Generating {18} pages with AI...</p>
+          <p className="text-foreground font-medium">Generating {selectedTemplate?.pageCount || 0} pages with AI...</p>
           <p className="text-sm text-muted-foreground mt-1">This may take a few minutes</p>
         </div>
       )}
@@ -274,11 +319,18 @@ export default function WebsitePage() {
         </div>
       )}
 
-      {!pages.length && !generateMutation.isPending && (
+      {!pages.length && !generateMutation.isPending && hasTemplate && (
         <div className="text-center py-12 bg-card border border-border rounded-xl">
           <Layout className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-foreground mb-2">No Pages Yet</h3>
-          <p className="text-muted-foreground">Click &ldquo;Generate Website&rdquo; to create 18 professional pages</p>
+          <h3 className="text-lg font-medium text-foreground mb-2">Template Selected</h3>
+          <p className="text-muted-foreground">Click &ldquo;Generate Website&rdquo; to create {selectedTemplate?.pageCount || 0} professional pages</p>
+        </div>
+      )}
+
+      {!pages.length && !generateMutation.isPending && !hasTemplate && !templates && (
+        <div className="text-center py-12 bg-card border border-border rounded-xl">
+          <Layout className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-foreground mb-2">Loading Templates...</h3>
         </div>
       )}
     </PhaseLayout>

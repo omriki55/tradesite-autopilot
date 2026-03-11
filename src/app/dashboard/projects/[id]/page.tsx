@@ -6,7 +6,8 @@ import { trpc } from '@/trpc/client'
 import { StatsGrid, StatCard } from '@/components/dashboard/stats-cards'
 import {
   Globe, Layout, Search, Share2, Calendar, Flag,
-  ArrowRight, Check, Clock, TrendingUp, Zap, Play,
+  ArrowRight, Check, Clock, TrendingUp, Play,
+  BookOpen, BarChart3, Users,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -24,7 +25,7 @@ const phaseConfig = [
     label: 'Website Factory',
     icon: Layout,
     href: 'website',
-    description: 'Generate 18 professional pages',
+    description: 'Choose template & generate pages',
     action: 'Build Website',
   },
   {
@@ -40,7 +41,7 @@ const phaseConfig = [
     label: 'Social Media',
     icon: Share2,
     href: 'social',
-    description: 'Create profiles on 7 platforms',
+    description: 'Create profiles & connect accounts',
     action: 'Setup Profiles',
   },
   {
@@ -66,6 +67,7 @@ export default function ProjectOverviewPage() {
   const router = useRouter()
   const { data: project, isLoading } = trpc.project.getById.useQuery({ id })
   const { data: kpis } = trpc.timeline.getKPIs.useQuery({ projectId: id })
+  const { data: dashboard } = trpc.analytics.getDashboard.useQuery({ projectId: id })
 
   if (isLoading) {
     return (
@@ -152,6 +154,63 @@ export default function ProjectOverviewPage() {
           subtitle={`${project._count?.socialPosts || 0} posts`}
         />
       </StatsGrid>
+
+      {/* Analytics summary (if data available) */}
+      {dashboard?.hasData && (
+        <div className="mt-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" /> Analytics Overview
+            </h2>
+            <Link
+              href={`/dashboard/projects/${id}/analytics`}
+              className="text-xs text-primary hover:underline"
+            >
+              View Full Dashboard →
+            </Link>
+          </div>
+          <StatsGrid>
+            <StatCard
+              title="Traffic (30d)"
+              value={dashboard.totalTraffic.toLocaleString()}
+              icon={<Globe className="w-4 h-4" />}
+              trend={dashboard.trend === 'up' ? 'up' : undefined}
+            />
+            <StatCard
+              title="Leads"
+              value={dashboard.totalLeads}
+              icon={<TrendingUp className="w-4 h-4" />}
+            />
+            <StatCard
+              title="Keywords"
+              value={dashboard.avgKeywords}
+              icon={<Search className="w-4 h-4" />}
+            />
+            <StatCard
+              title="Followers"
+              value={dashboard.totalFollowers.toLocaleString()}
+              icon={<Users className="w-4 h-4" />}
+            />
+          </StatsGrid>
+        </div>
+      )}
+
+      {/* Quick links */}
+      <div className="flex gap-3 mt-6 mb-6">
+        <Link
+          href={`/dashboard/projects/${id}/content`}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-sm text-foreground hover:bg-muted transition-colors"
+        >
+          <BookOpen className="w-4 h-4" /> Content Library
+          <span className="text-xs text-muted-foreground">({project._count?.contentBank || 0})</span>
+        </Link>
+        <Link
+          href={`/dashboard/projects/${id}/analytics`}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-sm text-foreground hover:bg-muted transition-colors"
+        >
+          <BarChart3 className="w-4 h-4" /> Analytics
+        </Link>
+      </div>
 
       {/* Phase cards — the main action area */}
       <h2 className="text-lg font-semibold text-foreground mt-8 mb-4">Phases</h2>

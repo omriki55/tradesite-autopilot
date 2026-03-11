@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { router, protectedProcedure } from '../trpc'
 import { generateJSONWithAI } from '@/lib/ai'
 import { advancePhase } from '@/lib/phase-advance'
+import { publishToSocial } from '@/lib/social-providers'
 
 const WEEKLY_SCHEDULE = [
   { day: 0, type: 'educational', label: 'Educational Long-form' },
@@ -121,7 +122,22 @@ export const postingRouter = router({
   publishPost: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      // Mock publish
+      const post = await ctx.prisma.socialPost.findUnique({ where: { id: input.postId } })
+      if (!post) throw new Error('Post not found')
+
+      // Check if platform has a connected account
+      const profile = await ctx.prisma.socialProfile.findUnique({
+        where: { projectId_platform: { projectId: post.projectId, platform: post.platform } },
+      })
+
+      // Publish via social providers (uses real API if connected, mock otherwise)
+      const hashtags = post.hashtags ? JSON.parse(post.hashtags) : []
+      const result = await publishToSocial(
+        post.platform,
+        profile?.connected ? profile.accessToken : null,
+        { text: post.content, hashtags }
+      )
+
       return ctx.prisma.socialPost.update({
         where: { id: input.postId },
         data: {
@@ -133,6 +149,8 @@ export const postingRouter = router({
             shares: Math.floor(Math.random() * 15),
             clicks: Math.floor(Math.random() * 50),
             reach: Math.floor(Math.random() * 1000),
+            postUrl: result.url || null,
+            publishMode: profile?.connected ? 'live' : 'mock',
           }),
         },
       })

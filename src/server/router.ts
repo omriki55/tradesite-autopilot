@@ -6,6 +6,8 @@ import { seoRouter } from './routers/seo'
 import { socialRouter } from './routers/social'
 import { postingRouter } from './routers/posting'
 import { timelineRouter } from './routers/timeline'
+import { connectionsRouter } from './routers/connections'
+import { analyticsRouter } from './routers/analytics'
 
 export const appRouter = router({
   project: projectRouter,
@@ -15,6 +17,8 @@ export const appRouter = router({
   social: socialRouter,
   posting: postingRouter,
   timeline: timelineRouter,
+  connections: connectionsRouter,
+  analytics: analyticsRouter,
 })
 
 export type AppRouter = typeof appRouter

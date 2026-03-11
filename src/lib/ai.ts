@@ -66,22 +66,55 @@ function generateMockResponse(prompt: string): string {
     ])
   }
 
-  // Website page content
+  // Crypto Exchange template-specific page content
+  if (p.includes('crypto exchange') && (p.includes('page') || p.includes('content'))) {
+    return JSON.stringify({
+      heroTitle: 'Trade 200+ Cryptocurrencies with Confidence',
+      heroSubtitle: 'Institutional-grade security, low fees, and lightning-fast execution. Buy, sell, and trade crypto with the platform trusted by millions.',
+      sections: [
+        { title: 'Why Trade With Us', content: 'Industry-lowest fees starting at 0.1%, cold storage for 95% of assets, and 24/7 customer support. Over $2B in daily trading volume across spot and futures markets.', type: 'features' },
+        { title: 'Spot & Futures Trading', content: 'Trade spot markets with instant settlement or leverage up to 125x on perpetual futures. Advanced order types, real-time charts, and deep liquidity across all pairs.', type: 'list' },
+        { title: 'Staking & Earn', content: 'Put your crypto to work. Earn up to 14% APY through flexible and locked staking programs. DeFi yield products and savings accounts available.', type: 'pricing' },
+        { title: 'Enterprise-Grade Security', content: 'Multi-signature cold wallets, 2FA authentication, withdrawal whitelist, and $100M insurance fund. Your assets are protected by industry-leading security protocols.', type: 'text' },
+      ],
+      metaTitle: 'Buy & Trade Crypto — Secure Exchange',
+      metaDescription: 'Trade 200+ cryptocurrencies with low fees and institutional-grade security. Spot trading, futures, staking, and DeFi products. Start trading today.',
+    })
+  }
+
+  // Prop Trading template-specific page content
+  if (p.includes('prop trad') && (p.includes('page') || p.includes('content'))) {
+    return JSON.stringify({
+      heroTitle: 'Get Funded Up to $200,000',
+      heroSubtitle: 'Prove your trading skills and access institutional capital. Keep up to 90% of profits with our industry-leading funded trading program.',
+      sections: [
+        { title: 'How It Works', content: 'Pass our evaluation challenge by hitting the profit target while staying within risk limits. Once funded, trade with our capital and keep up to 90% of the profits. No time limits on funded accounts.', type: 'features' },
+        { title: 'Challenge Programs', content: 'Choose your path: 1-Step Instant Funding or 2-Step Standard Evaluation. Account sizes from $10K to $200K. Competitive pricing with refundable fees.', type: 'pricing' },
+        { title: 'Payout Proofs', content: 'Over $10M paid out to funded traders worldwide. Bi-weekly payouts via bank transfer, crypto, or e-wallet. Average payout processing time: 24 hours.', type: 'text' },
+        { title: 'Join Our Community', content: '50,000+ traders in our Discord community. Free education, daily market analysis, and funded trader interviews. Your success is our mission.', type: 'cta' },
+      ],
+      metaTitle: 'Prop Trading — Get Funded Today',
+      metaDescription: 'Get funded up to $200K with our prop trading evaluation. 80-90% profit split, no time limits, bi-weekly payouts. Start your challenge today.',
+    })
+  }
+
+  // Website page content (default / forex broker)
   if (p.includes('page') && (p.includes('generate') || p.includes('content') || p.includes('home') || p.includes('about'))) {
     return JSON.stringify({
       heroTitle: 'Trade Smarter with Advanced Technology',
       heroSubtitle: 'Access global markets with institutional-grade tools, tight spreads, and lightning-fast execution.',
       sections: [
         { title: 'Why Choose Us', content: 'Industry-leading spreads starting from 0.0 pips, 24/7 customer support, and advanced charting tools. Regulated and trusted by thousands of traders worldwide.', type: 'features' },
-        { title: 'Trading Platforms', content: 'Trade on MetaTrader 4, MetaTrader 5, or our proprietary web platform. Available on desktop, mobile, and tablet.', type: 'platforms' },
+        { title: 'Trading Platforms', content: 'Trade on MetaTrader 4, MetaTrader 5, or our proprietary web platform. Available on desktop, mobile, and tablet.', type: 'list' },
         { title: 'Account Types', content: 'Choose from Standard, Premium, or VIP accounts. Each designed to match your trading style and experience level.', type: 'pricing' },
-        { title: 'Market Analysis', content: 'Daily market insights from our team of expert analysts. Technical analysis, fundamental reports, and trading signals.', type: 'content' },
+        { title: 'Market Analysis', content: 'Daily market insights from our team of expert analysts. Technical analysis, fundamental reports, and trading signals.', type: 'text' },
       ],
-      cta: { text: 'Open Free Account', url: '/register' },
+      metaTitle: 'Trade with the Best — Regulated Forex Broker',
+      metaDescription: 'Trade Forex, Crypto & CFDs with tight spreads and fast execution. Regulated broker with 24/7 support. Open a free account today.',
     })
   }
 
-  // Keyword research (fallback — simple keyword check)
+  // Keyword research (fallback)
   if (p.includes('keyword')) {
     return JSON.stringify([
       { keyword: 'best forex broker', volume: 12000, difficulty: 78, intent: 'transactional', mappedPage: 'home' },
@@ -90,7 +123,20 @@ function generateMockResponse(prompt: string): string {
     ])
   }
 
-  // Social profile bios
+  // Social profile bios — multi-platform
+  if ((p.includes('bio') || p.includes('profile')) && p.includes('platform')) {
+    return JSON.stringify({
+      FACEBOOK: { bio: 'Your trusted trading partner. Trade Forex, Crypto & CFDs with tight spreads and expert support. Join 500K+ traders worldwide.', username: 'alphatrading' },
+      INSTAGRAM: { bio: 'Trade Forex | Crypto | CFDs\nSpreads from 0.0 pips\nRegulated & Trusted\nStart trading below', username: 'alphatrading' },
+      TWITTER: { bio: 'Regulated online broker. Trade 200+ instruments with tight spreads. Market analysis, trading tips & news. Trade responsibly.', username: 'alphatrading' },
+      LINKEDIN: { bio: 'Leading online trading platform providing access to global financial markets. Regulated, secure, and trusted by institutional and retail traders.', username: 'alpha-trading' },
+      YOUTUBE: { bio: 'Daily market analysis, trading tutorials, and platform guides. Learn to trade with the professionals. Subscribe for daily content.', username: 'AlphaTrading' },
+      TIKTOK: { bio: 'Trading tips & market updates. Learn forex, crypto & CFDs. Not financial advice.', username: 'alphatrading' },
+      TELEGRAM: { bio: 'Official channel for market signals, daily analysis, and exclusive trading content. Join our community of 50K+ traders.', username: 'alphatrading_official' },
+    })
+  }
+
+  // Social profile bios — single
   if (p.includes('bio') || p.includes('profile')) {
     return JSON.stringify({
       username: 'alphatrading',
@@ -112,6 +158,21 @@ function generateMockResponse(prompt: string): string {
       { type: 'video_script', category: 'educational', content: { hook: 'Most traders lose money because of this one mistake...', body: 'They trade without a plan. Here are 3 things every trading plan needs: entry criteria, exit strategy, and risk management rules.', cta: 'Follow for more trading tips!', duration: '45s' } },
       { type: 'caption', category: 'analysis', content: { text: 'Gold tests $2,000 support as Dollar strengthens. Watch for a potential breakout above $2,050 for bullish confirmation. Risk: CPI data release on Friday.', hashtags: ['#gold', '#XAUUSD', '#commodities', '#trading'] } },
     ])
+  }
+
+  // Blog post generation
+  if (p.includes('blog') && (p.includes('write') || p.includes('post'))) {
+    return JSON.stringify({
+      heroTitle: 'Understanding Market Volatility: A Trader\'s Guide',
+      heroSubtitle: 'Learn how to navigate volatile markets and turn uncertainty into opportunity with proven risk management strategies.',
+      sections: [
+        { title: 'What Causes Market Volatility?', content: 'Market volatility is driven by economic data releases, geopolitical events, central bank decisions, and shifts in investor sentiment. Understanding these drivers helps traders anticipate and prepare for large price movements.', type: 'text' },
+        { title: 'Managing Risk During Volatile Periods', content: 'Key strategies include reducing position sizes, widening stop-losses to account for larger swings, avoiding over-leveraging, and focusing on major currency pairs with higher liquidity.', type: 'text' },
+        { title: 'Opportunities in Volatile Markets', content: 'Volatility creates opportunities for breakout trades, momentum strategies, and options traders who can benefit from increased premium values. The key is having a clear plan before entering any trade.', type: 'text' },
+      ],
+      metaTitle: 'Market Volatility Guide — Trading Strategies & Tips',
+      metaDescription: 'Learn how to navigate volatile markets with proven strategies. Understand causes of volatility and turn uncertainty into trading opportunities.',
+    })
   }
 
   // Social posts

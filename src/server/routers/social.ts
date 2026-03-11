@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { router, protectedProcedure } from '../trpc'
 import { generateJSONWithAI } from '@/lib/ai'
 import { advancePhase } from '@/lib/phase-advance'
+import { getTemplatesByCategory, getTemplatesForNiche } from '@/lib/content-templates'
 
 const PLATFORMS = ['FACEBOOK', 'INSTAGRAM', 'TWITTER', 'LINKEDIN', 'YOUTUBE', 'TIKTOK', 'TELEGRAM'] as const
 
@@ -131,5 +132,20 @@ export const socialRouter = router({
         },
         orderBy: { createdAt: 'desc' },
       })
+    }),
+
+  getContentTemplates: protectedProcedure
+    .input(z.object({
+      category: z.string().optional(),
+      niche: z.string().optional(),
+    }))
+    .query(({ input }) => {
+      if (input.category) {
+        return getTemplatesByCategory(input.category)
+      }
+      if (input.niche) {
+        return getTemplatesForNiche(input.niche)
+      }
+      return getTemplatesForNiche('forex_broker')
     }),
 })

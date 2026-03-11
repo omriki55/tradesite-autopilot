@@ -61,6 +61,7 @@ model Website {
   projectId    String        @unique
   project      Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
   templateType String
+  templateId   String?
   deployUrl    String?
   cmsUrl       String?
   status       String        @default("PENDING")
@@ -104,20 +105,31 @@ model SeoConfig {
 }
 
 model SocialProfile {
-  id          String   @id @default(cuid())
-  projectId   String
-  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  platform    String
-  profileUrl  String?
-  username    String?
-  bio         String?
-  configured  Boolean  @default(false)
-  accessToken String?
-  status      String   @default("pending")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String    @id @default(cuid())
+  projectId    String
+  project      Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  platform     String
+  profileUrl   String?
+  username     String?
+  bio          String?
+  configured   Boolean   @default(false)
+  accessToken  String?
+  refreshToken String?
+  tokenExpiry  DateTime?
+  connected    Boolean   @default(false)
+  status       String    @default("pending")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   @@unique([projectId, platform])
+}
+
+model OAuthState {
+  id        String   @id @default(cuid())
+  projectId String
+  platform  String
+  state     String   @unique
+  createdAt DateTime @default(now())
 }
 
 model SocialPost {
@@ -143,8 +155,11 @@ model ContentBank {
   project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   type      String
   category  String
+  title     String?
   content   String   @default("{}") // JSON
+  tags      String   @default("[]") // JSON array
   used      Boolean  @default(false)
+  isTemplate Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

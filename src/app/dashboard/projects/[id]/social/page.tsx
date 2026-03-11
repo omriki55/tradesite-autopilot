@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import { trpc } from '@/trpc/client'
 import { useState } from 'react'
-import { Share2, Loader2, Check, Image, Film, Type, Hash } from 'lucide-react'
+import { Share2, Loader2, Check, Image, Film, Type, Hash, Link2, Unlink, Wifi, WifiOff } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { parseJson } from '@/lib/json-helpers'
 import { PhaseLayout } from '@/components/dashboard/phase-layout'
@@ -18,11 +18,15 @@ export default function SocialPage() {
   const { data: project } = trpc.project.getById.useQuery({ id })
   const { data: profiles, refetch: refetchProfiles } = trpc.social.getProfiles.useQuery({ projectId: id })
   const { data: contentBank, refetch: refetchBank } = trpc.social.getContentBank.useQuery({ projectId: id })
-  const [activeTab, setActiveTab] = useState<'profiles' | 'content'>('profiles')
+  const { data: connections, refetch: refetchConnections } = trpc.connections.getAll.useQuery({ projectId: id })
+  const [activeTab, setActiveTab] = useState<'profiles' | 'content' | 'connections'>('profiles')
   const [bankFilter, setBankFilter] = useState<string>('all')
 
-  const createProfilesMutation = trpc.social.createProfiles.useMutation({ onSuccess: () => refetchProfiles() })
+  const createProfilesMutation = trpc.social.createProfiles.useMutation({ onSuccess: () => { refetchProfiles(); refetchConnections() } })
   const generateBankMutation = trpc.social.generateContentBank.useMutation({ onSuccess: () => refetchBank() })
+  const connectMutation = trpc.connections.connect.useMutation({ onSuccess: () => refetchConnections() })
+  const disconnectMutation = trpc.connections.disconnect.useMutation({ onSuccess: () => refetchConnections() })
+  const testMutation = trpc.connections.test.useMutation()
 
   const typeIcons: Record<string, React.ReactNode> = {
     caption: <Type className="w-4 h-4" />,
@@ -38,10 +42,10 @@ export default function SocialPage() {
       projectName={project?.name}
       phaseNum={4}
       title="Social Media"
-      subtitle="Create profiles and build your content library"
+      subtitle="Create profiles, connect accounts, and build your content library"
     >
       <div className="flex gap-2 mb-6 border-b border-border pb-2">
-        {(['profiles', 'content'] as const).map((tab) => (
+        {(['profiles', 'connections', 'content'] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -50,11 +54,12 @@ export default function SocialPage() {
               activeTab === tab ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'
             )}
           >
-            {tab === 'content' ? 'Content Bank' : 'Profiles'}
+            {tab === 'content' ? 'Content Bank' : tab === 'connections' ? 'Connect Accounts' : 'Profiles'}
           </button>
         ))}
       </div>
 
+      {/* Profiles Tab */}
       {activeTab === 'profiles' && (
         <div>
           <button
@@ -68,26 +73,35 @@ export default function SocialPage() {
 
           {profiles?.length ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {profiles.map((profile) => (
-                <div key={profile.id} className="bg-card border border-border rounded-xl p-5">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-2xl">{platformIcons[profile.platform] || '🌐'}</span>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-foreground">{profile.platform}</h3>
-                      <p className="text-sm text-muted-foreground">@{profile.username}</p>
+              {profiles.map((profile) => {
+                const conn = connections?.find((c) => c.platform === profile.platform)
+                return (
+                  <div key={profile.id} className="bg-card border border-border rounded-xl p-5">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-2xl">{platformIcons[profile.platform] || '🌐'}</span>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-foreground">{profile.platform}</h3>
+                        <p className="text-sm text-muted-foreground">@{profile.username}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {conn?.connected ? (
+                          <span className="flex items-center gap-1 text-xs text-success">
+                            <Wifi className="w-3 h-3" /> Connected
+                          </span>
+                        ) : profile.status === 'active' ? (
+                          <span className="flex items-center gap-1 text-xs text-success"><Check className="w-3 h-3" /> Active</span>
+                        ) : (
+                          <span className="text-xs text-muted-foreground capitalize">{profile.status}</span>
+                        )}
+                      </div>
                     </div>
-                    {profile.status === 'active' ? (
-                      <span className="flex items-center gap-1 text-xs text-success"><Check className="w-3 h-3" /> Active</span>
-                    ) : (
-                      <span className="text-xs text-muted-foreground capitalize">{profile.status}</span>
+                    <p className="text-sm text-muted-foreground">{profile.bio}</p>
+                    {profile.profileUrl && (
+                      <p className="text-xs text-primary mt-2 truncate">{profile.profileUrl}</p>
                     )}
                   </div>
-                  <p className="text-sm text-muted-foreground">{profile.bio}</p>
-                  {profile.profileUrl && (
-                    <p className="text-xs text-primary mt-2 truncate">{profile.profileUrl}</p>
-                  )}
-                </div>
-              ))}
+                )
+              })}
             </div>
           ) : (
             <div className="text-center py-12 bg-card border border-border rounded-xl">
@@ -99,6 +113,85 @@ export default function SocialPage() {
         </div>
       )}
 
+      {/* Connections Tab */}
+      {activeTab === 'connections' && (
+        <div>
+          <div className="bg-card border border-border rounded-xl p-4 mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Link2 className="w-4 h-4 text-primary" />
+              <h3 className="text-sm font-medium text-foreground">Third-Party Connections</h3>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Connect your social media accounts to enable live posting. Without a connection, posts are published in mock/preview mode.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {(['FACEBOOK', 'INSTAGRAM', 'TWITTER', 'LINKEDIN', 'YOUTUBE', 'TIKTOK', 'TELEGRAM'] as const).map((platform) => {
+              const conn = connections?.find((c) => c.platform === platform)
+              const isConnected = conn?.connected || false
+
+              return (
+                <div key={platform} className={cn(
+                  'bg-card border rounded-xl p-5 transition-all',
+                  isConnected ? 'border-success/30' : 'border-border'
+                )}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-2xl">{platformIcons[platform]}</span>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">{platform}</h3>
+                      <p className="text-xs text-muted-foreground">
+                        {isConnected ? 'Live mode — posts go to real account' : 'Mock mode — posts are simulated'}
+                      </p>
+                    </div>
+                    {isConnected ? (
+                      <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-success/10 text-success text-xs font-medium">
+                        <Wifi className="w-3 h-3" /> Live
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-muted text-muted-foreground text-xs">
+                        <WifiOff className="w-3 h-3" /> Mock
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex gap-2">
+                    {isConnected ? (
+                      <>
+                        <button
+                          onClick={() => testMutation.mutate({ projectId: id, platform })}
+                          disabled={testMutation.isPending}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-muted text-foreground hover:bg-muted/80"
+                        >
+                          Test Connection
+                        </button>
+                        <button
+                          onClick={() => disconnectMutation.mutate({ projectId: id, platform })}
+                          disabled={disconnectMutation.isPending}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-destructive hover:bg-destructive/10"
+                        >
+                          <Unlink className="w-3 h-3" /> Disconnect
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => connectMutation.mutate({ projectId: id, platform })}
+                        disabled={connectMutation.isPending}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary text-primary-foreground hover:opacity-90"
+                      >
+                        {connectMutation.isPending ? <Loader2 className="w-3 h-3 animate-spin" /> : <Link2 className="w-3 h-3" />}
+                        Connect Account
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Content Bank Tab */}
       {activeTab === 'content' && (
         <div>
           <div className="flex items-center gap-3 mb-4">
@@ -129,7 +222,7 @@ export default function SocialPage() {
           {contentBank?.length ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {contentBank
-                .filter((item) => bankFilter === 'all' || item.category === bankFilter)
+                .filter((item) => !item.isTemplate && (bankFilter === 'all' || item.category === bankFilter))
                 .map((item) => (
                   <div key={item.id} className="bg-card border border-border rounded-xl p-4">
                     <div className="flex items-center gap-2 mb-2">
