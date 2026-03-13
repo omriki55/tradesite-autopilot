@@ -20,6 +20,14 @@ import {
   Check,
   BookOpen,
   BarChart3,
+  FileText,
+  Target,
+  Users,
+  Mail,
+  Handshake,
+  Puzzle,
+  MessageCircle,
+  GitBranch,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -38,17 +46,65 @@ const phases = [
   { num: 6, label: 'Timeline', icon: Flag, href: 'timeline' },
 ]
 
-const extraPages = [
+const contentPages = [
+  { label: 'Blog', icon: FileText, href: 'blog' },
   { label: 'Content Library', icon: BookOpen, href: 'content' },
-  { label: 'Analytics', icon: BarChart3, href: 'analytics' },
+  { label: 'Landing Pages', icon: Target, href: 'landing' },
 ]
+
+const marketingPages = [
+  { label: 'Email Marketing', icon: Mail, href: 'email' },
+  { label: 'Affiliates / IB', icon: Handshake, href: 'affiliates' },
+  { label: 'Leads', icon: Users, href: 'leads' },
+  { label: 'Communities', icon: MessageCircle, href: 'communities' },
+  { label: 'Marketing Flows', icon: GitBranch, href: 'marketing-flows' },
+  { label: 'Meta Campaigns', icon: Target, href: 'meta-campaigns' },
+]
+
+const toolPages = [
+  { label: 'Analytics', icon: BarChart3, href: 'analytics' },
+  { label: 'Widgets', icon: Puzzle, href: 'widgets' },
+  { label: 'Settings', icon: Settings, href: 'settings' },
+]
+
+function NavSection({ title, pages, projectId, pathname }: { title: string; pages: typeof contentPages; projectId: string; pathname: string }) {
+  return (
+    <>
+      <div className="px-3 mt-4 mb-2">
+        <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">{title}</p>
+      </div>
+      <div className="space-y-0.5">
+        {pages.map((page) => {
+          const Icon = page.icon
+          const pageHref = `/dashboard/projects/${projectId}/${page.href}`
+          const isActive = pathname === pageHref || pathname.startsWith(pageHref + '/')
+
+          return (
+            <Link
+              key={page.href}
+              href={pageHref}
+              className={cn(
+                'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors',
+                isActive
+                  ? 'bg-primary/10 text-primary font-medium'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+              )}
+            >
+              <Icon className="w-4 h-4" />
+              <span className="truncate">{page.label}</span>
+            </Link>
+          )
+        })}
+      </div>
+    </>
+  )
+}
 
 export function Sidebar() {
   const pathname = usePathname()
   const params = useParams()
   const projectId = params?.id as string | undefined
 
-  // Only fetch project data when we're inside a project page
   const isProjectPage = pathname.includes('/dashboard/projects/') && projectId && projectId !== 'new'
   const { data: project } = trpc.project.getById.useQuery(
     { id: projectId! },
@@ -68,7 +124,6 @@ export function Sidebar() {
       <nav className="flex-1 overflow-y-auto p-3">
         {isProjectPage && project ? (
           <>
-            {/* Back to dashboard */}
             <Link
               href="/dashboard"
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors mb-1"
@@ -77,7 +132,6 @@ export function Sidebar() {
               All Projects
             </Link>
 
-            {/* Project name + overview link */}
             <Link
               href={`/dashboard/projects/${projectId}`}
               className={cn(
@@ -91,7 +145,6 @@ export function Sidebar() {
               {project.name}
             </Link>
 
-            {/* Phase navigation */}
             <div className="px-3 mb-2">
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Phases</p>
             </div>
@@ -133,33 +186,9 @@ export function Sidebar() {
               })}
             </div>
 
-            {/* Extra pages */}
-            <div className="px-3 mt-4 mb-2">
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Tools</p>
-            </div>
-            <div className="space-y-0.5">
-              {extraPages.map((page) => {
-                const Icon = page.icon
-                const pageHref = `/dashboard/projects/${projectId}/${page.href}`
-                const isActive = pathname === pageHref
-
-                return (
-                  <Link
-                    key={page.href}
-                    href={pageHref}
-                    className={cn(
-                      'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors',
-                      isActive
-                        ? 'bg-primary/10 text-primary font-medium'
-                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-                    )}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span className="truncate">{page.label}</span>
-                  </Link>
-                )
-              })}
-            </div>
+            <NavSection title="Content" pages={contentPages} projectId={projectId!} pathname={pathname} />
+            <NavSection title="Marketing" pages={marketingPages} projectId={projectId!} pathname={pathname} />
+            <NavSection title="Tools" pages={toolPages} projectId={projectId!} pathname={pathname} />
           </>
         ) : (
           <div className="space-y-0.5">

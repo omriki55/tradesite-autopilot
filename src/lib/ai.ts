@@ -175,6 +175,50 @@ function generateMockResponse(prompt: string): string {
     })
   }
 
+  // Community post generation
+  if (p.includes('community') && (p.includes('post') || p.includes('engaging'))) {
+    return JSON.stringify({ content: "🚀 Markets are heating up this week! What's your top pick — Forex, Crypto, or Stocks? Drop your answer below and let's discuss! Remember: smart trading starts with education. Check our classroom link for free courses. 📚💰" })
+  }
+
+  // Marketing flow generation
+  if (p.includes('marketing flow') || (p.includes('30-day') && p.includes('flow')) || (p.includes('flow') && p.includes('nurtur'))) {
+    return JSON.stringify({
+      steps: [
+        { day: 0, channel: 'crm', action: 'Lead Entry', description: 'Affiliate submits lead to CRM via API or form.' },
+        { day: 0, channel: 'whatsapp', action: 'Welcome Template', description: 'Branded WhatsApp welcome message with login credentials.' },
+        { day: 0, channel: 'whatsapp', action: 'Qualification', description: 'Age, Experience, Market preference questions.' },
+        { day: 0, channel: 'whatsapp', action: 'Community Invite', description: 'Auto-invite to brand WhatsApp community group.' },
+        { day: 1, channel: 'meta', action: 'Pixel Fire', description: 'Website visit triggers Meta Pixel for retargeting.' },
+        { day: 1, channel: 'whatsapp', action: 'Agent Follow-Up', description: 'Personal WhatsApp from agent, announcing call.' },
+        { day: 2, channel: 'call', action: 'Outbound Call', description: 'Agent calls lead. Retry if no answer.' },
+        { day: 5, channel: 'sms', action: 'Interested: Promo SMS', description: 'Limited-time discount or urgency offer.' },
+        { day: 7, channel: 'email', action: 'Interested: Email Series', description: 'Welcome, benefits, success stories, offer.' },
+        { day: 7, channel: 'sms', action: 'Not Interested: Re-engage', description: 'Soft re-engagement with different angle.' },
+        { day: 10, channel: 'email', action: 'Not Interested: Education', description: 'Market insights, free resources, low-commitment CTAs.' },
+        { day: 1, channel: 'meta', action: 'Retargeting Ads', description: 'Targeted FB/IG ads based on pixel data.' },
+        { day: 25, channel: 'sms', action: 'Final Push', description: 'Last-chance SMS + email. Offer expires soon.' },
+      ]
+    })
+  }
+
+  // Campaign strategy generation
+  if (p.includes('campaign strategy') || (p.includes('advertising') && p.includes('campaign'))) {
+    return JSON.stringify({
+      campaignName: 'Retargeting — Website Visitors Q1',
+      objective: 'Convert website visitors into active traders',
+      audienceDescription: 'Males 25-45 interested in trading, who visited website but did not register.',
+      targeting: { age: '25-45', interests: ['Forex trading', 'Cryptocurrency'], behaviors: ['Financial website visitors'], locations: ['UAE', 'UK', 'Germany'] },
+      adFormats: ['Carousel', 'Video', 'Single Image'],
+      adCopyVariants: [
+        { headline: 'Still Thinking About Trading?', primaryText: 'Join 500K+ traders. Spreads from 0.0 pips.', cta: 'Sign Up Now' },
+        { headline: 'Your Free Demo Awaits', primaryText: 'Practice with $100K virtual funds. Zero risk.', cta: 'Try Free Demo' },
+      ],
+      estimatedReach: '150K-300K', estimatedCPC: '$0.45-$0.85', estimatedROAS: '3.2x-5.5x',
+      kpis: ['CTR > 2%', 'CPA < $25', 'ROAS > 3x'],
+      optimizationTips: ['Use lookalike audiences from best converters', 'A/B test video vs carousel', 'Exclude existing customers', 'Schedule for peak trading hours'],
+    })
+  }
+
   // Social posts
   if (p.includes('social') || p.includes('post')) {
     return JSON.stringify({

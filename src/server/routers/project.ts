@@ -145,4 +145,46 @@ export const projectRouter = router({
         where: { id: input.id, userId: ctx.userId },
       })
     }),
+
+  updateIntegrations: protectedProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+        ga4Id: z.string().optional(),
+        gtmId: z.string().optional(),
+        chatWidgetProvider: z.string().optional(),
+        chatWidgetId: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { projectId, ...data } = input
+      return ctx.prisma.project.update({
+        where: { id: projectId, userId: ctx.userId },
+        data,
+      })
+    }),
+
+  getIntegrations: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findFirst({
+        where: { id: input.projectId, userId: ctx.userId },
+        select: {
+          ga4Id: true,
+          gtmId: true,
+          chatWidgetProvider: true,
+          chatWidgetId: true,
+          widgets: true,
+        },
+      })
+      if (!project) throw new Error('Project not found')
+
+      return {
+        ga4Id: project.ga4Id,
+        gtmId: project.gtmId,
+        chatWidgetProvider: project.chatWidgetProvider,
+        chatWidgetId: project.chatWidgetId,
+        widgets: project.widgets,
+      }
+    }),
 })

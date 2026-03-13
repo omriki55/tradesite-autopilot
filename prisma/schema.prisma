@@ -30,6 +30,14 @@ model Project {
   brandColors   String?         // JSON: { primary, secondary, accent }
   status        String          @default("DRAFT")
   currentPhase  Int             @default(1)
+  // Integration settings
+  widgets       String          @default("[]") // JSON array of active widget configs
+  ga4Id         String?
+  gtmId         String?
+  chatWidgetProvider String?    // tawk, crisp, livechat, intercom, custom
+  chatWidgetId  String?
+  locale        String          @default("en")
+  // Relations
   domain        Domain?
   website       Website?
   seoConfig     SeoConfig?
@@ -38,6 +46,16 @@ model Project {
   contentBank   ContentBank[]
   timeline      TimelineEvent[]
   analytics     Analytics[]
+  blogPosts     BlogPost[]
+  landingPages  LandingPage[]
+  leads         Lead[]
+  emailTemplates EmailTemplate[]
+  emailCampaigns EmailCampaign[]
+  emailSubscribers EmailSubscriber[]
+  affiliates    Affiliate[]
+  communities   Community[]
+  marketingFlows MarketingFlow[]
+  metaAdAccounts MetaAdAccount[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
@@ -192,4 +210,235 @@ model Analytics {
   createdAt       DateTime @default(now())
 
   @@unique([projectId, date])
+}
+
+// ─── Blog CMS ───
+model BlogPost {
+  id              String    @id @default(cuid())
+  projectId       String
+  project         Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title           String
+  slug            String
+  content         String    @db.Text
+  excerpt         String?
+  category        String    @default("general")
+  tags            String    @default("[]")
+  metaTitle       String?
+  metaDescription String?
+  featuredImage   String?
+  status          String    @default("draft") // draft, published, scheduled
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  author          String    @default("AI")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([projectId, slug])
+}
+
+// ─── Landing Pages ───
+model LandingPage {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  slug        String
+  template    String   @default("lead_magnet") // webinar, demo, promotion, contest, lead_magnet, comparison
+  headline    String
+  subheadline String?
+  content     String   @default("{}") // JSON
+  formFields  String   @default("[]") // JSON: [{name, type, required, placeholder}]
+  ctaText     String   @default("Get Started")
+  status      String   @default("draft")
+  publishedAt DateTime?
+  views       Int      @default(0)
+  conversions Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  leads       Lead[]
+
+  @@unique([projectId, slug])
+}
+
+// ─── Lead Management ───
+model Lead {
+  id            String       @id @default(cuid())
+  projectId     String
+  project       Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  landingPageId String?
+  landingPage   LandingPage? @relation(fields: [landingPageId], references: [id])
+  email         String
+  name          String?
+  phone         String?
+  data          String       @default("{}") // JSON: extra form fields
+  source        String       @default("landing_page") // landing_page, contact_form, manual
+  status        String       @default("new") // new, contacted, qualified, converted, lost
+  notes         String?      @db.Text
+  followUpDate  DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+// ─── Email Marketing ───
+model EmailTemplate {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name      String
+  subject   String
+  body      String   @db.Text
+  type      String   @default("custom") // welcome, re_engagement, newsletter, promotion, drip
+  variables String   @default("[]") // JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EmailCampaign {
+  id           String   @id @default(cuid())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name         String
+  type         String   @default("broadcast") // broadcast, drip, automated
+  status       String   @default("draft") // draft, active, paused, completed
+  steps        String   @default("[]") // JSON: [{templateId, delayDays, subject}]
+  triggerEvent String?  // lead_created, form_submitted, etc.
+  stats        String   @default("{}") // JSON: {sent, opened, clicked}
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model EmailSubscriber {
+  id             String    @id @default(cuid())
+  projectId      String
+  project        Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  email          String
+  name           String?
+  status         String    @default("active") // active, unsubscribed, bounced
+  source         String    @default("manual") // manual, landing_page, import
+  tags           String    @default("[]")
+  subscribedAt   DateTime  @default(now())
+  unsubscribedAt DateTime?
+
+  @@unique([projectId, email])
+}
+
+// ─── Affiliate / IB Portal ───
+model Affiliate {
+  id             String     @id @default(cuid())
+  projectId      String
+  project        Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name           String
+  email          String
+  code           String     @unique // referral code
+  commissionType String     @default("cpa") // cpa, revenue_share, hybrid
+  commissionRate Float      @default(0)
+  status         String     @default("active") // active, suspended, pending
+  totalEarned    Float      @default(0)
+  totalReferrals Int        @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  referrals      Referral[]
+
+  @@unique([projectId, email])
+}
+
+model Referral {
+  id          String    @id @default(cuid())
+  affiliateId String
+  affiliate   Affiliate @relation(fields: [affiliateId], references: [id], onDelete: Cascade)
+  leadId      String?
+  email       String
+  status      String    @default("clicked") // clicked, registered, deposited, active
+  commission  Float     @default(0)
+  paidOut     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+}
+
+// ─── Communities (WhatsApp, YouTube, Telegram) ───
+model Community {
+  id           String          @id @default(cuid())
+  projectId    String
+  project      Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name         String
+  brandName    String
+  type         String          @default("whatsapp_group") // whatsapp_group, youtube_community, telegram
+  url          String?
+  status       String          @default("pending") // pending, creating, active, paused
+  membersCount Int             @default(0)
+  posts        CommunityPost[]
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model CommunityPost {
+  id           String    @id @default(cuid())
+  communityId  String
+  community    Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  content      String    @db.Text
+  platform     String    @default("whatsapp_group")
+  status       String    @default("draft") // draft, approved, scheduled, published
+  scheduledAt  DateTime?
+  publishedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+// ─── Marketing Flows (30-day lead journeys) ───
+model MarketingFlow {
+  id          String     @id @default(cuid())
+  projectId   String
+  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name        String
+  flowType    String     @default("affiliate_lead") // affiliate_lead, whatsapp_sequence, email_nurture, sms_campaign
+  status      String     @default("draft") // draft, active, paused, completed
+  totalDays   Int        @default(30)
+  steps       String     @default("[]") // JSON array of flow step definitions
+  leads       FlowLead[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model FlowLead {
+  id          String        @id @default(cuid())
+  flowId      String
+  flow        MarketingFlow @relation(fields: [flowId], references: [id], onDelete: Cascade)
+  name        String?
+  email       String?
+  phone       String?
+  source      String        @default("affiliate")
+  status      String        @default("new") // new, contacted, interested, not_interested, converted, lost
+  currentStep Int           @default(1)
+  data        String        @default("{}") // JSON extra data
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+// ─── Meta Campaigns (Ad accounts, Pixels, Retargeting) ───
+model MetaAdAccount {
+  id          String         @id @default(cuid())
+  projectId   String
+  project     Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  brandName   String
+  accountId   String?
+  pixelId     String?
+  dailyBudget String?
+  status      String         @default("pending") // pending, active, paused, suspended
+  campaigns   MetaCampaign[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model MetaCampaign {
+  id          String       @id @default(cuid())
+  accountId   String
+  account     MetaAdAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  name        String
+  type        String       @default("retargeting") // retargeting, lookalike, retention, acquisition, awareness
+  status      String       @default("draft") // draft, active, paused, completed
+  impressions Int          @default(0)
+  clicks      Int          @default(0)
+  conversions Int          @default(0)
+  spend       String       @default("$0")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }

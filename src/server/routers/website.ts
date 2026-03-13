@@ -3,6 +3,10 @@ import { router, protectedProcedure } from '../trpc'
 import { generateJSONWithAI } from '@/lib/ai'
 import { advancePhase } from '@/lib/phase-advance'
 import { WEBSITE_TEMPLATES, getTemplateById, getTemplatePages } from '@/lib/website-templates'
+import { getComplianceTemplate, fillTemplate } from '@/lib/compliance-templates'
+import type { CompliancePageType } from '@/lib/compliance-templates'
+import { TRADING_WIDGETS } from '@/lib/trading-widgets'
+import { exportProjectAsHTML } from '@/lib/html-exporter'
 
 export const websiteRouter = router({
   getTemplates: protectedProcedure.query(() => {
@@ -238,5 +242,222 @@ export const websiteRouter = router({
       await advancePhase(ctx.prisma, input.projectId, 2)
 
       return result
+    }),
+
+  generateCompliancePage: protectedProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+        pageType: z.enum(['terms_of_service', 'privacy_policy', 'risk_disclosure', 'aml_policy', 'cookie_policy']),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findFirst({
+        where: { id: input.projectId, userId: ctx.userId },
+        include: { domain: true, website: true },
+      })
+      if (!project?.website) throw new Error('Project or website not found')
+
+      const domain = project.domain?.selectedDomain || 'example.com'
+      const rawTemplate = getComplianceTemplate(input.pageType as CompliancePageType)
+      if (!rawTemplate) throw new Error('Compliance template not found')
+
+      const template = fillTemplate(rawTemplate, {
+        brandName: project.brandName,
+        domain,
+        jurisdiction: 'the applicable jurisdiction',
+        niche: project.niche.replace(/_/g, ' '),
+      })
+
+      // Split the filled content into sections by numbered headings
+      const paragraphs = template.content.split(/\n\n+/).filter(Boolean)
+      const sections = paragraphs.map((p) => ({
+        title: '',
+        content: p.trim(),
+        type: 'text' as const,
+      }))
+
+      const slug = template.pageType.replace(/_/g, '-')
+
+      const content = JSON.stringify({
+        heroTitle: template.title,
+        heroSubtitle: template.description,
+        sections,
+        metaTitle: `${template.title} | ${project.brandName}`,
+        metaDescription: template.description,
+      })
+
+      const page = await ctx.prisma.websitePage.upsert({
+        where: {
+          websiteId_slug: {
+            websiteId: project.website.id,
+            slug,
+          },
+        },
+        update: {
+          title: template.title,
+          content,
+          metaTitle: `${template.title} | ${project.brandName}`,
+          metaDescription: template.description,
+          status: 'generated',
+        },
+        create: {
+          websiteId: project.website.id,
+          slug,
+          title: template.title,
+          pageType: 'legal',
+          content,
+          metaTitle: `${template.title} | ${project.brandName}`,
+          metaDescription: template.description,
+          status: 'generated',
+          order: 900,
+        },
+      })
+
+      return page
+    }),
+
+  getCompliancePages: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const website = await ctx.prisma.website.findUnique({
+        where: { projectId: input.projectId },
+      })
+      if (!website) return []
+
+      return ctx.prisma.websitePage.findMany({
+        where: { websiteId: website.id, pageType: 'legal' },
+        orderBy: { order: 'asc' },
+      })
+    }),
+
+  getWidgets: protectedProcedure.query(() => {
+    return TRADING_WIDGETS.map((w) => ({
+      id: w.id,
+      name: w.name,
+      type: w.type,
+      description: w.description,
+      icon: w.icon,
+    }))
+  }),
+
+  toggleWidget: protectedProcedure
+    .input(
+      z.object({
+        projectId: z.string(),
+        widgetId: z.string(),
+        enabled: z.boolean(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findFirst({
+        where: { id: input.projectId, userId: ctx.userId },
+      })
+      if (!project) throw new Error('Project not found')
+
+      let widgets: string[] = []
+      try {
+        widgets = JSON.parse(project.widgets || '[]')
+      } catch {
+        widgets = []
+      }
+
+      if (input.enabled) {
+        if (!widgets.includes(input.widgetId)) {
+          widgets.push(input.widgetId)
+        }
+      } else {
+        widgets = widgets.filter((id) => id !== input.widgetId)
+      }
+
+      return ctx.prisma.project.update({
+        where: { id: input.projectId },
+        data: { widgets: JSON.stringify(widgets) },
+      })
+    }),
+
+  getActiveWidgets: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findFirst({
+        where: { id: input.projectId, userId: ctx.userId },
+      })
+      if (!project) throw new Error('Project not found')
+
+      let widgetIds: string[] = []
+      try {
+        widgetIds = JSON.parse(project.widgets || '[]')
+      } catch {
+        widgetIds = []
+      }
+
+      return TRADING_WIDGETS.filter((w) => widgetIds.includes(w.id))
+    }),
+
+  updatePageContent: protectedProcedure
+    .input(
+      z.object({
+        pageId: z.string(),
+        content: z.string(),
+        metaTitle: z.string().optional(),
+        metaDescription: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { pageId, ...data } = input
+      return ctx.prisma.websitePage.update({
+        where: { id: pageId },
+        data,
+      })
+    }),
+
+  exportHTML: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findFirst({
+        where: { id: input.projectId, userId: ctx.userId },
+        include: { domain: true, website: { include: { pages: { orderBy: { order: 'asc' } } } } },
+      })
+      if (!project?.website) throw new Error('Project or website not found')
+
+      let brandColors = { primary: '#1E40AF', secondary: '#1E293B', accent: '#F59E0B' }
+      try {
+        if (project.brandColors) {
+          brandColors = JSON.parse(project.brandColors)
+        }
+      } catch {
+        // use defaults
+      }
+
+      let widgetIds: string[] = []
+      try {
+        widgetIds = JSON.parse(project.widgets || '[]')
+      } catch {
+        widgetIds = []
+      }
+
+      const domain = project.domain?.selectedDomain || 'example.com'
+      const pages = (project.website.pages as Array<{ slug: string; title: string; content: string; metaTitle?: string; metaDescription?: string; pageType: string }>).map(p => ({
+        slug: p.slug || 'home',
+        title: p.title || '',
+        content: typeof p.content === 'string' ? p.content : JSON.stringify(p.content || {}),
+        metaTitle: p.metaTitle,
+        metaDescription: p.metaDescription,
+        pageType: p.pageType || 'page',
+      }))
+
+      const files = exportProjectAsHTML({
+        brandName: project.brandName,
+        domain,
+        niche: project.niche || 'forex_broker',
+        pages,
+        ga4Id: project.ga4Id || undefined,
+        gtmId: project.gtmId || undefined,
+        chatWidgetProvider: project.chatWidgetProvider || undefined,
+        chatWidgetId: project.chatWidgetId || undefined,
+        widgets: widgetIds,
+      })
+
+      return files
     }),
 })

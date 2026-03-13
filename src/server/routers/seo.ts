@@ -141,4 +141,128 @@ export const seoRouter = router({
 
       return { success: true, geoPages: input.countries.length }
     }),
+
+  generateSchema: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const project = await ctx.prisma.project.findFirst({
+        where: { id: input.projectId, userId: ctx.userId },
+        include: { domain: true, website: { include: { pages: true } } },
+      })
+      if (!project) throw new Error('Project not found')
+
+      const domain = project.domain?.selectedDomain || 'example.com'
+      const siteUrl = `https://${domain}`
+
+      // Organization schema
+      const organizationSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: project.brandName,
+        url: siteUrl,
+        logo: `${siteUrl}/logo.png`,
+        description: `${project.brandName} — professional ${project.niche.replace(/_/g, ' ')} services`,
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'customer service',
+          url: `${siteUrl}/contact`,
+        },
+      }
+
+      // BreadcrumbList schema from pages
+      const pages = project.website?.pages || []
+      const breadcrumbItems = pages
+        .filter((p) => p.pageType !== 'blog_post')
+        .slice(0, 10)
+        .map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: p.title,
+          item: `${siteUrl}/${p.slug === 'home' ? '' : p.slug}`,
+        }))
+
+      const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbItems,
+      }
+
+      // FAQPage schema — generate FAQ items with AI
+      const faqData = await generateJSONWithAI<
+        Array<{ question: string; answer: string }>
+      >(
+        `Generate 6 FAQ entries for a ${project.niche.replace(/_/g, ' ')} company called "${project.brandName}" at ${domain}.
+        Return a JSON array of objects with "question" and "answer" fields.
+        Cover topics like: getting started, fees, security, regulation, supported instruments, and customer support.`,
+        'You are an SEO expert generating FAQ structured data for financial services.'
+      )
+
+      let faqItems: Array<{ question: string; answer: string }> = []
+      try {
+        faqItems = Array.isArray(faqData) ? faqData : []
+      } catch {
+        faqItems = []
+      }
+
+      const faqSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      }
+
+      const schemas = {
+        organization: organizationSchema,
+        breadcrumb: breadcrumbSchema,
+        faq: faqSchema,
+      }
+
+      // Store in technicalAudit JSON field alongside any existing audit data
+      const seoConfig = await ctx.prisma.seoConfig.findUnique({
+        where: { projectId: input.projectId },
+      })
+
+      let existingAudit: Record<string, unknown> = {}
+      try {
+        if (seoConfig?.technicalAudit) {
+          existingAudit = JSON.parse(seoConfig.technicalAudit)
+        }
+      } catch {
+        existingAudit = {}
+      }
+
+      await ctx.prisma.seoConfig.update({
+        where: { projectId: input.projectId },
+        data: {
+          technicalAudit: JSON.stringify({
+            ...existingAudit,
+            schemas,
+          }),
+        },
+      })
+
+      return schemas
+    }),
+
+  getSchema: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const seoConfig = await ctx.prisma.seoConfig.findUnique({
+        where: { projectId: input.projectId },
+      })
+      if (!seoConfig?.technicalAudit) return null
+
+      try {
+        const audit = JSON.parse(seoConfig.technicalAudit)
+        return audit.schemas || null
+      } catch {
+        return null
+      }
+    }),
 })
