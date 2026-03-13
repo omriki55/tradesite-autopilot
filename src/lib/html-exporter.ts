@@ -627,16 +627,70 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 .footer-bottom a:hover{color:rgba(255,255,255,.8) !important}
 .footer-risk{font-size:.75rem;color:rgba(255,255,255,.35);line-height:1.75;margin-top:20px;max-width:900px}
 
+/* ─── Trustpilot Bar (in Hero) ─── */
+.hero-trustpilot{display:flex;align-items:center;gap:10px;margin-bottom:24px;font-size:.82rem}
+.hero-trustpilot .tp-stars{color:#00b67a;font-size:.9rem;letter-spacing:1px}
+.hero-trustpilot .tp-text{color:rgba(255,255,255,.65);font-weight:500}
+.hero-trustpilot .tp-score{color:#fff;font-weight:700}
+.hero--tools .hero-trustpilot .tp-text{color:var(--color-text-secondary)}
+.hero--tools .hero-trustpilot .tp-score{color:var(--color-text)}
+
+/* ─── Hero Micro-copy ─── */
+.hero-micro{font-size:.74rem;color:rgba(255,255,255,.5);margin-top:-20px;margin-bottom:24px;display:flex;gap:14px;align-items:center}
+.hero-micro span{display:flex;align-items:center;gap:4px}
+.hero--tools .hero-micro{color:var(--color-text-light)}
+
+/* ─── Social Proof Bar ─── */
+.social-proof-bar{background:#fff;border-bottom:1px solid var(--color-border);padding:16px 28px}
+.social-proof-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:center;align-items:center;gap:32px;flex-wrap:wrap}
+.sp-item{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--color-text-secondary);font-weight:500}
+.sp-item strong{color:var(--color-text);font-weight:700;font-size:.85rem}
+.sp-divider{width:1px;height:24px;background:var(--color-border)}
+.sp-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:50px;font-size:.72rem;font-weight:600;background:color-mix(in srgb,var(--color-success) 8%,white);color:var(--color-success);border:1px solid color-mix(in srgb,var(--color-success) 15%,white)}
+
+/* ─── Live Market Ticker ─── */
+.market-ticker{background:var(--color-bg-darker);padding:8px 0;overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;gap:36px;animation:ticker 30s linear infinite}
+.ticker-item{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;color:rgba(255,255,255,.7);font-weight:500}
+.ticker-symbol{color:#fff;font-weight:700}
+.ticker-price{font-variant-numeric:tabular-nums;color:rgba(255,255,255,.85)}
+.ticker-change{font-weight:600;font-size:.72rem;padding:1px 6px;border-radius:3px}
+.ticker-change.up{color:#10b981;background:rgba(16,185,129,.12)}
+.ticker-change.down{color:#ef4444;background:rgba(239,68,68,.12)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── Section CTA ─── */
+.section-cta{text-align:center;margin-top:36px}
+.section-cta .btn-primary{padding:12px 32px;font-size:.88rem}
+
+/* ─── Promo Banner ─── */
+.promo-bar{background:linear-gradient(90deg,var(--color-accent),color-mix(in srgb,var(--color-accent) 70%,#6366f1));color:#fff;text-align:center;padding:12px 20px;font-size:.84rem;font-weight:500}
+.promo-bar strong{font-weight:700}
+.promo-bar a{color:#fff;text-decoration:underline;font-weight:600;margin-left:8px}
+
+/* ─── FAQ Accordion ─── */
+.faq-list{max-width:740px;margin:0 auto;list-style:none}
+.faq-item{border-bottom:1px solid var(--color-border-light)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--color-text);gap:16px}
+.faq-q::after{content:'+';font-size:1.3rem;color:var(--color-text-light);font-weight:300;flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-q::after{content:'−'}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:.9rem;color:var(--color-text-secondary);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px;padding-bottom:20px}
+
+/* ─── Sticky Mobile CTA ─── */
+.sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--color-border);padding:10px 16px;text-align:center;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+.sticky-cta .btn-primary{width:100%;padding:14px;font-size:.92rem;font-weight:700}
+
 /* ─── Animations ─── */
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .section{animation:fadeInUp .5s ease both}
-@media(prefers-reduced-motion:reduce){.hero-mockup,.market-cards{animation:none}.hero-badge .badge-dot{animation:none;opacity:.8}.section{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero-mockup,.market-cards,.tools-visual{animation:none}.hero-badge .badge-dot{animation:none;opacity:.8}.section{animation:none}.ticker-track{animation:none}}
 
 /* ─── Responsive ─── */
 @media(max-width:1024px){.footer-grid{grid-template-columns:repeat(2,1fr)}.hero-container{gap:32px}.hero-mockup{width:320px}.market-cards{width:300px}.tv-laptop{width:280px}.tv-phone{width:100px}.tv-tier{width:100px;padding:12px 10px}.tv-spread-card{width:240px}.tv-edu-card{width:240px}.tv-contact-card{width:220px}.nav-dropdown-menu{left:0;transform:none}}
-@media(max-width:768px){.navbar-links{display:none}.navbar-cta{display:none}.navbar-toggle{display:block}.hero h1{font-size:2rem}.hero p{font-size:.95rem}.hero{padding:60px 20px 52px;text-align:left}.hero--tools{padding:56px 20px 44px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:32px}.hero-visual{width:100%;max-width:360px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:340px}.tools-visual{width:100%;display:flex;justify-content:center}.tv-laptop{width:100%;max-width:320px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.feature-card{padding:28px 24px}.pricing-card{padding:32px 24px}.stat-item{padding:16px 24px}.pricing-card.highlighted{transform:none}.footer{padding:48px 20px 20px}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
+@media(max-width:768px){.sticky-cta{display:block}.navbar-links{display:none}.navbar-cta{display:none}.navbar-toggle{display:block}.social-proof-inner{gap:16px}.sp-divider{display:none}.hero h1{font-size:2rem}.hero p{font-size:.95rem}.hero{padding:60px 20px 52px;text-align:left}.hero--tools{padding:56px 20px 44px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:32px}.hero-visual{width:100%;max-width:360px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:340px}.tools-visual{width:100%;display:flex;justify-content:center}.tv-laptop{width:100%;max-width:320px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.feature-card{padding:28px 24px}.pricing-card{padding:32px 24px}.stat-item{padding:16px 24px}.pricing-card.highlighted{transform:none}.footer{padding:48px 20px 20px}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
 @media(max-width:640px){.hero h1{font-size:2rem}.section{padding:52px 16px}.feature-card{padding:24px 20px}.pricing-card{padding:28px 20px}.testimonial-card{padding:24px 20px}.stat-item{padding:14px 16px}.step-item{padding:20px 16px}}
 @media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer{padding:40px 16px 16px}.footer-grid{grid-template-columns:1fr;gap:28px}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}.hero--tools .hero-inner{border-left-width:3px;padding-left:20px}}
 `
@@ -704,6 +758,15 @@ ${dropdownLinks}
     ] : [])
   ].join('\n')
 
+  // Section CTA map — inject CTAs after key sections on homepage
+  const sectionCtaMap: Record<string, string> = page.slug === 'home' ? {
+    stats: 'Join 35M+ Traders Today',
+    features: 'Start Trading Now',
+    steps: 'Open Your Account',
+    comparison: 'Switch to ' + escapeHtml(brandName),
+    testimonials: 'Join Thousands of Happy Traders',
+  } : {}
+
   const sectionBlocks = sections.map((s, i) => {
     const alt = i % 2 === 1 ? ' section-alt' : ''
     const inner = renderSection(s)
@@ -712,8 +775,28 @@ ${dropdownLinks}
     if (s.type === 'cta') {
       return inner
     }
-    return `  <section class="section${alt}">\n    <div class="section-inner">\n${title}${subtitle}${inner}\n    </div>\n  </section>`
+    const ctaLabel = sectionCtaMap[s.type]
+    const ctaBlock = ctaLabel ? `\n      <div class="section-cta"><a href="#" class="btn-primary">${ctaLabel}</a></div>` : ''
+    return `  <section class="section${alt}">\n    <div class="section-inner">\n${title}${subtitle}${inner}${ctaBlock}\n    </div>\n  </section>`
   }).join('\n\n')
+
+  // FAQ HTML for homepage
+  const faqHtml = page.slug === 'home' ? `
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you need to know to get started</p>
+      <div class="faq-list">
+        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How long does account verification take?</div><div class="faq-a">Most accounts are verified within 24 hours. You&rsquo;ll need to provide a valid ID and proof of address. In many cases, verification is completed in under 1 hour during business hours.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the minimum deposit?</div><div class="faq-a">The minimum deposit for a Standard account is $100. You can fund your account using credit/debit card, bank wire, or e-wallets like Skrill and Neteller with no deposit fees.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I withdraw my funds at any time?</div><div class="faq-a">Yes, you can withdraw your funds at any time with no lock-in period. Withdrawal requests are typically processed within 1&ndash;2 business days depending on the payment method.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is my money protected?</div><div class="faq-a">Absolutely. All client funds are held in segregated accounts with tier-1 banks, separate from company funds. We are regulated by the FCA, CySEC, and DFSA, ensuring the highest level of fund protection.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What platforms do you support?</div><div class="faq-a">We offer MetaTrader 4, MetaTrader 5, and our proprietary WebTrader platform. All are available on desktop, web, iOS, and Android &mdash; trade anywhere, anytime.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do I need experience to start trading?</div><div class="faq-a">No prior experience is needed. We offer a free $100,000 demo account, educational resources, and 24/5 support to help you learn at your own pace before trading with real money.</div></div>
+      </div>
+      <div class="section-cta"><a href="#" class="btn-primary">Open Free Account</a></div>
+    </div>
+  </section>` : ''
 
   const corePages = pages.filter((p) => ['about', 'contact', 'faq', 'education', 'support'].includes(p.slug))
   const legalPages = pages.filter((p) => p.pageType === 'legal' || ['terms', 'privacy', 'risk-disclosure', 'risk-warning', 'regulation'].includes(p.slug))
@@ -742,7 +825,10 @@ ${dropdownLinks}
   <link rel="stylesheet" href="style.css">
 ${gtmHead(options)}${ga4Script(options)}</head>
 <body>
-${gtmBody(options)}  <div class="announcement-bar">
+${gtmBody(options)}${page.slug === 'home' ? `  <div class="promo-bar">
+    🎁 <strong>Limited Offer:</strong> Open an account today &amp; get $100,000 Demo Credits + 0% Commission for 30 Days <a href="#">Claim Now &rarr;</a>
+  </div>
+` : ''}  <div class="announcement-bar">
     CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. <strong>72% of retail investor accounts lose money when trading CFDs with this provider.</strong> You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
   </div>
 
@@ -764,13 +850,19 @@ ${allMobileLinks}
     <div class="hero-container">
       <div class="hero-inner">
 ${heroConfig.badge ? `        <div class="hero-badge"><span class="badge-dot"></span> ${heroConfig.badge}</div>` : ''}
-        <h1>${escapeHtml(heroTitle)}</h1>
+        <div class="hero-trustpilot">
+          <span class="tp-stars">★★★★★</span>
+          <span class="tp-score">4.5/5</span>
+          <span class="tp-text">— 12,400+ Reviews on Trustpilot</span>
+        </div>
+        <h1>${page.slug === 'home' ? 'Join 35M+ Traders — Spreads from 0.0 Pips' : escapeHtml(heroTitle)}</h1>
 ${heroSubtitle ? `        <p>${escapeHtml(heroSubtitle)}</p>` : ''}
 ${heroConfig.pills && heroConfig.pills.length ? `        <div class="hero-pills">${heroConfig.pills.map(p => `<span class="hero-pill">${p}</span>`).join('')}</div>` : ''}
         <div class="hero-buttons">
-          <a href="#" class="btn-primary">Start Trading</a>
-          <a href="#" class="btn-outline">Try Free Demo</a>
+          <a href="#" class="btn-primary">Open Free Account — 2 Minutes</a>
+          <a href="#" class="btn-outline">Try $100K Demo</a>
         </div>
+        <div class="hero-micro"><span>✓ No credit card required</span><span>✓ $100K free demo</span><span>✓ Instant access</span></div>
         <div class="hero-trust">
           <span>FCA Regulated</span>
           <span>Segregated Funds</span>
@@ -807,7 +899,40 @@ ${heroConfig.visual}
     </div>
   </section>
 
+${page.slug === 'home' ? `  <div class="social-proof-bar">
+    <div class="social-proof-inner">
+      <div class="sp-item"><span>⭐</span> <strong>4.5/5</strong> Trustpilot</div>
+      <div class="sp-divider"></div>
+      <div class="sp-item"><span>👥</span> <strong>35M+</strong> Active Users</div>
+      <div class="sp-divider"></div>
+      <div class="sp-item"><span>🛡️</span> <strong>FCA</strong> Regulated</div>
+      <div class="sp-divider"></div>
+      <div class="sp-item"><span>🏆</span> <strong>Best Broker</strong> 2024</div>
+      <div class="sp-divider"></div>
+      <div class="sp-item"><span>📰</span> As seen in <strong>Bloomberg</strong>, <strong>Reuters</strong></div>
+    </div>
+  </div>
+
+  <div class="market-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="ticker-symbol">EUR/USD</span> <span class="ticker-price">1.0842</span> <span class="ticker-change up">▲ +0.15%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">BTC/USD</span> <span class="ticker-price">67,240</span> <span class="ticker-change up">▲ +2.34%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">Gold</span> <span class="ticker-price">2,342.50</span> <span class="ticker-change up">▲ +0.42%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">S&amp;P 500</span> <span class="ticker-price">5,234.18</span> <span class="ticker-change up">▲ +0.52%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">GBP/USD</span> <span class="ticker-price">1.2731</span> <span class="ticker-change down">▼ -0.08%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">AAPL</span> <span class="ticker-price">189.42</span> <span class="ticker-change up">▲ +1.12%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">EUR/USD</span> <span class="ticker-price">1.0842</span> <span class="ticker-change up">▲ +0.15%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">BTC/USD</span> <span class="ticker-price">67,240</span> <span class="ticker-change up">▲ +2.34%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">Gold</span> <span class="ticker-price">2,342.50</span> <span class="ticker-change up">▲ +0.42%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">S&amp;P 500</span> <span class="ticker-price">5,234.18</span> <span class="ticker-change up">▲ +0.52%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">GBP/USD</span> <span class="ticker-price">1.2731</span> <span class="ticker-change down">▼ -0.08%</span></span>
+      <span class="ticker-item"><span class="ticker-symbol">AAPL</span> <span class="ticker-price">189.42</span> <span class="ticker-change up">▲ +1.12%</span></span>
+    </div>
+  </div>
+` : ''}
 ${sectionBlocks}
+
+${faqHtml}
 
   <footer class="footer">
     <div class="footer-inner">
@@ -845,7 +970,10 @@ ${legalPages.length ? `        <div class="footer-col">\n          <h4>Legal</h4
       <p class="footer-risk">Risk Warning: Trading in Contracts for Difference (CFDs) carries a high level of risk and may not be suitable for all investors. You could lose more than your initial investment. Approximately 72% of retail investor accounts lose money when trading CFDs. Please ensure you fully understand the risks involved and seek independent advice if necessary. Past performance is not indicative of future results.</p>
     </div>
   </footer>
-${chatWidget(options)}
+${page.slug === 'home' ? `  <div class="sticky-cta">
+    <a href="#" class="btn-primary">Open Free Account — Start Trading</a>
+  </div>
+` : ''}${chatWidget(options)}
 </body>
 </html>`
 }
