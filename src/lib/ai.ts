@@ -163,13 +163,10 @@ function generateMockResponse(prompt: string): string {
   // Blog post generation
   if (p.includes('blog') && (p.includes('write') || p.includes('post'))) {
     return JSON.stringify({
-      heroTitle: 'Understanding Market Volatility: A Trader\'s Guide',
-      heroSubtitle: 'Learn how to navigate volatile markets and turn uncertainty into opportunity with proven risk management strategies.',
-      sections: [
-        { title: 'What Causes Market Volatility?', content: 'Market volatility is driven by economic data releases, geopolitical events, central bank decisions, and shifts in investor sentiment. Understanding these drivers helps traders anticipate and prepare for large price movements.', type: 'text' },
-        { title: 'Managing Risk During Volatile Periods', content: 'Key strategies include reducing position sizes, widening stop-losses to account for larger swings, avoiding over-leveraging, and focusing on major currency pairs with higher liquidity.', type: 'text' },
-        { title: 'Opportunities in Volatile Markets', content: 'Volatility creates opportunities for breakout trades, momentum strategies, and options traders who can benefit from increased premium values. The key is having a clear plan before entering any trade.', type: 'text' },
-      ],
+      title: 'Understanding Market Volatility: A Trader\'s Guide',
+      content: '## What Causes Market Volatility?\n\nMarket volatility is driven by economic data releases, geopolitical events, central bank decisions, and shifts in investor sentiment. Understanding these drivers helps traders anticipate and prepare for large price movements.\n\n## Managing Risk During Volatile Periods\n\nKey strategies include:\n\n- Reducing position sizes during high-impact news events\n- Widening stop-losses to account for larger price swings\n- Avoiding over-leveraging your trading account\n- Focusing on major currency pairs with higher liquidity\n\n## Opportunities in Volatile Markets\n\nVolatility creates opportunities for breakout trades, momentum strategies, and options traders who can benefit from increased premium values. The key is having a clear plan before entering any trade.\n\n## Risk Disclaimer\n\nTrading involves significant risk. Past performance is not indicative of future results. Always trade responsibly.',
+      excerpt: 'Learn how to navigate volatile markets and turn uncertainty into opportunity with proven risk management strategies.',
+      category: 'education',
       metaTitle: 'Market Volatility Guide — Trading Strategies & Tips',
       metaDescription: 'Learn how to navigate volatile markets with proven strategies. Understand causes of volatility and turn uncertainty into trading opportunities.',
     })
