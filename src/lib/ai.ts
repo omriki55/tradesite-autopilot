@@ -393,8 +393,8 @@ function getPageContentByType(prompt: string) {
     }
   }
 
-  // Forex Trading page
-  if (prompt.includes('forex trading') || prompt.includes('markets/forex') || (prompt.includes('(markets)') && prompt.includes('forex'))) {
+  // Forex Trading page — don't use broad 'forex' check since niche 'forex broker' appears in all prompts
+  if (prompt.includes('forex trading') || prompt.includes('markets/forex') || prompt.includes('currency pair')) {
     return {
       heroTitle: 'Trade Forex — The World\'s Largest Market',
       heroSubtitle: 'Access 70+ currency pairs with tight spreads, fast execution, and leverage up to 1:500.',
@@ -419,7 +419,7 @@ function getPageContentByType(prompt: string) {
   }
 
   // Crypto page
-  if (prompt.includes('crypto') || (prompt.includes('(markets)') && !prompt.includes('forex') && !prompt.includes('commod') && !prompt.includes('indic'))) {
+  if (prompt.includes('crypto') || prompt.includes('bitcoin')) {
     return {
       heroTitle: 'Trade Crypto CFDs',
       heroSubtitle: 'Trade Bitcoin, Ethereum, and 30+ cryptocurrencies as CFDs — go long or short with leverage.',
