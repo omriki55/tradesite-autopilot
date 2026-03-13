@@ -53,12 +53,12 @@ interface ParsedSection {
   // New section type fields
   stats?: Array<{ value: string; label: string }>
   steps?: Array<{ title: string; description: string }>
-  testimonials?: Array<{ text: string; author: string; role?: string; rating?: number }>
+  testimonials?: Array<{ text?: string; quote?: string; author: string; role?: string; rating?: number }>
   iconItems?: Array<{ icon: string; title: string; description?: string }>
   comparisonData?: { usLabel: string; themLabel: string; rows: Array<{ feature: string; us: string; them: string }> }
   bannerType?: 'info' | 'warning' | 'success'
   bannerIcon?: string
-  leftContent?: { title: string; text: string; bullets?: string[]; ctaText?: string; ctaUrl?: string }
+  leftContent?: string | { title: string; text: string; bullets?: string[]; ctaText?: string; ctaUrl?: string }
   rightItems?: Array<{ icon?: string; title: string; description: string }>
 }
 
@@ -541,7 +541,8 @@ function renderTestimonials(s: ParsedSection): string {
   const cards = testimonials.map((t) => {
     const stars = t.rating ? `          <div class="testimonial-rating">${'★'.repeat(t.rating)}${'☆'.repeat(5 - t.rating)}</div>\n` : ''
     const role = t.role ? `\n          <div class="testimonial-role">${escapeHtml(t.role)}</div>` : ''
-    return `        <div class="testimonial-card">\n${stars}          <div class="testimonial-text">${escapeHtml(t.text)}</div>\n          <div class="testimonial-author">${escapeHtml(t.author)}</div>${role}\n        </div>`
+    const text = t.text || t.quote || ''
+    return `        <div class="testimonial-card">\n${stars}          <div class="testimonial-text">${escapeHtml(text)}</div>\n          <div class="testimonial-author">${escapeHtml(t.author)}</div>${role}\n        </div>`
   }).join('\n')
   return `      <div class="testimonials-grid">\n${cards}\n      </div>`
 }
@@ -580,9 +581,13 @@ function renderTwoColumn(s: ParsedSection): string {
 
   let leftHtml = ''
   if (left) {
-    const bullets = left.bullets ? `\n          <ul class="two-col-bullets">\n${left.bullets.map((b) => `            <li>${escapeHtml(b)}</li>`).join('\n')}\n          </ul>` : ''
-    const cta = left.ctaText ? `\n          <a href="${escapeHtml(left.ctaUrl || '#')}" class="btn-primary">${escapeHtml(left.ctaText)}</a>` : ''
-    leftHtml = `        <div class="two-col-text">\n          <h3>${escapeHtml(left.title)}</h3>\n          <p>${escapeHtml(left.text)}</p>${bullets}${cta}\n        </div>`
+    if (typeof left === 'string') {
+      leftHtml = `        <div class="two-col-text">\n          <p>${escapeHtml(left)}</p>\n        </div>`
+    } else {
+      const bullets = left.bullets ? `\n          <ul class="two-col-bullets">\n${left.bullets.map((b: string) => `            <li>${escapeHtml(b)}</li>`).join('\n')}\n          </ul>` : ''
+      const cta = left.ctaText ? `\n          <a href="${escapeHtml(left.ctaUrl || '#')}" class="btn-primary">${escapeHtml(left.ctaText)}</a>` : ''
+      leftHtml = `        <div class="two-col-text">\n          <h3>${escapeHtml(left.title)}</h3>\n          <p>${escapeHtml(left.text)}</p>${bullets}${cta}\n        </div>`
+    }
   }
 
   let rightHtml = ''
