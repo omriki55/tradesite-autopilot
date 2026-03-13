@@ -141,7 +141,8 @@ img{max-width:100%;height:auto}
 /* ─── Hero — Institutional Authority ─── */
 .hero{background:var(--color-bg-dark);color:var(--color-text-inv);padding:100px 28px 88px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,color-mix(in srgb,var(--color-accent) 6%,transparent),transparent);pointer-events:none}
-.hero-inner{max-width:680px;position:relative;z-index:1}
+.hero-container{display:flex;align-items:center;gap:60px;max-width:var(--max-w);margin:0 auto;position:relative;z-index:1}
+.hero-inner{flex:1;max-width:600px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.15);padding:7px 18px;border-radius:4px;font-size:.78rem;font-weight:500;margin-bottom:32px;color:rgba(255,255,255,.7);letter-spacing:.03em;text-transform:uppercase}
 .hero-badge .badge-dot{width:6px;height:6px;background:var(--color-success);border-radius:50%;animation:pulse 2.5s infinite}
 .hero h1{font-size:3.2rem;font-weight:400;line-height:1.15;margin-bottom:24px;letter-spacing:-.02em;font-family:var(--font-heading);color:#fff}
@@ -153,6 +154,29 @@ img{max-width:100%;height:auto}
 .hero .btn-outline:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4)}
 .hero-trust{display:flex;gap:32px;flex-wrap:wrap;font-size:.78rem;opacity:.4;border-top:1px solid rgba(255,255,255,.08);padding-top:24px}
 .hero-trust span{display:flex;align-items:center;gap:6px;font-weight:500;letter-spacing:.02em}
+
+/* ─── Hero Platform Mockup ─── */
+.hero-visual{flex:1;display:flex;justify-content:center;align-items:center}
+.hero-mockup{background:rgba(255,255,255,.06);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:0;width:400px;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.05);animation:float 6s ease-in-out infinite}
+.mockup-topbar{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.06);font-size:.72rem;color:rgba(255,255,255,.4);font-weight:500;letter-spacing:.03em}
+.mockup-dots{display:flex;gap:5px}
+.mockup-dots span{width:8px;height:8px;border-radius:50%}
+.mockup-dots span:nth-child(1){background:#ef4444}
+.mockup-dots span:nth-child(2){background:#f59e0b}
+.mockup-dots span:nth-child(3){background:#10b981}
+.mockup-balance{padding:20px 18px 8px;display:flex;align-items:baseline;gap:10px}
+.mockup-amount{font-size:1.7rem;font-weight:400;color:#fff;font-family:var(--font-heading);letter-spacing:-.01em}
+.mockup-change{font-size:.78rem;font-weight:600;padding:3px 8px;border-radius:4px}
+.mockup-change.up{color:#10b981;background:rgba(16,185,129,.12)}
+.mockup-change.down{color:#ef4444;background:rgba(239,68,68,.12)}
+.mockup-sublabel{padding:0 18px 14px;font-size:.7rem;color:rgba(255,255,255,.3)}
+.mockup-chart{width:100%;height:100px;padding:0 18px;display:block}
+.mockup-rows{padding:8px 0 6px}
+.mockup-row{display:flex;justify-content:space-between;align-items:center;padding:9px 18px;font-size:.8rem;border-top:1px solid rgba(255,255,255,.04)}
+.mockup-row span:first-child{font-weight:600;color:rgba(255,255,255,.7);min-width:72px}
+.mockup-row span:nth-child(2){color:rgba(255,255,255,.5);font-family:var(--font-sans);font-variant-numeric:tabular-nums}
+.mockup-row .up{color:#10b981;font-weight:600;font-size:.75rem}
+.mockup-row .down{color:#ef4444;font-weight:600;font-size:.75rem}
 
 /* ─── Sections ─── */
 .section{padding:88px 28px}
@@ -321,11 +345,14 @@ img{max-width:100%;height:auto}
 
 /* ─── Animations ─── */
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:fadeInUp .5s ease both}
 
 /* ─── Responsive ─── */
-@media(max-width:1024px){.footer-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:768px){.navbar-links{display:none}.navbar-cta{display:none}.navbar-toggle{display:block}.hero h1{font-size:2.2rem}.hero p{font-size:1rem}.hero{padding:72px 20px 60px;text-align:left}.section{padding:60px 20px}.section-title{font-size:1.65rem}.pricing-card.highlighted{transform:none}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.stat-item{padding:14px 20px}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}}
-@media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}}
+@media(max-width:1024px){.footer-grid{grid-template-columns:repeat(2,1fr)}.hero-container{gap:40px}.hero-mockup{width:340px}}
+@media(max-width:768px){.navbar-links{display:none}.navbar-cta{display:none}.navbar-toggle{display:block}.hero h1{font-size:2.2rem}.hero p{font-size:1rem}.hero{padding:72px 20px 60px;text-align:left}.hero-container{flex-direction:column;gap:40px}.hero-visual{width:100%;max-width:380px}.hero-mockup{width:100%}.section{padding:60px 20px}.section-title{font-size:1.65rem}.pricing-card.highlighted{transform:none}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.stat-item{padding:14px 20px}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}}
+@media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}}
 `
 }
 
@@ -408,19 +435,45 @@ ${navLinks}
   </nav>
 
   <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-badge"><span class="badge-dot"></span> Established &amp; Regulated since 2018</div>
-      <h1>${escapeHtml(heroTitle)}</h1>
-${heroSubtitle ? `      <p>${escapeHtml(heroSubtitle)}</p>` : ''}
-      <div class="hero-buttons">
-        <a href="#" class="btn-primary">Open account</a>
-        <a href="#" class="btn-outline">Log in</a>
+    <div class="hero-container">
+      <div class="hero-inner">
+        <div class="hero-badge"><span class="badge-dot"></span> Established &amp; Regulated since 2018</div>
+        <h1>${escapeHtml(heroTitle)}</h1>
+${heroSubtitle ? `        <p>${escapeHtml(heroSubtitle)}</p>` : ''}
+        <div class="hero-buttons">
+          <a href="#" class="btn-primary">Open account</a>
+          <a href="#" class="btn-outline">Log in</a>
+        </div>
+        <div class="hero-trust">
+          <span>FCA Regulated</span>
+          <span>Segregated Funds</span>
+          <span>200+ Instruments</span>
+          <span>24/5 Support</span>
+        </div>
       </div>
-      <div class="hero-trust">
-        <span>FCA Regulated</span>
-        <span>Segregated Funds</span>
-        <span>200+ Instruments</span>
-        <span>24/5 Support</span>
+      <div class="hero-visual">
+        <div class="hero-mockup">
+          <div class="mockup-topbar">
+            <div class="mockup-dots"><span></span><span></span><span></span></div>
+            <span>Trading Platform</span>
+          </div>
+          <div class="mockup-balance">
+            <span class="mockup-amount">$125,430.00</span>
+            <span class="mockup-change up">+2.4%</span>
+          </div>
+          <div class="mockup-sublabel">Portfolio Value</div>
+          <svg class="mockup-chart" viewBox="0 0 340 100" preserveAspectRatio="none">
+            <defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981" stop-opacity="0.15"/><stop offset="100%" stop-color="#10b981" stop-opacity="0"/></linearGradient></defs>
+            <polyline points="0,85 30,78 60,80 90,65 120,68 150,50 180,55 210,38 240,42 270,25 300,28 340,12" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polygon points="0,85 30,78 60,80 90,65 120,68 150,50 180,55 210,38 240,42 270,25 300,28 340,12 340,100 0,100" fill="url(#chartGrad)"/>
+          </svg>
+          <div class="mockup-rows">
+            <div class="mockup-row"><span>EUR/USD</span><span>1.0842</span><span class="up">+0.15%</span></div>
+            <div class="mockup-row"><span>GBP/USD</span><span>1.2731</span><span class="down">-0.08%</span></div>
+            <div class="mockup-row"><span>BTC/USD</span><span>67,240</span><span class="up">+2.34%</span></div>
+            <div class="mockup-row"><span>AAPL</span><span>189.42</span><span class="up">+1.12%</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
