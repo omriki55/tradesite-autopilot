@@ -6,9 +6,9 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { projectId: string; slug?: string[] } }
+  props: { params: Promise<{ projectId: string; slug?: string[] }> }
 ) {
-  const { projectId, slug } = params
+  const { projectId, slug } = await props.params
 
   try {
     const project = await prisma.project.findUnique({
