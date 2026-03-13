@@ -231,6 +231,35 @@ function generateMockResponse(prompt: string): string {
 // ─── Unique page content per page type ──────────────────────────────
 
 function getPageContentByType(prompt: string) {
+  // Homepage — check first since it's the default
+  if (prompt.includes('(homepage)')) {
+    return {
+      heroTitle: 'Trade Smarter with Advanced Technology',
+      heroSubtitle: 'Access global markets with institutional-grade tools, tight spreads, and lightning-fast execution.',
+      sections: [
+        { title: 'Why Choose Us', type: 'features', items: [
+          { title: 'Tight Spreads', description: 'Spreads from 0.0 pips on major forex pairs with no hidden markups.' },
+          { title: 'Fast Execution', description: 'Average execution speed under 30ms from Equinix data centers.' },
+          { title: '200+ Instruments', description: 'Forex, crypto, commodities, indices, and stocks in one account.' },
+          { title: '24/5 Support', description: 'Multilingual support team available around the clock.' },
+        ]},
+        { title: 'Trading Platforms', type: 'features', items: [
+          { title: 'MetaTrader 4', description: 'The world\'s most popular forex trading platform with Expert Advisors.' },
+          { title: 'MetaTrader 5', description: 'Multi-asset platform with advanced charting and analysis.' },
+          { title: 'WebTrader', description: 'Trade from any browser — no download required.' },
+        ]},
+        { title: 'Account Types', type: 'pricing', tiers: [
+          { name: 'Standard', price: '$100', period: 'Min. Deposit', features: ['Spreads from 1.2 pips', 'No commission', 'Leverage 1:500'], ctaText: 'Open Account' },
+          { name: 'Premium', price: '$1,000', period: 'Min. Deposit', features: ['Spreads from 0.6 pips', '$3.50/lot', 'Free VPS'], highlighted: true, ctaText: 'Open Account' },
+          { name: 'VIP', price: '$25,000', period: 'Min. Deposit', features: ['Spreads from 0.0 pips', '$2.50/lot', 'Personal Manager'], ctaText: 'Contact Us' },
+        ]},
+        { title: 'Market Analysis', content: 'Daily market insights from our team of expert analysts. Technical analysis, fundamental reports, and trading signals.', type: 'text' },
+      ],
+      metaTitle: 'Trade with the Best — Regulated Forex Broker',
+      metaDescription: 'Trade Forex, Crypto & CFDs with tight spreads and fast execution. Regulated broker with 24/7 support. Open a free account today.',
+    }
+  }
+
   // About page
   if (prompt.includes('(about)') || prompt.includes('about us')) {
     return {
@@ -306,8 +335,8 @@ function getPageContentByType(prompt: string) {
     }
   }
 
-  // Pricing & Spreads page
-  if (prompt.includes('(pricing)') || prompt.includes('pricing') || prompt.includes('spread')) {
+  // Pricing & Spreads page — ONLY match (pricing) pageType, not the word "pricing" which appears in all prompts
+  if (prompt.includes('(pricing)')) {
     return {
       heroTitle: 'Transparent Pricing & Tight Spreads',
       heroSubtitle: 'No hidden fees. No re-quotes. Competitive spreads starting from 0.0 pips.',
@@ -559,7 +588,7 @@ function getPageContentByType(prompt: string) {
   }
 
   // Promotions page
-  if (prompt.includes('(promotions)') || prompt.includes('promotion')) {
+  if (prompt.includes('(promotions)')) {
     return {
       heroTitle: 'Current Promotions',
       heroSubtitle: 'Take advantage of our latest offers and bonuses designed to boost your trading.',
@@ -597,8 +626,8 @@ function getPageContentByType(prompt: string) {
     }
   }
 
-  // Legal pages: regulation, terms, privacy, risk
-  if (prompt.includes('(legal)') || prompt.includes('regulation') || prompt.includes('license')) {
+  // Regulation page
+  if (prompt.includes('regulation') && prompt.includes('(legal)')) {
     return {
       heroTitle: 'Regulation & Licenses',
       heroSubtitle: 'We are regulated by leading financial authorities to ensure the safety of your funds and the integrity of our services.',
@@ -618,6 +647,90 @@ function getPageContentByType(prompt: string) {
       ],
       metaTitle: 'Regulation & Licenses — FCA, CySEC, DFSA',
       metaDescription: 'Regulated by FCA, CySEC, and DFSA. Segregated funds, investor compensation, and negative balance protection for all clients.',
+    }
+  }
+
+  // Terms & Conditions page
+  if (prompt.includes('terms') && prompt.includes('(legal)')) {
+    return {
+      heroTitle: 'Terms & Conditions',
+      heroSubtitle: 'Please read these terms carefully before using our trading services and platform.',
+      sections: [
+        { title: 'General Terms', content: 'These Terms and Conditions govern your use of our trading platform and services. By opening an account and using our services, you agree to be bound by these terms. We reserve the right to update these terms at any time with reasonable notice to clients.', type: 'text' },
+        { title: 'Account Terms', type: 'list', items: [
+          { title: 'Eligibility', description: 'You must be at least 18 years old and a legal resident of a supported jurisdiction to open an account.' },
+          { title: 'Account Verification', description: 'All accounts must complete KYC verification with a valid government ID and proof of address before withdrawals are processed.' },
+          { title: 'One Account Per Person', description: 'Each individual may maintain one account unless otherwise authorized. Duplicate accounts may be closed.' },
+        ]},
+        { title: 'Trading Rules', type: 'list', items: [
+          { title: 'Order Execution', description: 'Orders are executed at the best available price. Market conditions may cause slippage during volatile periods.' },
+          { title: 'Leverage & Margin', description: 'Leveraged trading carries significant risk. Positions may be automatically closed if margin requirements are not maintained.' },
+          { title: 'Prohibited Activities', description: 'Manipulation, abuse of pricing errors, and use of insider information are strictly prohibited and may result in account termination.' },
+        ]},
+        { title: 'Liability & Disputes', content: 'Our liability is limited to the funds held in your trading account. Any disputes shall be resolved through the regulatory body in the applicable jurisdiction. These terms are governed by the laws of England and Wales.', type: 'text' },
+      ],
+      metaTitle: 'Terms & Conditions',
+      metaDescription: 'Read our terms and conditions covering account usage, trading rules, liability, and dispute resolution for our trading services.',
+    }
+  }
+
+  // Privacy Policy page
+  if (prompt.includes('privacy') && prompt.includes('(legal)')) {
+    return {
+      heroTitle: 'Privacy Policy',
+      heroSubtitle: 'We are committed to protecting your personal data and privacy in compliance with GDPR and applicable regulations.',
+      sections: [
+        { title: 'Data We Collect', type: 'list', items: [
+          { title: 'Personal Information', description: 'Name, email, phone number, date of birth, and address provided during registration.' },
+          { title: 'Identification Documents', description: 'Government-issued ID and proof of address for KYC/AML compliance.' },
+          { title: 'Trading Activity', description: 'Order history, account balances, deposit/withdrawal records, and platform usage data.' },
+          { title: 'Technical Data', description: 'IP address, browser type, device information, and cookies for security and analytics.' },
+        ]},
+        { title: 'How We Use Your Data', content: 'We use your personal data to provide our trading services, comply with regulatory requirements (KYC/AML), improve our platform, send important account notifications, and provide customer support. We do not sell your personal data to third parties.', type: 'text' },
+        { title: 'Your Rights', type: 'features', items: [
+          { title: 'Access', description: 'Request a copy of all personal data we hold about you.' },
+          { title: 'Rectification', description: 'Correct any inaccurate or incomplete personal data.' },
+          { title: 'Erasure', description: 'Request deletion of your data, subject to regulatory retention requirements.' },
+          { title: 'Portability', description: 'Receive your data in a structured, machine-readable format.' },
+        ]},
+        { title: 'Cookies', content: 'We use essential cookies for platform functionality, analytics cookies to improve our service, and marketing cookies with your consent. You can manage cookie preferences through your browser settings.', type: 'text' },
+      ],
+      metaTitle: 'Privacy Policy — Data Protection & GDPR',
+      metaDescription: 'Our privacy policy explains how we collect, use, and protect your personal data. GDPR compliant with full data subject rights.',
+    }
+  }
+
+  // Risk Disclosure page
+  if (prompt.includes('risk') && prompt.includes('(legal)')) {
+    return {
+      heroTitle: 'Risk Disclosure Statement',
+      heroSubtitle: 'Trading CFDs and forex involves significant risk. Please ensure you understand these risks before trading.',
+      sections: [
+        { title: 'General Risk Warning', content: 'Contracts for Difference (CFDs) and forex trading are complex instruments that carry a high level of risk. Approximately 70-80% of retail investor accounts lose money when trading CFDs. You should consider whether you understand how these instruments work and whether you can afford to take the high risk of losing your money.', type: 'text' },
+        { title: 'Key Risks', type: 'list', items: [
+          { title: 'Leverage Risk', description: 'Leverage amplifies both potential profits and losses. A small market movement can result in large gains or losses relative to your initial deposit.' },
+          { title: 'Market Volatility', description: 'Prices can move rapidly due to economic events, news, and market conditions. Gaps and slippage may occur during volatile periods.' },
+          { title: 'Liquidity Risk', description: 'Under certain market conditions, it may be difficult or impossible to close a position at your desired price.' },
+          { title: 'Technology Risk', description: 'Internet connectivity issues, platform outages, and hardware failures may prevent timely order execution.' },
+          { title: 'Regulatory Risk', description: 'Changes in regulations or laws may affect trading conditions, leverage limits, or available instruments.' },
+        ]},
+        { title: 'Your Responsibilities', content: 'You should never trade with money you cannot afford to lose. Always use risk management tools such as stop-loss orders. Educate yourself thoroughly before trading with real money. Past performance is not indicative of future results.', type: 'text' },
+      ],
+      metaTitle: 'Risk Disclosure — CFD & Forex Trading Risks',
+      metaDescription: 'Important risk disclosure for CFD and forex trading. Understand leverage risks, market volatility, and potential losses before trading.',
+    }
+  }
+
+  // Catch-all legal page
+  if (prompt.includes('(legal)')) {
+    return {
+      heroTitle: 'Legal Information',
+      heroSubtitle: 'Important legal documents and regulatory information.',
+      sections: [
+        { title: 'Regulatory Compliance', content: 'We operate in compliance with all applicable laws and regulations. Our services are provided under the licenses and authorizations granted by our regulatory authorities.', type: 'text' },
+      ],
+      metaTitle: 'Legal Information',
+      metaDescription: 'Legal documents and regulatory information for our trading services.',
     }
   }
 
