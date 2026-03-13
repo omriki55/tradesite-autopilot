@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth'
 import superjson from 'superjson'
 import { prisma } from '@/lib/prisma'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { rateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export const createTRPCContext = async () => {
   const session = await getServerSession(authOptions)
@@ -27,4 +28,17 @@ export const protectedProcedure = t.procedure.use(async ({ ctx, next }) => {
       userId: (ctx.session.user as { id: string }).id,
     },
   })
+})
+
+/** Rate-limited procedure for AI generation endpoints */
+export const rateLimitedProcedure = protectedProcedure.use(async ({ ctx, next }) => {
+  const userId = (ctx.session.user as { id: string }).id
+  const result = rateLimit(`ai:${userId}`, RATE_LIMITS.ai)
+  if (!result.success) {
+    throw new TRPCError({
+      code: 'TOO_MANY_REQUESTS',
+      message: `Rate limit exceeded. Try again in ${Math.ceil((result.resetAt - Date.now()) / 1000)} seconds.`,
+    })
+  }
+  return next()
 })
