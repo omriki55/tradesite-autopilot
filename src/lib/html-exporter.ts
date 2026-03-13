@@ -202,7 +202,7 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
   const heroTitle = parsed.heroTitle || page.title
   const heroSubtitle = parsed.heroSubtitle || ''
   const sections = parsed.sections || []
-  const navPages = pages.filter((p) => ['home', 'about', 'markets', 'platforms', 'pricing', 'education', 'contact'].includes(p.slug)).slice(0, 7)
+  const navPages = pages.filter((p) => ['home', 'about', 'platforms', 'account-types', 'pricing', 'education', 'contact'].includes(p.slug)).slice(0, 7)
 
   const navLinks = navPages.map((p) => {
     const href = p.slug === 'home' ? 'index.html' : `${p.slug.replace(/\//g, '-')}.html`

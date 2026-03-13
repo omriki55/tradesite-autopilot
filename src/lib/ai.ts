@@ -1,23 +1,59 @@
 import Anthropic from '@anthropic-ai/sdk'
+import { errorTracker } from './sentry'
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || '',
 })
 
 export async function generateWithAI(prompt: string, systemPrompt?: string): Promise<string> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return generateMockResponse(prompt)
+  // Try Anthropic first
+  if (process.env.ANTHROPIC_API_KEY) {
+    try {
+      const response = await anthropic.messages.create({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        system: systemPrompt || 'You are an expert in trading company marketing and web development.',
+        messages: [{ role: 'user', content: prompt }],
+      })
+      const block = response.content[0]
+      return block.type === 'text' ? block.text : ''
+    } catch (error) {
+      errorTracker.captureException(error instanceof Error ? error : new Error(String(error)), { action: 'anthropic_generate' })
+      console.error('[AI] Anthropic API error, falling back:', error)
+    }
   }
 
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 4096,
-    system: systemPrompt || 'You are an expert in trading company marketing and web development.',
-    messages: [{ role: 'user', content: prompt }],
-  })
+  // Try OpenAI as fallback
+  if (process.env.OPENAI_API_KEY) {
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: systemPrompt || 'You are an expert in trading company marketing and web development.' },
+            { role: 'user', content: prompt },
+          ],
+          max_tokens: 4096,
+          temperature: 0.7,
+        }),
+      })
+      if (response.ok) {
+        const data = await response.json()
+        return data.choices?.[0]?.message?.content || ''
+      }
+    } catch (error) {
+      errorTracker.captureException(error instanceof Error ? error : new Error(String(error)), { action: 'openai_generate' })
+      console.error('[AI] OpenAI API error, falling back to mock:', error)
+    }
+  }
 
-  const block = response.content[0]
-  return block.type === 'text' ? block.text : ''
+  // Fall back to mock
+  return generateMockResponse(prompt)
 }
 
 export async function generateJSONWithAI<T>(prompt: string, systemPrompt?: string): Promise<T> {
@@ -66,52 +102,9 @@ function generateMockResponse(prompt: string): string {
     ])
   }
 
-  // Crypto Exchange template-specific page content
-  if (p.includes('crypto exchange') && (p.includes('page') || p.includes('content'))) {
-    return JSON.stringify({
-      heroTitle: 'Trade 200+ Cryptocurrencies with Confidence',
-      heroSubtitle: 'Institutional-grade security, low fees, and lightning-fast execution. Buy, sell, and trade crypto with the platform trusted by millions.',
-      sections: [
-        { title: 'Why Trade With Us', content: 'Industry-lowest fees starting at 0.1%, cold storage for 95% of assets, and 24/7 customer support. Over $2B in daily trading volume across spot and futures markets.', type: 'features' },
-        { title: 'Spot & Futures Trading', content: 'Trade spot markets with instant settlement or leverage up to 125x on perpetual futures. Advanced order types, real-time charts, and deep liquidity across all pairs.', type: 'list' },
-        { title: 'Staking & Earn', content: 'Put your crypto to work. Earn up to 14% APY through flexible and locked staking programs. DeFi yield products and savings accounts available.', type: 'pricing' },
-        { title: 'Enterprise-Grade Security', content: 'Multi-signature cold wallets, 2FA authentication, withdrawal whitelist, and $100M insurance fund. Your assets are protected by industry-leading security protocols.', type: 'text' },
-      ],
-      metaTitle: 'Buy & Trade Crypto — Secure Exchange',
-      metaDescription: 'Trade 200+ cryptocurrencies with low fees and institutional-grade security. Spot trading, futures, staking, and DeFi products. Start trading today.',
-    })
-  }
-
-  // Prop Trading template-specific page content
-  if (p.includes('prop trad') && (p.includes('page') || p.includes('content'))) {
-    return JSON.stringify({
-      heroTitle: 'Get Funded Up to $200,000',
-      heroSubtitle: 'Prove your trading skills and access institutional capital. Keep up to 90% of profits with our industry-leading funded trading program.',
-      sections: [
-        { title: 'How It Works', content: 'Pass our evaluation challenge by hitting the profit target while staying within risk limits. Once funded, trade with our capital and keep up to 90% of the profits. No time limits on funded accounts.', type: 'features' },
-        { title: 'Challenge Programs', content: 'Choose your path: 1-Step Instant Funding or 2-Step Standard Evaluation. Account sizes from $10K to $200K. Competitive pricing with refundable fees.', type: 'pricing' },
-        { title: 'Payout Proofs', content: 'Over $10M paid out to funded traders worldwide. Bi-weekly payouts via bank transfer, crypto, or e-wallet. Average payout processing time: 24 hours.', type: 'text' },
-        { title: 'Join Our Community', content: '50,000+ traders in our Discord community. Free education, daily market analysis, and funded trader interviews. Your success is our mission.', type: 'cta' },
-      ],
-      metaTitle: 'Prop Trading — Get Funded Today',
-      metaDescription: 'Get funded up to $200K with our prop trading evaluation. 80-90% profit split, no time limits, bi-weekly payouts. Start your challenge today.',
-    })
-  }
-
-  // Website page content (default / forex broker)
-  if (p.includes('page') && (p.includes('generate') || p.includes('content') || p.includes('home') || p.includes('about'))) {
-    return JSON.stringify({
-      heroTitle: 'Trade Smarter with Advanced Technology',
-      heroSubtitle: 'Access global markets with institutional-grade tools, tight spreads, and lightning-fast execution.',
-      sections: [
-        { title: 'Why Choose Us', content: 'Industry-leading spreads starting from 0.0 pips, 24/7 customer support, and advanced charting tools. Regulated and trusted by thousands of traders worldwide.', type: 'features' },
-        { title: 'Trading Platforms', content: 'Trade on MetaTrader 4, MetaTrader 5, or our proprietary web platform. Available on desktop, mobile, and tablet.', type: 'list' },
-        { title: 'Account Types', content: 'Choose from Standard, Premium, or VIP accounts. Each designed to match your trading style and experience level.', type: 'pricing' },
-        { title: 'Market Analysis', content: 'Daily market insights from our team of expert analysts. Technical analysis, fundamental reports, and trading signals.', type: 'text' },
-      ],
-      metaTitle: 'Trade with the Best — Regulated Forex Broker',
-      metaDescription: 'Trade Forex, Crypto & CFDs with tight spreads and fast execution. Regulated broker with 24/7 support. Open a free account today.',
-    })
+  // ─── Page-specific content generation (unique per page type) ─────────
+  if (p.includes('page') && p.includes('generate')) {
+    return JSON.stringify(getPageContentByType(p))
   }
 
   // Keyword research (fallback)
@@ -233,4 +226,425 @@ function generateMockResponse(prompt: string): string {
   }
 
   return JSON.stringify({ message: 'Mock AI response — set ANTHROPIC_API_KEY for real content generation' })
+}
+
+// ─── Unique page content per page type ──────────────────────────────
+
+function getPageContentByType(prompt: string) {
+  // About page
+  if (prompt.includes('(about)') || prompt.includes('about us')) {
+    return {
+      heroTitle: 'About Our Company',
+      heroSubtitle: 'A trusted name in online trading since 2018. Regulated, transparent, and committed to your success.',
+      sections: [
+        { title: 'Our Story', content: 'Founded by a team of experienced traders and fintech professionals, we set out to create a trading platform that puts clients first. With over 500,000 active traders in 150+ countries, we have grown into one of the most trusted names in online trading.', type: 'text' },
+        { title: 'Our Mission & Values', type: 'features', items: [
+          { title: 'Transparency', description: 'No hidden fees, no re-quotes. What you see is what you get.' },
+          { title: 'Innovation', description: 'Cutting-edge technology powering lightning-fast execution under 30ms.' },
+          { title: 'Security', description: 'Client funds held in segregated accounts at top-tier banks.' },
+          { title: 'Education', description: 'Free courses, webinars, and daily market analysis for all clients.' },
+        ]},
+        { title: 'Global Presence', content: 'Offices in London, Dubai, Sydney, and Singapore. Licensed and regulated by multiple financial authorities worldwide. Our multilingual support team is available 24/5 to assist you.', type: 'text' },
+        { title: 'Awards & Recognition', type: 'list', items: [
+          { title: 'Best Forex Broker 2025', description: 'Awarded by International Finance Awards' },
+          { title: 'Most Transparent Broker', description: 'Global Forex Awards 2025' },
+          { title: 'Best Trading Platform', description: 'FinanceMagnates Summit 2024' },
+        ]},
+      ],
+      metaTitle: 'About Us — Trusted Regulated Online Broker',
+      metaDescription: 'Learn about our company, mission, and values. Regulated broker serving 500K+ traders in 150+ countries since 2018.',
+    }
+  }
+
+  // Trading Platforms page
+  if (prompt.includes('(platforms)') || prompt.includes('trading platform')) {
+    return {
+      heroTitle: 'World-Class Trading Platforms',
+      heroSubtitle: 'Trade on your terms with MetaTrader 4, MetaTrader 5, and our proprietary WebTrader — available on every device.',
+      sections: [
+        { title: 'Our Platforms', type: 'features', items: [
+          { title: 'MetaTrader 4', description: 'The industry standard for forex trading. Expert Advisors, custom indicators, and one-click trading. Available on desktop, iOS, and Android.' },
+          { title: 'MetaTrader 5', description: 'Multi-asset trading with advanced charting, depth of market, and hedging support. Trade forex, stocks, and futures from one account.' },
+          { title: 'WebTrader', description: 'No download needed. Trade directly from your browser with real-time charts, technical analysis tools, and a clean interface.' },
+          { title: 'Mobile Trading', description: 'Full-featured mobile apps for iOS and Android. Manage positions, set alerts, and trade on the go.' },
+        ]},
+        { title: 'Platform Comparison', type: 'table', columns: ['Feature', 'MT4', 'MT5', 'WebTrader'], rows: [
+          { 'Feature': 'One-Click Trading', 'MT4': '✓', 'MT5': '✓', 'WebTrader': '✓' },
+          { 'Feature': 'Expert Advisors', 'MT4': '✓', 'MT5': '✓', 'WebTrader': '—' },
+          { 'Feature': 'Custom Indicators', 'MT4': '30+', 'MT5': '38+', 'WebTrader': '25+' },
+          { 'Feature': 'Timeframes', 'MT4': '9', 'MT5': '21', 'WebTrader': '15' },
+          { 'Feature': 'Pending Order Types', 'MT4': '4', 'MT5': '6', 'WebTrader': '4' },
+        ]},
+        { title: 'Execution Technology', content: 'Ultra-low latency execution powered by Equinix data centers in London and New York. Average execution speed under 30 milliseconds with 99.9% uptime.', type: 'text' },
+        { title: 'Start Trading Now', content: 'Download your preferred platform and start trading in minutes. Free demo accounts available with $100,000 virtual funds.', type: 'cta', ctaText: 'Download Platform', ctaUrl: '#' },
+      ],
+      metaTitle: 'Trading Platforms — MT4, MT5 & WebTrader',
+      metaDescription: 'Trade on MetaTrader 4, MetaTrader 5, or WebTrader. Ultra-fast execution, advanced charting, and mobile trading apps.',
+    }
+  }
+
+  // Account Types page
+  if (prompt.includes('(account_types)') || prompt.includes('account type')) {
+    return {
+      heroTitle: 'Choose Your Trading Account',
+      heroSubtitle: 'Flexible account types designed for every level of trader — from beginners to professionals.',
+      sections: [
+        { title: 'Account Types', type: 'pricing', tiers: [
+          { name: 'Standard', price: '$100', period: 'Min. Deposit', features: ['Spreads from 1.2 pips', 'No commission', 'Leverage up to 1:500', '200+ instruments', '24/5 support', 'Free education'], ctaText: 'Open Account' },
+          { name: 'Premium', price: '$1,000', period: 'Min. Deposit', features: ['Spreads from 0.6 pips', '$3.50/lot commission', 'Leverage up to 1:500', '200+ instruments', 'Priority support', 'Free VPS', 'Daily analysis'], highlighted: true, ctaText: 'Open Account' },
+          { name: 'VIP', price: '$25,000', period: 'Min. Deposit', features: ['Spreads from 0.0 pips', '$2.50/lot commission', 'Leverage up to 1:500', '200+ instruments', 'Personal manager', 'Free VPS', 'Custom liquidity'], ctaText: 'Contact Us' },
+        ]},
+        { title: 'All Accounts Include', type: 'features', items: [
+          { title: 'Segregated Funds', description: 'Your funds are held in segregated accounts at top-tier banks.' },
+          { title: 'Negative Balance Protection', description: 'You can never lose more than your account balance.' },
+          { title: 'Free Demo Account', description: 'Practice risk-free with $100,000 in virtual funds.' },
+          { title: 'Instant Deposits', description: 'Fund your account via bank transfer, card, or e-wallet.' },
+        ]},
+      ],
+      metaTitle: 'Account Types — Standard, Premium & VIP',
+      metaDescription: 'Compare trading account types. Spreads from 0.0 pips, leverage up to 1:500, and 200+ instruments. Open a free account today.',
+    }
+  }
+
+  // Pricing & Spreads page
+  if (prompt.includes('(pricing)') || prompt.includes('pricing') || prompt.includes('spread')) {
+    return {
+      heroTitle: 'Transparent Pricing & Tight Spreads',
+      heroSubtitle: 'No hidden fees. No re-quotes. Competitive spreads starting from 0.0 pips.',
+      sections: [
+        { title: 'Live Spreads', type: 'table', columns: ['Instrument', 'Standard', 'Premium', 'VIP'], rows: [
+          { 'Instrument': 'EUR/USD', 'Standard': '1.2 pips', 'Premium': '0.6 pips', 'VIP': '0.0 pips' },
+          { 'Instrument': 'GBP/USD', 'Standard': '1.5 pips', 'Premium': '0.8 pips', 'VIP': '0.1 pips' },
+          { 'Instrument': 'USD/JPY', 'Standard': '1.3 pips', 'Premium': '0.7 pips', 'VIP': '0.1 pips' },
+          { 'Instrument': 'Gold', 'Standard': '2.5 pips', 'Premium': '1.5 pips', 'VIP': '0.5 pips' },
+          { 'Instrument': 'BTC/USD', 'Standard': '$35', 'Premium': '$20', 'VIP': '$10' },
+        ]},
+        { title: 'Commission Structure', type: 'features', items: [
+          { title: 'Standard Account', description: 'Zero commission — costs built into the spread.' },
+          { title: 'Premium Account', description: '$3.50 per lot per side. Raw spreads from 0.6 pips.' },
+          { title: 'VIP Account', description: '$2.50 per lot per side. Institutional-grade spreads from 0.0 pips.' },
+        ]},
+        { title: 'No Hidden Fees', content: 'We believe in full transparency. No deposit fees, no withdrawal fees on standard methods, and no inactivity charges for the first 12 months. Swap rates published daily.', type: 'text' },
+        { title: 'Deposit & Withdrawal', type: 'table', columns: ['Method', 'Min Deposit', 'Processing Time', 'Fee'], rows: [
+          { 'Method': 'Bank Transfer', 'Min Deposit': '$100', 'Processing Time': '1-3 business days', 'Fee': 'Free' },
+          { 'Method': 'Credit/Debit Card', 'Min Deposit': '$50', 'Processing Time': 'Instant', 'Fee': 'Free' },
+          { 'Method': 'Skrill / Neteller', 'Min Deposit': '$50', 'Processing Time': 'Instant', 'Fee': 'Free' },
+          { 'Method': 'Crypto (USDT)', 'Min Deposit': '$50', 'Processing Time': '10-30 minutes', 'Fee': 'Free' },
+        ]},
+      ],
+      metaTitle: 'Pricing & Spreads — Competitive Trading Costs',
+      metaDescription: 'Transparent pricing with spreads from 0.0 pips. No hidden fees, no re-quotes. Compare our trading costs and deposit methods.',
+    }
+  }
+
+  // Education page
+  if (prompt.includes('(education)') || prompt.includes('education center')) {
+    return {
+      heroTitle: 'Trading Education Center',
+      heroSubtitle: 'From beginner basics to advanced strategies — free courses, webinars, and tutorials to sharpen your trading skills.',
+      sections: [
+        { title: 'Learning Paths', type: 'features', items: [
+          { title: 'Beginner Course', description: 'Introduction to forex, reading charts, placing your first trade, and basic risk management. 12 lessons.' },
+          { title: 'Intermediate Course', description: 'Technical analysis, candlestick patterns, support & resistance, and building a trading plan. 18 lessons.' },
+          { title: 'Advanced Strategies', description: 'Price action, harmonic patterns, algorithmic trading, and portfolio management. 15 lessons.' },
+          { title: 'Live Webinars', description: 'Weekly live sessions with professional analysts. Market analysis, Q&A, and real-time trade setups.' },
+        ]},
+        { title: 'Trading Glossary', type: 'list', items: [
+          { title: 'Pip', description: 'The smallest price movement in a currency pair, typically 0.0001 for most pairs.' },
+          { title: 'Spread', description: 'The difference between the bid and ask price of an instrument.' },
+          { title: 'Leverage', description: 'Borrowed capital that allows you to control a larger position with a smaller deposit.' },
+          { title: 'Stop Loss', description: 'An order that automatically closes a trade at a predetermined loss level.' },
+          { title: 'Margin', description: 'The amount of money required to open and maintain a leveraged position.' },
+        ]},
+        { title: 'Video Tutorials', content: 'Over 100 video tutorials covering platform setup, order types, technical analysis, fundamental analysis, and risk management. New content added weekly.', type: 'text' },
+        { title: 'Start Learning Today', content: 'All educational resources are free for registered clients. Open a demo account and practice while you learn.', type: 'cta', ctaText: 'Open Free Demo', ctaUrl: '#' },
+      ],
+      metaTitle: 'Education Center — Free Trading Courses & Webinars',
+      metaDescription: 'Free trading courses for all levels. Beginner to advanced strategies, live webinars, video tutorials, and trading glossary.',
+    }
+  }
+
+  // Forex Trading page
+  if (prompt.includes('forex trading') || prompt.includes('markets/forex') || (prompt.includes('(markets)') && prompt.includes('forex'))) {
+    return {
+      heroTitle: 'Trade Forex — The World\'s Largest Market',
+      heroSubtitle: 'Access 70+ currency pairs with tight spreads, fast execution, and leverage up to 1:500.',
+      sections: [
+        { title: 'Why Trade Forex With Us', type: 'features', items: [
+          { title: '70+ Currency Pairs', description: 'Major, minor, and exotic pairs including EUR/USD, GBP/JPY, USD/ZAR, and more.' },
+          { title: 'Spreads from 0.0 pips', description: 'Institutional-grade pricing with raw spreads on premium accounts.' },
+          { title: '24/5 Market Access', description: 'Trade around the clock from Sydney open to New York close.' },
+          { title: 'Deep Liquidity', description: 'Aggregated pricing from tier-1 banks ensures minimal slippage.' },
+        ]},
+        { title: 'Popular Forex Pairs', type: 'table', columns: ['Pair', 'Spread From', 'Leverage', 'Trading Hours'], rows: [
+          { 'Pair': 'EUR/USD', 'Spread From': '0.0 pips', 'Leverage': '1:500', 'Trading Hours': '24/5' },
+          { 'Pair': 'GBP/USD', 'Spread From': '0.1 pips', 'Leverage': '1:500', 'Trading Hours': '24/5' },
+          { 'Pair': 'USD/JPY', 'Spread From': '0.1 pips', 'Leverage': '1:500', 'Trading Hours': '24/5' },
+          { 'Pair': 'AUD/USD', 'Spread From': '0.2 pips', 'Leverage': '1:500', 'Trading Hours': '24/5' },
+        ]},
+        { title: 'Forex Trading Basics', content: 'Forex (Foreign Exchange) is the global marketplace for trading currencies. With a daily volume exceeding $7 trillion, it is the most liquid market in the world. Traders profit from changes in exchange rates between currency pairs.', type: 'text' },
+      ],
+      metaTitle: 'Forex Trading — 70+ Currency Pairs from 0.0 Pips',
+      metaDescription: 'Trade 70+ forex currency pairs with spreads from 0.0 pips and leverage up to 1:500. 24/5 market access with fast execution.',
+    }
+  }
+
+  // Crypto page
+  if (prompt.includes('crypto') || (prompt.includes('(markets)') && !prompt.includes('forex') && !prompt.includes('commod') && !prompt.includes('indic'))) {
+    return {
+      heroTitle: 'Trade Crypto CFDs',
+      heroSubtitle: 'Trade Bitcoin, Ethereum, and 30+ cryptocurrencies as CFDs — go long or short with leverage.',
+      sections: [
+        { title: 'Why Trade Crypto With Us', type: 'features', items: [
+          { title: '30+ Crypto Pairs', description: 'BTC, ETH, SOL, XRP, DOGE, and many more against USD and EUR.' },
+          { title: 'Leverage Up to 1:20', description: 'Amplify your crypto exposure without holding the underlying asset.' },
+          { title: '24/7 Trading', description: 'Crypto markets never sleep. Trade any time, day or night.' },
+          { title: 'No Wallet Needed', description: 'Trade crypto CFDs without the complexity of wallets and private keys.' },
+        ]},
+        { title: 'Available Crypto Assets', type: 'table', columns: ['Asset', 'Symbol', 'Spread From', 'Leverage'], rows: [
+          { 'Asset': 'Bitcoin', 'Symbol': 'BTC/USD', 'Spread From': '$15', 'Leverage': '1:20' },
+          { 'Asset': 'Ethereum', 'Symbol': 'ETH/USD', 'Spread From': '$2', 'Leverage': '1:20' },
+          { 'Asset': 'Solana', 'Symbol': 'SOL/USD', 'Spread From': '$0.10', 'Leverage': '1:10' },
+          { 'Asset': 'Ripple', 'Symbol': 'XRP/USD', 'Spread From': '$0.005', 'Leverage': '1:10' },
+        ]},
+        { title: 'Risk Warning', content: 'Cryptocurrency CFDs are highly volatile instruments. Prices can swing 10-20% in a single day. Only trade with capital you can afford to lose and always use stop-loss orders.', type: 'text' },
+      ],
+      metaTitle: 'Crypto CFD Trading — Bitcoin, Ethereum & 30+ Coins',
+      metaDescription: 'Trade crypto CFDs with leverage. Bitcoin, Ethereum, Solana, and 30+ cryptocurrencies. No wallet needed. 24/7 trading.',
+    }
+  }
+
+  // Commodities page
+  if (prompt.includes('commod')) {
+    return {
+      heroTitle: 'Trade Commodities',
+      heroSubtitle: 'Access global commodity markets — gold, silver, oil, natural gas, and agricultural products.',
+      sections: [
+        { title: 'Available Commodities', type: 'features', items: [
+          { title: 'Precious Metals', description: 'Gold (XAU/USD), Silver (XAG/USD), Platinum, and Palladium with tight spreads.' },
+          { title: 'Energy', description: 'Crude Oil (WTI & Brent), Natural Gas, and Heating Oil futures CFDs.' },
+          { title: 'Agriculture', description: 'Coffee, Cocoa, Sugar, Wheat, Corn, and Soybeans.' },
+        ]},
+        { title: 'Commodity Spreads', type: 'table', columns: ['Commodity', 'Symbol', 'Spread From', 'Leverage'], rows: [
+          { 'Commodity': 'Gold', 'Symbol': 'XAU/USD', 'Spread From': '0.25 pips', 'Leverage': '1:200' },
+          { 'Commodity': 'Silver', 'Symbol': 'XAG/USD', 'Spread From': '0.02 pips', 'Leverage': '1:100' },
+          { 'Commodity': 'Crude Oil (WTI)', 'Symbol': 'CL', 'Spread From': '0.03', 'Leverage': '1:100' },
+          { 'Commodity': 'Natural Gas', 'Symbol': 'NG', 'Spread From': '0.005', 'Leverage': '1:50' },
+        ]},
+        { title: 'Why Trade Commodities', content: 'Commodities offer portfolio diversification and a hedge against inflation. Gold and oil are among the most actively traded assets globally, providing ample liquidity and trading opportunities.', type: 'text' },
+      ],
+      metaTitle: 'Commodities Trading — Gold, Oil & More',
+      metaDescription: 'Trade gold, silver, oil, and agricultural commodities. Tight spreads, leverage up to 1:200, and fast execution.',
+    }
+  }
+
+  // Indices page
+  if (prompt.includes('indic')) {
+    return {
+      heroTitle: 'Trade Global Indices',
+      heroSubtitle: 'Trade the world\'s top stock indices — S&P 500, NASDAQ, FTSE 100, DAX, and Nikkei 225.',
+      sections: [
+        { title: 'Available Indices', type: 'table', columns: ['Index', 'Symbol', 'Spread From', 'Trading Hours'], rows: [
+          { 'Index': 'S&P 500', 'Symbol': 'US500', 'Spread From': '0.4 pts', 'Trading Hours': '23/5' },
+          { 'Index': 'NASDAQ 100', 'Symbol': 'USTEC', 'Spread From': '1.0 pts', 'Trading Hours': '23/5' },
+          { 'Index': 'FTSE 100', 'Symbol': 'UK100', 'Spread From': '1.0 pts', 'Trading Hours': '08:00-16:30 GMT' },
+          { 'Index': 'DAX 40', 'Symbol': 'GER40', 'Spread From': '1.2 pts', 'Trading Hours': '08:00-22:00 GMT' },
+          { 'Index': 'Nikkei 225', 'Symbol': 'JP225', 'Spread From': '7.0 pts', 'Trading Hours': '00:00-06:30 GMT' },
+        ]},
+        { title: 'Why Trade Indices', type: 'features', items: [
+          { title: 'Diversified Exposure', description: 'A single trade gives you exposure to a basket of top companies.' },
+          { title: 'Low Margins', description: 'Trade with leverage up to 1:200 on major indices.' },
+          { title: 'No Overnight Fees', description: 'Competitive swap rates on index positions held overnight.' },
+        ]},
+        { title: 'Start Trading Indices', content: 'Index CFDs let you speculate on the direction of global equity markets without owning individual stocks. Go long in bull markets or short in bear markets.', type: 'cta', ctaText: 'Open Account', ctaUrl: '#' },
+      ],
+      metaTitle: 'Index Trading — S&P 500, NASDAQ, DAX & More',
+      metaDescription: 'Trade global stock indices with tight spreads. S&P 500, NASDAQ, FTSE 100, DAX, and more. Leverage up to 1:200.',
+    }
+  }
+
+  // Market Analysis page
+  if (prompt.includes('(analysis)') || prompt.includes('market analysis')) {
+    return {
+      heroTitle: 'Market Analysis & Insights',
+      heroSubtitle: 'Daily analysis from our team of professional analysts. Technical reports, fundamental insights, and trade ideas.',
+      sections: [
+        { title: 'Today\'s Market Overview', content: 'Markets remain focused on central bank policy decisions and key economic data. The US Dollar holds firm ahead of this week\'s FOMC minutes, while the Euro finds support near key technical levels. Gold continues to consolidate above $2,000 as geopolitical tensions provide a floor.', type: 'text' },
+        { title: 'Analysis Types', type: 'features', items: [
+          { title: 'Technical Analysis', description: 'Chart patterns, support/resistance levels, indicators, and price action setups updated daily.' },
+          { title: 'Fundamental Analysis', description: 'Economic calendar coverage, central bank decisions, GDP, employment, and inflation reports.' },
+          { title: 'Trading Signals', description: 'Actionable trade ideas with entry, stop-loss, and take-profit levels from our analysts.' },
+          { title: 'Weekly Webinars', description: 'Live market review sessions every Monday and Wednesday at 14:00 GMT.' },
+        ]},
+        { title: 'Economic Calendar', content: 'Stay ahead of market-moving events. Our economic calendar highlights key data releases including Non-Farm Payrolls, CPI, GDP, interest rate decisions, and PMI data across major economies.', type: 'text' },
+      ],
+      metaTitle: 'Market Analysis — Daily Forex & Trading Insights',
+      metaDescription: 'Free daily market analysis, trading signals, and economic calendar. Technical and fundamental analysis from professional analysts.',
+    }
+  }
+
+  // Contact page
+  if (prompt.includes('(contact)') || prompt.includes('contact us')) {
+    return {
+      heroTitle: 'Get in Touch',
+      heroSubtitle: 'Our support team is available 24/5 to help you with any questions or concerns.',
+      sections: [
+        { title: 'Contact Methods', type: 'features', items: [
+          { title: 'Live Chat', description: 'Chat with our support team directly from the platform. Average response time: under 2 minutes.' },
+          { title: 'Email Support', description: 'Send us an email at support@novamarkets.com. We respond within 4 hours during business days.' },
+          { title: 'Phone Support', description: 'Call us at +44 20 1234 5678 (UK) or +971 4 123 4567 (Dubai). Available 24/5.' },
+          { title: 'Office Visits', description: 'Visit us at our offices in London, Dubai, or Singapore by appointment.' },
+        ]},
+        { title: 'Office Locations', type: 'list', items: [
+          { title: 'London (HQ)', description: '123 Financial Street, Canary Wharf, London E14 5AB, United Kingdom' },
+          { title: 'Dubai', description: 'Suite 2501, DIFC Gate Building, Dubai International Financial Centre, UAE' },
+          { title: 'Singapore', description: '80 Robinson Road, #08-01, Singapore 068898' },
+        ]},
+        { title: 'Frequently Asked Questions', content: 'Before reaching out, check our FAQ section for answers to common questions about account opening, deposits, withdrawals, and platform setup.', type: 'cta', ctaText: 'Visit FAQ', ctaUrl: '#' },
+      ],
+      metaTitle: 'Contact Us — 24/5 Customer Support',
+      metaDescription: 'Get in touch with our 24/5 support team via live chat, email, or phone. Offices in London, Dubai, and Singapore.',
+    }
+  }
+
+  // FAQ page
+  if (prompt.includes('(faq)')) {
+    return {
+      heroTitle: 'Frequently Asked Questions',
+      heroSubtitle: 'Find answers to the most common questions about trading, accounts, and our platform.',
+      sections: [
+        { title: 'Account & Registration', type: 'list', items: [
+          { title: 'How do I open an account?', description: 'Click "Open Account", fill in the registration form, verify your identity (passport or ID + proof of address), and fund your account. The process takes under 10 minutes.' },
+          { title: 'What documents do I need?', description: 'A valid government-issued ID (passport, driving license, or national ID) and a recent proof of address (utility bill or bank statement, not older than 3 months).' },
+          { title: 'Can I have multiple accounts?', description: 'Yes, you can open multiple trading accounts under one profile. Each can have a different account type or base currency.' },
+        ]},
+        { title: 'Trading', type: 'list', items: [
+          { title: 'What is the minimum deposit?', description: 'Standard accounts start at $100. Premium accounts require $1,000 and VIP accounts require $25,000.' },
+          { title: 'What leverage do you offer?', description: 'Up to 1:500 for forex, 1:200 for metals, 1:100 for indices, and 1:20 for crypto. Professional clients may qualify for higher leverage.' },
+          { title: 'Do you allow hedging and scalping?', description: 'Yes, we support all trading strategies including hedging, scalping, and automated trading with Expert Advisors.' },
+        ]},
+        { title: 'Deposits & Withdrawals', type: 'list', items: [
+          { title: 'How do I deposit funds?', description: 'Log into your client portal, click "Deposit", and choose from bank transfer, credit/debit card, or e-wallets (Skrill, Neteller).' },
+          { title: 'How long do withdrawals take?', description: 'Withdrawal requests are processed within 24 hours. Card withdrawals take 1-3 business days; e-wallets are instant; bank transfers take 3-5 business days.' },
+          { title: 'Are there any fees?', description: 'We do not charge deposit or withdrawal fees on standard methods. Third-party payment providers may apply their own fees.' },
+        ]},
+      ],
+      metaTitle: 'FAQ — Frequently Asked Questions',
+      metaDescription: 'Answers to common questions about account opening, deposits, withdrawals, trading platforms, and more.',
+    }
+  }
+
+  // Partners page
+  if (prompt.includes('(partners)') || prompt.includes('affiliate')) {
+    return {
+      heroTitle: 'Partnership Programs',
+      heroSubtitle: 'Earn competitive commissions as an Introducing Broker or Affiliate. Join our global network of partners.',
+      sections: [
+        { title: 'Partnership Options', type: 'features', items: [
+          { title: 'Introducing Broker (IB)', description: 'Earn up to $15 per lot from your referred clients. Multi-tier commissions, real-time tracking, and dedicated IB manager.' },
+          { title: 'Affiliate Program', description: 'Earn up to $600 CPA per qualified referral. Marketing materials, tracking links, and monthly payouts.' },
+          { title: 'White Label', description: 'Launch your own branded trading platform powered by our technology. Full customization, liquidity, and back-office support.' },
+        ]},
+        { title: 'Why Partner With Us', type: 'list', items: [
+          { title: 'Competitive Commissions', description: 'Industry-leading rates with lifetime revenue sharing.' },
+          { title: 'Real-Time Dashboard', description: 'Track referrals, commissions, and performance in real-time.' },
+          { title: 'Marketing Support', description: 'Banners, landing pages, and promotional materials provided.' },
+          { title: 'Fast Payouts', description: 'Monthly payouts via bank transfer, e-wallet, or crypto.' },
+        ]},
+        { title: 'Become a Partner', content: 'Join our network of 5,000+ partners worldwide. Apply today and start earning from your first referral.', type: 'cta', ctaText: 'Apply Now', ctaUrl: '#' },
+      ],
+      metaTitle: 'Partnership Programs — IB & Affiliate',
+      metaDescription: 'Earn up to $15/lot as an IB or $600 CPA as an affiliate. Real-time tracking, marketing support, and fast payouts.',
+    }
+  }
+
+  // Promotions page
+  if (prompt.includes('(promotions)') || prompt.includes('promotion')) {
+    return {
+      heroTitle: 'Current Promotions',
+      heroSubtitle: 'Take advantage of our latest offers and bonuses designed to boost your trading.',
+      sections: [
+        { title: 'Active Offers', type: 'features', items: [
+          { title: '100% Welcome Bonus', description: 'Get a 100% deposit bonus on your first deposit up to $5,000. Trade with double your capital. T&Cs apply.' },
+          { title: 'Refer a Friend', description: 'Earn $50 for every friend you refer who opens and funds a live account. No limit on referrals.' },
+          { title: 'Cashback Program', description: 'Earn up to $5 cashback per lot traded. Automatically credited to your account daily.' },
+          { title: 'Free VPS', description: 'Qualified accounts receive a free Virtual Private Server for 24/7 automated trading.' },
+        ]},
+        { title: 'Terms & Conditions', content: 'All promotions are subject to terms and conditions. Bonus funds may have trading volume requirements before withdrawal. Promotions may be modified or discontinued at any time. Full terms available in the client portal.', type: 'text' },
+        { title: 'Claim Your Bonus', content: 'Register or log in to your client portal to activate available promotions.', type: 'cta', ctaText: 'Get Started', ctaUrl: '#' },
+      ],
+      metaTitle: 'Trading Promotions & Bonuses',
+      metaDescription: 'Current trading promotions: 100% welcome bonus, cashback, refer a friend, and free VPS. Terms & conditions apply.',
+    }
+  }
+
+  // Trading Calculator page
+  if (prompt.includes('(tools)') || prompt.includes('calculator')) {
+    return {
+      heroTitle: 'Trading Calculators',
+      heroSubtitle: 'Plan your trades with precision using our free forex and CFD calculators.',
+      sections: [
+        { title: 'Available Calculators', type: 'features', items: [
+          { title: 'Pip Calculator', description: 'Calculate the value of a pip for any currency pair and position size. Essential for risk management.' },
+          { title: 'Margin Calculator', description: 'Determine the required margin for a position based on your leverage and account currency.' },
+          { title: 'Profit/Loss Calculator', description: 'Estimate potential profit or loss before entering a trade. Input entry, exit, and lot size.' },
+          { title: 'Swap Calculator', description: 'Check overnight swap fees for holding positions. Varies by instrument and direction.' },
+        ]},
+        { title: 'How to Use', content: 'Select the calculator you need, input your trade parameters (instrument, lot size, entry/exit price, leverage), and get instant results. All calculations are based on real-time pricing.', type: 'text' },
+      ],
+      metaTitle: 'Trading Calculators — Pip, Margin & Profit',
+      metaDescription: 'Free trading calculators: pip value, margin requirement, profit/loss, and swap rates. Plan your trades with precision.',
+    }
+  }
+
+  // Legal pages: regulation, terms, privacy, risk
+  if (prompt.includes('(legal)') || prompt.includes('regulation') || prompt.includes('license')) {
+    return {
+      heroTitle: 'Regulation & Licenses',
+      heroSubtitle: 'We are regulated by leading financial authorities to ensure the safety of your funds and the integrity of our services.',
+      sections: [
+        { title: 'Our Regulatory Framework', type: 'features', items: [
+          { title: 'FCA Regulated', description: 'Authorized and regulated by the Financial Conduct Authority (UK). Registration No. 123456.' },
+          { title: 'CySEC Licensed', description: 'Licensed by the Cyprus Securities and Exchange Commission. License No. 789/01.' },
+          { title: 'DFSA Authorized', description: 'Regulated by the Dubai Financial Services Authority for Middle East operations.' },
+        ]},
+        { title: 'Client Protection', type: 'list', items: [
+          { title: 'Segregated Client Funds', description: 'All client funds are held in segregated accounts at top-tier European banks, completely separate from company funds.' },
+          { title: 'Investor Compensation', description: 'Eligible clients are covered by the Investor Compensation Fund (ICF) up to EUR 20,000.' },
+          { title: 'Negative Balance Protection', description: 'Retail clients are protected from losses exceeding their account balance.' },
+          { title: 'Regular Audits', description: 'Our financials are audited annually by Big Four accounting firms.' },
+        ]},
+        { title: 'Compliance', content: 'We implement strict Anti-Money Laundering (AML) and Know Your Customer (KYC) procedures in accordance with international regulations. All clients must verify their identity before trading.', type: 'text' },
+      ],
+      metaTitle: 'Regulation & Licenses — FCA, CySEC, DFSA',
+      metaDescription: 'Regulated by FCA, CySEC, and DFSA. Segregated funds, investor compensation, and negative balance protection for all clients.',
+    }
+  }
+
+  // Default homepage content
+  return {
+    heroTitle: 'Trade Smarter with Advanced Technology',
+    heroSubtitle: 'Access global markets with institutional-grade tools, tight spreads, and lightning-fast execution.',
+    sections: [
+      { title: 'Why Choose Us', content: 'Industry-leading spreads starting from 0.0 pips, 24/7 customer support, and advanced charting tools. Regulated and trusted by thousands of traders worldwide.', type: 'features', items: [
+        { title: 'Tight Spreads', description: 'Spreads from 0.0 pips on major forex pairs with no hidden markups.' },
+        { title: 'Fast Execution', description: 'Average execution speed under 30ms from Equinix data centers.' },
+        { title: '200+ Instruments', description: 'Forex, crypto, commodities, indices, and stocks in one account.' },
+        { title: '24/5 Support', description: 'Multilingual support team available around the clock.' },
+      ]},
+      { title: 'Trading Platforms', content: 'Trade on MetaTrader 4, MetaTrader 5, or our proprietary web platform. Available on desktop, mobile, and tablet.', type: 'features', items: [
+        { title: 'MetaTrader 4', description: 'The world\'s most popular forex trading platform with Expert Advisors.' },
+        { title: 'MetaTrader 5', description: 'Multi-asset platform with advanced charting and analysis.' },
+        { title: 'WebTrader', description: 'Trade from any browser — no download required.' },
+      ]},
+      { title: 'Account Types', type: 'pricing', tiers: [
+        { name: 'Standard', price: '$100', period: 'Min. Deposit', features: ['Spreads from 1.2 pips', 'No commission', 'Leverage 1:500'], ctaText: 'Open Account' },
+        { name: 'Premium', price: '$1,000', period: 'Min. Deposit', features: ['Spreads from 0.6 pips', '$3.50/lot', 'Free VPS'], highlighted: true, ctaText: 'Open Account' },
+        { name: 'VIP', price: '$25,000', period: 'Min. Deposit', features: ['Spreads from 0.0 pips', '$2.50/lot', 'Personal Manager'], ctaText: 'Contact Us' },
+      ]},
+      { title: 'Market Analysis', content: 'Daily market insights from our team of expert analysts. Technical analysis, fundamental reports, and trading signals.', type: 'text' },
+    ],
+    metaTitle: 'Trade with the Best — Regulated Forex Broker',
+    metaDescription: 'Trade Forex, Crypto & CFDs with tight spreads and fast execution. Regulated broker with 24/7 support. Open a free account today.',
+  }
 }
