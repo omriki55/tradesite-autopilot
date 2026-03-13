@@ -71,6 +71,89 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;')
 }
 
+// ─── Hero config per page ──────────────────────────────
+interface HeroConfig {
+  variant: 'platform' | 'market' | 'corporate' | 'tools' | 'legal'
+  badge: string
+  showMockup: boolean
+  visual?: string // custom HTML for right side
+}
+
+function getHeroConfig(slug: string): HeroConfig {
+  // Homepage — full platform mockup
+  if (slug === 'home') return { variant: 'platform', badge: 'Established &amp; Regulated since 2018', showMockup: true }
+
+  // Market pages — unique market visuals
+  if (slug === 'markets/forex') return { variant: 'market', badge: 'Live Forex Markets', showMockup: false, visual: getMarketVisual('forex') }
+  if (slug === 'markets/crypto') return { variant: 'market', badge: 'Live Crypto Markets', showMockup: false, visual: getMarketVisual('crypto') }
+  if (slug === 'markets/commodities') return { variant: 'market', badge: 'Live Commodity Markets', showMockup: false, visual: getMarketVisual('commodities') }
+  if (slug === 'markets/indices') return { variant: 'market', badge: 'Live Index Markets', showMockup: false, visual: getMarketVisual('indices') }
+
+  // Corporate pages — centered gradient
+  if (['about', 'regulation', 'partners'].includes(slug)) return { variant: 'corporate', badge: slug === 'about' ? 'About Our Company' : slug === 'regulation' ? 'Regulatory Framework' : 'Partnership Programme', showMockup: false }
+
+  // Legal pages — minimal
+  if (['terms', 'privacy', 'risk-disclosure'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
+
+  // Tools/service pages — light background
+  const badgeMap: Record<string, string> = {
+    'platforms': 'Trading Technology',
+    'account-types': 'Compare Accounts',
+    'pricing': 'Transparent Pricing',
+    'education': 'Learning Centre',
+    'analysis': 'Market Intelligence',
+    'tools/calculator': 'Trading Tools',
+    'promotions': 'Special Offers',
+    'contact': 'Get In Touch',
+    'faq': 'Help Centre',
+  }
+  return { variant: 'tools', badge: badgeMap[slug] || '', showMockup: false }
+}
+
+function getMarketVisual(market: string): string {
+  const cards: Record<string, Array<{ symbol: string; name: string; price: string; change: string; up: boolean }>> = {
+    forex: [
+      { symbol: 'EUR/USD', name: 'Euro / US Dollar', price: '1.0842', change: '+0.15%', up: true },
+      { symbol: 'GBP/JPY', name: 'Pound / Yen', price: '191.34', change: '-0.22%', up: false },
+      { symbol: 'USD/CHF', name: 'Dollar / Franc', price: '0.8821', change: '+0.08%', up: true },
+    ],
+    crypto: [
+      { symbol: 'BTC', name: 'Bitcoin', price: '$67,240', change: '+2.34%', up: true },
+      { symbol: 'ETH', name: 'Ethereum', price: '$3,482', change: '+1.87%', up: true },
+      { symbol: 'SOL', name: 'Solana', price: '$148.20', change: '-0.95%', up: false },
+    ],
+    commodities: [
+      { symbol: 'XAU', name: 'Gold', price: '$2,342', change: '+0.42%', up: true },
+      { symbol: 'WTI', name: 'Crude Oil', price: '$78.54', change: '-1.12%', up: false },
+      { symbol: 'XAG', name: 'Silver', price: '$27.84', change: '+0.68%', up: true },
+    ],
+    indices: [
+      { symbol: 'SPX', name: 'S&P 500', price: '5,234', change: '+0.52%', up: true },
+      { symbol: 'NDX', name: 'NASDAQ 100', price: '18,420', change: '+0.78%', up: true },
+      { symbol: 'FTSE', name: 'FTSE 100', price: '8,142', change: '-0.15%', up: false },
+    ],
+  }
+  const items = cards[market] || cards.forex
+  const sparkPaths = [
+    'M0,20 L8,18 16,22 24,15 32,17 40,10 48,12 56,6 64,8',
+    'M0,10 L8,14 16,8 24,16 32,20 40,18 48,22 56,19 64,24',
+    'M0,16 L8,12 16,18 24,10 32,14 40,8 48,12 56,5 64,3',
+  ]
+  return `<div class="market-cards">${items.map((item, i) => `
+        <div class="market-card">
+          <div class="market-card-top">
+            <span class="market-card-symbol">${item.symbol}</span>
+            <span class="market-card-change ${item.up ? 'up' : 'down'}">${item.change}</span>
+          </div>
+          <div class="market-card-name">${item.name}</div>
+          <div class="market-card-price">${item.price}</div>
+          <svg class="market-card-spark" viewBox="0 0 64 28" preserveAspectRatio="none">
+            <polyline points="${sparkPaths[i]}" fill="none" stroke="${item.up ? '#10b981' : '#ef4444'}" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>`).join('')}
+      </div>`
+}
+
 // ─── Main export function ────────────────────────────────
 
 export function exportProjectAsHTML(options: ExportOptions): ExportFile[] {
@@ -177,6 +260,60 @@ img{max-width:100%;height:auto}
 .mockup-row span:nth-child(2){color:rgba(255,255,255,.5);font-family:var(--font-sans);font-variant-numeric:tabular-nums}
 .mockup-row .up{color:#10b981;font-weight:600;font-size:.75rem}
 .mockup-row .down{color:#ef4444;font-weight:600;font-size:.75rem}
+
+/* ─── Hero Variants ─── */
+.hero--platform{}
+.hero--market{}
+.hero--corporate{text-align:center;background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark))}
+.hero--corporate .hero-container{justify-content:center}
+.hero--corporate .hero-inner{max-width:720px;text-align:center}
+.hero--corporate .hero-trust{justify-content:center}
+.hero--corporate .hero-buttons{justify-content:center}
+.hero--tools{background:var(--color-bg);color:var(--color-text);padding:80px 28px 64px;border-bottom:1px solid var(--color-border)}
+.hero--tools::before{content:none}
+.hero--tools .hero-inner{border-left:4px solid var(--color-accent);padding-left:28px}
+.hero--tools h1{color:var(--color-text);font-size:2.6rem}
+.hero--tools p{color:var(--color-text-secondary);opacity:1}
+.hero--tools .hero-badge{border-color:color-mix(in srgb,var(--color-accent) 25%,transparent);color:var(--color-accent)}
+.hero--tools .hero-badge .badge-dot{background:var(--color-accent)}
+.hero--tools .btn-outline{color:var(--color-text-secondary);border-color:var(--color-border)}
+.hero--tools .btn-outline:hover{background:var(--color-bg-alt);border-color:var(--color-text-light)}
+.hero--tools .hero-trust{opacity:1;color:var(--color-text-light);border-color:var(--color-border)}
+.hero--legal{background:var(--color-bg-alt);color:var(--color-text);padding:48px 28px 40px}
+.hero--legal::before{content:none}
+.hero--legal h1{color:var(--color-text);font-size:2.2rem;margin-bottom:12px}
+.hero--legal p{color:var(--color-text-secondary);opacity:1;font-size:.95rem}
+.hero--legal .hero-buttons{display:none}
+.hero--legal .hero-trust{display:none}
+
+/* ─── Market Cards Visual ─── */
+.market-cards{display:flex;flex-direction:column;gap:12px;width:380px;animation:float 6s ease-in-out infinite}
+.market-card{background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:16px 20px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:2px 16px;transition:border-color .2s}
+.market-card:hover{border-color:rgba(255,255,255,.2)}
+.market-card-top{display:flex;justify-content:space-between;align-items:center;grid-column:1/-1}
+.market-card-symbol{font-weight:700;font-size:.9rem;color:#fff;letter-spacing:.02em}
+.market-card-change{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:4px}
+.market-card-change.up{color:#10b981;background:rgba(16,185,129,.12)}
+.market-card-change.down{color:#ef4444;background:rgba(239,68,68,.12)}
+.market-card-name{font-size:.72rem;color:rgba(255,255,255,.35);grid-column:1}
+.market-card-price{font-size:1.3rem;font-weight:400;font-family:var(--font-heading);color:rgba(255,255,255,.85);grid-column:1;margin-top:4px}
+.market-card-spark{width:80px;height:28px;grid-column:2;grid-row:2/4;align-self:center}
+
+/* ─── Navbar Dropdown ─── */
+.nav-dropdown{position:relative}
+.nav-dropdown>a::after{content:'';display:inline-block;width:4px;height:4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-left:5px;vertical-align:middle;opacity:.5;transition:transform .2s}
+.nav-dropdown:hover>a::after{transform:rotate(-135deg)}
+.nav-dropdown-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 0;min-width:190px;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{display:block}
+.nav-dropdown-menu a{display:block;padding:9px 20px;font-size:.84rem;color:var(--color-text-secondary);transition:all .15s;font-weight:500}
+.nav-dropdown-menu a:hover{background:var(--color-bg-alt);color:var(--color-primary)}
+
+/* ─── Mobile Menu ─── */
+.navbar-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--color-border);padding:12px 20px;box-shadow:0 8px 24px rgba(0,0,0,.08);z-index:99}
+.navbar-mobile a{display:block;padding:12px 16px;font-size:.95rem;color:var(--color-text-secondary);border-radius:var(--radius);font-weight:500;transition:all .15s}
+.navbar-mobile a:hover,.navbar-mobile a.active{background:var(--color-bg-alt);color:var(--color-primary)}
+.navbar-mobile .mobile-divider{height:1px;background:var(--color-border);margin:8px 0}
+.navbar-mobile.open{display:block}
 
 /* ─── Sections ─── */
 .section{padding:88px 28px}
@@ -350,9 +487,9 @@ img{max-width:100%;height:auto}
 .section{animation:fadeInUp .5s ease both}
 
 /* ─── Responsive ─── */
-@media(max-width:1024px){.footer-grid{grid-template-columns:repeat(2,1fr)}.hero-container{gap:40px}.hero-mockup{width:340px}}
-@media(max-width:768px){.navbar-links{display:none}.navbar-cta{display:none}.navbar-toggle{display:block}.hero h1{font-size:2.2rem}.hero p{font-size:1rem}.hero{padding:72px 20px 60px;text-align:left}.hero-container{flex-direction:column;gap:40px}.hero-visual{width:100%;max-width:380px}.hero-mockup{width:100%}.section{padding:60px 20px}.section-title{font-size:1.65rem}.pricing-card.highlighted{transform:none}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.stat-item{padding:14px 20px}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}}
-@media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}}
+@media(max-width:1024px){.footer-grid{grid-template-columns:repeat(2,1fr)}.hero-container{gap:40px}.hero-mockup{width:340px}.market-cards{width:320px}.nav-dropdown-menu{left:0;transform:none}}
+@media(max-width:768px){.navbar-links{display:none}.navbar-cta{display:none}.navbar-toggle{display:block}.hero h1{font-size:2.2rem}.hero p{font-size:1rem}.hero{padding:72px 20px 60px;text-align:left}.hero--tools{padding:60px 20px 48px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:40px}.hero-visual{width:100%;max-width:380px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:360px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.pricing-card.highlighted{transform:none}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.stat-item{padding:14px 20px}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
+@media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}.hero--tools .hero-inner{border-left-width:3px;padding-left:20px}}
 `
 }
 
@@ -373,13 +510,50 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
   const heroTitle = parsed.heroTitle || page.title
   const heroSubtitle = parsed.heroSubtitle || ''
   const sections = parsed.sections || []
-  const navPages = pages.filter((p) => ['home', 'about', 'platforms', 'account-types', 'pricing', 'education', 'contact'].includes(p.slug)).slice(0, 7)
+  const heroConfig = getHeroConfig(page.slug)
+  const navSlugs = ['home', 'about', 'platforms', 'account-types', 'pricing', 'education', 'contact']
+  const navPages = pages.filter((p) => navSlugs.includes(p.slug))
+  const marketPagesNav = pages.filter((p) => p.slug.startsWith('markets/'))
+  const isMarketPage = page.slug.startsWith('markets/')
 
   const navLinks = navPages.map((p) => {
     const href = p.slug === 'home' ? 'index.html' : `${p.slug.replace(/\//g, '-')}.html`
+    // Insert Markets dropdown after About
+    if (p.slug === 'about' && marketPagesNav.length > 0) {
+      const aboutCls = p.slug === page.slug ? ' class="active"' : ''
+      const marketsCls = isMarketPage ? ' class="active"' : ''
+      const dropdownLinks = marketPagesNav.map((mp) => {
+        const mpHref = `${mp.slug.replace(/\//g, '-')}.html`
+        return `            <a href="${mpHref}">${escapeHtml(mp.title)}</a>`
+      }).join('\n')
+      return `        <li><a href="${href}"${aboutCls}>${escapeHtml(p.title)}</a></li>
+        <li class="nav-dropdown">
+          <a href="#"${marketsCls}>Markets</a>
+          <div class="nav-dropdown-menu">
+${dropdownLinks}
+          </div>
+        </li>`
+    }
     const cls = p.slug === page.slug ? ' class="active"' : ''
     return `        <li><a href="${href}"${cls}>${escapeHtml(p.title)}</a></li>`
   }).join('\n')
+
+  // Mobile menu links
+  const allMobileLinks = [
+    ...navPages.map((p) => {
+      const href = p.slug === 'home' ? 'index.html' : `${p.slug.replace(/\//g, '-')}.html`
+      const cls = p.slug === page.slug ? ' class="active"' : ''
+      return `      <a href="${href}"${cls}>${escapeHtml(p.title)}</a>`
+    }),
+    ...(marketPagesNav.length > 0 ? [
+      '      <div class="mobile-divider"></div>',
+      ...marketPagesNav.map((mp) => {
+        const href = `${mp.slug.replace(/\//g, '-')}.html`
+        const cls = mp.slug === page.slug ? ' class="active"' : ''
+        return `      <a href="${href}"${cls}>${escapeHtml(mp.title)}</a>`
+      })
+    ] : [])
+  ].join('\n')
 
   const sectionBlocks = sections.map((s, i) => {
     const alt = i % 2 === 1 ? ' section-alt' : ''
@@ -430,14 +604,17 @@ ${gtmBody(options)}  <div class="announcement-bar">
 ${navLinks}
       </ul>
       <a href="#" class="navbar-cta">Open account</a>
-      <button class="navbar-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+      <button class="navbar-toggle" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+    <div class="navbar-mobile" id="mobileMenu">
+${allMobileLinks}
     </div>
   </nav>
 
-  <section class="hero">
+  <section class="hero hero--${heroConfig.variant}">
     <div class="hero-container">
       <div class="hero-inner">
-        <div class="hero-badge"><span class="badge-dot"></span> Established &amp; Regulated since 2018</div>
+${heroConfig.badge ? `        <div class="hero-badge"><span class="badge-dot"></span> ${heroConfig.badge}</div>` : ''}
         <h1>${escapeHtml(heroTitle)}</h1>
 ${heroSubtitle ? `        <p>${escapeHtml(heroSubtitle)}</p>` : ''}
         <div class="hero-buttons">
@@ -451,7 +628,7 @@ ${heroSubtitle ? `        <p>${escapeHtml(heroSubtitle)}</p>` : ''}
           <span>24/5 Support</span>
         </div>
       </div>
-      <div class="hero-visual">
+${heroConfig.showMockup ? `      <div class="hero-visual">
         <div class="hero-mockup">
           <div class="mockup-topbar">
             <div class="mockup-dots"><span></span><span></span><span></span></div>
@@ -474,7 +651,9 @@ ${heroSubtitle ? `        <p>${escapeHtml(heroSubtitle)}</p>` : ''}
             <div class="mockup-row"><span>AAPL</span><span>189.42</span><span class="up">+1.12%</span></div>
           </div>
         </div>
-      </div>
+      </div>` : heroConfig.visual ? `      <div class="hero-visual">
+${heroConfig.visual}
+      </div>` : ''}
     </div>
   </section>
 
