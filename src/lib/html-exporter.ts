@@ -1422,34 +1422,42 @@ h1,h2,h3,.section-title{letter-spacing:-.03em;font-weight:900}
 .section:nth-child(even){animation-delay:.2s}
 .section-alt{animation-name:revealUp;animation-delay:.15s}
 
-/* ─── Hero — CENTERED full-width (totally different from forex side-by-side) ─── */
-.hero{background:var(--gradient-hero);position:relative;overflow:hidden;padding:100px 28px 80px!important;text-align:center!important}
+/* ─── Hero — side-by-side with integrated trader image ─── */
+.hero{background:var(--gradient-hero);position:relative;overflow:hidden;padding:80px 28px 60px!important;text-align:left!important}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='0.5' fill='%2310b981' fill-opacity='0.08'/%3E%3C/svg%3E");pointer-events:none;background-size:60px 60px}
-.hero::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(16,185,129,.08) 0%,rgba(245,158,11,.03) 30%,transparent 60%);pointer-events:none;animation:floatY 10s ease-in-out infinite}
-.hero-container{flex-direction:column-reverse!important;align-items:center!important;gap:40px!important;max-width:900px;margin:0 auto}
-.hero-inner{max-width:700px!important;text-align:center!important;margin:0 auto}
-.hero h1{background:linear-gradient(135deg,#ffffff 0%,#a7f3d0 60%,#6ee7b7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:3.4rem!important;line-height:1.08!important;animation:revealUp .8s ease .2s both;margin-bottom:20px}
-.hero p{animation:revealUp .8s ease .4s both;max-width:600px!important;margin:0 auto 24px!important;opacity:.8;font-size:1.05rem}
-.hero-buttons{animation:revealUp .8s ease .6s both;justify-content:center!important;gap:16px}
+.hero::after{content:'';position:absolute;top:-200px;right:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(16,185,129,.1) 0%,rgba(245,158,11,.04) 40%,transparent 70%);pointer-events:none;animation:floatY 8s ease-in-out infinite}
+.hero-container{flex-direction:row!important;align-items:center!important;gap:48px!important;max-width:var(--max-w);margin:0 auto}
+.hero-inner{max-width:560px!important;text-align:left!important;flex:1}
+.hero h1{background:linear-gradient(135deg,#ffffff 0%,#a7f3d0 60%,#6ee7b7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:3rem!important;line-height:1.1!important;animation:slideInLeft .8s ease .2s both;margin-bottom:20px}
+.hero p{animation:slideInLeft .8s ease .4s both;max-width:480px!important;opacity:.8;font-size:1.05rem}
+.hero-buttons{animation:slideInLeft .8s ease .6s both;justify-content:flex-start!important;gap:16px}
 .hero .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow);border:none;border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-size:.85rem!important;font-weight:800;padding:16px 36px!important;animation:pulseGlow 3s ease-in-out infinite}
 .hero .btn-primary:hover{box-shadow:0 8px 32px rgba(16,185,129,.5);transform:translateY(-3px) scale(1.02)}
 .hero .btn-outline{border-color:rgba(16,185,129,.3);color:#a7f3d0;border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-size:.85rem!important;font-weight:700;padding:16px 36px!important}
 .hero .btn-outline:hover{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.6);transform:translateY(-2px)}
-.hero-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);animation:revealUp .6s ease .1s both;margin:0 auto 16px!important;display:inline-flex!important}
+.hero-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);animation:slideInLeft .6s ease .1s both}
 .hero-badge .badge-dot{background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.6);animation:pulse 1.5s ease infinite}
 .hero-pill{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#a7f3d0;transition:all .2s;border-radius:8px!important;font-family:var(--font-mono);font-size:.78rem!important;letter-spacing:.02em}
 .hero-pill:hover{background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.4)}
-.hero-pills{animation:revealUp .8s ease .5s both;justify-content:center!important}
+.hero-pills{animation:slideInLeft .8s ease .5s both}
 .hero-micro span{color:rgba(167,243,208,.5)}
-.hero-micro{justify-content:center!important}
-.hero-trust{justify-content:center!important}
 .hero-trust span{color:rgba(167,243,208,.4);border-color:rgba(16,185,129,.15)}
-.hero-trustpilot{animation:revealUp .6s ease .15s both;justify-content:center!important}
+.hero-trustpilot{animation:slideInLeft .6s ease .15s both}
 .hero-trustpilot .tp-stars{color:#f59e0b}
 
-/* ─── Mockup — compact horizontal strip on top (not tall side panel) ─── */
-.hero-visual{width:100%!important;max-width:680px!important;animation:revealUp .8s ease .1s both!important;flex-shrink:0}
-.hero-mockup{background:rgba(12,18,34,.85)!important;backdrop-filter:blur(20px);border:1px solid rgba(16,185,129,.15)!important;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(16,185,129,.06)!important;border-radius:16px!important;width:100%!important;max-width:680px!important;margin:0 auto}
+/* ─── Hero visual — trader image integrated into dark bg ─── */
+.hero-visual{flex-shrink:0!important;width:auto!important;max-width:440px!important;animation:slideInRight .8s ease .3s both!important}
+.hero-trader-img{position:relative;max-width:400px;margin:0 auto}
+.trader-photo{width:100%;height:auto;border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 80px rgba(16,185,129,.06);border:none;object-fit:cover;max-height:500px}
+.hero-floating-card{position:absolute;display:flex;align-items:center;gap:10px;background:rgba(12,18,34,.9);backdrop-filter:blur(16px);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:12px 18px;box-shadow:0 8px 32px rgba(0,0,0,.3);animation:floatY 4s ease-in-out infinite;z-index:2}
+.hero-floating-card.card-top{top:8%;right:-48px;animation-delay:0s}
+.hero-floating-card.card-bottom{bottom:12%;left:-48px;animation-delay:2s}
+.hfc-icon{font-size:1.5rem}
+.hfc-label{font-size:.7rem;color:rgba(167,243,208,.5);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em}
+.hfc-value{font-size:1rem;font-weight:800;color:#d1fae5;font-family:var(--font-mono)}
+.hfc-value.up{color:#10b981}
+
+/* ─── Mockup (unused for crypto but kept for fallback) ─── */
 .mockup-topbar{border-bottom-color:rgba(16,185,129,.08)}
 .mockup-topbar span{color:#6ee7b7}
 .mockup-chart polyline{filter:drop-shadow(0 0 6px rgba(16,185,129,.5))}
@@ -1459,17 +1467,6 @@ h1,h2,h3,.section-title{letter-spacing:-.03em;font-weight:900}
 .mockup-row .down{color:#ef4444;text-shadow:0 0 10px rgba(239,68,68,.4)}
 .mockup-amount{color:#f0fdf4;font-family:var(--font-mono)}
 .mockup-change.up{background:rgba(16,185,129,.15);color:#10b981}
-
-/* ─── Hero trader image with floating cards ─── */
-.hero-trader-img{position:relative;max-width:420px;margin:0 auto;animation:revealUp .8s ease .1s both}
-.trader-photo{width:100%;height:auto;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.4),0 0 60px rgba(16,185,129,.08);border:2px solid rgba(16,185,129,.15);object-fit:cover;max-height:480px}
-.hero-floating-card{position:absolute;display:flex;align-items:center;gap:10px;background:rgba(12,18,34,.9);backdrop-filter:blur(16px);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:12px 18px;box-shadow:0 8px 32px rgba(0,0,0,.3);animation:floatY 4s ease-in-out infinite;z-index:2}
-.hero-floating-card.card-top{top:15%;right:-60px;animation-delay:0s}
-.hero-floating-card.card-bottom{bottom:20%;left:-60px;animation-delay:2s}
-.hfc-icon{font-size:1.6rem}
-.hfc-label{font-size:.72rem;color:rgba(167,243,208,.5);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em}
-.hfc-value{font-size:1rem;font-weight:800;color:#d1fae5;font-family:var(--font-mono)}
-.hfc-value.up{color:#10b981}
 
 /* ─── Buttons — SQUARE, uppercase, monospace (totally different from forex rounded pills) ─── */
 .btn-primary{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-weight:800;font-size:.85rem}
@@ -1749,13 +1746,17 @@ h1,h2,h3,.section-title{letter-spacing:-.03em;font-weight:900}
 @media(max-width:767px){
 .hero{padding:56px 20px 48px!important}
 .hero h1{font-size:2.2rem!important;line-height:1.12!important}
-.hero-container{gap:24px!important}
-.hero-visual{max-width:100%!important}
+.hero-container{flex-direction:column!important;gap:24px!important;text-align:center!important}
+.hero-inner{text-align:center!important}
+.hero-buttons{justify-content:center!important}
+.hero-pills{justify-content:center!important}
+.hero-trust{justify-content:center!important}
+.hero-visual{max-width:300px!important;margin:0 auto}
 .hero-mockup{max-width:100%!important;border-radius:12px!important}
-.hero-trader-img{max-width:280px}
-.trader-photo{max-height:340px;border-radius:18px}
-.hero-floating-card.card-top{right:-20px;top:10%;padding:8px 14px}
-.hero-floating-card.card-bottom{left:-20px;bottom:15%;padding:8px 14px}
+.hero-trader-img{max-width:260px}
+.trader-photo{max-height:320px;border-radius:16px}
+.hero-floating-card.card-top{right:-16px;top:8%;padding:8px 12px}
+.hero-floating-card.card-bottom{left:-16px;bottom:12%;padding:8px 12px}
 .hfc-icon{font-size:1.2rem}
 .hfc-label{font-size:.65rem}
 .hfc-value{font-size:.85rem}
@@ -2421,7 +2422,7 @@ ${n.heroTrust.map(t => `          <span>${t}</span>`).join('\n')}
       </div>
 ${heroConfig.showMockup ? (options.niche === 'crypto_exchange' ? `      <div class="hero-visual">
         <div class="hero-trader-img">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop&crop=face" alt="Young crypto trader" class="trader-photo" loading="eager"/>
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&h=620&fit=crop&crop=face&q=80" alt="Smiling crypto trader" class="trader-photo" loading="eager"/>
           <div class="hero-floating-card card-top">
             <span class="hfc-icon">📈</span>
             <div><div class="hfc-label">BTC/USDT</div><div class="hfc-value up">+2.84%</div></div>
