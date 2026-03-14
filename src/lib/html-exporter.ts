@@ -1233,6 +1233,139 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 @media(max-width:768px){.sticky-cta{display:block}.navbar-links{display:none}.navbar-actions{display:none}.navbar-toggle{display:block}.social-proof-inner{gap:16px}.sp-divider{display:none}.regulation-inner{gap:12px}.reg-divider{display:none}.awards-grid{gap:12px}.award-card{width:140px;padding:16px 12px}.perf-inner{flex-direction:column;gap:24px}.perf-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:20px}.perf-item:last-child{border-bottom:none;padding-bottom:0}.security-badges{gap:20px}.fund-protection{flex-direction:column}.footer-address{flex-direction:column;gap:8px}.hero h1{font-size:2rem}.hero p{font-size:.95rem}.hero{padding:60px 20px 52px;text-align:left}.hero--tools{padding:56px 20px 44px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:32px}.hero-visual{width:100%;max-width:360px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:340px}.tools-visual{width:100%;display:flex;justify-content:center}.tv-laptop{width:100%;max-width:320px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.feature-card{padding:28px 24px}.pricing-card{padding:32px 24px}.stat-item{padding:16px 24px}.pricing-card.highlighted{transform:none}.footer{padding:48px 20px 20px}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
 @media(max-width:640px){.hero h1{font-size:2rem}.section{padding:52px 16px}.feature-card{padding:24px 20px}.pricing-card{padding:28px 20px}.testimonial-card{padding:24px 20px}.stat-item{padding:14px 16px}.step-item{padding:20px 16px}}
 @media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer{padding:40px 16px 16px}.footer-grid{grid-template-columns:1fr;gap:28px}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}.hero--tools .hero-inner{border-left-width:3px;padding-left:20px}}
+${options.niche === 'crypto_exchange' ? `
+/* ═══ Crypto Exchange Niche Overrides ═══ */
+/* Enhanced color variables */
+:root{--color-accent-light:#818cf8;--color-accent-glow:rgba(99,102,241,.3);--color-accent-subtle:rgba(99,102,241,.08);--color-neon:#22d3ee;--color-success:#10b981;--color-success-glow:rgba(16,185,129,.15);--gradient-accent:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#a78bfa 100%);--gradient-hero:linear-gradient(160deg,#0f0f23 0%,#1a1a3e 40%,#1e1b4b 100%);--gradient-dark:linear-gradient(180deg,#0f0f1a 0%,#1a1a2e 100%)}
+
+/* Hero — deep gradient with subtle grid pattern */
+.hero{background:var(--gradient-hero);position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none' stroke='%236366f1' stroke-opacity='0.04' stroke-width='0.5'/%3E%3C/svg%3E");pointer-events:none}
+.hero::after{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.12) 0%,transparent 70%);pointer-events:none}
+.hero h1{background:linear-gradient(135deg,#fff 0%,#c7d2fe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow);border:none}
+.hero .btn-primary:hover{box-shadow:0 6px 28px rgba(99,102,241,.45);transform:translateY(-2px)}
+.hero .btn-outline{border-color:rgba(99,102,241,.35);color:#c7d2fe}
+.hero .btn-outline:hover{background:rgba(99,102,241,.12);border-color:rgba(99,102,241,.6)}
+.hero-badge{background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.25)}
+.hero-badge .badge-dot{background:#22d3ee;box-shadow:0 0 8px rgba(34,211,238,.5)}
+.hero-pill{background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.2);color:#c7d2fe}
+.hero-micro span{color:rgba(199,210,254,.6)}
+
+/* Platform mockup — glass effect */
+.hero-mockup{background:rgba(15,15,30,.85);backdrop-filter:blur(16px);border:1px solid rgba(99,102,241,.15);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(99,102,241,.08)}
+.mockup-topbar{border-bottom-color:rgba(99,102,241,.1)}
+.mockup-chart polyline[stroke="#10b981"]{filter:drop-shadow(0 0 4px rgba(16,185,129,.4))}
+.mockup-row .up{color:#10b981;text-shadow:0 0 8px rgba(16,185,129,.3)}
+.mockup-row .down{color:#ef4444;text-shadow:0 0 8px rgba(239,68,68,.3)}
+
+/* Promo bar — gradient */
+.promo-bar{background:linear-gradient(90deg,#4f46e5 0%,#6366f1 50%,#7c3aed 100%)}
+.promo-bar a{color:#fbbf24;font-weight:700}
+
+/* Social proof — glass cards */
+.social-proof-bar{background:var(--color-bg);border-bottom:1px solid var(--color-border)}
+.sp-item strong{color:var(--color-accent)}
+
+/* Ticker — dark with glow */
+.market-ticker{background:#0f0f1a;border-bottom:1px solid rgba(99,102,241,.1)}
+.ticker-change.up{color:#10b981;text-shadow:0 0 6px rgba(16,185,129,.3)}
+.ticker-change.down{color:#ef4444;text-shadow:0 0 6px rgba(239,68,68,.3)}
+.ticker-symbol{color:#c7d2fe;font-weight:700}
+
+/* Regulation bar — dark glass */
+.regulation-bar{background:linear-gradient(180deg,#0f0f1a,#141428)}
+.reg-label{color:#e0e7ff}
+.reg-num{color:rgba(199,210,254,.5)}
+
+/* Feature cards — hover glow */
+.feature-card{border:1px solid var(--color-border-light);transition:all .25s ease}
+.feature-card:hover{border-color:rgba(99,102,241,.3);box-shadow:0 8px 30px rgba(99,102,241,.08)}
+.feature-card-icon{font-size:2rem;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:var(--color-accent-subtle);border-radius:12px;margin-bottom:16px}
+.feature-card h3{color:var(--color-primary)}
+
+/* Stats bar — accent numbers */
+.stat-value{color:var(--color-accent);font-weight:800}
+.stat-label{color:var(--color-text-secondary);text-transform:uppercase;font-size:.72rem;letter-spacing:.08em;font-weight:700}
+
+/* Data table — crypto trading style */
+.data-table{border:1px solid var(--color-border);overflow:hidden}
+.data-table th{background:var(--color-primary);color:#c7d2fe;border-bottom:2px solid rgba(99,102,241,.2)}
+.data-table td{font-family:'SF Mono',Consolas,'Liberation Mono',monospace;font-size:.85rem}
+.data-table td:nth-child(3){font-weight:600}
+.data-table tbody tr:hover{background:var(--color-accent-subtle)}
+
+/* Steps — accent numbered circles */
+.step-number{background:var(--gradient-accent);box-shadow:0 4px 12px var(--color-accent-glow)}
+.step-item:hover .step-number{transform:scale(1.1);box-shadow:0 6px 20px var(--color-accent-glow)}
+.step-connector{background:var(--color-accent);opacity:.2}
+
+/* CTA section — gradient */
+.cta-section{background:var(--gradient-hero)}
+.cta-section::before{background:radial-gradient(ellipse at 50% 100%,rgba(99,102,241,.15),transparent 60%)}
+.cta-section .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow)}
+.cta-section .btn-primary:hover{box-shadow:0 8px 30px rgba(99,102,241,.45)}
+
+/* Awards — accent highlights */
+.awards-section{background:var(--color-bg)}
+.awards-title{color:var(--color-primary)}
+.award-card{border:1px solid var(--color-border-light);transition:all .25s ease}
+.award-card:hover{border-color:rgba(99,102,241,.2);box-shadow:0 8px 24px rgba(99,102,241,.06)}
+.award-icon{font-size:2.2rem}
+
+/* Performance bar — dark with accent glow */
+.perf-bar{background:var(--gradient-dark)}
+.perf-value{color:#fff;font-weight:800}
+.perf-unit{color:var(--color-accent-light)}
+.perf-label{color:rgba(199,210,254,.5)}
+
+/* Security badges — glass */
+.security-bar{background:linear-gradient(180deg,#141428 0%,#0f0f1a 100%)}
+.security-badge{background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.12);border-radius:12px;padding:16px 12px}
+.security-badge:hover{border-color:rgba(99,102,241,.25);background:rgba(99,102,241,.1)}
+.sb-icon{font-size:1.6rem}
+.sb-label{color:#e0e7ff}
+.sb-sub{color:rgba(199,210,254,.4)}
+
+/* Fund protection — accent border */
+.fund-protection{border:1px solid rgba(99,102,241,.15);border-left:4px solid var(--color-accent);background:linear-gradient(135deg,rgba(99,102,241,.03),transparent)}
+.fp-title{color:var(--color-primary)}
+.fp-amount{background:var(--color-accent-subtle);border:1px solid rgba(99,102,241,.12)}
+.fp-amount strong{color:var(--color-accent)}
+
+/* FAQ — clean */
+.faq-q{color:var(--color-primary);font-weight:700}
+.faq-item.open .faq-q{color:var(--color-accent)}
+.faq-q::after{color:var(--color-accent)}
+
+/* Section CTAs — gradient buttons */
+.section-cta .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 14px var(--color-accent-glow)}
+.section-cta .btn-primary:hover{box-shadow:0 6px 22px rgba(99,102,241,.4);transform:translateY(-1px)}
+
+/* Footer — deep dark */
+.footer{background:var(--gradient-dark)}
+.footer h4{color:#e0e7ff}
+.footer-licenses{border-color:rgba(99,102,241,.1)}
+.footer-licenses-title{color:var(--color-accent-light)}
+.footer-regulatory span{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.12);border-radius:20px;padding:4px 12px;font-size:.72rem}
+.footer-payments span{color:rgba(199,210,254,.5)}
+.footer-risk{border-top-color:rgba(99,102,241,.1)}
+
+/* Sticky CTA — gradient */
+.sticky-cta .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow)}
+
+/* Live activity — accent dot */
+.live-activity{border:1px solid rgba(99,102,241,.15);box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.la-dot{background:#22d3ee;box-shadow:0 0 8px rgba(34,211,238,.5)}
+
+/* Navbar — glass on scroll */
+.navbar.scrolled{background:rgba(15,15,26,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(99,102,241,.08)}
+.navbar-cta{background:var(--gradient-accent)!important;box-shadow:0 2px 10px var(--color-accent-glow)}
+
+/* Announcement bar — subtle */
+.announcement-bar{background:rgba(99,102,241,.06);border-bottom:1px solid rgba(99,102,241,.08)}
+.announcement-bar a{color:var(--color-accent);font-weight:600}
+` : ''}
 `
 }
 
@@ -1253,7 +1386,45 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
 
   const heroTitle = parsed.heroTitle || page.title
   const heroSubtitle = parsed.heroSubtitle || ''
-  const sections = parsed.sections || []
+  const rawSections = parsed.sections || []
+
+  // Normalize sections: parse `content` JSON string into typed fields (items, stats, steps, etc.)
+  const sections = rawSections.map((s) => {
+    if (!s.content || typeof s.content !== 'string') return s
+    try {
+      const data = JSON.parse(s.content)
+      if (s.type === 'features' && Array.isArray(data) && !s.items) {
+        return { ...s, items: data }
+      }
+      if (s.type === 'stats' && Array.isArray(data) && !s.stats) {
+        return { ...s, stats: data }
+      }
+      if (s.type === 'steps' && Array.isArray(data) && !s.steps) {
+        return { ...s, steps: data }
+      }
+      if (s.type === 'testimonials' && Array.isArray(data) && !s.testimonials) {
+        return { ...s, testimonials: data }
+      }
+      if (s.type === 'icon-grid' && Array.isArray(data) && !s.iconItems) {
+        return { ...s, iconItems: data }
+      }
+      if (s.type === 'list' && Array.isArray(data) && !s.items) {
+        return { ...s, items: data }
+      }
+      if (s.type === 'comparison' && data && typeof data === 'object' && !s.comparisonData) {
+        // Handle table format: { headers, rows } → render as table
+        if (data.headers && data.rows) {
+          return { ...s, type: 'table', columns: data.headers, rows: data.rows.map((row: string[]) => {
+            const obj: Record<string, string> = {}
+            data.headers.forEach((h: string, i: number) => { obj[h] = row[i] || '' })
+            return obj
+          }) }
+        }
+        return { ...s, comparisonData: data }
+      }
+    } catch { /* not valid JSON, keep as-is */ }
+    return s
+  })
   const heroConfig = getHeroConfig(page.slug, options.niche, n)
   const navSlugs = n.navSlugs
   const navPages = pages.filter((p) => navSlugs.includes(p.slug))
