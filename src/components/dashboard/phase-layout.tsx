@@ -6,11 +6,12 @@ import { cn } from '@/lib/utils'
 
 const phases = [
   { num: 1, label: 'Domain', href: 'domain' },
-  { num: 2, label: 'Website', href: 'website' },
-  { num: 3, label: 'SEO', href: 'seo' },
-  { num: 4, label: 'Social', href: 'social' },
-  { num: 5, label: 'Posting', href: 'posting' },
-  { num: 6, label: 'Timeline', href: 'timeline' },
+  { num: 2, label: 'Structures', href: 'structures' },
+  { num: 3, label: 'Website', href: 'website' },
+  { num: 4, label: 'SEO', href: 'seo' },
+  { num: 5, label: 'Social', href: 'social' },
+  { num: 6, label: 'Posting', href: 'posting' },
+  { num: 7, label: 'Timeline', href: 'timeline' },
 ]
 
 interface PhaseLayoutProps {

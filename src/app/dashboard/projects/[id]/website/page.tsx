@@ -37,7 +37,7 @@ export default function WebsitePage() {
     <PhaseLayout
       projectId={id}
       projectName={project?.name}
-      phaseNum={2}
+      phaseNum={3}
       title="Website Factory"
       subtitle="Choose a template, generate pages, and deploy your trading website"
       isComplete={website?.status === 'DEPLOYED'}

@@ -46,7 +46,7 @@ export default function PostingPage() {
     <PhaseLayout
       projectId={id}
       projectName={project?.name}
-      phaseNum={5}
+      phaseNum={6}
       title="Daily Posting"
       subtitle="Automated content publishing across all platforms"
     >

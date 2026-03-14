@@ -46,7 +46,7 @@ export default function SeoPage() {
     <PhaseLayout
       projectId={id}
       projectName={project?.name}
-      phaseNum={3}
+      phaseNum={4}
       title="SEO & GEO Optimization"
       subtitle="Optimize for search engines and target markets"
       headerAction={

@@ -29,6 +29,12 @@ import {
   MessageCircle,
   GitBranch,
   X,
+  Layers,
+  Database,
+  Rss,
+  Award,
+  ShoppingBag,
+  GraduationCap,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -40,17 +46,19 @@ const mainNav = [
 
 const phases = [
   { num: 1, label: 'Domain', icon: Globe, href: 'domain' },
-  { num: 2, label: 'Website', icon: Layout, href: 'website' },
-  { num: 3, label: 'SEO & GEO', icon: Search, href: 'seo' },
-  { num: 4, label: 'Social Media', icon: Share2, href: 'social' },
-  { num: 5, label: 'Daily Posting', icon: Calendar, href: 'posting' },
-  { num: 6, label: 'Timeline', icon: Flag, href: 'timeline' },
+  { num: 2, label: 'Site Structures', icon: Layers, href: 'structures' },
+  { num: 3, label: 'Website', icon: Layout, href: 'website' },
+  { num: 4, label: 'SEO & GEO', icon: Search, href: 'seo' },
+  { num: 5, label: 'Social Media', icon: Share2, href: 'social' },
+  { num: 6, label: 'Daily Posting', icon: Calendar, href: 'posting' },
+  { num: 7, label: 'Timeline', icon: Flag, href: 'timeline' },
 ]
 
 const contentPages = [
   { label: 'Blog', icon: FileText, href: 'blog' },
   { label: 'Content Library', icon: BookOpen, href: 'content' },
   { label: 'Landing Pages', icon: Target, href: 'landing' },
+  { label: 'Classroom', icon: GraduationCap, href: 'classroom' },
 ]
 
 const marketingPages = [
@@ -60,6 +68,13 @@ const marketingPages = [
   { label: 'Communities', icon: MessageCircle, href: 'communities' },
   { label: 'Marketing Flows', icon: GitBranch, href: 'marketing-flows' },
   { label: 'Meta Campaigns', icon: Target, href: 'meta-campaigns' },
+]
+
+const infrastructurePages = [
+  { label: 'Aged Domains', icon: Database, href: 'aged-domains' },
+  { label: 'Blog Network', icon: Rss, href: 'blog-network' },
+  { label: 'PR & Authority', icon: Award, href: 'pr-authority' },
+  { label: 'Social Assets', icon: ShoppingBag, href: 'social-assets' },
 ]
 
 const toolPages = [
@@ -225,6 +240,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
               <NavSection title="Content" pages={contentPages} projectId={projectId!} pathname={pathname} onNav={handleNav} />
               <NavSection title="Marketing" pages={marketingPages} projectId={projectId!} pathname={pathname} onNav={handleNav} />
+              <NavSection title="Infrastructure" pages={infrastructurePages} projectId={projectId!} pathname={pathname} onNav={handleNav} />
               <NavSection title="Tools" pages={toolPages} projectId={projectId!} pathname={pathname} onNav={handleNav} />
             </>
           ) : (

@@ -33,7 +33,7 @@ export default function TimelinePage() {
     <PhaseLayout
       projectId={id}
       projectName={project?.name}
-      phaseNum={6}
+      phaseNum={7}
       title="90-Day Timeline"
       subtitle="Track progress across all phases"
     >

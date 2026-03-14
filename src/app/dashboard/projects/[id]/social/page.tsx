@@ -40,7 +40,7 @@ export default function SocialPage() {
     <PhaseLayout
       projectId={id}
       projectName={project?.name}
-      phaseNum={4}
+      phaseNum={5}
       title="Social Media"
       subtitle="Create profiles, connect accounts, and build your content library"
     >
