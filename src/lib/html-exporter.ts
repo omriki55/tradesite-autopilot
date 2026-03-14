@@ -288,15 +288,20 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 .announcement-bar a:hover{color:#fff}
 
 /* ─── Navbar — Plus500 Inspired ─── */
-.navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);transition:box-shadow var(--transition)}
+.navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);transition:box-shadow .3s ease}
+.navbar.scrolled{box-shadow:0 2px 16px rgba(0,0,0,.08)}
 .navbar-inner{max-width:var(--max-w);margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px}
 .navbar-brand{font-size:1.15rem;font-weight:800;color:var(--color-primary);letter-spacing:-.03em;font-family:var(--font-sans);text-transform:uppercase}
 .navbar-links{display:flex;gap:0;list-style:none;align-items:center}
-.navbar-links a{color:var(--color-text-secondary);font-size:.8rem;font-weight:500;padding:6px 10px;border-radius:var(--radius);transition:all .15s;letter-spacing:.01em;white-space:nowrap}
+.navbar-links a{color:var(--color-text-secondary);font-size:.8rem;font-weight:500;padding:6px 10px;border-radius:var(--radius);transition:all .15s;letter-spacing:.01em;white-space:nowrap;position:relative}
 .navbar-links a:hover{color:var(--color-primary);background:var(--color-bg-alt)}
-.navbar-links a.active{color:var(--color-primary);font-weight:700}
-.navbar-cta{display:inline-block;background:var(--color-accent);color:#fff !important;padding:10px 22px;border-radius:50px;font-weight:600;font-size:.82rem;transition:all var(--transition);white-space:nowrap;letter-spacing:.01em}
-.navbar-cta:hover{background:var(--color-primary);color:#fff !important;transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.navbar-links a.active{color:var(--color-accent);font-weight:700}
+.navbar-links a.active::after{content:'';position:absolute;bottom:0;left:10px;right:10px;height:2px;background:var(--color-accent);border-radius:1px}
+.navbar-actions{display:flex;align-items:center;gap:10px}
+.navbar-login{color:var(--color-text-secondary);font-size:.82rem;font-weight:600;padding:8px 16px;border-radius:50px;transition:all var(--transition);white-space:nowrap;border:1px solid var(--color-border)}
+.navbar-login:hover{color:var(--color-primary);border-color:var(--color-text-light);background:var(--color-bg-alt)}
+.navbar-cta{display:inline-block;background:var(--color-accent);color:#fff !important;padding:10px 22px;border-radius:50px;font-weight:600;font-size:.82rem;transition:all var(--transition);white-space:nowrap;letter-spacing:.01em;box-shadow:0 2px 8px rgba(0,102,255,.2)}
+.navbar-cta:hover{background:var(--color-primary);color:#fff !important;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,102,255,.3)}
 .navbar-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
 .navbar-toggle span{display:block;width:18px;height:2px;background:var(--color-text);margin:4px 0;border-radius:2px;transition:all .2s}
 
@@ -459,6 +464,9 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 .navbar-mobile a:hover,.navbar-mobile a.active{background:var(--color-bg-alt);color:var(--color-primary)}
 .navbar-mobile .mobile-divider{height:1px;background:var(--color-border);margin:8px 0}
 .navbar-mobile.open{display:block}
+.navbar-mobile .mobile-cta-group{padding:8px 16px 4px;display:flex;flex-direction:column;gap:8px}
+.navbar-mobile .mobile-cta-group .btn-primary{text-align:center;padding:12px;font-size:.9rem;font-weight:700;border-radius:50px}
+.navbar-mobile .mobile-cta-group .navbar-login{display:block;text-align:center;padding:10px;font-size:.88rem}
 
 /* ─── Sections ─── */
 .section{padding:72px 28px}
@@ -690,7 +698,7 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 
 /* ─── Responsive ─── */
 @media(max-width:1024px){.footer-grid{grid-template-columns:repeat(2,1fr)}.hero-container{gap:32px}.hero-mockup{width:320px}.market-cards{width:300px}.tv-laptop{width:280px}.tv-phone{width:100px}.tv-tier{width:100px;padding:12px 10px}.tv-spread-card{width:240px}.tv-edu-card{width:240px}.tv-contact-card{width:220px}.nav-dropdown-menu{left:0;transform:none}}
-@media(max-width:768px){.sticky-cta{display:block}.navbar-links{display:none}.navbar-cta{display:none}.navbar-toggle{display:block}.social-proof-inner{gap:16px}.sp-divider{display:none}.hero h1{font-size:2rem}.hero p{font-size:.95rem}.hero{padding:60px 20px 52px;text-align:left}.hero--tools{padding:56px 20px 44px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:32px}.hero-visual{width:100%;max-width:360px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:340px}.tools-visual{width:100%;display:flex;justify-content:center}.tv-laptop{width:100%;max-width:320px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.feature-card{padding:28px 24px}.pricing-card{padding:32px 24px}.stat-item{padding:16px 24px}.pricing-card.highlighted{transform:none}.footer{padding:48px 20px 20px}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
+@media(max-width:768px){.sticky-cta{display:block}.navbar-links{display:none}.navbar-actions{display:none}.navbar-toggle{display:block}.social-proof-inner{gap:16px}.sp-divider{display:none}.hero h1{font-size:2rem}.hero p{font-size:.95rem}.hero{padding:60px 20px 52px;text-align:left}.hero--tools{padding:56px 20px 44px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:32px}.hero-visual{width:100%;max-width:360px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:340px}.tools-visual{width:100%;display:flex;justify-content:center}.tv-laptop{width:100%;max-width:320px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.feature-card{padding:28px 24px}.pricing-card{padding:32px 24px}.stat-item{padding:16px 24px}.pricing-card.highlighted{transform:none}.footer{padding:48px 20px 20px}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
 @media(max-width:640px){.hero h1{font-size:2rem}.section{padding:52px 16px}.feature-card{padding:24px 20px}.pricing-card{padding:28px 20px}.testimonial-card{padding:24px 20px}.stat-item{padding:14px 16px}.step-item{padding:20px 16px}}
 @media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer{padding:40px 16px 16px}.footer-grid{grid-template-columns:1fr;gap:28px}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}.hero--tools .hero-inner{border-left-width:3px;padding-left:20px}}
 `
@@ -758,14 +766,17 @@ ${dropdownLinks}
     ] : [])
   ].join('\n')
 
-  // Section CTA map — inject CTAs after key sections on homepage
-  const sectionCtaMap: Record<string, string> = page.slug === 'home' ? {
-    stats: 'Join 35M+ Traders Today',
+  // Section CTA map — inject CTAs after key sections on ALL pages
+  const isLegalPage = heroConfig.variant === 'legal'
+  const sectionCtaMap: Record<string, string> = isLegalPage ? {} : {
+    stats: page.slug === 'home' ? 'Join 35M+ Traders Today' : 'Open Free Account',
     features: 'Start Trading Now',
     steps: 'Open Your Account',
     comparison: 'Switch to ' + escapeHtml(brandName),
     testimonials: 'Join Thousands of Happy Traders',
-  } : {}
+    pricing: 'Get Started Today',
+    list: 'Learn More',
+  }
 
   const sectionBlocks = sections.map((s, i) => {
     const alt = i % 2 === 1 ? ' section-alt' : ''
@@ -825,7 +836,7 @@ ${dropdownLinks}
   <link rel="stylesheet" href="style.css">
 ${gtmHead(options)}${ga4Script(options)}</head>
 <body>
-${gtmBody(options)}${page.slug === 'home' ? `  <div class="promo-bar">
+${gtmBody(options)}${heroConfig.variant !== 'legal' ? `  <div class="promo-bar">
     🎁 <strong>Limited Offer:</strong> Open an account today &amp; get $100,000 Demo Credits + 0% Commission for 30 Days <a href="#">Claim Now &rarr;</a>
   </div>
 ` : ''}  <div class="announcement-bar">
@@ -838,11 +849,19 @@ ${gtmBody(options)}${page.slug === 'home' ? `  <div class="promo-bar">
       <ul class="navbar-links">
 ${navLinks}
       </ul>
-      <a href="#" class="navbar-cta">Start Trading</a>
+      <div class="navbar-actions">
+        <a href="#" class="navbar-login">Log In</a>
+        <a href="#" class="navbar-cta">Start Trading</a>
+      </div>
       <button class="navbar-toggle" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     </div>
     <div class="navbar-mobile" id="mobileMenu">
 ${allMobileLinks}
+      <div class="mobile-divider"></div>
+      <div class="mobile-cta-group">
+        <a href="#" class="btn-primary">Open Free Account</a>
+        <a href="#" class="navbar-login">Log In</a>
+      </div>
     </div>
   </nav>
 
@@ -899,7 +918,7 @@ ${heroConfig.visual}
     </div>
   </section>
 
-${page.slug === 'home' ? `  <div class="social-proof-bar">
+${heroConfig.variant !== 'legal' ? `  <div class="social-proof-bar">
     <div class="social-proof-inner">
       <div class="sp-item"><span>⭐</span> <strong>4.5/5</strong> Trustpilot</div>
       <div class="sp-divider"></div>
@@ -970,10 +989,14 @@ ${legalPages.length ? `        <div class="footer-col">\n          <h4>Legal</h4
       <p class="footer-risk">Risk Warning: Trading in Contracts for Difference (CFDs) carries a high level of risk and may not be suitable for all investors. You could lose more than your initial investment. Approximately 72% of retail investor accounts lose money when trading CFDs. Please ensure you fully understand the risks involved and seek independent advice if necessary. Past performance is not indicative of future results.</p>
     </div>
   </footer>
-${page.slug === 'home' ? `  <div class="sticky-cta">
+${heroConfig.variant !== 'legal' ? `  <div class="sticky-cta">
     <a href="#" class="btn-primary">Open Free Account — Start Trading</a>
   </div>
 ` : ''}${chatWidget(options)}
+<script>
+// Navbar scroll shadow
+window.addEventListener('scroll',function(){document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>10)});
+</script>
 </body>
 </html>`
 }
