@@ -598,6 +598,25 @@ body {
   0%, 100% { box-shadow: 0 0 20px rgba(79,70,229,0.3); }
   50% { box-shadow: 0 0 40px rgba(79,70,229,0.6); }
 }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Demo tabs hover */
+.demo-tab:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.demo-tab.active:hover { transform: translateY(-2px); }
+
+/* Responsive demo grid */
+@media (max-width: 900px) {
+  .demo-site > div { grid-template-columns: 1fr !important; }
+  .demo-site > div > div:last-child { order: -1; }
+}
+@media (max-width: 600px) {
+  .demo-tab { padding: 10px 16px !important; font-size: 12px !important; }
+  #demo { padding: 60px 16px !important; }
+}
 </style>
 </head>
 <body>
@@ -1205,53 +1224,189 @@ body {
   </table>
 </section>
 
-<!-- ===== SLIDE 8: LIVE DEMO ===== -->
-<section class="slide" id="demo" style="background: rgba(30,41,59,0.3);">
+<!-- ===== SLIDE 8: LIVE DEMO — 3 SITES ===== -->
+<section class="slide" id="demo" style="background: rgba(30,41,59,0.3); padding-top: 80px; padding-bottom: 80px;">
   <div style="text-align: center;">
     <div class="section-label">🖥️ דמו חי</div>
-    <div class="section-title">אתר דוגמה — Nova Markets</div>
-    <div class="section-desc" style="margin: 0 auto 40px;">אתר מסחר מלא שנוצר אוטומטית במערכת. 20 דפים, דפים משפטיים, SEO מלא, רספונסיבי.</div>
+    <div class="section-title">3 אתרים — 3 נישות — מערכת אחת</div>
+    <div class="section-desc" style="margin: 0 auto 48px;">כל אתר נוצר אוטומטית עם תוכן, עיצוב, וזהות מותגית ייחודית. אותה מערכת — תוצאות שונות לגמרי.</div>
   </div>
 
-  <div style="max-width: 1000px; margin: 0 auto;">
-    <div class="mock-browser" style="border: 1px solid rgba(79,70,229,0.3); animation: pulse-glow 3s ease-in-out infinite;">
-      <div class="mock-browser-bar">
-        <div class="mock-dot r"></div>
-        <div class="mock-dot y"></div>
-        <div class="mock-dot g"></div>
-        <div class="mock-url">tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz</div>
-      </div>
-      <div style="padding: 0;">
-        <iframe src="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz"
-                style="width: 100%; height: 500px; border: none; border-radius: 0 0 12px 12px;"
-                loading="lazy"></iframe>
+  <!-- Site Tabs -->
+  <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 36px; flex-wrap: wrap;">
+    <button class="demo-tab active" onclick="switchDemo(0)" style="background: linear-gradient(135deg, #0066ff, #0044cc); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .3s; font-family: inherit;">
+      📊 Nova Markets — Forex
+    </button>
+    <button class="demo-tab" onclick="switchDemo(1)" style="background: rgba(255,255,255,0.06); color: var(--gray); border: 1px solid rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .3s; font-family: inherit;">
+      🪙 CryptoVault — Crypto
+    </button>
+    <button class="demo-tab" onclick="switchDemo(2)" style="background: rgba(255,255,255,0.06); color: var(--gray); border: 1px solid rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .3s; font-family: inherit;">
+      🏆 TradeUp — Prop Trading
+    </button>
+  </div>
+
+  <!-- Site Cards Grid -->
+  <div style="max-width: 1100px; margin: 0 auto;">
+
+    <!-- === SITE 1: Nova Markets === -->
+    <div class="demo-site active" id="demo-site-0">
+      <div style="display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start;">
+        <div>
+          <div class="mock-browser" style="border: 1px solid rgba(0,102,255,0.3); animation: pulse-glow 3s ease-in-out infinite;">
+            <div class="mock-browser-bar">
+              <div class="mock-dot r"></div>
+              <div class="mock-dot y"></div>
+              <div class="mock-dot g"></div>
+              <div class="mock-url">tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz</div>
+            </div>
+            <div style="padding: 0;">
+              <iframe src="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz"
+                      style="width: 100%; height: 480px; border: none; border-radius: 0 0 12px 12px;"
+                      loading="lazy"></iframe>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 16px;">
+            <a href="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz" target="_blank" class="cta-btn" style="display: inline-flex; font-size: 14px; padding: 12px 28px;">
+              🌐 פתח את האתר
+            </a>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="background: linear-gradient(135deg, rgba(0,102,255,0.15), rgba(0,68,204,0.08)); border: 1px solid rgba(0,102,255,0.2); border-radius: 16px; padding: 24px;">
+            <div style="font-size: 13px; color: var(--gray); margin-bottom: 4px;">נישה</div>
+            <div style="font-size: 18px; font-weight: 700; color: #4d9fff;">Forex Broker</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.04); border-radius: 16px; padding: 20px;">
+            <div style="font-size: 13px; color: var(--gray); margin-bottom: 8px;">מה כולל:</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.7);">
+              <span>✓ עמוד בית עם Dashboard mockup</span>
+              <span>✓ 20 דפים מלאים</span>
+              <span>✓ 5 דפים משפטיים</span>
+              <span>✓ טבלאות מחירים דינמיות</span>
+              <span>✓ SEO מלא + Sitemap</span>
+              <span>✓ רספונסיבי מלא</span>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--primary-light);">20</div>
+              <div style="font-size: 11px; color: var(--gray);">דפים</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: var(--success);">5</div>
+              <div style="font-size: 11px; color: var(--gray);">משפטיים</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 24px;">
-      <a href="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz" target="_blank" class="cta-btn" style="display: inline-flex;">
-        🌐 פתח את האתר בחלון חדש
-      </a>
+    <!-- === SITE 2: CryptoVault === -->
+    <div class="demo-site" id="demo-site-1" style="display: none;">
+      <div style="display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start;">
+        <div>
+          <div class="mock-browser" style="border: 1px solid rgba(16,185,129,0.3); animation: pulse-glow 3s ease-in-out infinite;">
+            <div class="mock-browser-bar">
+              <div class="mock-dot r"></div>
+              <div class="mock-dot y"></div>
+              <div class="mock-dot g"></div>
+              <div class="mock-url">tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40</div>
+            </div>
+            <div style="padding: 0;">
+              <iframe src="https://tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40"
+                      style="width: 100%; height: 480px; border: none; border-radius: 0 0 12px 12px;"
+                      loading="lazy"></iframe>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 16px;">
+            <a href="https://tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40" target="_blank" class="cta-btn" style="display: inline-flex; font-size: 14px; padding: 12px 28px;">
+              🌐 פתח את האתר
+            </a>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05)); border: 1px solid rgba(16,185,129,0.2); border-radius: 16px; padding: 24px;">
+            <div style="font-size: 13px; color: var(--gray); margin-bottom: 4px;">נישה</div>
+            <div style="font-size: 18px; font-weight: 700; color: #10b981;">Crypto Exchange</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.04); border-radius: 16px; padding: 20px;">
+            <div style="font-size: 13px; color: var(--gray); margin-bottom: 8px;">מה כולל:</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.7);">
+              <span>✓ Hero side-by-side עם תמונת סוחר</span>
+              <span>✓ כרטיסים צפים (BTC, Portfolio)</span>
+              <span>✓ Glassmorphism design</span>
+              <span>✓ טיקר מחירים חי</span>
+              <span>✓ Bento grid features</span>
+              <span>✓ Web3 Dashboard style</span>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #10b981;">10</div>
+              <div style="font-size: 11px; color: var(--gray);">דפים</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #10b981;">600+</div>
+              <div style="font-size: 11px; color: var(--gray);">מטבעות</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 32px;">
-      <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 16px; text-align: center;">
-        <div style="font-size: 28px; font-weight: 800; color: var(--primary-light);">20</div>
-        <div style="font-size: 12px; color: var(--gray);">דפי אתר</div>
-      </div>
-      <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 16px; text-align: center;">
-        <div style="font-size: 28px; font-weight: 800; color: var(--success);">5</div>
-        <div style="font-size: 12px; color: var(--gray);">דפים משפטיים</div>
-      </div>
-      <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 16px; text-align: center;">
-        <div style="font-size: 28px; font-weight: 800; color: var(--accent2);">49</div>
-        <div style="font-size: 12px; color: var(--gray);">פוסטים מתוזמנים</div>
-      </div>
-      <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 16px; text-align: center;">
-        <div style="font-size: 28px; font-weight: 800; color: var(--warning);">15</div>
-        <div style="font-size: 12px; color: var(--gray);">מילות מפתח SEO</div>
+    <!-- === SITE 3: TradeUp === -->
+    <div class="demo-site" id="demo-site-2" style="display: none;">
+      <div style="display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start;">
+        <div>
+          <div class="mock-browser" style="border: 1px solid rgba(249,115,22,0.3); animation: pulse-glow 3s ease-in-out infinite;">
+            <div class="mock-browser-bar">
+              <div class="mock-dot r"></div>
+              <div class="mock-dot y"></div>
+              <div class="mock-dot g"></div>
+              <div class="mock-url">tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978</div>
+            </div>
+            <div style="padding: 0;">
+              <iframe src="https://tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978"
+                      style="width: 100%; height: 480px; border: none; border-radius: 0 0 12px 12px;"
+                      loading="lazy"></iframe>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 16px;">
+            <a href="https://tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978" target="_blank" class="cta-btn" style="display: inline-flex; font-size: 14px; padding: 12px 28px;">
+              🌐 פתח את האתר
+            </a>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(249,115,22,0.05)); border: 1px solid rgba(249,115,22,0.2); border-radius: 16px; padding: 24px;">
+            <div style="font-size: 13px; color: var(--gray); margin-bottom: 4px;">נישה</div>
+            <div style="font-size: 18px; font-weight: 700; color: #f97316;">Prop Trading</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.04); border-radius: 16px; padding: 20px;">
+            <div style="font-size: 13px; color: var(--gray); margin-bottom: 8px;">מה כולל:</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.7);">
+              <span>✓ רקע לבן + ויב צעיר</span>
+              <span>✓ 15+ אנימציות (bounce, wiggle, glow)</span>
+              <span>✓ כפתורים מעוגלים צבעוניים</span>
+              <span>✓ Gradient headings</span>
+              <span>✓ כרטיסים עם גבול צבעוני</span>
+              <span>✓ Footer בהיר</span>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #f97316;">10</div>
+              <div style="font-size: 11px; color: var(--gray);">דפים</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.04); border-radius: 12px; padding: 14px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 800; color: #f97316;">$200K</div>
+              <div style="font-size: 11px; color: var(--gray);">חשבון מקסימלי</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1321,6 +1476,42 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.phase-card, .tool-card, .ai-item, .feature-row > div').forEach(el => {
   observer.observe(el);
 });
+
+// Demo site tab switching
+const demoTabColors = [
+  'linear-gradient(135deg, #0066ff, #0044cc)',
+  'linear-gradient(135deg, #10b981, #059669)',
+  'linear-gradient(135deg, #f97316, #ea580c)'
+];
+
+function switchDemo(index) {
+  // Hide all sites
+  document.querySelectorAll('.demo-site').forEach(s => {
+    s.style.display = 'none';
+    s.classList.remove('active');
+  });
+  // Show selected
+  const site = document.getElementById('demo-site-' + index);
+  if (site) {
+    site.style.display = 'block';
+    site.classList.add('active');
+    site.style.animation = 'fadeSlideUp .4s ease';
+  }
+  // Update tabs
+  document.querySelectorAll('.demo-tab').forEach((tab, i) => {
+    if (i === index) {
+      tab.style.background = demoTabColors[i];
+      tab.style.color = 'white';
+      tab.style.border = 'none';
+      tab.classList.add('active');
+    } else {
+      tab.style.background = 'rgba(255,255,255,0.06)';
+      tab.style.color = '#64748B';
+      tab.style.border = '1px solid rgba(255,255,255,0.1)';
+      tab.classList.remove('active');
+    }
+  });
+}
 </script>
 
 </body>
