@@ -449,14 +449,20 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 .market-card-price{font-size:1.3rem;font-weight:700;font-family:var(--font-sans);color:rgba(255,255,255,.85);grid-column:1;margin-top:4px}
 .market-card-spark{width:80px;height:28px;grid-column:2;grid-row:2/4;align-self:center}
 
-/* ─── Navbar Dropdown ─── */
+/* ─── Navbar Dropdown — Mega Menu ─── */
 .nav-dropdown{position:relative}
 .nav-dropdown>a::after{content:'';display:inline-block;width:4px;height:4px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-left:5px;vertical-align:middle;opacity:.5;transition:transform .2s}
 .nav-dropdown:hover>a::after{transform:rotate(-135deg)}
-.nav-dropdown-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:0 12px 32px rgba(0,0,0,.1);padding:8px 0;min-width:190px;z-index:200}
+.nav-dropdown-menu{display:none;position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:0 12px 32px rgba(0,0,0,.1);padding:12px;min-width:320px;z-index:200}
 .nav-dropdown:hover .nav-dropdown-menu{display:block}
-.nav-dropdown-menu a{display:block;padding:9px 20px;font-size:.84rem;color:var(--color-text-secondary);transition:all .15s;font-weight:500}
+.nav-dropdown-menu a{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:.84rem;color:var(--color-text-secondary);transition:all .15s;font-weight:500;border-radius:var(--radius)}
 .nav-dropdown-menu a:hover{background:var(--color-bg-alt);color:var(--color-primary)}
+.nav-dropdown-menu a .dd-icon{width:32px;height:32px;border-radius:var(--radius);background:var(--color-bg-alt);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.nav-dropdown-menu a:hover .dd-icon{background:color-mix(in srgb,var(--color-accent) 10%,white)}
+.nav-dropdown-menu a .dd-label{font-weight:600;color:var(--color-text);font-size:.82rem}
+.nav-dropdown-menu a .dd-desc{font-size:.72rem;color:var(--color-text-light);font-weight:400;margin-top:1px}
+.nav-dropdown-footer{border-top:1px solid var(--color-border-light);margin-top:6px;padding-top:8px}
+.nav-dropdown-footer a{font-size:.78rem;color:var(--color-accent) !important;font-weight:600}
 
 /* ─── Mobile Menu ─── */
 .navbar-mobile{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--color-border);padding:12px 20px;box-shadow:0 8px 24px rgba(0,0,0,.08);z-index:99}
@@ -656,6 +662,24 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 .sp-divider{width:1px;height:24px;background:var(--color-border)}
 .sp-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:50px;font-size:.72rem;font-weight:600;background:color-mix(in srgb,var(--color-success) 8%,white);color:var(--color-success);border:1px solid color-mix(in srgb,var(--color-success) 15%,white)}
 
+/* ─── Live Activity Indicator ─── */
+.live-activity{position:fixed;bottom:80px;left:20px;z-index:180;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:12px 16px;box-shadow:0 4px 20px rgba(0,0,0,.1);font-size:.78rem;display:flex;align-items:center;gap:10px;animation:slideInLeft .4s ease;max-width:280px;opacity:0;pointer-events:none;transition:opacity .3s}
+.live-activity.show{opacity:1;pointer-events:auto}
+.live-activity .la-dot{width:8px;height:8px;border-radius:50%;background:var(--color-success);animation:pulse 2s infinite;flex-shrink:0}
+.live-activity .la-text{color:var(--color-text-secondary);line-height:1.4}
+.live-activity .la-text strong{color:var(--color-text);font-weight:700}
+.live-activity .la-close{position:absolute;top:4px;right:8px;background:none;border:none;font-size:.9rem;color:var(--color-text-light);cursor:pointer;padding:2px}
+@keyframes slideInLeft{from{transform:translateX(-20px);opacity:0}to{transform:translateX(0);opacity:1}}
+@media(max-width:768px){.live-activity{bottom:70px;left:10px;right:10px;max-width:none}}
+
+/* ─── Media Logos Bar ─── */
+.media-bar{padding:20px 28px;background:var(--color-bg-alt);border-bottom:1px solid var(--color-border)}
+.media-inner{max-width:var(--max-w);margin:0 auto;text-align:center}
+.media-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--color-text-light);font-weight:600;margin-bottom:12px}
+.media-logos{display:flex;justify-content:center;align-items:center;gap:32px;flex-wrap:wrap;opacity:.4;filter:grayscale(1)}
+.media-logos:hover{opacity:.7;filter:grayscale(0);transition:all .3s}
+.media-logo{font-size:.9rem;font-weight:700;color:var(--color-text);letter-spacing:.02em;font-family:var(--font-heading)}
+
 /* ─── Live Market Ticker ─── */
 .market-ticker{background:var(--color-bg-darker);padding:8px 0;overflow:hidden;white-space:nowrap}
 .ticker-track{display:inline-flex;gap:36px;animation:ticker 30s linear infinite}
@@ -794,15 +818,20 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
     if (p.slug === 'about' && marketPagesNav.length > 0) {
       const aboutCls = p.slug === page.slug ? ' class="active"' : ''
       const marketsCls = isMarketPage ? ' class="active"' : ''
+      const marketIcons: Record<string, string> = { 'markets/forex': '💱', 'markets/crypto': '₿', 'markets/commodities': '🥇', 'markets/indices': '📊' }
+      const marketDescs: Record<string, string> = { 'markets/forex': '70+ currency pairs', 'markets/crypto': '30+ cryptocurrencies', 'markets/commodities': 'Gold, Oil &amp; Silver', 'markets/indices': '15+ global indices' }
       const dropdownLinks = marketPagesNav.map((mp) => {
         const mpHref = `${mp.slug.replace(/\//g, '-')}.html`
-        return `            <a href="${mpHref}">${escapeHtml(mp.title)}</a>`
+        const icon = marketIcons[mp.slug] || '📈'
+        const desc = marketDescs[mp.slug] || ''
+        return `            <a href="${mpHref}"><span class="dd-icon">${icon}</span><div><div class="dd-label">${escapeHtml(mp.title)}</div><div class="dd-desc">${desc}</div></div></a>`
       }).join('\n')
       return `        <li><a href="${href}"${aboutCls}>${escapeHtml(p.title)}</a></li>
         <li class="nav-dropdown">
           <a href="#"${marketsCls}>Markets</a>
           <div class="nav-dropdown-menu">
 ${dropdownLinks}
+            <div class="nav-dropdown-footer"><a href="#">View All Markets &rarr;</a></div>
           </div>
         </li>`
     }
@@ -827,16 +856,26 @@ ${dropdownLinks}
     ] : [])
   ].join('\n')
 
-  // Section CTA map — inject CTAs after key sections on ALL pages
+  // Section CTA map — inject CTAs after key sections on ALL pages with contextual copy
   const isLegalPage = heroConfig.variant === 'legal'
+  const pageCtaVerb = page.slug === 'home' ? 'Join 35M+ Traders Today'
+    : page.slug === 'platforms' ? 'Download Platform &amp; Start Trading'
+    : page.slug === 'account-types' ? 'Choose Your Account &amp; Start'
+    : page.slug === 'pricing' ? 'Open Account — No Hidden Fees'
+    : page.slug === 'education' ? 'Start Learning for Free'
+    : page.slug === 'contact' ? 'Open Free Account Instead'
+    : page.slug.startsWith('markets/') ? 'Trade This Market Now'
+    : 'Open Free Account'
   const sectionCtaMap: Record<string, string> = isLegalPage ? {} : {
-    stats: page.slug === 'home' ? 'Join 35M+ Traders Today' : 'Open Free Account',
-    features: 'Start Trading Now',
-    steps: 'Open Your Account',
-    comparison: 'Switch to ' + escapeHtml(brandName),
+    stats: pageCtaVerb,
+    features: page.slug === 'platforms' ? 'Try All Platforms Free' : 'Start Trading Now',
+    steps: 'Open Your Account — 2 Minutes',
+    comparison: 'Switch to ' + escapeHtml(brandName) + ' Today',
     testimonials: 'Join Thousands of Happy Traders',
-    pricing: 'Get Started Today',
-    list: 'Learn More',
+    pricing: page.slug === 'pricing' ? 'Start with Zero Commission' : 'Get Started Today',
+    list: page.slug === 'education' ? 'Access Free Courses' : 'Learn More',
+    'icon-grid': page.slug === 'platforms' ? 'Download for Your Device' : 'Get Started',
+    'two-column': pageCtaVerb,
   }
 
   const sectionBlocks = sections.map((s, i) => {
@@ -852,19 +891,72 @@ ${dropdownLinks}
     return `  <section class="section${alt}">\n    <div class="section-inner">\n${title}${subtitle}${inner}${ctaBlock}\n    </div>\n  </section>`
   }).join('\n\n')
 
-  // FAQ HTML for homepage
-  const faqHtml = page.slug === 'home' ? `
+  // FAQ HTML for all non-legal pages — contextual per page type
+  const faqData: Record<string, Array<{ q: string; a: string }>> = {
+    home: [
+      { q: 'How long does account verification take?', a: 'Most accounts are verified within 24 hours. You&rsquo;ll need to provide a valid ID and proof of address. In many cases, verification is completed in under 1 hour during business hours.' },
+      { q: 'What is the minimum deposit?', a: 'The minimum deposit for a Standard account is $100. You can fund your account using credit/debit card, bank wire, or e-wallets like Skrill and Neteller with no deposit fees.' },
+      { q: 'Can I withdraw my funds at any time?', a: 'Yes, you can withdraw your funds at any time with no lock-in period. Withdrawal requests are typically processed within 1&ndash;2 business days depending on the payment method.' },
+      { q: 'Is my money protected?', a: 'Absolutely. All client funds are held in segregated accounts with tier-1 banks, separate from company funds. We are regulated by the FCA, CySEC, and DFSA, ensuring the highest level of fund protection.' },
+      { q: 'What platforms do you support?', a: 'We offer MetaTrader 4, MetaTrader 5, and our proprietary WebTrader platform. All are available on desktop, web, iOS, and Android &mdash; trade anywhere, anytime.' },
+      { q: 'Do I need experience to start trading?', a: 'No prior experience is needed. We offer a free $100,000 demo account, educational resources, and 24/5 support to help you learn at your own pace before trading with real money.' },
+    ],
+    platforms: [
+      { q: 'Which trading platform is best for beginners?', a: 'Our WebTrader platform is ideal for beginners &mdash; it runs in your browser with no download required and features an intuitive interface. For more advanced features, MetaTrader 4 is the industry standard.' },
+      { q: 'Can I use multiple platforms with one account?', a: 'Yes. Your single trading account works across all our platforms &mdash; MT4, MT5, WebTrader, and our mobile apps. Switch between them seamlessly.' },
+      { q: 'Is there a mobile trading app?', a: 'Yes, our mobile apps for iOS and Android give you full trading functionality on the go, including charts, indicators, one-tap trading, and real-time push notifications.' },
+      { q: 'Do you offer API access for automated trading?', a: 'Yes. We provide FIX API access for algorithmic traders and institutional clients. MT4/MT5 also support Expert Advisors (EAs) for automated strategies.' },
+    ],
+    'account-types': [
+      { q: 'Which account type should I choose?', a: 'If you&rsquo;re starting out, our Standard account with a $100 minimum deposit is perfect. Active traders benefit from our Professional account with tighter spreads, while high-volume traders should consider VIP for the best conditions.' },
+      { q: 'Can I upgrade my account later?', a: 'Yes. You can upgrade your account type at any time as your trading volume grows. Simply contact your account manager or request an upgrade through your dashboard.' },
+      { q: 'What&rsquo;s the difference between Standard and Professional accounts?', a: 'Professional accounts offer tighter spreads (from 0.0 pips vs 1.2), priority support, and higher leverage. They require a $1,000 minimum deposit and are suited for experienced traders.' },
+      { q: 'Do you offer Islamic (swap-free) accounts?', a: 'Yes. We offer swap-free Islamic accounts compliant with Sharia law, available across all account types. No overnight interest is charged on positions held past market close.' },
+    ],
+    pricing: [
+      { q: 'Are there any hidden fees?', a: 'No. We believe in full transparency. You&rsquo;ll see the exact spread before you trade, and our fee schedule is published on this page. There are no deposit fees, no inactivity fees for the first 12 months, and no platform fees.' },
+      { q: 'How are spreads calculated?', a: 'Our spreads are variable and sourced from 15+ tier-1 liquidity providers. We aggregate the best bid/ask prices to deliver the tightest possible spreads, often as low as 0.0 pips on major pairs.' },
+      { q: 'Do you charge commission?', a: 'It depends on your account type. Standard accounts have zero commission with spreads from 1.2 pips. Professional and VIP accounts offer raw spreads from 0.0 pips with a small commission per lot.' },
+      { q: 'What are swap/overnight fees?', a: 'Swap fees are applied when positions are held overnight and reflect the interest rate differential between the two currencies in a pair. Swap rates are updated daily and displayed in your platform.' },
+    ],
+    education: [
+      { q: 'Is the education content free?', a: 'Yes, all our educational resources are completely free for registered users. This includes video courses, webinars, eBooks, and daily market analysis.' },
+      { q: 'Do you offer live webinars?', a: 'Yes. We host weekly live webinars with professional analysts covering market outlook, trading strategies, and platform tutorials. Recordings are available for on-demand viewing.' },
+      { q: 'Is the content suitable for complete beginners?', a: 'Absolutely. Our courses are structured from beginner to advanced level. Start with &ldquo;Trading Fundamentals&rdquo; and progress at your own pace through intermediate and advanced modules.' },
+      { q: 'Do I get a certificate after completing courses?', a: 'Yes. Upon completing each course module, you receive a digital certificate of completion that you can add to your LinkedIn profile or professional portfolio.' },
+    ],
+    contact: [
+      { q: 'What are your support hours?', a: 'Our support team is available 24 hours a day, 5 days a week (Monday to Friday). We offer support via live chat, email, and phone in 12 languages.' },
+      { q: 'How quickly will I get a response?', a: 'Live chat responses are typically instant during business hours. Email inquiries are answered within 4 hours. Phone support connects you to an agent in under 60 seconds on average.' },
+      { q: 'Do you offer a dedicated account manager?', a: 'Yes. Professional and VIP account holders receive a dedicated account manager for personalized support, trading insights, and priority assistance.' },
+      { q: 'Can I request a callback?', a: 'Yes. Fill out the callback form on our contact page and one of our specialists will call you back at your preferred time, typically within 30 minutes during business hours.' },
+    ],
+  }
+  // Market pages share generic trading FAQ
+  const marketFaq = [
+    { q: 'How do I start trading this market?', a: 'Open a free account in 2 minutes, verify your identity, deposit funds (minimum $100), and start trading. You can also practice first with our $100,000 demo account at no cost.' },
+    { q: 'What leverage is available?', a: 'Leverage varies by instrument and jurisdiction. Retail clients can access up to 1:30 (EU/UK) or 1:500 (professional clients). Higher leverage amplifies both profits and losses.' },
+    { q: 'Are there any overnight fees?', a: 'Swap fees may apply when holding positions overnight. Rates depend on the instrument and direction of your trade. Swap-free Islamic accounts are available upon request.' },
+    { q: 'Can I trade on mobile?', a: 'Yes. All our markets are available on our mobile apps for iOS and Android, plus our browser-based WebTrader. Trade from anywhere with full charting and order management.' },
+  ]
+  if (page.slug.startsWith('markets/')) { faqData[page.slug] = marketFaq }
+  // About/regulation share corporate FAQ
+  const corporateFaq = [
+    { q: 'Where is the company headquartered?', a: 'Our global headquarters is located at 110 Bishopsgate, London EC2N 4AY, United Kingdom. We also have offices in Dubai, Singapore, and Sydney.' },
+    { q: 'How long has the company been operating?', a: 'We were founded in 2018 and have grown to serve over 500,000 traders in 150+ countries. We are regulated by the FCA, CySEC, DFSA, and ASIC.' },
+    { q: 'Is the company publicly listed?', a: 'We are a privately held company committed to long-term growth and stability. Our financial reports are available to regulators and audited by a Big Four accounting firm annually.' },
+    { q: 'How are client funds protected?', a: 'All client funds are held in segregated accounts at tier-1 banks (Barclays, Lloyds), completely separate from company funds. Clients are protected by regulatory compensation schemes up to &pound;85,000 (FSCS).' },
+  ]
+  if (['about', 'regulation', 'partners'].includes(page.slug)) { faqData[page.slug] = corporateFaq }
+
+  const pageFaqs = faqData[page.slug]
+  const faqHtml = (pageFaqs && !isLegalPage) ? `
   <section class="section section-alt">
     <div class="section-inner">
       <h2 class="section-title">Frequently Asked Questions</h2>
-      <p class="section-subtitle">Everything you need to know to get started</p>
+      <p class="section-subtitle">Everything you need to know${page.slug !== 'home' ? ' about ' + escapeHtml(page.title).toLowerCase() : ' to get started'}</p>
       <div class="faq-list">
-        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How long does account verification take?</div><div class="faq-a">Most accounts are verified within 24 hours. You&rsquo;ll need to provide a valid ID and proof of address. In many cases, verification is completed in under 1 hour during business hours.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the minimum deposit?</div><div class="faq-a">The minimum deposit for a Standard account is $100. You can fund your account using credit/debit card, bank wire, or e-wallets like Skrill and Neteller with no deposit fees.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I withdraw my funds at any time?</div><div class="faq-a">Yes, you can withdraw your funds at any time with no lock-in period. Withdrawal requests are typically processed within 1&ndash;2 business days depending on the payment method.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is my money protected?</div><div class="faq-a">Absolutely. All client funds are held in segregated accounts with tier-1 banks, separate from company funds. We are regulated by the FCA, CySEC, and DFSA, ensuring the highest level of fund protection.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What platforms do you support?</div><div class="faq-a">We offer MetaTrader 4, MetaTrader 5, and our proprietary WebTrader platform. All are available on desktop, web, iOS, and Android &mdash; trade anywhere, anytime.</div></div>
-        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do I need experience to start trading?</div><div class="faq-a">No prior experience is needed. We offer a free $100,000 demo account, educational resources, and 24/5 support to help you learn at your own pace before trading with real money.</div></div>
+${pageFaqs.map(f => `        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">${f.q}</div><div class="faq-a">${f.a}</div></div>`).join('\n')}
       </div>
       <div class="section-cta"><a href="#" class="btn-primary">Open Free Account</a></div>
     </div>
@@ -1023,6 +1115,20 @@ ${heroConfig.variant !== 'legal' ? `  <div class="social-proof-bar">
       <div class="reg-item"><div class="reg-icon">🛡️</div><div><div class="reg-label">Segregated Funds</div><div class="reg-num">Barclays &amp; Lloyds Bank</div></div></div>
     </div>
   </div>
+
+  <div class="media-bar">
+    <div class="media-inner">
+      <div class="media-label">As Featured In</div>
+      <div class="media-logos">
+        <span class="media-logo">Bloomberg</span>
+        <span class="media-logo">Reuters</span>
+        <span class="media-logo">Financial Times</span>
+        <span class="media-logo">Forbes</span>
+        <span class="media-logo">CNBC</span>
+        <span class="media-logo">The Wall Street Journal</span>
+      </div>
+    </div>
+  </div>
 ` : ''}
 ${sectionBlocks}
 
@@ -1139,10 +1245,44 @@ ${legalPages.length ? `        <div class="footer-col">\n          <h4>Legal</h4
 ${heroConfig.variant !== 'legal' ? `  <div class="sticky-cta">
     <a href="#" class="btn-primary">Open Free Account — Start Trading</a>
   </div>
+  <div class="live-activity">
+    <span class="la-dot"></span>
+    <span class="la-text"></span>
+    <button class="la-close">&times;</button>
+  </div>
 ` : ''}${chatWidget(options)}
 <script>
 // Navbar scroll shadow
 window.addEventListener('scroll',function(){document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>10)});
+// Live activity notifications
+(function(){
+  var msgs=[
+    {flag:'🇬🇧',text:'A trader in <strong>London</strong> just opened an account'},
+    {flag:'🇩🇪',text:'<strong>148 traders</strong> are viewing this page right now'},
+    {flag:'🇦🇺',text:'A trader in <strong>Sydney</strong> deposited $5,000'},
+    {flag:'🇺🇸',text:'<strong>2,847 trades</strong> executed in the last hour'},
+    {flag:'🇯🇵',text:'A trader in <strong>Tokyo</strong> just opened an account'},
+    {flag:'🇫🇷',text:'<strong>New:</strong> EUR/USD spread at 0.1 pips right now'},
+    {flag:'🇸🇬',text:'A trader in <strong>Singapore</strong> upgraded to VIP'},
+  ];
+  var el=document.querySelector('.live-activity');
+  if(!el)return;
+  var textEl=el.querySelector('.la-text');
+  var closeBtn=el.querySelector('.la-close');
+  var idx=Math.floor(Math.random()*msgs.length);
+  var dismissed=false;
+  if(closeBtn)closeBtn.addEventListener('click',function(){el.classList.remove('show');dismissed=true;});
+  function showNext(){
+    if(dismissed)return;
+    var m=msgs[idx%msgs.length];
+    textEl.innerHTML=m.flag+' '+m.text;
+    el.classList.add('show');
+    idx++;
+    setTimeout(function(){el.classList.remove('show');},5000);
+    setTimeout(showNext,12000+Math.random()*8000);
+  }
+  setTimeout(showNext,4000+Math.random()*3000);
+})();
 </script>
 </body>
 </html>`
