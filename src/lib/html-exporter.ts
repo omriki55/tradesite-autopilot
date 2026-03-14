@@ -598,6 +598,152 @@ function getNicheContent(niche: string): NicheContent {
     },
   }
 
+  const copyTradingContent: NicheContent = {
+    heroHeading: 'Copy Top Traders — Earn While They Trade',
+    heroBadge: 'The #1 Social Trading Network',
+    heroPills: ['Copy with 1 Click', 'Top Trader Rankings', '2M+ Community', 'From $50'],
+    heroMicro: ['✓ Free to join', '✓ Copy any trader', '✓ Full control'],
+    heroTrust: ['2M+ Traders', 'FCA Regulated', '$4B+ Copied', '24/7 Support'],
+    heroCTAPrimary: 'JOIN FREE — START COPYING',
+    heroCTASecondary: 'EXPLORE TOP TRADERS',
+    trustpilotScore: '4.7/5',
+    trustpilotReviews: '15,600+ Reviews on Trustpilot',
+    navSlugs: ['home', 'about', 'top-traders', 'how-it-works', 'pricing', 'community', 'contact'],
+    navCTA: 'Start Copying',
+    loginLabel: 'Log In',
+    mobileCTA: 'Join Free',
+    promoHTML: '🚀 <strong>New:</strong> Copy the top 100 traders for FREE this month — no minimum deposit! <a href="#">Join Now &rarr;</a>',
+    announcementHTML: 'Copy trading involves risk. Past performance of traders is not indicative of future results. You should consider whether you can afford to take the high risk of losing your money. <a href="risk-warning.html"><strong>Read Risk Warning</strong></a>.',
+    socialProof: [
+      {icon: '⭐', bold: '4.7/5', text: 'Trustpilot'},
+      {icon: '👥', bold: '2M+', text: 'Community'},
+      {icon: '💰', bold: '$4B+', text: 'Copied'},
+      {icon: '🏆', bold: '#1 Social', text: 'Platform'},
+      {icon: '🌍', bold: '150+', text: 'Countries'},
+    ],
+    tickerItems: [
+      {symbol: 'BTC/USD', price: '67,240', change: '+2.34%', up: true},
+      {symbol: 'AAPL', price: '189.42', change: '+1.12%', up: true},
+      {symbol: 'EUR/USD', price: '1.0842', change: '+0.15%', up: true},
+      {symbol: 'TSLA', price: '248.50', change: '-0.85%', up: false},
+      {symbol: 'Gold', price: '2,342.50', change: '+0.42%', up: true},
+      {symbol: 'ETH/USD', price: '3,480', change: '+3.12%', up: true},
+    ],
+    regulationItems: [
+      {icon: '🇬🇧', label: 'FCA (UK)', num: 'Ref. No. 583263'},
+      {icon: '🇪🇺', label: 'CySEC (EU)', num: 'License No. 250/14'},
+      {icon: '🇦🇺', label: 'ASIC (AU)', num: 'License No. 491139'},
+      {icon: '🛡️', label: 'Segregated Funds', num: 'Tier-1 Banks'},
+      {icon: '✅', label: 'Investor Protection', num: 'ICF &amp; FSCS'},
+    ],
+    mediaLogos: ['Forbes', 'TechCrunch', 'Bloomberg', 'Business Insider', 'CNBC', 'The Verge'],
+    awards: [
+      {icon: '🏆', name: 'Best Social Trading', source: 'FinTech Awards', year: '2024'},
+      {icon: '⭐', name: 'Best Copy Platform', source: 'ForexBrokers.com', year: '2024'},
+      {icon: '🥇', name: 'Most Innovative', source: 'Finance Magnates', year: '2024'},
+      {icon: '📱', name: 'Best Mobile App', source: 'App Store Awards', year: '2024'},
+      {icon: '👥', name: 'Best Community', source: 'Social Trading Hub', year: '2024'},
+      {icon: '💎', name: 'Most Trusted', source: 'BrokerChooser', year: '2024'},
+    ],
+    perfMetrics: [
+      {value: '2', unit: 'M+', label: 'Active Traders'},
+      {value: '$4.2', unit: 'B+', label: 'Total Copied'},
+      {value: '89', unit: '%', label: 'Satisfaction Rate'},
+      {value: '150', unit: '+', label: 'Countries'},
+      {value: '500', unit: 'K+', label: 'Copiers Monthly'},
+    ],
+    securityBadges: [
+      {icon: '🔒', label: '256-bit SSL', sub: 'Encryption'},
+      {icon: '🏦', label: 'Segregated', sub: 'Client Funds'},
+      {icon: '🛡️', label: 'Negative Balance', sub: 'Protection'},
+      {icon: '📋', label: 'FCA Regulated', sub: 'UK Authority'},
+      {icon: '💳', label: 'PCI DSS', sub: 'Compliant'},
+      {icon: '🔐', label: '2FA', sub: 'Authentication'},
+    ],
+    fundProtection: {
+      icon: '🛡️',
+      title: 'Copier Fund Protection',
+      text: 'All copier funds are held in segregated accounts with tier-1 banks. You maintain full control — pause, stop, or adjust any copy relationship at any time. Your capital is protected by regulatory compensation schemes.',
+      amounts: [
+        {flag: '🇬🇧', label: 'FSCS: up to <strong>&pound;85,000</strong>'},
+        {flag: '🇪🇺', label: 'ICF: up to <strong>&euro;20,000</strong>'},
+        {flag: '🇦🇺', label: 'ASIC: up to <strong>AUD 250,000</strong>'},
+      ],
+    },
+    footerDesc: 'The world\'s leading social trading network. Copy top-performing traders with one click and earn while they trade. Join 2M+ traders in 150+ countries.',
+    footerLicenses: [
+      {title: 'FCA (United Kingdom)', text: ' UK Ltd is authorised and regulated by the Financial Conduct Authority. Ref. No. 583263'},
+      {title: 'CySEC (European Union)', text: ' EU Ltd is licensed by the Cyprus Securities and Exchange Commission. License No. 250/14'},
+      {title: 'ASIC (Australia)', text: ' AU Pty Ltd is regulated by the Australian Securities &amp; Investments Commission. License No. 491139'},
+      {title: 'Investor Protection', text: ' clients are protected by the ICF (EU) and FSCS (UK) compensation schemes.'},
+    ],
+    footerRegulatory: [
+      '🇬🇧 FCA Regulated',
+      '🇪🇺 CySEC Licensed',
+      '🇦🇺 ASIC Regulated',
+      '🛡️ Segregated Funds',
+      '✅ Investor Protection',
+      '🔒 SSL Encrypted',
+    ],
+    footerPayments: ['💳 Visa', '💳 Mastercard', '🏦 Wire Transfer', '📱 Apple Pay', '📱 Google Pay', '₿ Bitcoin', 'Ξ Ethereum'],
+    footerAddress: '7 Harp Lane, London EC3R 6DP, United Kingdom',
+    footerPhone: '+44 20 3868 0432',
+    footerRisk: 'Risk Warning: Copy trading does not amount to investment advice. The value of your investments may go up or down. Your capital is at risk. Past performance is not indicative of future results.',
+    liveActivityMsgs: [
+      {flag: '🇺🇸', text: 'A trader in <strong>New York</strong> just copied @TraderMax'},
+      {flag: '🇬🇧', text: '<strong>$24,500</strong> copied in the last hour'},
+      {flag: '🇩🇪', text: '<strong>4,218</strong> copiers online right now'},
+      {flag: '🇯🇵', text: 'A trader in <strong>Tokyo</strong> earned <strong>$1,840</strong> from copies'},
+      {flag: '🇦🇺', text: 'A trader in <strong>Sydney</strong> just started copying'},
+      {flag: '🇧🇷', text: '@CryptoQueen gained <strong>248 new copiers</strong> today'},
+      {flag: '🇮🇳', text: '<strong>$180K+</strong> profits distributed today'},
+      {flag: '🇳🇬', text: 'A trader in <strong>Lagos</strong> joined the community'},
+    ],
+    stickyCTA: 'Start Copying Free',
+    faqCTA: 'Join the Community',
+    mockupRows: [
+      {symbol: '@TraderMax', price: '+42.3%', change: '12.4K copiers', up: true},
+      {symbol: '@CryptoQueen', price: '+38.7%', change: '8.2K copiers', up: true},
+      {symbol: '@ForexPro', price: '+31.2%', change: '6.1K copiers', up: true},
+      {symbol: '@IndexQueen', price: '+27.5%', change: '4.8K copiers', up: true},
+    ],
+    mockupLabel: 'Top Traders',
+    getPageCTAVerb: (slug: string) => {
+      const map: Record<string, string> = {
+        home: 'Start Copying Free',
+        about: 'Join Our Community',
+        'top-traders': 'Copy Top Traders',
+        'how-it-works': 'Get Started Now',
+        pricing: 'Join Free Today',
+        community: 'Join the Community',
+        contact: 'Get in Touch',
+        strategies: 'Explore Strategies',
+      }
+      return map[slug] || 'Start Copying Free'
+    },
+    getFaqData: () => ({
+      home: [
+        {q: 'What is copy trading?', a: 'Copy trading lets you automatically replicate the trades of experienced traders in real time. When they trade, you trade — proportionally to your allocated funds. No trading experience needed.'},
+        {q: 'How much do I need to start?', a: 'You can start copying traders from just $50. There are no platform fees — you only pay the standard trading spreads. Joining the community is completely free.'},
+        {q: 'How do I choose which traders to copy?', a: 'Browse our Top Traders leaderboard, filtered by return, risk score, number of copiers, and trading history. Each trader has a detailed profile with full performance statistics.'},
+        {q: 'Can I stop copying at any time?', a: 'Absolutely! You have full control. Pause, stop, or adjust your copy amount at any time. You can also set stop-loss limits on any copy relationship to manage your risk.'},
+        {q: 'Is my money safe?', a: 'Yes. We are regulated by the FCA (UK), CySEC (EU), and ASIC (Australia). All client funds are held in segregated accounts with tier-1 banks, and you are protected by investor compensation schemes.'},
+        {q: 'Do I need trading experience?', a: "Not at all! That's the beauty of copy trading. You benefit from the expertise of professional traders. However, we recommend learning the basics through our free educational resources."},
+      ],
+    }),
+    marketDropdownIcons: {
+      'top-traders': '🏆',
+      'strategies': '📊',
+      'community': '👥',
+    },
+    marketDropdownDescs: {
+      'top-traders': 'Browse & copy top performers',
+      'strategies': 'Pre-built trading strategies',
+      'community': 'Connect with 2M+ traders',
+    },
+  }
+
+  if (niche === 'copy_trading') return copyTradingContent
   if (niche === 'prop_trading') return propTradingContent
   return forexContent
 }
@@ -637,6 +783,19 @@ function getHeroConfig(slug: string, niche: string = 'forex_broker', n?: NicheCo
     if (['about', 'regulation', 'partners'].includes(slug)) return { variant: 'corporate', badge: slug === 'about' ? 'About Us' : slug === 'regulation' ? 'Compliance' : 'Partners', showMockup: false }
     if (['terms', 'privacy', 'risk-disclosure', 'risk-warning'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
     if (slug === 'contact') return { variant: 'tools', badge: 'Get In Touch', showMockup: false, visual: getToolsVisual('contact'), pills: ['24/7 Support', 'Live Chat', 'Discord Community'] }
+  }
+
+  // Copy trading niche
+  if (niche === 'copy_trading' && n) {
+    if (slug === 'home') return { variant: 'platform', badge: n.heroBadge, showMockup: true, pills: n.heroPills }
+    if (slug === 'top-traders') return { variant: 'tools', badge: 'Top Traders Leaderboard', showMockup: false, visual: getToolsVisual('account-types'), pills: ['Ranked by ROI', 'Verified Stats', 'Copy with 1 Click'] }
+    if (slug === 'how-it-works') return { variant: 'tools', badge: 'How Copy Trading Works', showMockup: false, visual: getToolsVisual('education'), pills: ['3 Simple Steps', 'No Experience Needed', 'Full Control'] }
+    if (slug === 'community') return { variant: 'tools', badge: 'Join the Community', showMockup: false, visual: getToolsVisual('contact'), pills: ['2M+ Members', 'Social Feed', 'Live Discussions'] }
+    if (slug === 'strategies') return { variant: 'tools', badge: 'Copy Strategies', showMockup: false, visual: getToolsVisual('platforms'), pills: ['Pre-Built Portfolios', 'Auto-Rebalance', 'Risk Managed'] }
+    if (slug === 'pricing') return { variant: 'tools', badge: 'Simple Pricing', showMockup: false, visual: getToolsVisual('pricing'), pills: ['No Platform Fees', 'Free to Join', 'Low Spreads'] }
+    if (['about', 'regulation', 'partners'].includes(slug)) return { variant: 'corporate', badge: slug === 'about' ? 'About SocialTrade' : slug === 'regulation' ? 'Regulation &amp; Trust' : 'Partner With Us', showMockup: false }
+    if (['terms', 'privacy', 'risk-disclosure', 'risk-warning'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
+    if (slug === 'contact') return { variant: 'tools', badge: 'Get In Touch', showMockup: false, visual: getToolsVisual('contact'), pills: ['24/7 Live Support', 'Live Chat', 'Community Forum'] }
   }
 
   // Homepage — full platform mockup
@@ -825,6 +984,7 @@ function generateStylesheet(options: ExportOptions): string {
     forex_broker: { primary: '#0a2540', primaryDark: '#061b2e', accent: '#0066ff' },
     crypto_exchange: { primary: '#0c1222', primaryDark: '#070d18', accent: '#10b981' },
     prop_trading: { primary: '#1a1a2e', primaryDark: '#12121f', accent: '#f97316' },
+    copy_trading: { primary: '#2d1b4e', primaryDark: '#1a1030', accent: '#a855f7' },
   }
   const c = nicheColors[options.niche] || nicheColors.forex_broker
 
@@ -2143,6 +2303,397 @@ h1,h2,h3{font-weight:900;letter-spacing:-.03em;color:#1e1b4b}
 }
 @media(prefers-reduced-motion:reduce){.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.sp-item,.reg-item,.hero h1,.hero p,.hero-buttons,.hero-pills,.hero-badge,.hero-trustpilot,.hero-mockup,.hero-visual,.hero-visual *,.live-activity,.fund-protection,.hero-floating-card,.feature-card-icon,.award-icon{animation:none!important;opacity:1!important;transform:none!important}}
 ` : ''}
+${options.niche === 'copy_trading' ? `
+/* ═══ Copy Trading — Social Purple/Pink Dark Theme ═══ */
+:root{--color-accent:#a855f7;--color-accent-light:#c084fc;--color-accent-glow:rgba(168,85,247,.35);--color-accent-subtle:rgba(168,85,247,.08);--color-pink:#ec4899;--color-pink-glow:rgba(236,72,153,.25);--color-secondary:#ec4899;--gradient-accent:linear-gradient(135deg,#a855f7 0%,#ec4899 100%);--gradient-hero:linear-gradient(160deg,#1a1030 0%,#2d1b4e 40%,#1a1030 100%);--gradient-dark:linear-gradient(180deg,#1a1030 0%,#0f0a1a 100%);--gradient-card:linear-gradient(135deg,rgba(168,85,247,.06),rgba(236,72,153,.04));--gradient-glass:linear-gradient(135deg,rgba(45,27,78,.6),rgba(26,16,48,.8));--radius-fun:20px;--font-display:'Inter',-apple-system,sans-serif}
+
+/* ─── Global — dark purple, social, friendly ─── */
+body{background:#1a1030!important;color:#e2e0ff}
+h1,h2,h3{font-weight:800;letter-spacing:-.02em;color:#f0ecff}
+a{color:#c084fc}
+a:hover{color:#e9d5ff}
+::selection{background:rgba(168,85,247,.35)}
+.section{background:#1a1030;padding:72px 28px}
+.section-alt{background:linear-gradient(180deg,#1f1340 0%,#1a1030 100%)!important}
+.section-title{font-size:2.2rem;position:relative;display:inline-block;color:#f0ecff!important}
+.section-title::after{content:'';display:block;width:60px;height:4px;background:var(--gradient-accent);margin:14px auto 0;border-radius:99px}
+.section-subtitle{font-size:1rem;color:#a99fc4;max-width:560px}
+.section-inner{text-align:center}
+
+/* ─── Custom scrollbar — purple theme ─── */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#1a1030}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#a855f7,#ec4899);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#c084fc,#f472b6)}
+*{scrollbar-width:thin;scrollbar-color:#a855f7 #1a1030}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInLeft{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes purpleGlow{0%,100%{box-shadow:0 0 20px rgba(168,85,247,.2)}50%{box-shadow:0 0 40px rgba(168,85,247,.45)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes slideInBounce{0%{opacity:0;transform:translateY(40px)}60%{transform:translateY(-6px)}80%{transform:translateY(3px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.96)}100%{transform:scale(1)}}
+@keyframes countUp{from{opacity:0;transform:translateY(12px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes borderGlow{0%{border-color:rgba(168,85,247,.15)}50%{border-color:rgba(236,72,153,.25)}100%{border-color:rgba(168,85,247,.15)}}
+@keyframes iconPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes fadeInStagger{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.section{opacity:0;animation:slideInBounce .8s ease forwards}
+.section:nth-child(odd){animation-delay:.1s}
+.section:nth-child(even){animation-delay:.2s}
+.section-alt{animation-delay:.15s}
+
+/* ─── Hero — dark purple with side-by-side layout ─── */
+.hero{background:var(--gradient-hero)!important;position:relative;overflow:hidden;padding:80px 28px 70px!important}
+.hero::before{content:'';position:absolute;top:-200px;right:-150px;width:600px;height:600px;background:radial-gradient(circle,rgba(168,85,247,.12) 0%,rgba(236,72,153,.06) 40%,transparent 70%);pointer-events:none;animation:float 10s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-200px;left:-150px;width:500px;height:500px;background:radial-gradient(circle,rgba(236,72,153,.08) 0%,transparent 60%);pointer-events:none;animation:float 12s ease-in-out infinite 4s}
+.hero-container{align-items:center!important;gap:48px!important}
+.hero h1{color:#f0ecff!important;-webkit-text-fill-color:#f0ecff!important;font-size:3.2rem!important;line-height:1.08!important;animation:fadeInLeft .8s ease .2s both}
+.hero h1 strong,.hero h1 em{background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.hero p{color:#a99fc4!important;animation:fadeInLeft .8s ease .4s both;font-size:1.05rem}
+.hero-buttons{animation:fadeInLeft .8s ease .6s both}
+.hero .btn-primary{background:var(--gradient-accent)!important;border:none!important;border-radius:50px!important;padding:16px 40px!important;font-size:.9rem!important;font-weight:800;box-shadow:0 8px 30px var(--color-accent-glow);animation:purpleGlow 3s ease-in-out infinite;color:#fff!important}
+.hero .btn-primary:hover{box-shadow:0 12px 40px rgba(168,85,247,.5);transform:translateY(-4px) scale(1.03)}
+.hero .btn-outline{border-color:rgba(168,85,247,.3)!important;color:#e9d5ff!important;border-radius:50px!important;padding:16px 40px!important;font-size:.9rem!important;font-weight:700;background:rgba(168,85,247,.06)!important}
+.hero .btn-outline:hover{border-color:#a855f7!important;color:#fff!important;background:rgba(168,85,247,.12)!important;transform:translateY(-3px)}
+.hero-badge{background:rgba(168,85,247,.1)!important;border:1px solid rgba(168,85,247,.25)!important;border-radius:50px!important;animation:bounceIn .8s ease .1s both;color:#c084fc!important}
+.hero-badge .badge-dot{background:var(--gradient-accent);box-shadow:0 0 8px var(--color-accent-glow);animation:iconPulse 1.5s ease infinite}
+.hero-pill{background:rgba(168,85,247,.08)!important;border:1px solid rgba(168,85,247,.15)!important;color:#c084fc!important;border-radius:50px!important;font-size:.82rem!important;transition:all .3s}
+.hero-pill:hover{border-color:#a855f7!important;color:#e9d5ff!important;background:rgba(168,85,247,.15)!important;transform:translateY(-2px)}
+.hero-pills{animation:fadeInLeft .8s ease .5s both}
+.hero-micro span{color:#8b7aad!important}
+.hero-trust span{color:#a99fc4!important;border-color:rgba(168,85,247,.15)!important}
+.hero-trustpilot{animation:fadeInUp .6s ease .15s both}
+.hero-trustpilot .tp-stars{color:#a855f7!important}
+.hero-trustpilot .tp-score{color:#f0ecff!important;font-weight:800}
+.hero-trustpilot .tp-text{color:#a99fc4!important}
+
+/* ─── Hero Leaderboard Card ─── */
+.hero-visual{animation:fadeInRight .8s ease .3s both!important}
+.hero-leaderboard{background:rgba(45,27,78,.7)!important;backdrop-filter:blur(20px);border:1px solid rgba(168,85,247,.25);border-radius:24px;padding:24px;min-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.3),0 0 40px rgba(168,85,247,.1);animation:purpleGlow 4s ease-in-out infinite}
+.lb-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid rgba(168,85,247,.15)}
+.lb-icon{font-size:1.4rem}
+.lb-title{font-size:.95rem;font-weight:700;color:#e9d5ff;letter-spacing:-.01em}
+.lb-trader{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:rgba(168,85,247,.04);border:1px solid rgba(168,85,247,.08);margin-bottom:8px;transition:all .3s}
+.lb-trader:last-child{margin-bottom:0}
+.lb-trader:hover{background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.25);transform:translateX(4px)}
+.lb-avatar{width:40px;height:40px;border-radius:50%;border:2px solid rgba(168,85,247,.3);object-fit:cover;flex-shrink:0}
+.lb-info{display:flex;flex-direction:column;flex:1;min-width:0}
+.lb-name{font-size:.85rem;font-weight:700;color:#f0ecff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-copiers{font-size:.7rem;color:#8b7aad}
+.lb-roi{font-size:.9rem;font-weight:800;flex-shrink:0}
+.lb-roi.up{color:#34d399}
+.lb-roi.down{color:#f87171}
+.lb-copy-btn{background:var(--gradient-accent);color:#fff;border:none;border-radius:50px;padding:6px 16px;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .3s;flex-shrink:0;letter-spacing:.02em}
+.lb-copy-btn:hover{transform:scale(1.08);box-shadow:0 4px 16px var(--color-accent-glow)}
+
+/* ─── Buttons — pill-shaped, purple-pink gradient ─── */
+.btn-primary{border-radius:50px!important;font-weight:800;background:var(--gradient-accent)!important;color:#fff!important;box-shadow:0 4px 16px var(--color-accent-glow);transition:all .3s}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 24px var(--color-accent-glow)}
+.btn-outline{border-radius:50px!important;font-weight:700;border-color:rgba(168,85,247,.3)!important;color:#e9d5ff!important;background:rgba(168,85,247,.06)!important}
+.btn-outline:hover{border-color:#a855f7!important;color:#fff!important;background:rgba(168,85,247,.12)!important}
+.btn-primary:focus-visible,.btn-outline:focus-visible{outline:3px solid #a855f7;outline-offset:3px}
+
+/* ─── Promo bar — purple gradient ─── */
+.promo-bar{background:var(--gradient-accent)!important;animation:gradientShift 6s ease infinite;background-size:200% 200%!important;font-weight:600}
+.promo-bar a{color:#fff!important;text-decoration:underline;font-weight:800}
+.promo-bar strong{color:#fff!important}
+
+/* ─── Social proof — dark purple ─── */
+.social-proof-bar{background:rgba(45,27,78,.5)!important;border-bottom:1px solid rgba(168,85,247,.1)}
+.sp-item{animation:fadeInStagger .5s ease both;color:#c4b5d9}
+.sp-item:nth-child(1){animation-delay:.1s}.sp-item:nth-child(3){animation-delay:.2s}.sp-item:nth-child(5){animation-delay:.3s}.sp-item:nth-child(7){animation-delay:.4s}.sp-item:nth-child(9){animation-delay:.5s}
+.sp-item strong{color:#c084fc!important;font-weight:800}
+.sp-divider{background:rgba(168,85,247,.15)!important}
+
+/* ─── Ticker ─── */
+.market-ticker{background:#0f0a1a!important;border-bottom:1px solid rgba(168,85,247,.08)}
+.ticker-symbol{color:#c084fc!important;font-weight:700}
+.ticker-price{color:#c4b5d9}
+.ticker-change.up{color:#34d399!important;font-weight:700}
+.ticker-change.down{color:#f87171!important;font-weight:700}
+
+/* ─── Regulation ─── */
+.regulation-bar{background:linear-gradient(180deg,#0f0a1a,#1a1030)!important}
+.reg-label{color:#c4b5d9}
+.reg-num{color:rgba(168,85,247,.4)}
+.reg-item{animation:fadeInStagger .5s ease both}
+.reg-item:nth-child(1){animation-delay:.05s}.reg-item:nth-child(3){animation-delay:.1s}.reg-item:nth-child(5){animation-delay:.15s}.reg-item:nth-child(7){animation-delay:.2s}.reg-item:nth-child(9){animation-delay:.25s}
+
+/* ─── Feature cards — glassmorphism with purple glow ─── */
+.features-grid{grid-template-columns:repeat(3,1fr)!important;gap:20px!important}
+.feature-card{background:rgba(45,27,78,.4)!important;backdrop-filter:blur(12px);border:1px solid rgba(168,85,247,.1)!important;border-radius:var(--radius-fun)!important;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .4s ease;animation:slideInBounce .6s ease both;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(168,85,247,.04),rgba(236,72,153,.02));opacity:0;transition:opacity .3s;pointer-events:none}
+.feature-card:hover::before{opacity:1}
+.features-grid .feature-card:nth-child(1){animation-delay:.1s}
+.features-grid .feature-card:nth-child(2){animation-delay:.2s}
+.features-grid .feature-card:nth-child(3){animation-delay:.3s}
+.features-grid .feature-card:nth-child(4){animation-delay:.35s}
+.features-grid .feature-card:nth-child(5){animation-delay:.4s}
+.features-grid .feature-card:nth-child(6){animation-delay:.45s}
+.feature-card:hover{transform:translateY(-8px)!important;box-shadow:0 16px 48px rgba(0,0,0,.3),0 0 30px rgba(168,85,247,.12)!important;border-color:rgba(168,85,247,.3)!important}
+.feature-card-icon{font-size:2.2rem;width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:rgba(168,85,247,.1)!important;border-radius:16px!important;margin-bottom:18px;transition:all .3s;animation:iconPulse 3s ease-in-out infinite}
+.feature-card:nth-child(2) .feature-card-icon{animation-delay:.5s}
+.feature-card:nth-child(3) .feature-card-icon{animation-delay:1s}
+.feature-card:hover .feature-card-icon{transform:scale(1.15);box-shadow:0 0 20px rgba(168,85,247,.2)}
+.feature-card h3{color:#f0ecff!important;font-weight:800}
+.feature-card p{color:#a99fc4}
+
+/* ─── Stats — 2x2 grid with gradient numbers ─── */
+.stats-bar{display:flex!important;flex-wrap:wrap!important;gap:16px!important;justify-content:center}
+.stat-item{background:rgba(45,27,78,.5)!important;backdrop-filter:blur(12px);border:1px solid rgba(168,85,247,.12)!important;border-radius:var(--radius-fun)!important;padding:32px 28px!important;flex:1 1 200px;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .4s;animation:bounceIn .6s ease both;text-align:center}
+.stat-item:nth-child(1){animation-delay:.2s}.stat-item:nth-child(2){animation-delay:.35s}.stat-item:nth-child(3){animation-delay:.5s}.stat-item:nth-child(4){animation-delay:.65s}
+.stat-item:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 36px rgba(168,85,247,.15);border-color:rgba(168,85,247,.3)!important}
+.stat-divider{display:none!important}
+.stat-value{background:var(--gradient-accent)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text;font-weight:900;font-size:2.8rem}
+.stat-label{color:#8b7aad!important;text-transform:uppercase;font-size:.7rem;letter-spacing:.1em;font-weight:700;margin-top:6px}
+
+/* ─── Steps — purple numbered circles ─── */
+.step-number{background:var(--gradient-accent)!important;box-shadow:0 6px 20px var(--color-accent-glow);font-weight:900;transition:all .3s}
+.step-item{animation:slideInBounce .6s ease both;border:1px solid rgba(168,85,247,.1);border-radius:var(--radius-fun)!important;background:rgba(45,27,78,.3);box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .4s}
+.step-item:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,0,0,.2);border-color:rgba(168,85,247,.25)}
+.step-item:nth-child(1){animation-delay:.15s}.step-item:nth-child(2){animation-delay:.3s}.step-item:nth-child(3){animation-delay:.45s}
+.step-item:hover .step-number{transform:scale(1.2) rotate(10deg)!important;box-shadow:0 8px 28px var(--color-accent-glow)}
+.step-item h3{color:#f0ecff!important}
+.step-item p{color:#a99fc4}
+.step-connector{background:var(--gradient-accent)!important;opacity:.2;height:3px}
+
+/* ─── Data table ─── */
+.data-table{border:1px solid rgba(168,85,247,.12);border-radius:var(--radius-fun)!important;overflow:hidden}
+.data-table th{background:linear-gradient(135deg,#2d1b4e,#3d2566)!important;color:#c084fc!important;font-size:.78rem;letter-spacing:.06em}
+.data-table td{font-size:.88rem;transition:all .2s;color:#c4b5d9;border-color:rgba(168,85,247,.08)!important}
+.data-table td:nth-child(3){font-weight:700;color:#a855f7}
+.data-table tbody tr{transition:all .2s;border-left:3px solid transparent;background:rgba(45,27,78,.2)}
+.data-table tbody tr:hover{background:rgba(168,85,247,.06);border-left-color:#a855f7}
+
+/* ─── CTA section — purple gradient ─── */
+.cta-section{background:var(--gradient-accent)!important;animation:gradientShift 8s ease infinite;background-size:200% 200%!important;position:relative;padding:100px 28px!important;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.12),transparent 60%)}
+.cta-section::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(255,255,255,.08),transparent 60%)}
+.cta-section h2{color:#fff!important;-webkit-text-fill-color:#fff!important;animation:fadeInUp .6s ease both;position:relative;z-index:1}
+.cta-section h2::after{background:#fff!important;margin:14px auto 0}
+.cta-section p{color:rgba(255,255,255,.85)!important;position:relative;z-index:1}
+.cta-section .btn-primary{background:#fff!important;color:#a855f7!important;box-shadow:0 8px 30px rgba(0,0,0,.2);position:relative;z-index:1;font-weight:900}
+.cta-section .btn-primary:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 12px 40px rgba(0,0,0,.25)}
+
+/* ─── Awards — dark cards with purple accent ─── */
+.awards-section{background:#0f0a1a!important;border-top:1px solid rgba(168,85,247,.08);padding:56px 28px!important}
+.awards-label{color:#8b7aad!important;text-transform:uppercase;letter-spacing:.12em;font-size:.74rem;font-weight:700}
+.awards-title{color:#f0ecff!important;font-size:1.5rem!important}
+.award-card{border:1px solid rgba(168,85,247,.1)!important;background:rgba(45,27,78,.3)!important;border-radius:16px!important;box-shadow:0 2px 12px rgba(0,0,0,.2);transition:all .4s;animation:bounceIn .5s ease both}
+.award-card:nth-child(1){animation-delay:.1s}.award-card:nth-child(2){animation-delay:.15s}.award-card:nth-child(3){animation-delay:.2s}.award-card:nth-child(4){animation-delay:.25s}.award-card:nth-child(5){animation-delay:.3s}.award-card:nth-child(6){animation-delay:.35s}
+.award-card:hover{transform:translateY(-6px) rotate(-1deg)!important;box-shadow:0 12px 36px rgba(168,85,247,.12)!important;border-color:rgba(168,85,247,.3)!important}
+.award-icon{font-size:2.4rem;animation:iconPulse 3s ease-in-out infinite}
+.award-name{color:#f0ecff!important;font-weight:700}
+.award-source{color:#8b7aad!important}
+.award-year{color:#c084fc!important;font-weight:800}
+
+/* ─── Performance bar — deep purple with gradient numbers ─── */
+.perf-bar{background:linear-gradient(135deg,#0f0a1a,#1f1340)!important}
+.perf-value{color:#fff;font-weight:900}
+.perf-unit{color:#c084fc!important}
+.perf-label{color:rgba(168,85,247,.4)}
+.perf-item{animation:countUp .5s ease both}
+.perf-item:nth-child(1){animation-delay:.1s}.perf-item:nth-child(2){animation-delay:.2s}.perf-item:nth-child(3){animation-delay:.3s}.perf-item:nth-child(4){animation-delay:.4s}.perf-item:nth-child(5){animation-delay:.5s}
+
+/* ─── Security — purple glass cards ─── */
+.security-bar{background:linear-gradient(180deg,#0f0a1a,#1a1030)!important}
+.security-badge{background:rgba(168,85,247,.06)!important;border:1px solid rgba(168,85,247,.12)!important;border-radius:16px!important;padding:22px 16px;transition:all .4s;animation:bounceIn .4s ease both}
+.security-badge:nth-child(1){animation-delay:.05s}.security-badge:nth-child(2){animation-delay:.1s}.security-badge:nth-child(3){animation-delay:.15s}.security-badge:nth-child(4){animation-delay:.2s}.security-badge:nth-child(5){animation-delay:.25s}.security-badge:nth-child(6){animation-delay:.3s}
+.security-badge:hover{border-color:rgba(168,85,247,.3)!important;background:rgba(168,85,247,.12)!important;transform:translateY(-4px)}
+.sb-icon{font-size:1.6rem}
+.sb-label{color:#e2e0ff;font-weight:700}
+.sb-sub{color:rgba(168,85,247,.4)}
+
+/* ─── Fund protection ─── */
+.fund-protection{border:1px solid rgba(168,85,247,.12)!important;border-left:4px solid #a855f7!important;background:rgba(45,27,78,.3)!important;border-radius:var(--radius-fun)!important;animation:fadeInLeft .6s ease both}
+.fp-title{color:#f0ecff;font-weight:800}
+.fp-text{color:#a99fc4}
+.fp-amount{background:rgba(168,85,247,.06)!important;border:1px solid rgba(168,85,247,.12)!important;border-radius:12px!important;transition:all .2s}
+.fp-amount:hover{border-color:rgba(168,85,247,.3)!important;background:rgba(168,85,247,.1)!important;transform:translateX(4px)}
+.fp-amount strong{color:#c084fc!important}
+
+/* ─── FAQ — purple accent ─── */
+.faq-q{color:#f0ecff;font-weight:700}
+.faq-item.open .faq-q{color:#c084fc!important}
+.faq-q::after{color:#a855f7!important}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-item{animation:fadeInStagger .4s ease both;border-radius:16px!important;border-color:rgba(168,85,247,.1)!important;background:rgba(45,27,78,.2)}
+.faq-item:nth-child(1){animation-delay:.05s}.faq-item:nth-child(2){animation-delay:.1s}.faq-item:nth-child(3){animation-delay:.15s}.faq-item:nth-child(4){animation-delay:.2s}.faq-item:nth-child(5){animation-delay:.25s}.faq-item:nth-child(6){animation-delay:.3s}
+.faq-a{color:#a99fc4}
+
+/* ─── Section CTAs ─── */
+.section-cta .btn-primary{background:var(--gradient-accent)!important;box-shadow:0 6px 20px var(--color-accent-glow);border-radius:50px!important;padding:14px 36px;transition:all .3s}
+.section-cta .btn-primary:hover{box-shadow:0 10px 32px rgba(168,85,247,.4);transform:translateY(-3px) scale(1.02)}
+
+/* ─── Testimonials — purple accent cards ─── */
+.testimonial-card{border:1px solid rgba(168,85,247,.1)!important;background:rgba(45,27,78,.3)!important;border-radius:var(--radius-fun)!important;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .4s}
+.testimonial-card::before{color:rgba(168,85,247,.2)!important}
+.testimonial-card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,0,0,.25);border-color:rgba(168,85,247,.25)!important}
+.testimonial-card p{color:#c4b5d9}
+.testimonial-author{color:#f0ecff!important}
+.testimonial-role{color:#8b7aad!important}
+.testimonial-stars{color:#a855f7!important}
+
+/* ─── Pricing — glass cards with purple highlight ─── */
+.pricing-card{border:1px solid rgba(168,85,247,.1)!important;border-radius:var(--radius-fun)!important;background:rgba(45,27,78,.3)!important;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .4s}
+.pricing-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(0,0,0,.3)}
+.pricing-card.highlighted{border-color:rgba(168,85,247,.35)!important;background:linear-gradient(180deg,rgba(45,27,78,.6),rgba(45,27,78,.3))!important;box-shadow:0 8px 32px rgba(168,85,247,.15)}
+.pricing-card.highlighted::before{background:var(--gradient-accent)!important}
+.pricing-card h3{color:#f0ecff!important}
+.pricing-card .price{color:#c084fc!important}
+.pricing-card li{color:#a99fc4}
+.pricing-card li::before{color:#a855f7!important}
+
+/* ─── Footer — dark purple theme ─── */
+.footer{background:#0f0a1a!important;border-top:1px solid rgba(168,85,247,.08);color:#a99fc4!important}
+.footer h4{color:#f0ecff!important;font-weight:800;font-size:.85rem!important}
+.footer a{color:#8b7aad!important}
+.footer a:hover{color:#c084fc!important}
+.footer p{color:#6b5f85!important}
+.footer-col p{color:#6b5f85!important}
+.footer-social a{color:#8b7aad!important;transition:all .3s;width:36px;height:36px;border-radius:50%!important;border:1px solid rgba(168,85,247,.15)!important;display:inline-flex;align-items:center;justify-content:center}
+.footer-social a:hover{color:#c084fc!important;border-color:#a855f7!important;background:rgba(168,85,247,.08);transform:translateY(-3px) rotate(5deg)}
+.footer-licenses{border-color:rgba(168,85,247,.08)!important}
+.footer-licenses-title{color:#c084fc!important;font-weight:700}
+.footer-license-item strong{color:#f0ecff!important}
+.footer-license-item{color:#8b7aad!important}
+.footer-regulatory span{background:rgba(168,85,247,.06)!important;border:1px solid rgba(168,85,247,.12)!important;border-radius:50px!important;padding:6px 16px;font-size:.72rem;color:#c084fc!important;transition:all .2s}
+.footer-regulatory span:hover{background:rgba(168,85,247,.12)!important;transform:translateY(-2px)}
+.footer-payments span{color:#8b7aad!important}
+.footer-risk{border-top-color:rgba(168,85,247,.08)!important;color:#6b5f85!important}
+.footer-bottom p{color:#6b5f85!important}
+.footer-bottom a{color:#6b5f85!important}
+.footer-bottom a:hover{color:#c084fc!important}
+.footer-app-badge{border-color:rgba(168,85,247,.12)!important;border-radius:12px!important;background:rgba(45,27,78,.3)!important}
+.footer-app-badge:hover{border-color:#a855f7!important}
+.footer-address span,.footer-address a{color:#6b5f85!important}
+
+/* ─── Navbar — dark purple with accent active state ─── */
+.navbar{background:#1a1030!important;border-bottom:1px solid rgba(168,85,247,.1)}
+.navbar.scrolled{background:rgba(26,16,48,.95)!important;backdrop-filter:blur(16px);box-shadow:0 2px 16px rgba(0,0,0,.3)}
+.navbar-brand{color:#f0ecff!important;font-weight:900}
+.navbar-links a{color:#a99fc4!important;font-weight:500;transition:all .2s}
+.navbar-links a:hover,.navbar-links a.active{color:#c084fc!important}
+.navbar-cta{background:var(--gradient-accent)!important;border-radius:50px!important;font-weight:800;box-shadow:0 4px 16px var(--color-accent-glow);color:#fff!important;transition:all .3s!important}
+.navbar-cta:hover{box-shadow:0 6px 24px var(--color-accent-glow)!important;transform:translateY(-2px)}
+.navbar-login{color:#a99fc4!important}
+.navbar-login:hover{color:#c084fc!important}
+.nav-dropdown-menu{background:rgba(45,27,78,.95)!important;backdrop-filter:blur(16px);border:1px solid rgba(168,85,247,.15)!important;box-shadow:0 12px 40px rgba(0,0,0,.4)!important}
+.nav-dropdown-menu a{color:#c4b5d9!important}
+.nav-dropdown-menu a:hover{background:rgba(168,85,247,.1)!important;color:#e9d5ff!important}
+.dd-icon{color:#c084fc}
+.dd-desc{color:#8b7aad!important}
+.nav-dropdown-footer a{color:#c084fc!important}
+
+/* ─── Announcement bar ─── */
+.announcement-bar{background:rgba(45,27,78,.6)!important;border-bottom:1px solid rgba(168,85,247,.08);color:#c4b5d9!important}
+.announcement-bar a{color:#c084fc!important;font-weight:700}
+
+/* ─── Sticky CTA ─── */
+.sticky-cta .btn-primary{background:var(--gradient-accent)!important;border-radius:50px!important;box-shadow:0 6px 24px var(--color-accent-glow);animation:purpleGlow 3s ease-in-out infinite;color:#fff!important}
+
+/* ─── Live activity ─── */
+.live-activity{border:1px solid rgba(168,85,247,.15)!important;box-shadow:0 8px 30px rgba(0,0,0,.3);background:rgba(45,27,78,.9)!important;backdrop-filter:blur(12px);border-radius:16px!important;animation:slideInBounce .4s ease both}
+.la-dot{background:#a855f7!important;box-shadow:0 0 10px var(--color-accent-glow);animation:iconPulse 1.5s ease infinite}
+.live-activity .la-text{color:#c4b5d9!important}
+.live-activity .la-text strong{color:#c084fc!important}
+
+/* ─── Cookie ─── */
+.cookie-bar{background:rgba(45,27,78,.95)!important;border-top:1px solid rgba(168,85,247,.12);backdrop-filter:blur(12px)}
+.cookie-bar p{color:#a99fc4!important}
+.btn-accept{background:var(--gradient-accent)!important;border-radius:50px!important;color:#fff!important}
+.btn-decline{border-radius:50px!important;color:#a99fc4!important;border-color:rgba(168,85,247,.2)!important}
+.btn-decline:hover{border-color:#a855f7!important;color:#e9d5ff!important}
+
+/* ─── Media bar ─── */
+.media-bar{background:#0f0a1a!important}
+.media-label{color:#6b5f85!important;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:700}
+.media-logo{color:#4a3d6b!important;transition:all .3s}
+.media-logo:hover{color:#c084fc!important;transform:scale(1.05)}
+
+/* ─── Comparison table ─── */
+.comparison-table{border:1px solid rgba(168,85,247,.12)!important;border-radius:var(--radius-fun)!important;overflow:hidden}
+.comparison-table th{background:rgba(45,27,78,.5)!important;color:#c084fc!important}
+.comparison-table td{color:#c4b5d9;border-color:rgba(168,85,247,.06)!important}
+
+/* ─── Two column layout ─── */
+.two-col{color:#c4b5d9}
+.two-col h3{color:#f0ecff!important}
+.two-col li{color:#a99fc4}
+
+/* ─── Icon grid ─── */
+.icon-grid-item{background:rgba(45,27,78,.3)!important;border:1px solid rgba(168,85,247,.08);border-radius:16px!important;transition:all .3s}
+.icon-grid-item:hover{border-color:rgba(168,85,247,.25);background:rgba(45,27,78,.5)!important;transform:translateY(-4px)}
+.icon-grid-item h4{color:#f0ecff!important}
+.icon-grid-item p{color:#a99fc4}
+
+/* ─── Banner section ─── */
+.banner-info,.banner-warning,.banner-success{background:rgba(45,27,78,.4)!important;border:1px solid rgba(168,85,247,.12)!important;border-radius:var(--radius-fun)!important;color:#c4b5d9}
+
+/* ─── Mobile menu ─── */
+.mobile-menu{background:rgba(26,16,48,.98)!important;backdrop-filter:blur(16px)}
+.mobile-menu a{color:#c4b5d9!important;border-color:rgba(168,85,247,.08)!important}
+.mobile-menu a:hover,.mobile-menu a.active{color:#c084fc!important;background:rgba(168,85,247,.08)}
+.mobile-divider{background:rgba(168,85,247,.1)!important}
+
+/* ═══ RESPONSIVE — Copy Trading ═══ */
+@media(min-width:1440px){
+.hero{padding:100px 40px 90px!important}
+.hero h1{font-size:3.6rem!important}
+.features-grid{gap:24px!important}
+.section{padding:88px 40px}
+.hero-leaderboard{min-width:400px}
+}
+@media(min-width:1024px){
+.hero h1{font-size:3.2rem}
+.features-grid{grid-template-columns:repeat(3,1fr)!important;gap:20px!important}
+.stats-bar{flex-wrap:nowrap!important;gap:16px}
+.stat-item{max-width:none}
+.steps-grid{grid-template-columns:repeat(3,1fr);gap:28px}
+.section{padding:80px 28px}
+.cta-section{padding:100px 28px!important}
+.cta-section h2{font-size:2.2rem}
+.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr 1fr!important}
+}
+@media(min-width:768px) and (max-width:1023px){
+.hero{padding:72px 24px 56px!important}
+.hero h1{font-size:2.4rem!important}
+.features-grid{grid-template-columns:repeat(2,1fr)!important}
+.stats-bar{flex-wrap:wrap!important}
+.stat-item{flex:1 1 45%}
+.footer-grid{grid-template-columns:1fr 1fr!important}
+.hero-leaderboard{min-width:300px}
+}
+@media(max-width:767px){
+.hero{padding:56px 20px 48px!important}
+.hero h1{font-size:2rem!important;line-height:1.12!important}
+.hero-container{flex-direction:column!important;gap:24px}
+.hero-visual{width:100%!important}
+.hero-leaderboard{min-width:0;width:100%}
+.lb-trader{padding:10px 12px}
+.lb-avatar{width:34px;height:34px}
+.lb-name{font-size:.8rem}
+.lb-copiers{font-size:.65rem}
+.lb-roi{font-size:.8rem}
+.lb-copy-btn{padding:5px 12px;font-size:.68rem}
+.features-grid{grid-template-columns:1fr!important;gap:12px!important}
+.stats-bar{flex-direction:column!important;gap:12px!important}
+.stat-item{max-width:100%!important;flex:1 1 100%}
+.stat-value{font-size:2.2rem}
+.steps-grid{grid-template-columns:1fr;gap:12px}
+.cta-section{padding:56px 20px!important}
+.cta-section h2{font-size:1.5rem}
+.section-title{font-size:1.5rem}
+.footer-grid{grid-template-columns:1fr!important;gap:28px}
+}
+@media(prefers-reduced-motion:reduce){.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.sp-item,.reg-item,.hero h1,.hero p,.hero-buttons,.hero-pills,.hero-badge,.hero-trustpilot,.hero-mockup,.hero-visual,.hero-visual *,.live-activity,.fund-protection,.hero-leaderboard,.lb-trader,.lb-copy-btn{animation:none!important;opacity:1!important;transform:none!important}}
+` : ''}
 `
 }
 
@@ -2206,11 +2757,16 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
   const navSlugs = n.navSlugs
   const navPages = pages.filter((p) => navSlugs.includes(p.slug))
   const cryptoSubPages = ['spot-trading', 'futures', 'staking', 'tokens', 'wallet']
+  const copyTradingSubPages = ['top-traders', 'strategies', 'community']
   const marketPagesNav = options.niche === 'crypto_exchange'
     ? pages.filter(p => cryptoSubPages.includes(p.slug))
+    : options.niche === 'copy_trading'
+    ? pages.filter(p => copyTradingSubPages.includes(p.slug))
     : pages.filter(p => p.slug.startsWith('markets/'))
   const isMarketPage = options.niche === 'crypto_exchange'
     ? cryptoSubPages.includes(page.slug)
+    : options.niche === 'copy_trading'
+    ? copyTradingSubPages.includes(page.slug)
     : page.slug.startsWith('markets/')
 
   const navLinks = navPages.map((p) => {
@@ -2229,7 +2785,7 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
       }).join('\n')
       return `        <li><a href="${href}"${aboutCls}>${escapeHtml(p.title)}</a></li>
         <li class="nav-dropdown">
-          <a href="#"${marketsCls}>${options.niche === 'crypto_exchange' ? 'Products' : 'Markets'}</a>
+          <a href="#"${marketsCls}>${options.niche === 'crypto_exchange' ? 'Products' : options.niche === 'copy_trading' ? 'Discover' : 'Markets'}</a>
           <div class="nav-dropdown-menu">
 ${dropdownLinks}
             <div class="nav-dropdown-footer"><a href="#">View All Markets &rarr;</a></div>
@@ -2442,6 +2998,49 @@ ${heroConfig.showMockup ? (options.niche === 'crypto_exchange' ? `      <div cla
           <div class="hero-floating-card card-bottom">
             <span class="hfc-icon">💰</span>
             <div><div class="hfc-label">Funded</div><div class="hfc-value">$200,000</div></div>
+          </div>
+        </div>
+      </div>` : options.niche === 'copy_trading' ? `      <div class="hero-visual">
+        <div class="hero-leaderboard">
+          <div class="lb-header">
+            <span class="lb-icon">🏆</span>
+            <span class="lb-title">Top Traders Leaderboard</span>
+          </div>
+          <div class="lb-trader">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="TraderMax" class="lb-avatar" loading="eager"/>
+            <div class="lb-info">
+              <span class="lb-name">@TraderMax</span>
+              <span class="lb-copiers">12.4K copiers</span>
+            </div>
+            <span class="lb-roi up">+42.3%</span>
+            <button class="lb-copy-btn">Copy</button>
+          </div>
+          <div class="lb-trader">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="CryptoQueen" class="lb-avatar" loading="eager"/>
+            <div class="lb-info">
+              <span class="lb-name">@CryptoQueen</span>
+              <span class="lb-copiers">8.2K copiers</span>
+            </div>
+            <span class="lb-roi up">+38.7%</span>
+            <button class="lb-copy-btn">Copy</button>
+          </div>
+          <div class="lb-trader">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="ForexPro" class="lb-avatar" loading="eager"/>
+            <div class="lb-info">
+              <span class="lb-name">@ForexPro</span>
+              <span class="lb-copiers">6.1K copiers</span>
+            </div>
+            <span class="lb-roi up">+31.2%</span>
+            <button class="lb-copy-btn">Copy</button>
+          </div>
+          <div class="lb-trader">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="IndexQueen" class="lb-avatar" loading="eager"/>
+            <div class="lb-info">
+              <span class="lb-name">@IndexQueen</span>
+              <span class="lb-copiers">4.8K copiers</span>
+            </div>
+            <span class="lb-roi up">+27.5%</span>
+            <button class="lb-copy-btn">Copy</button>
           </div>
         </div>
       </div>` : `      <div class="hero-visual">
@@ -2659,7 +3258,7 @@ ${n.liveActivityMsgs.map(m => `    {flag:'${m.flag}',text:'${m.text.replace(/'/g
   }
   setTimeout(showNext,4000+Math.random()*3000);
 })();
-${(options.niche === 'crypto_exchange' || options.niche === 'prop_trading') ? `
+${(options.niche === 'crypto_exchange' || options.niche === 'prop_trading' || options.niche === 'copy_trading') ? `
 // Scroll-reveal: animate elements when they enter viewport
 (function(){
   var observed=document.querySelectorAll('.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.fund-protection');

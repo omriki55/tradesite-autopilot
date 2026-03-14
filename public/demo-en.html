@@ -559,6 +559,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);ov
       <button class="demo-tab-en active" onclick="switchDemoEN(0)" style="background:linear-gradient(135deg,#0066ff,#0044cc);color:white;border:none;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit">📊 Nova Markets — Forex</button>
       <button class="demo-tab-en" onclick="switchDemoEN(1)" style="background:rgba(255,255,255,.06);color:#64748B;border:1px solid rgba(255,255,255,.1);padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit">🪙 CryptoVault — Crypto</button>
       <button class="demo-tab-en" onclick="switchDemoEN(2)" style="background:rgba(255,255,255,.06);color:#64748B;border:1px solid rgba(255,255,255,.1);padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit">🏆 TradeUp — Prop Trading</button>
+      <button class="demo-tab-en" onclick="switchDemoEN(3)" style="background:rgba(255,255,255,.06);color:#64748B;border:1px solid rgba(255,255,255,.1);padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit">👥 SocialTrade — Copy Trading</button>
     </div>
 
     <div style="max-width:1000px;margin:0 auto">
@@ -585,7 +586,7 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);ov
         <div style="text-align:center;margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
           <a href="https://tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40" target="_blank" class="btn-primary">🌐 Open Site <span>→</span></a>
           <div style="display:flex;gap:16px;align-items:center;font-size:13px;color:rgba(255,255,255,.5)">
-            <span>📄 10 Pages</span><span>🪙 600+ Tokens</span><span>₿ Crypto Exchange</span>
+            <span>📄 20 Pages</span><span>🪙 600+ Tokens</span><span>₿ Crypto Exchange</span>
           </div>
         </div>
       </div>
@@ -599,7 +600,21 @@ body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);ov
         <div style="text-align:center;margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
           <a href="https://tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978" target="_blank" class="btn-primary">🌐 Open Site <span>→</span></a>
           <div style="display:flex;gap:16px;align-items:center;font-size:13px;color:rgba(255,255,255,.5)">
-            <span>📄 10 Pages</span><span>🏆 $200K Account</span><span>📈 Prop Trading</span>
+            <span>📄 20 Pages</span><span>🏆 $200K Account</span><span>📈 Prop Trading</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Site 4: SocialTrade -->
+      <div class="demo-site-en" id="demo-en-3" style="display:none">
+        <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(168,85,247,.3)">
+          <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs</div></div>
+          <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs" style="width:100%;height:480px;border:none" loading="lazy"></iframe></div>
+        </div>
+        <div style="text-align:center;margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <a href="https://tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs" target="_blank" class="btn-primary">🌐 Open Site <span>→</span></a>
+          <div style="display:flex;gap:16px;align-items:center;font-size:13px;color:rgba(255,255,255,.5)">
+            <span>📄 20 Pages</span><span>👥 10K+ Traders</span><span>🔮 Copy Trading</span>
           </div>
         </div>
       </div>
@@ -671,7 +686,8 @@ document.querySelectorAll('.faq-q').forEach(q=>{q.addEventListener('click',()=>{
 const demoTabColorsEN = [
   'linear-gradient(135deg, #0066ff, #0044cc)',
   'linear-gradient(135deg, #10b981, #059669)',
-  'linear-gradient(135deg, #f97316, #ea580c)'
+  'linear-gradient(135deg, #f97316, #ea580c)',
+  'linear-gradient(135deg, #a855f7, #ec4899)'
 ];
 function switchDemoEN(index) {
   document.querySelectorAll('.demo-site-en').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
