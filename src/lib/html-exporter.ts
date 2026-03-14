@@ -1302,6 +1302,17 @@ h1,h2,h3,.section-title{letter-spacing:-.03em;font-weight:900}
 .mockup-amount{color:#f0fdf4;font-family:var(--font-mono)}
 .mockup-change.up{background:rgba(16,185,129,.15);color:#10b981}
 
+/* ─── Hero trader image with floating cards ─── */
+.hero-trader-img{position:relative;max-width:420px;margin:0 auto;animation:revealUp .8s ease .1s both}
+.trader-photo{width:100%;height:auto;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.4),0 0 60px rgba(16,185,129,.08);border:2px solid rgba(16,185,129,.15);object-fit:cover;max-height:480px}
+.hero-floating-card{position:absolute;display:flex;align-items:center;gap:10px;background:rgba(12,18,34,.9);backdrop-filter:blur(16px);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:12px 18px;box-shadow:0 8px 32px rgba(0,0,0,.3);animation:floatY 4s ease-in-out infinite;z-index:2}
+.hero-floating-card.card-top{top:15%;right:-60px;animation-delay:0s}
+.hero-floating-card.card-bottom{bottom:20%;left:-60px;animation-delay:2s}
+.hfc-icon{font-size:1.6rem}
+.hfc-label{font-size:.72rem;color:rgba(167,243,208,.5);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em}
+.hfc-value{font-size:1rem;font-weight:800;color:#d1fae5;font-family:var(--font-mono)}
+.hfc-value.up{color:#10b981}
+
 /* ─── Buttons — SQUARE, uppercase, monospace (totally different from forex rounded pills) ─── */
 .btn-primary{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-weight:800;font-size:.85rem}
 .btn-outline{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-weight:700;font-size:.85rem;border-width:2px}
@@ -1583,6 +1594,13 @@ h1,h2,h3,.section-title{letter-spacing:-.03em;font-weight:900}
 .hero-container{gap:24px!important}
 .hero-visual{max-width:100%!important}
 .hero-mockup{max-width:100%!important;border-radius:12px!important}
+.hero-trader-img{max-width:280px}
+.trader-photo{max-height:340px;border-radius:18px}
+.hero-floating-card.card-top{right:-20px;top:10%;padding:8px 14px}
+.hero-floating-card.card-bottom{left:-20px;bottom:15%;padding:8px 14px}
+.hfc-icon{font-size:1.2rem}
+.hfc-label{font-size:.65rem}
+.hfc-value{font-size:.85rem}
 .hero-pills{flex-wrap:wrap;gap:8px}
 .hero-pill{font-size:.75rem;padding:6px 12px}
 .features-grid{grid-template-columns:1fr!important;gap:12px!important}
@@ -1897,7 +1915,19 @@ ${heroConfig.pills && heroConfig.pills.length ? `        <div class="hero-pills"
 ${n.heroTrust.map(t => `          <span>${t}</span>`).join('\n')}
         </div>
       </div>
-${heroConfig.showMockup ? `      <div class="hero-visual">
+${heroConfig.showMockup ? (options.niche === 'crypto_exchange' ? `      <div class="hero-visual">
+        <div class="hero-trader-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=700&fit=crop&crop=face" alt="Young crypto trader" class="trader-photo" loading="eager"/>
+          <div class="hero-floating-card card-top">
+            <span class="hfc-icon">📈</span>
+            <div><div class="hfc-label">BTC/USDT</div><div class="hfc-value up">+2.84%</div></div>
+          </div>
+          <div class="hero-floating-card card-bottom">
+            <span class="hfc-icon">💰</span>
+            <div><div class="hfc-label">Portfolio</div><div class="hfc-value">$125,430</div></div>
+          </div>
+        </div>
+      </div>` : `      <div class="hero-visual">
         <div class="hero-mockup">
           <div class="mockup-topbar">
             <div class="mockup-dots"><span></span><span></span><span></span></div>
@@ -1907,7 +1937,7 @@ ${heroConfig.showMockup ? `      <div class="hero-visual">
             <span class="mockup-amount">$125,430.00</span>
             <span class="mockup-change up">+2.4%</span>
           </div>
-          <div class="mockup-sublabel">${options.niche === 'crypto_exchange' ? 'Portfolio Balance' : 'Portfolio Value'}</div>
+          <div class="mockup-sublabel">Portfolio Value</div>
           <svg class="mockup-chart" viewBox="0 0 340 100" preserveAspectRatio="none">
             <defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981" stop-opacity="0.15"/><stop offset="100%" stop-color="#10b981" stop-opacity="0"/></linearGradient></defs>
             <polyline points="0,85 30,78 60,80 90,65 120,68 150,50 180,55 210,38 240,42 270,25 300,28 340,12" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1917,7 +1947,7 @@ ${heroConfig.showMockup ? `      <div class="hero-visual">
 ${n.mockupRows.map(r => `            <div class="mockup-row"><span>${r.symbol}</span><span>${r.price}</span><span class="${r.up ? 'up' : 'down'}">${r.change}</span></div>`).join('\n')}
           </div>
         </div>
-      </div>` : heroConfig.visual ? `      <div class="hero-visual">
+      </div>`) : heroConfig.visual ? `      <div class="hero-visual">
 ${heroConfig.visual}
       </div>` : ''}
     </div>
