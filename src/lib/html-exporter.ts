@@ -3315,6 +3315,11 @@ ${(options.niche === 'crypto_exchange' || options.niche === 'prop_trading' || op
 // ─── Section renderer ────────────────────────────────────
 
 function renderSection(s: ParsedSection): string {
+  // If content is an array, treat it as items for the appropriate renderer
+  if (Array.isArray(s.content)) {
+    s.items = s.items || s.content as any
+    if (!s.type || s.type === 'text') s.type = 'features'
+  }
   switch (s.type) {
     case 'features': return renderFeatures(s)
     case 'pricing': return renderPricing(s)
@@ -3328,14 +3333,17 @@ function renderSection(s: ParsedSection): string {
     case 'comparison': return renderComparison(s)
     case 'banner': return renderBanner(s)
     case 'two-column': return renderTwoColumn(s)
+    case 'faq': return renderFaq(s)
     default: return renderText(s)
   }
 }
 
 function renderText(s: ParsedSection): string {
   const c = s.content || ''
-  const paras = c.split('\n').filter((l) => l.trim()).map((l) => `        <p>${escapeHtml(l.trim())}</p>`).join('\n')
-  return `      <div class="text-content">\n${paras || `        <p>${escapeHtml(c)}</p>`}\n      </div>`
+  // Guard: if content is not a string, convert it
+  const str = typeof c === 'string' ? c : JSON.stringify(c)
+  const paras = str.split('\n').filter((l: string) => l.trim()).map((l: string) => `        <p>${escapeHtml(l.trim())}</p>`).join('\n')
+  return `      <div class="text-content">\n${paras || `        <p>${escapeHtml(str)}</p>`}\n      </div>`
 }
 
 function renderFeatures(s: ParsedSection): string {
@@ -3384,9 +3392,19 @@ function renderTable(s: ParsedSection): string {
 
 // ─── New section renderers ───────────────────────────────
 
+function renderFaq(s: ParsedSection): string {
+  const faqs = s.items || s.content as any || []
+  if (!Array.isArray(faqs)) return renderText(s)
+  const items = faqs.map((f: any) => {
+    return `        <div class="faq-item">\n          <h3 class="faq-question">${escapeHtml(f.question || f.title || '')}</h3>\n          <p class="faq-answer">${escapeHtml(f.answer || f.description || '')}</p>\n        </div>`
+  }).join('\n')
+  return `      <div class="faq-list">\n${items}\n      </div>`
+}
+
 function renderStats(s: ParsedSection): string {
-  const stats = s.stats || []
-  const items = stats.map((st, i) => {
+  const stats = s.stats || s.items || s.content as any || []
+  if (!Array.isArray(stats)) return renderText(s)
+  const items = stats.map((st: any, i: number) => {
     const divider = i < stats.length - 1 ? '\n        <div class="stat-divider"></div>' : ''
     return `        <div class="stat-item">\n          <div class="stat-value">${escapeHtml(st.value)}</div>\n          <div class="stat-label">${escapeHtml(st.label)}</div>\n        </div>${divider}`
   }).join('\n')
