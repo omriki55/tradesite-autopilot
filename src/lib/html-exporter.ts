@@ -1234,10 +1234,19 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 @media(max-width:640px){.hero h1{font-size:2rem}.section{padding:52px 16px}.feature-card{padding:24px 20px}.pricing-card{padding:28px 20px}.testimonial-card{padding:24px 20px}.stat-item{padding:14px 16px}.step-item{padding:20px 16px}}
 @media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer{padding:40px 16px 16px}.footer-grid{grid-template-columns:1fr;gap:28px}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}.hero--tools .hero-inner{border-left-width:3px;padding-left:20px}}
 ${options.niche === 'crypto_exchange' ? `
-/* ═══ Crypto Exchange — Emerald & Gold Theme ═══ */
-:root{--color-accent-light:#34d399;--color-accent-glow:rgba(16,185,129,.35);--color-accent-subtle:rgba(16,185,129,.08);--color-gold:#f59e0b;--color-gold-glow:rgba(245,158,11,.25);--color-neon:#22d3ee;--gradient-accent:linear-gradient(135deg,#059669 0%,#10b981 50%,#34d399 100%);--gradient-hero:linear-gradient(160deg,#070d18 0%,#0c1a2e 40%,#0f2034 100%);--gradient-dark:linear-gradient(180deg,#070d18 0%,#0c1222 100%);--gradient-gold:linear-gradient(135deg,#f59e0b 0%,#fbbf24 100%)}
+/* ═══ Crypto Exchange — Web3 Dashboard Design ═══ */
+:root{--color-accent-light:#34d399;--color-accent-glow:rgba(16,185,129,.35);--color-accent-subtle:rgba(16,185,129,.08);--color-gold:#f59e0b;--color-gold-glow:rgba(245,158,11,.25);--color-neon:#22d3ee;--gradient-accent:linear-gradient(135deg,#059669 0%,#10b981 50%,#34d399 100%);--gradient-hero:linear-gradient(160deg,#070d18 0%,#0c1a2e 40%,#0f2034 100%);--gradient-dark:linear-gradient(180deg,#070d18 0%,#0c1222 100%);--gradient-gold:linear-gradient(135deg,#f59e0b 0%,#fbbf24 100%);--font-mono:'SF Mono',Consolas,'Liberation Mono',monospace}
 
-/* ─── Scroll-reveal animations ─── */
+/* ─── Global overrides — dashboard feel ─── */
+body{letter-spacing:-.01em}
+h1,h2,h3,.section-title{letter-spacing:-.03em;font-weight:900}
+.section-title{font-size:2rem;text-transform:uppercase;letter-spacing:.02em;position:relative;display:inline-block}
+.section-title::after{content:'';display:block;width:48px;height:3px;background:var(--gradient-accent);margin-top:12px;border-radius:2px}
+.section-subtitle{font-size:.95rem;max-width:560px}
+.section-inner{text-align:center}
+.section-inner .section-title{margin-left:auto;margin-right:auto}
+
+/* ─── Animations ─── */
 @keyframes revealUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
 @keyframes revealLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
 @keyframes revealRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
@@ -1249,35 +1258,40 @@ ${options.niche === 'crypto_exchange' ? `
 @keyframes borderGlow{0%,100%{border-color:rgba(16,185,129,.15)}50%{border-color:rgba(16,185,129,.4)}}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideInRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .section{opacity:0;animation:revealUp .7s ease forwards}
 .section:nth-child(odd){animation-delay:.1s}
 .section:nth-child(even){animation-delay:.2s}
 .section-alt{animation-name:revealUp;animation-delay:.15s}
 
-/* ─── Hero — deep dark with emerald glow ─── */
-.hero{background:var(--gradient-hero);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='0.5' fill='%2310b981' fill-opacity='0.08'/%3E%3C/svg%3E");pointer-events:none;animation:shimmer 15s linear infinite;background-size:60px 60px}
-.hero::after{content:'';position:absolute;top:-300px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(16,185,129,.1) 0%,rgba(245,158,11,.04) 40%,transparent 70%);pointer-events:none;animation:floatY 8s ease-in-out infinite}
-.hero h1{background:linear-gradient(135deg,#ffffff 0%,#a7f3d0 60%,#6ee7b7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:slideInLeft .8s ease .2s both}
-.hero p{animation:slideInLeft .8s ease .4s both}
-.hero-buttons{animation:slideInLeft .8s ease .6s both}
-.hero .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow);border:none;animation:pulseGlow 3s ease-in-out infinite}
+/* ─── Hero — CENTERED full-width (totally different from forex side-by-side) ─── */
+.hero{background:var(--gradient-hero);position:relative;overflow:hidden;padding:100px 28px 80px!important;text-align:center!important}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='0.5' fill='%2310b981' fill-opacity='0.08'/%3E%3C/svg%3E");pointer-events:none;background-size:60px 60px}
+.hero::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(16,185,129,.08) 0%,rgba(245,158,11,.03) 30%,transparent 60%);pointer-events:none;animation:floatY 10s ease-in-out infinite}
+.hero-container{flex-direction:column-reverse!important;align-items:center!important;gap:40px!important;max-width:900px;margin:0 auto}
+.hero-inner{max-width:700px!important;text-align:center!important;margin:0 auto}
+.hero h1{background:linear-gradient(135deg,#ffffff 0%,#a7f3d0 60%,#6ee7b7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:3.4rem!important;line-height:1.08!important;animation:revealUp .8s ease .2s both;margin-bottom:20px}
+.hero p{animation:revealUp .8s ease .4s both;max-width:600px!important;margin:0 auto 24px!important;opacity:.8;font-size:1.05rem}
+.hero-buttons{animation:revealUp .8s ease .6s both;justify-content:center!important;gap:16px}
+.hero .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow);border:none;border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-size:.85rem!important;font-weight:800;padding:16px 36px!important;animation:pulseGlow 3s ease-in-out infinite}
 .hero .btn-primary:hover{box-shadow:0 8px 32px rgba(16,185,129,.5);transform:translateY(-3px) scale(1.02)}
-.hero .btn-outline{border-color:rgba(16,185,129,.3);color:#a7f3d0}
+.hero .btn-outline{border-color:rgba(16,185,129,.3);color:#a7f3d0;border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-size:.85rem!important;font-weight:700;padding:16px 36px!important}
 .hero .btn-outline:hover{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.6);transform:translateY(-2px)}
-.hero-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);animation:revealUp .6s ease .1s both}
+.hero-badge{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);animation:revealUp .6s ease .1s both;margin:0 auto 16px!important;display:inline-flex!important}
 .hero-badge .badge-dot{background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.6);animation:pulse 1.5s ease infinite}
-.hero-pill{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:#a7f3d0;transition:all .2s}
+.hero-pill{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#a7f3d0;transition:all .2s;border-radius:8px!important;font-family:var(--font-mono);font-size:.78rem!important;letter-spacing:.02em}
 .hero-pill:hover{background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.4)}
-.hero-pills{animation:slideInLeft .8s ease .5s both}
+.hero-pills{animation:revealUp .8s ease .5s both;justify-content:center!important}
 .hero-micro span{color:rgba(167,243,208,.5)}
+.hero-micro{justify-content:center!important}
+.hero-trust{justify-content:center!important}
 .hero-trust span{color:rgba(167,243,208,.4);border-color:rgba(16,185,129,.15)}
-.hero-trustpilot{animation:revealUp .6s ease .15s both}
+.hero-trustpilot{animation:revealUp .6s ease .15s both;justify-content:center!important}
 .hero-trustpilot .tp-stars{color:#f59e0b}
 
-/* ─── Mockup — animated glass panel ─── */
-.hero-mockup{background:rgba(12,18,34,.9);backdrop-filter:blur(20px);border:1px solid rgba(16,185,129,.12);box-shadow:0 25px 70px rgba(0,0,0,.6),0 0 50px rgba(16,185,129,.06);animation:slideInRight .8s ease .3s both}
-.hero-visual{animation:floatY 6s ease-in-out infinite}
+/* ─── Mockup — compact horizontal strip on top (not tall side panel) ─── */
+.hero-visual{width:100%!important;max-width:680px!important;animation:revealUp .8s ease .1s both!important;flex-shrink:0}
+.hero-mockup{background:rgba(12,18,34,.85)!important;backdrop-filter:blur(20px);border:1px solid rgba(16,185,129,.15)!important;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(16,185,129,.06)!important;border-radius:16px!important;width:100%!important;max-width:680px!important;margin:0 auto}
 .mockup-topbar{border-bottom-color:rgba(16,185,129,.08)}
 .mockup-topbar span{color:#6ee7b7}
 .mockup-chart polyline{filter:drop-shadow(0 0 6px rgba(16,185,129,.5))}
@@ -1285,8 +1299,14 @@ ${options.niche === 'crypto_exchange' ? `
 .mockup-row:hover{background:rgba(16,185,129,.05);border-left-color:#10b981}
 .mockup-row .up{color:#10b981;text-shadow:0 0 10px rgba(16,185,129,.4)}
 .mockup-row .down{color:#ef4444;text-shadow:0 0 10px rgba(239,68,68,.4)}
-.mockup-amount{color:#f0fdf4}
+.mockup-amount{color:#f0fdf4;font-family:var(--font-mono)}
 .mockup-change.up{background:rgba(16,185,129,.15);color:#10b981}
+
+/* ─── Buttons — SQUARE, uppercase, monospace (totally different from forex rounded pills) ─── */
+.btn-primary{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-weight:800;font-size:.85rem}
+.btn-outline{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;font-weight:700;font-size:.85rem;border-width:2px}
+.btn-secondary{border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em}
+.btn-primary:focus-visible,.btn-outline:focus-visible{outline:2px solid var(--color-accent-light);outline-offset:3px}
 
 /* ─── Promo bar — emerald gradient with gold CTA ─── */
 .promo-bar{background:linear-gradient(90deg,#047857 0%,#059669 40%,#0d9488 100%);animation:shimmer 8s linear infinite;background-size:200% 100%}
@@ -1303,8 +1323,8 @@ ${options.niche === 'crypto_exchange' ? `
 .market-ticker{background:#070d18;border-bottom:1px solid rgba(16,185,129,.08)}
 .ticker-change.up{color:#10b981;text-shadow:0 0 8px rgba(16,185,129,.4);font-weight:700}
 .ticker-change.down{color:#ef4444;text-shadow:0 0 8px rgba(239,68,68,.4);font-weight:700}
-.ticker-symbol{color:#a7f3d0;font-weight:700}
-.ticker-price{color:#d1fae5}
+.ticker-symbol{color:#a7f3d0;font-weight:700;font-family:var(--font-mono);font-size:.82rem}
+.ticker-price{color:#d1fae5;font-family:var(--font-mono)}
 
 /* ─── Regulation bar — dark emerald ─── */
 .regulation-bar{background:linear-gradient(180deg,#070d18,#0c1826)}
@@ -1313,247 +1333,291 @@ ${options.niche === 'crypto_exchange' ? `
 .reg-item{animation:revealUp .5s ease both}
 .reg-item:nth-child(1){animation-delay:.05s}.reg-item:nth-child(3){animation-delay:.1s}.reg-item:nth-child(5){animation-delay:.15s}.reg-item:nth-child(7){animation-delay:.2s}.reg-item:nth-child(9){animation-delay:.25s}
 
-/* ─── Feature cards — staggered reveal + hover glow ─── */
-.feature-card{border:1px solid var(--color-border-light);transition:all .3s ease;animation:scaleIn .5s ease both}
-.features-grid .feature-card:nth-child(1){animation-delay:.1s}.features-grid .feature-card:nth-child(2){animation-delay:.2s}.features-grid .feature-card:nth-child(3){animation-delay:.3s}.features-grid .feature-card:nth-child(4){animation-delay:.35s}.features-grid .feature-card:nth-child(5){animation-delay:.4s}.features-grid .feature-card:nth-child(6){animation-delay:.45s}
-.feature-card:hover{border-color:rgba(16,185,129,.3);box-shadow:0 12px 40px rgba(16,185,129,.1);transform:translateY(-6px)}
-.feature-card-icon{font-size:2rem;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.15));border-radius:14px;margin-bottom:18px;transition:all .3s}
-.feature-card:hover .feature-card-icon{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(16,185,129,.25));transform:scale(1.1)}
-.feature-card h3{color:var(--color-primary);font-weight:700}
+/* ─── Feature cards — BENTO GRID (totally different from forex 3-col uniform) ─── */
+.features-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;grid-auto-rows:minmax(200px,auto)!important;gap:16px!important}
+.feature-card{border:1px solid rgba(16,185,129,.1)!important;background:rgba(16,185,129,.03)!important;backdrop-filter:blur(8px);border-radius:16px!important;transition:all .3s ease;animation:scaleIn .5s ease both;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-accent);opacity:0;transition:opacity .3s}
+.feature-card:hover::before{opacity:1}
+.features-grid .feature-card:nth-child(1){grid-column:span 2!important;grid-row:span 2!important}
+.features-grid .feature-card:nth-child(1) h3{font-size:1.4rem}
+.features-grid .feature-card:nth-child(1) p{font-size:.95rem}
+.features-grid .feature-card:nth-child(1) .feature-card-icon{width:72px;height:72px;font-size:2.4rem}
+.features-grid .feature-card:nth-child(2){grid-column:span 1}
+.features-grid .feature-card:nth-child(3){grid-column:span 1}
+.features-grid .feature-card:nth-child(4){grid-column:span 1}
+.features-grid .feature-card:nth-child(5){grid-column:span 1}
+.features-grid .feature-card:nth-child(6){grid-column:span 1}
+.features-grid .feature-card:nth-child(1){animation-delay:.1s}.features-grid .feature-card:nth-child(2){animation-delay:.15s}.features-grid .feature-card:nth-child(3){animation-delay:.2s}.features-grid .feature-card:nth-child(4){animation-delay:.25s}.features-grid .feature-card:nth-child(5){animation-delay:.3s}.features-grid .feature-card:nth-child(6){animation-delay:.35s}
+.feature-card:hover{border-color:rgba(16,185,129,.3)!important;box-shadow:0 12px 40px rgba(16,185,129,.1);transform:translateY(-6px)}
+.feature-card-icon{font-size:2rem;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.18))!important;border-radius:50%!important;margin-bottom:18px;transition:all .3s;border:1px solid rgba(16,185,129,.12)}
+.feature-card:hover .feature-card-icon{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(16,185,129,.3))!important;transform:scale(1.1);border-color:rgba(16,185,129,.3)}
+.feature-card h3{color:var(--color-primary);font-weight:800}
+.feature-card p{color:var(--color-text-secondary)}
 
-/* ─── Stats — animated counters with gold accent ─── */
-.stats-bar{gap:0}
+/* ─── Stats — 2x2 GLASS CARD GRID (totally different from forex horizontal bar) ─── */
+.stats-bar{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:16px!important;flex-direction:unset!important;flex-wrap:unset!important;max-width:700px;margin:0 auto}
+.stat-item{background:rgba(16,185,129,.04)!important;border:1px solid rgba(16,185,129,.1)!important;border-radius:16px!important;padding:36px 28px!important;text-align:center;backdrop-filter:blur(8px);transition:all .3s}
+.stat-item:hover{border-color:rgba(16,185,129,.25)!important;background:rgba(16,185,129,.08)!important;transform:translateY(-4px)}
+.stat-divider{display:none!important}
+.stat-value{color:#10b981!important;font-weight:900;font-size:3rem;font-family:var(--font-mono)}
+.stat-label{color:var(--color-text-secondary);text-transform:uppercase;font-size:.7rem;letter-spacing:.12em;font-weight:800;margin-top:8px}
 .stat-item{animation:countUp .6s ease both}
 .stat-item:nth-child(1){animation-delay:.2s}.stat-item:nth-child(2){animation-delay:.35s}.stat-item:nth-child(3){animation-delay:.5s}.stat-item:nth-child(4){animation-delay:.65s}
-.stat-value{color:#059669;font-weight:900;font-size:3rem}
-.stat-label{color:var(--color-text-secondary);text-transform:uppercase;font-size:.7rem;letter-spacing:.1em;font-weight:800}
-.stat-divider{background:linear-gradient(180deg,transparent,rgba(16,185,129,.2),transparent)}
 
 /* ─── Data table — live exchange feel ─── */
-.data-table{border:1px solid rgba(16,185,129,.15);overflow:hidden;border-radius:var(--radius-lg)}
-.data-table th{background:linear-gradient(90deg,#070d18,#0c1826);color:#a7f3d0;border-bottom:2px solid rgba(16,185,129,.2);font-size:.78rem;letter-spacing:.08em}
-.data-table td{font-family:'SF Mono',Consolas,'Liberation Mono',monospace;font-size:.85rem;transition:all .15s}
+.data-table{border:1px solid rgba(16,185,129,.15);overflow:hidden;border-radius:16px!important}
+.data-table th{background:linear-gradient(90deg,#070d18,#0c1826);color:#a7f3d0;border-bottom:2px solid rgba(16,185,129,.2);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-family:var(--font-mono)}
+.data-table td{font-family:var(--font-mono);font-size:.85rem;transition:all .15s}
 .data-table td:nth-child(3){font-weight:700;color:#059669}
 .data-table tbody tr{transition:all .2s;border-left:3px solid transparent}
 .data-table tbody tr:hover{background:rgba(16,185,129,.04);border-left-color:#10b981}
 .data-table tbody tr:hover td:first-child{color:#059669;font-weight:700}
 
-/* ─── Steps — animated circles with emerald gradient ─── */
-.step-number{background:var(--gradient-accent);box-shadow:0 4px 16px var(--color-accent-glow);transition:all .3s}
-.step-item{animation:revealUp .6s ease both}
+/* ─── Steps — horizontal timeline (different from forex vertical cards) ─── */
+.steps-grid{position:relative}
+.step-number{background:var(--gradient-accent);box-shadow:0 4px 16px var(--color-accent-glow);transition:all .3s;font-family:var(--font-mono);font-weight:900}
+.step-item{animation:revealUp .6s ease both;border:1px solid rgba(16,185,129,.08);border-radius:16px!important;background:rgba(16,185,129,.02);transition:all .3s}
+.step-item:hover{border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.05)}
 .step-item:nth-child(1){animation-delay:.1s}.step-item:nth-child(2){animation-delay:.25s}.step-item:nth-child(3){animation-delay:.4s}
 .step-item:hover .step-number{transform:scale(1.15) rotate(5deg);box-shadow:0 8px 24px var(--color-accent-glow)}
 .step-connector{background:linear-gradient(90deg,#10b981,#34d399);opacity:.25;height:2px}
 
-/* ─── CTA section — dramatic gradient ─── */
-.cta-section{background:var(--gradient-hero);position:relative}
-.cta-section::before{background:radial-gradient(ellipse at 50% 100%,rgba(16,185,129,.12),transparent 60%)}
+/* ─── CTA section — dramatic dark with gold button ─── */
+.cta-section{background:var(--gradient-hero)!important;position:relative;padding:100px 28px!important}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(16,185,129,.12),transparent 60%)}
 .cta-section::after{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(245,158,11,.05) 0%,transparent 70%);pointer-events:none}
-.cta-section h2{animation:revealUp .6s ease both;position:relative}
-.cta-section .btn-primary{background:var(--gradient-gold);color:#1a1a2e;font-weight:800;box-shadow:0 4px 24px var(--color-gold-glow);position:relative}
+.cta-section h2{animation:revealUp .6s ease both;position:relative;color:#fff!important;-webkit-text-fill-color:#fff}
+.cta-section h2::after{background:var(--gradient-gold)!important;margin:12px auto 0}
+.cta-section p{color:rgba(255,255,255,.7)}
+.cta-section .btn-primary{background:var(--gradient-gold)!important;color:#1a1a2e!important;font-weight:900;box-shadow:0 4px 24px var(--color-gold-glow);position:relative;border-radius:8px!important;text-transform:uppercase;letter-spacing:.08em;padding:18px 44px!important;font-size:.9rem!important}
 .cta-section .btn-primary:hover{box-shadow:0 8px 36px rgba(245,158,11,.45);transform:translateY(-3px) scale(1.02)}
 
-/* ─── Awards — staggered cards ─── */
-.awards-section{background:var(--color-bg);position:relative;overflow:hidden}
-.awards-title{color:var(--color-primary)}
-.award-card{border:1px solid var(--color-border-light);transition:all .3s;animation:scaleIn .5s ease both}
-.award-card:nth-child(1){animation-delay:.1s}.award-card:nth-child(2){animation-delay:.15s}.award-card:nth-child(3){animation-delay:.2s}.award-card:nth-child(4){animation-delay:.25s}.award-card:nth-child(5){animation-delay:.3s}.award-card:nth-child(6){animation-delay:.35s}
-.award-card:hover{border-color:rgba(16,185,129,.25);box-shadow:0 8px 30px rgba(16,185,129,.08);transform:translateY(-4px)}
-.award-icon{font-size:2.4rem;animation:floatY 4s ease-in-out infinite}
-.award-card:nth-child(2) .award-icon{animation-delay:.5s}.award-card:nth-child(3) .award-icon{animation-delay:1s}.award-card:nth-child(4) .award-icon{animation-delay:1.5s}
+/* ─── Sections — alternating dark/light for rhythm ─── */
+.section{padding:72px 28px}
+.section-alt{background:rgba(16,185,129,.015)!important;border-top:1px solid rgba(16,185,129,.04);border-bottom:1px solid rgba(16,185,129,.04)}
 
-/* ─── Performance bar — emerald glow ─── */
+/* ─── Awards — horizontal scroll strip (different from forex grid) ─── */
+.awards-section{background:var(--gradient-dark)!important;border-top:1px solid rgba(16,185,129,.06);border-bottom:1px solid rgba(16,185,129,.06);padding:48px 28px!important;overflow:hidden}
+.awards-inner{max-width:var(--max-w);margin:0 auto}
+.awards-label{color:rgba(167,243,208,.4)!important;text-transform:uppercase;letter-spacing:.15em;font-family:var(--font-mono);font-size:.72rem}
+.awards-title{color:#d1fae5!important;font-size:1.4rem!important;margin-bottom:32px}
+.awards-grid{display:flex!important;overflow-x:auto;gap:12px;padding-bottom:8px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.awards-grid::-webkit-scrollbar{display:none}
+.award-card{border:1px solid rgba(16,185,129,.1)!important;background:rgba(16,185,129,.04)!important;border-radius:12px!important;flex-shrink:0;min-width:180px;transition:all .3s;animation:scaleIn .5s ease both}
+.award-card:nth-child(1){animation-delay:.1s}.award-card:nth-child(2){animation-delay:.15s}.award-card:nth-child(3){animation-delay:.2s}.award-card:nth-child(4){animation-delay:.25s}.award-card:nth-child(5){animation-delay:.3s}.award-card:nth-child(6){animation-delay:.35s}
+.award-card:hover{border-color:rgba(16,185,129,.3)!important;background:rgba(16,185,129,.08)!important;transform:translateY(-4px)}
+.award-icon{font-size:2.4rem}
+.award-name{color:#d1fae5!important}
+.award-source{color:rgba(167,243,208,.4)!important}
+.award-year{color:#10b981!important;font-family:var(--font-mono);font-weight:700}
+
+/* ─── Performance bar — emerald glow with mono numbers ─── */
 .perf-bar{background:var(--gradient-dark)}
 .perf-item{animation:countUp .5s ease both}
 .perf-item:nth-child(1){animation-delay:.1s}.perf-item:nth-child(2){animation-delay:.2s}.perf-item:nth-child(3){animation-delay:.3s}.perf-item:nth-child(4){animation-delay:.4s}.perf-item:nth-child(5){animation-delay:.5s}
-.perf-value{color:#fff;font-weight:900}
-.perf-unit{color:#10b981}
-.perf-label{color:rgba(167,243,208,.4)}
+.perf-value{color:#fff;font-weight:900;font-family:var(--font-mono)}
+.perf-unit{color:#10b981;font-family:var(--font-mono)}
+.perf-label{color:rgba(167,243,208,.4);text-transform:uppercase;letter-spacing:.08em;font-size:.68rem}
 
-/* ─── Security badges — glass with animations ─── */
+/* ─── Security badges — glass cards (different from forex boxes) ─── */
 .security-bar{background:linear-gradient(180deg,#0c1826 0%,#070d18 100%)}
-.security-badge{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.1);border-radius:14px;padding:18px 14px;transition:all .3s;animation:scaleIn .4s ease both}
+.security-badge{background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.1);border-radius:16px!important;padding:24px 18px;transition:all .3s;animation:scaleIn .4s ease both}
 .security-badge:nth-child(1){animation-delay:.05s}.security-badge:nth-child(2){animation-delay:.1s}.security-badge:nth-child(3){animation-delay:.15s}.security-badge:nth-child(4){animation-delay:.2s}.security-badge:nth-child(5){animation-delay:.25s}.security-badge:nth-child(6){animation-delay:.3s}
 .security-badge:hover{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08);transform:translateY(-4px)}
 .sb-icon{font-size:1.7rem}
-.sb-label{color:#d1fae5;font-weight:700}
+.sb-label{color:#d1fae5;font-weight:700;font-family:var(--font-mono);font-size:.82rem}
 .sb-sub{color:rgba(167,243,208,.4)}
 
-/* ─── Fund protection — emerald accent ─── */
-.fund-protection{border:1px solid rgba(16,185,129,.12);border-left:4px solid #10b981;background:linear-gradient(135deg,rgba(16,185,129,.03),rgba(245,158,11,.02),transparent);animation:revealLeft .6s ease both}
+/* ─── Fund protection — emerald accent card ─── */
+.fund-protection{border:1px solid rgba(16,185,129,.12);border-left:4px solid #10b981;background:linear-gradient(135deg,rgba(16,185,129,.03),rgba(245,158,11,.02),transparent);animation:revealLeft .6s ease both;border-radius:16px!important}
 .fp-title{color:var(--color-primary);font-weight:800}
-.fp-amount{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.12);transition:all .2s}
+.fp-amount{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.12);transition:all .2s;border-radius:10px!important}
 .fp-amount:hover{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.1)}
 .fp-amount strong{color:#059669}
 
-/* ─── FAQ — smooth expand ─── */
+/* ─── FAQ — clean expand ─── */
 .faq-q{color:var(--color-primary);font-weight:700;transition:color .2s}
 .faq-item.open .faq-q{color:#059669}
 .faq-q::after{color:#10b981;transition:transform .3s}
 .faq-item.open .faq-q::after{transform:rotate(45deg)}
-.faq-item{animation:revealUp .4s ease both}
+.faq-item{animation:revealUp .4s ease both;border-radius:12px!important}
 .faq-item:nth-child(1){animation-delay:.05s}.faq-item:nth-child(2){animation-delay:.1s}.faq-item:nth-child(3){animation-delay:.15s}.faq-item:nth-child(4){animation-delay:.2s}.faq-item:nth-child(5){animation-delay:.25s}.faq-item:nth-child(6){animation-delay:.3s}
 
-/* ─── Section CTAs — emerald gradient ─── */
-.section-cta .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 16px var(--color-accent-glow);transition:all .3s}
+/* ─── Section CTAs — gradient with glow ─── */
+.section-cta .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 16px var(--color-accent-glow);transition:all .3s;border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em;padding:14px 32px}
 .section-cta .btn-primary:hover{box-shadow:0 8px 28px rgba(16,185,129,.4);transform:translateY(-2px) scale(1.02)}
 
-/* ─── Footer — deep dark with emerald accents ─── */
-.footer{background:var(--gradient-dark)}
-.footer h4{color:#d1fae5}
-.footer a:hover{color:#10b981}
+/* ─── Footer — DARK GLASS with centered layout (different from forex 5-col) ─── */
+.footer{background:var(--gradient-dark);border-top:1px solid rgba(16,185,129,.06)}
+.footer-grid{grid-template-columns:1.5fr 1fr 1fr 1fr!important;gap:40px}
+.footer h4{color:#10b981!important;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem!important;font-family:var(--font-mono)}
+.footer a{color:rgba(255,255,255,.5)!important}
+.footer a:hover{color:#10b981!important}
+.footer p{color:rgba(255,255,255,.4)}
+.footer-social a{transition:all .2s;width:36px;height:36px;border-radius:50%!important;border:1px solid rgba(16,185,129,.15)!important;display:inline-flex;align-items:center;justify-content:center;font-size:.85rem}
+.footer-social a:hover{color:#10b981!important;border-color:rgba(16,185,129,.4)!important;background:rgba(16,185,129,.08);transform:translateY(-2px)}
 .footer-licenses{border-color:rgba(16,185,129,.08)}
-.footer-licenses-title{color:#34d399;font-weight:700}
+.footer-licenses-title{color:#34d399;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.74rem;font-family:var(--font-mono)}
+.footer-license-item{border-radius:10px;background:rgba(16,185,129,.02);padding:14px 18px;border:1px solid rgba(16,185,129,.06)}
 .footer-license-item strong{color:#a7f3d0}
-.footer-regulatory span{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.1);border-radius:20px;padding:5px 14px;font-size:.72rem;transition:all .2s}
+.footer-regulatory span{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.1);border-radius:8px!important;padding:6px 14px;font-size:.72rem;transition:all .2s;font-family:var(--font-mono)}
 .footer-regulatory span:hover{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.25)}
-.footer-payments span{color:rgba(167,243,208,.4)}
-.footer-risk{border-top-color:rgba(16,185,129,.08)}
-.footer-social a{transition:all .2s}
-.footer-social a:hover{color:#10b981;transform:translateY(-2px)}
-.footer-app-badge{border-color:rgba(16,185,129,.15)!important}
+.footer-payments span{color:rgba(167,243,208,.4);font-family:var(--font-mono);font-size:.82rem}
+.footer-risk{border-top-color:rgba(16,185,129,.08);font-size:.72rem;color:rgba(255,255,255,.25)}
+.footer-app-badge{border-color:rgba(16,185,129,.15)!important;border-radius:10px!important}
 .footer-app-badge:hover{border-color:rgba(16,185,129,.35)!important;background:rgba(16,185,129,.05)!important}
+.footer-bottom{border-top:1px solid rgba(16,185,129,.06);padding-top:24px;margin-top:24px}
+.footer-bottom p{text-align:center}
+.footer-address{justify-content:center;opacity:.6;font-size:.8rem}
 
-/* ─── Sticky CTA — gold for conversion ─── */
-.sticky-cta .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow);animation:pulseGlow 3s ease-in-out infinite}
+/* ─── Sticky CTA — emerald glow ─── */
+.sticky-cta .btn-primary{background:var(--gradient-accent);box-shadow:0 4px 20px var(--color-accent-glow);animation:pulseGlow 3s ease-in-out infinite;border-radius:8px!important;text-transform:uppercase;letter-spacing:.06em}
 
-/* ─── Live activity — emerald pulse ─── */
-.live-activity{border:1px solid rgba(16,185,129,.15);box-shadow:0 4px 24px rgba(0,0,0,.2);animation:revealUp .4s ease both}
+/* ─── Live activity — emerald pulse with glass ─── */
+.live-activity{border:1px solid rgba(16,185,129,.15);box-shadow:0 4px 24px rgba(0,0,0,.3);animation:revealUp .4s ease both;background:rgba(12,18,34,.9)!important;backdrop-filter:blur(16px);border-radius:14px!important}
 .la-dot{background:#10b981;box-shadow:0 0 10px rgba(16,185,129,.6);animation:pulse 1.5s ease infinite}
 
-/* ─── Navbar — glass effect ─── */
+/* ─── Navbar — glass with emerald accent ─── */
 .navbar.scrolled{background:rgba(7,13,24,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(16,185,129,.06)}
-.navbar-cta{background:var(--gradient-accent)!important;box-shadow:0 2px 12px var(--color-accent-glow);transition:all .3s!important}
+.navbar-cta{background:var(--gradient-accent)!important;box-shadow:0 2px 12px var(--color-accent-glow);transition:all .3s!important;border-radius:8px!important;text-transform:uppercase;letter-spacing:.04em;font-size:.78rem!important;font-weight:800}
 .navbar-cta:hover{box-shadow:0 4px 20px rgba(16,185,129,.4)!important;transform:translateY(-1px)}
-.navbar-brand{font-weight:900;letter-spacing:-.02em}
-.navbar-links a{transition:color .2s}
+.navbar-brand{font-weight:900;letter-spacing:-.02em;font-family:var(--font-mono)}
+.navbar-links a{transition:color .2s;font-size:.85rem;letter-spacing:.01em}
 .navbar-links a:hover,.navbar-links a.active{color:#10b981!important}
 
 /* ─── Announcement bar ─── */
 .announcement-bar{background:rgba(16,185,129,.04);border-bottom:1px solid rgba(16,185,129,.06);color:var(--color-text-secondary)}
 .announcement-bar a{color:#059669;font-weight:700}
 
-/* ─── Trader avatars in live activity ─── */
-.live-activity .la-text strong{color:#10b981}
-.live-activity{border-radius:14px}
-
-/* ─── Media bar ─── */
-.media-label{color:var(--color-text-light)}
-.media-logo{color:var(--color-text-secondary);transition:color .2s}
-.media-logo:hover{color:#059669}
-
-/* ─── Traders bar — avatars + live count ─── */
+/* ─── Traders bar — avatars + live ─── */
 .traders-bar{background:linear-gradient(90deg,rgba(16,185,129,.03),rgba(16,185,129,.06),rgba(16,185,129,.03));border-bottom:1px solid rgba(16,185,129,.08);padding:14px 28px}
 .traders-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
 .traders-avatars{display:flex;align-items:center}
-.trader-avatar{width:36px;height:36px;border-radius:50%;border:2px solid #fff;margin-left:-10px;box-shadow:0 2px 8px rgba(0,0,0,.1);object-fit:cover;transition:transform .2s}
+.trader-avatar{width:36px;height:36px;border-radius:50%;border:2px solid rgba(16,185,129,.3);margin-left:-10px;box-shadow:0 2px 8px rgba(0,0,0,.2);object-fit:cover;transition:transform .2s}
 .trader-avatar:first-child{margin-left:0}
 .trader-avatar:hover{transform:scale(1.15);z-index:2}
-.trader-more{background:linear-gradient(135deg,#059669,#10b981);color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:-.02em}
+.trader-more{background:var(--gradient-accent);color:#fff;font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center;letter-spacing:-.02em}
 .traders-text{font-size:.88rem;color:var(--color-text-secondary)}
 .traders-text strong{color:#059669}
 .traders-dot{width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px;animation:pulse 1.5s ease infinite;box-shadow:0 0 8px rgba(16,185,129,.5)}
-.traders-live{font-size:.78rem;font-weight:700;color:#10b981;display:flex;align-items:center;background:rgba(16,185,129,.08);padding:4px 12px;border-radius:20px;border:1px solid rgba(16,185,129,.15)}
+.traders-live{font-size:.78rem;font-weight:700;color:#10b981;display:flex;align-items:center;background:rgba(16,185,129,.08);padding:4px 12px;border-radius:8px;border:1px solid rgba(16,185,129,.15);font-family:var(--font-mono)}
 
 /* ─── Cookie banner ─── */
-.btn-accept{background:#10b981!important}
+.btn-accept{background:#10b981!important;border-radius:8px!important}
 .btn-accept:hover{background:#059669!important}
+.btn-decline{border-radius:8px!important}
 
-/* ─── Desktop optimizations (1024+) ─── */
+/* ─── Media bar ─── */
+.media-label{color:var(--color-text-light);text-transform:uppercase;letter-spacing:.15em;font-family:var(--font-mono);font-size:.7rem!important}
+.media-logo{color:var(--color-text-secondary);transition:color .2s;font-family:var(--font-mono)}
+.media-logo:hover{color:#059669}
+
+/* ─── Testimonials — glass cards ─── */
+.testimonial-card{border:1px solid rgba(16,185,129,.08)!important;background:rgba(16,185,129,.02)!important;border-radius:16px!important}
+.testimonial-card::before{color:rgba(16,185,129,.15)!important}
+.testimonial-card:hover{border-color:rgba(16,185,129,.2)!important}
+
+/* ─── Pricing cards — glass effect ─── */
+.pricing-card{border:1px solid rgba(16,185,129,.08)!important;border-radius:16px!important;background:rgba(16,185,129,.02)!important}
+.pricing-card.highlighted{border-color:rgba(16,185,129,.25)!important;background:rgba(16,185,129,.04)!important}
+.pricing-card.highlighted::before{background:var(--gradient-accent)!important}
+
+/* ═══ RESPONSIVE ═══ */
+
+/* Large desktop (1440+) */
+@media(min-width:1440px){
+.hero{padding:120px 40px 100px!important}
+.hero h1{font-size:4rem!important}
+.hero-mockup{max-width:740px!important}
+.features-grid{gap:20px!important}
+.section{padding:88px 40px}
+}
+
+/* Desktop (1024+) */
 @media(min-width:1024px){
-.hero-container{gap:60px;align-items:center}
-.hero-inner{max-width:560px}
-.hero h1{font-size:3.2rem;line-height:1.1}
-.hero p{font-size:1.05rem;max-width:480px}
-.hero-visual{flex-shrink:0}
-.hero-mockup{width:400px;transform:perspective(1200px) rotateY(-4deg) rotateX(2deg);transition:transform .4s ease}
-.hero-mockup:hover{transform:perspective(1200px) rotateY(0deg) rotateX(0deg)}
-.features-grid{grid-template-columns:repeat(3,1fr);gap:24px}
-.feature-card{padding:36px 28px}
-.feature-card-icon{width:64px;height:64px;font-size:2.2rem}
-.stats-bar{flex-direction:row;gap:0}
-.stat-item{padding:32px 40px}
-.stat-value{font-size:3.2rem}
-.steps-grid{grid-template-columns:repeat(3,1fr);gap:32px}
+.hero h1{font-size:3.4rem}
+.features-grid{grid-template-columns:repeat(3,1fr)!important;gap:16px!important}
+.features-grid .feature-card:nth-child(1){grid-column:span 2!important;grid-row:span 2!important}
+.stats-bar{grid-template-columns:repeat(2,1fr)!important;max-width:700px}
+.steps-grid{grid-template-columns:repeat(3,1fr);gap:28px}
 .step-item{padding:32px 24px}
 .data-table td,.data-table th{padding:16px 24px}
-.awards-grid{gap:20px}
-.award-card{padding:28px 20px;width:auto;min-width:160px}
+.awards-grid{gap:16px}
 .traders-inner{gap:20px}
 .trader-avatar{width:40px;height:40px;margin-left:-12px}
-.traders-text{font-size:.92rem}
 .social-proof-inner{gap:32px}
 .section{padding:80px 28px}
-.section-title{font-size:2.2rem}
-.section-inner{max-width:var(--max-w);margin:0 auto}
 .cta-section{padding:100px 28px}
-.cta-section h2{font-size:2.4rem}
+.cta-section h2{font-size:2.2rem}
 .perf-inner{gap:0}
 .perf-item{padding:32px 36px}
 .security-badges{gap:16px}
 .security-badge{padding:24px 18px;min-width:130px}
 .fund-protection{padding:40px;gap:24px}
 .faq-list{max-width:800px;margin:0 auto}
-.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr 1fr}
+.footer-grid{grid-template-columns:1.5fr 1fr 1fr 1fr!important}
 }
 
-/* ─── Large desktop (1440+) ─── */
-@media(min-width:1440px){
-.hero{padding:100px 40px 90px}
-.hero h1{font-size:3.6rem}
-.hero-mockup{width:440px}
-.features-grid{gap:28px}
-.section{padding:96px 40px}
-}
-
-/* ─── Laptop optimization (768-1024) ─── */
+/* Laptop (768-1024) */
 @media(min-width:768px) and (max-width:1023px){
-.hero h1{font-size:2.4rem}
-.hero-container{gap:32px}
-.hero-mockup{width:300px}
-.features-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+.hero{padding:80px 24px 64px!important}
+.hero h1{font-size:2.6rem!important}
+.hero-mockup{max-width:560px!important}
+.features-grid{grid-template-columns:repeat(2,1fr)!important}
+.features-grid .feature-card:nth-child(1){grid-column:span 2!important;grid-row:span 1!important}
 .feature-card{padding:28px 22px}
-.stats-bar{flex-direction:row;flex-wrap:wrap;gap:0}
-.stat-item{flex:1 1 50%;padding:24px 20px}
+.stats-bar{grid-template-columns:repeat(2,1fr)!important;max-width:100%}
 .steps-grid{grid-template-columns:repeat(3,1fr);gap:20px}
 .data-table{font-size:.82rem}
 .traders-inner{gap:14px}
 .trader-avatar{width:34px;height:34px}
-.awards-grid{gap:14px}
-.award-card{width:auto;min-width:140px;padding:20px 16px}
+.awards-grid{gap:12px}
+.award-card{min-width:160px}
+.footer-grid{grid-template-columns:1fr 1fr!important}
 }
 
-/* ─── Mobile fine-tuning ─── */
+/* Mobile */
 @media(max-width:767px){
-.hero{padding:56px 20px 48px}
-.hero h1{font-size:2rem;line-height:1.15}
+.hero{padding:56px 20px 48px!important}
+.hero h1{font-size:2.2rem!important;line-height:1.12!important}
+.hero-container{gap:24px!important}
+.hero-visual{max-width:100%!important}
+.hero-mockup{max-width:100%!important;border-radius:12px!important}
 .hero-pills{flex-wrap:wrap;gap:8px}
 .hero-pill{font-size:.75rem;padding:6px 12px}
-.features-grid{grid-template-columns:1fr;gap:16px}
+.features-grid{grid-template-columns:1fr!important;gap:12px!important}
+.features-grid .feature-card:nth-child(1){grid-column:span 1!important;grid-row:span 1!important}
+.features-grid .feature-card:nth-child(1) h3{font-size:1.1rem}
+.features-grid .feature-card:nth-child(1) .feature-card-icon{width:56px;height:56px;font-size:2rem}
 .feature-card{padding:24px 20px}
 .feature-card-icon{width:52px;height:52px;font-size:1.8rem}
-.stats-bar{flex-direction:column}
-.stat-item{padding:20px 16px}
+.stats-bar{grid-template-columns:1fr!important;gap:12px!important}
+.stat-item{padding:24px 20px!important}
 .stat-value{font-size:2.4rem}
 .steps-grid{grid-template-columns:1fr;gap:12px}
-.data-table{font-size:.8rem}
 .data-table td,.data-table th{padding:12px 14px}
+.data-table{font-size:.8rem}
 .traders-avatars{margin-right:4px}
 .trader-avatar{width:30px;height:30px;margin-left:-8px}
 .traders-text{font-size:.8rem}
 .traders-live{font-size:.72rem;padding:3px 10px}
-.cta-section{padding:60px 20px}
+.cta-section{padding:60px 20px!important}
 .cta-section h2{font-size:1.6rem}
+.cta-section .btn-primary{padding:14px 28px!important;font-size:.82rem!important}
+.awards-section{padding:36px 20px!important}
 .awards-grid{gap:10px}
-.award-card{width:auto;min-width:100%;padding:20px 16px}
+.award-card{min-width:160px;padding:20px 16px}
 .security-badges{gap:12px}
-.security-badge{padding:14px 10px;min-width:0}
-.fund-protection{padding:24px 20px}
+.security-badge{padding:14px 10px;min-width:0;border-radius:12px!important}
+.fund-protection{padding:24px 20px;border-radius:12px!important}
 .perf-inner{flex-direction:column;gap:0}
 .perf-item{padding:20px 16px}
+.footer-grid{grid-template-columns:1fr!important;gap:28px}
+.section-title{font-size:1.5rem}
+.section-title::after{width:36px;height:2px;margin-top:8px}
 }
 
-/* ─── Reduced motion ─── */
+/* Reduced motion */
 @media(prefers-reduced-motion:reduce){.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.sp-item,.reg-item,.hero h1,.hero p,.hero-buttons,.hero-pills,.hero-badge,.hero-trustpilot,.hero-mockup,.hero-visual,.hero-visual *,.live-activity,.fund-protection{animation:none!important;opacity:1!important;transform:none!important}}
 ` : ''}
 `
