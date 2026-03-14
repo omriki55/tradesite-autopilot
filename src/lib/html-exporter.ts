@@ -1459,6 +1459,100 @@ ${options.niche === 'crypto_exchange' ? `
 .btn-accept{background:#10b981!important}
 .btn-accept:hover{background:#059669!important}
 
+/* ─── Desktop optimizations (1024+) ─── */
+@media(min-width:1024px){
+.hero-container{gap:60px;align-items:center}
+.hero-inner{max-width:560px}
+.hero h1{font-size:3.2rem;line-height:1.1}
+.hero p{font-size:1.05rem;max-width:480px}
+.hero-visual{flex-shrink:0}
+.hero-mockup{width:400px;transform:perspective(1200px) rotateY(-4deg) rotateX(2deg);transition:transform .4s ease}
+.hero-mockup:hover{transform:perspective(1200px) rotateY(0deg) rotateX(0deg)}
+.features-grid{grid-template-columns:repeat(3,1fr);gap:24px}
+.feature-card{padding:36px 28px}
+.feature-card-icon{width:64px;height:64px;font-size:2.2rem}
+.stats-bar{flex-direction:row;gap:0}
+.stat-item{padding:32px 40px}
+.stat-value{font-size:3.2rem}
+.steps-grid{grid-template-columns:repeat(3,1fr);gap:32px}
+.step-item{padding:32px 24px}
+.data-table td,.data-table th{padding:16px 24px}
+.awards-grid{gap:20px}
+.award-card{padding:28px 20px;width:auto;min-width:160px}
+.traders-inner{gap:20px}
+.trader-avatar{width:40px;height:40px;margin-left:-12px}
+.traders-text{font-size:.92rem}
+.social-proof-inner{gap:32px}
+.section{padding:80px 28px}
+.section-title{font-size:2.2rem}
+.section-inner{max-width:var(--max-w);margin:0 auto}
+.cta-section{padding:100px 28px}
+.cta-section h2{font-size:2.4rem}
+.perf-inner{gap:0}
+.perf-item{padding:32px 36px}
+.security-badges{gap:16px}
+.security-badge{padding:24px 18px;min-width:130px}
+.fund-protection{padding:40px;gap:24px}
+.faq-list{max-width:800px;margin:0 auto}
+.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr 1fr}
+}
+
+/* ─── Large desktop (1440+) ─── */
+@media(min-width:1440px){
+.hero{padding:100px 40px 90px}
+.hero h1{font-size:3.6rem}
+.hero-mockup{width:440px}
+.features-grid{gap:28px}
+.section{padding:96px 40px}
+}
+
+/* ─── Laptop optimization (768-1024) ─── */
+@media(min-width:768px) and (max-width:1023px){
+.hero h1{font-size:2.4rem}
+.hero-container{gap:32px}
+.hero-mockup{width:300px}
+.features-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+.feature-card{padding:28px 22px}
+.stats-bar{flex-direction:row;flex-wrap:wrap;gap:0}
+.stat-item{flex:1 1 50%;padding:24px 20px}
+.steps-grid{grid-template-columns:repeat(3,1fr);gap:20px}
+.data-table{font-size:.82rem}
+.traders-inner{gap:14px}
+.trader-avatar{width:34px;height:34px}
+.awards-grid{gap:14px}
+.award-card{width:auto;min-width:140px;padding:20px 16px}
+}
+
+/* ─── Mobile fine-tuning ─── */
+@media(max-width:767px){
+.hero{padding:56px 20px 48px}
+.hero h1{font-size:2rem;line-height:1.15}
+.hero-pills{flex-wrap:wrap;gap:8px}
+.hero-pill{font-size:.75rem;padding:6px 12px}
+.features-grid{grid-template-columns:1fr;gap:16px}
+.feature-card{padding:24px 20px}
+.feature-card-icon{width:52px;height:52px;font-size:1.8rem}
+.stats-bar{flex-direction:column}
+.stat-item{padding:20px 16px}
+.stat-value{font-size:2.4rem}
+.steps-grid{grid-template-columns:1fr;gap:12px}
+.data-table{font-size:.8rem}
+.data-table td,.data-table th{padding:12px 14px}
+.traders-avatars{margin-right:4px}
+.trader-avatar{width:30px;height:30px;margin-left:-8px}
+.traders-text{font-size:.8rem}
+.traders-live{font-size:.72rem;padding:3px 10px}
+.cta-section{padding:60px 20px}
+.cta-section h2{font-size:1.6rem}
+.awards-grid{gap:10px}
+.award-card{width:auto;min-width:100%;padding:20px 16px}
+.security-badges{gap:12px}
+.security-badge{padding:14px 10px;min-width:0}
+.fund-protection{padding:24px 20px}
+.perf-inner{flex-direction:column;gap:0}
+.perf-item{padding:20px 16px}
+}
+
 /* ─── Reduced motion ─── */
 @media(prefers-reduced-motion:reduce){.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.sp-item,.reg-item,.hero h1,.hero p,.hero-buttons,.hero-pills,.hero-badge,.hero-trustpilot,.hero-mockup,.hero-visual,.hero-visual *,.live-activity,.fund-protection{animation:none!important;opacity:1!important;transform:none!important}}
 ` : ''}
@@ -1774,11 +1868,11 @@ ${options.niche === 'crypto_exchange' ? `
   <div class="traders-bar">
     <div class="traders-inner">
       <div class="traders-avatars">
-        <img src="https://i.pravatar.cc/48?img=1" alt="Trader" class="trader-avatar" loading="lazy"/>
-        <img src="https://i.pravatar.cc/48?img=5" alt="Trader" class="trader-avatar" loading="lazy"/>
-        <img src="https://i.pravatar.cc/48?img=8" alt="Trader" class="trader-avatar" loading="lazy"/>
-        <img src="https://i.pravatar.cc/48?img=12" alt="Trader" class="trader-avatar" loading="lazy"/>
-        <img src="https://i.pravatar.cc/48?img=15" alt="Trader" class="trader-avatar" loading="lazy"/>
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Trader" class="trader-avatar" loading="lazy"/>
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Trader" class="trader-avatar" loading="lazy"/>
+        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Trader" class="trader-avatar" loading="lazy"/>
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Trader" class="trader-avatar" loading="lazy"/>
+        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Trader" class="trader-avatar" loading="lazy"/>
         <span class="trader-avatar trader-more">+9.8K</span>
       </div>
       <div class="traders-text"><strong>10,847 traders</strong> online right now</div>
@@ -1955,17 +2049,23 @@ ${n.liveActivityMsgs.map(m => `    {flag:'${m.flag}',text:'${m.text.replace(/'/g
   setTimeout(showNext,4000+Math.random()*3000);
 })();
 ${options.niche === 'crypto_exchange' ? `
-// Scroll-reveal: replay animations when elements enter viewport
+// Scroll-reveal: animate elements when they enter viewport
 (function(){
   var observed=document.querySelectorAll('.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.fund-protection');
   if(!observed.length||!('IntersectionObserver' in window))return;
-  observed.forEach(function(el){el.style.opacity='0';el.style.animationPlayState='paused';});
+  var viewH=window.innerHeight;
+  observed.forEach(function(el){
+    var rect=el.getBoundingClientRect();
+    // Don't hide elements already visible in viewport on load
+    if(rect.top<viewH&&rect.bottom>0){el.style.opacity='1';return;}
+    el.style.opacity='0';el.style.animationPlayState='paused';
+  });
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){e.target.style.opacity='';e.target.style.animationPlayState='running';io.unobserve(e.target);}
     });
-  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-  observed.forEach(function(el){io.observe(el);});
+  },{threshold:0.08,rootMargin:'0px 0px -60px 0px'});
+  observed.forEach(function(el){if(el.style.opacity==='0')io.observe(el);});
 })();
 // Animated stat counters
 (function(){
