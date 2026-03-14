@@ -1,28 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tradesite Autopilot — Launch Your Trading Brand in Hours</title>
-<meta name="description" content="AI-powered platform that builds complete trading brands automatically. 7 phases, 27 modules — from domain to full marketing in hours, not months.">
-<meta property="og:title" content="Tradesite Autopilot — Launch Your Trading Brand in Hours">
-<meta property="og:description" content="7 AI-powered phases replace 6-12 months of manual work. Build a complete trading brand on autopilot.">
+<title>Tradesite Autopilot — השק את המותג המסחרי שלך תוך שעות</title>
+<meta name="description" content="פלטפורמה מונעת AI שבונה מותגי מסחר מלאים באופן אוטומטי. 7 שלבים, 27 מודולים — מדומיין ועד שיווק מלא תוך שעות, לא חודשים.">
+<meta property="og:title" content="Tradesite Autopilot — השק את המותג המסחרי שלך תוך שעות">
+<meta property="og:description" content="7 שלבים מונעי AI מחליפים 6-12 חודשים של עבודה ידנית. בנה מותג מסחרי מלא באוטומט.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-:root{
-  --primary:#6366F1;--primary-light:#4F46E5;--primary-dark:#4338CA;
-  --accent:#06B6D4;--accent2:#8B5CF6;--success:#10B981;--warning:#F59E0B;--danger:#EF4444;
-  --gray:#64748B;
-  --g1:linear-gradient(135deg,#6366F1,#06B6D4);--g2:linear-gradient(135deg,#8B5CF6,#EC4899);
-  --g3:linear-gradient(135deg,#10B981,#06B6D4);--g4:linear-gradient(135deg,#F59E0B,#EF4444);
-  --radius:16px;--shadow:0 8px 32px rgba(0,0,0,.08);
-}
 body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:hidden;line-height:1.6}
 
 /* ANIMATIONS */
@@ -35,67 +28,46 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
 @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(99,102,241,.2)}50%{box-shadow:0 0 40px rgba(99,102,241,.4)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
-@keyframes slideInLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
 @keyframes slideInRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
 @keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.95)}100%{transform:scale(1)}}
-@keyframes typewriter{from{width:0}to{width:100%}}
-@keyframes blink{50%{border-color:transparent}}
-@keyframes countUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ripple{0%{box-shadow:0 0 0 0 rgba(99,102,241,.4)}100%{box-shadow:0 0 0 20px rgba(99,102,241,0)}}
-@keyframes morphBg{0%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%}100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%}}
 @keyframes gradientFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(50%)}}
 @keyframes popIn{0%{opacity:0;transform:scale(0) rotate(-15deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
-@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
-.phase-card:hover .phase-num{animation:bounceIn .5s ease}
-.tool-card:hover .icon{animation:bounceIn .5s ease}
-.infra-card:hover .icon{animation:float 2s ease infinite}
-.pain-card:hover .icon{animation:shake .5s ease}
-.ai-item:hover .em{animation:popIn .4s ease}
-.btn-primary{animation:ripple 2s ease infinite}
-
-.reveal-scale{opacity:0;transform:scale(.85);transition:all .8s cubic-bezier(.16,1,.3,1)}.reveal-scale.active{opacity:1;transform:scale(1)}
-
-/* TICKER BAR */
-.ticker-bar{position:fixed;top:0;left:0;right:0;z-index:1001;height:32px;background:linear-gradient(90deg,#6366F1,#06B6D4,#8B5CF6,#6366F1);background-size:300% 100%;animation:gradientFlow 8s linear infinite;display:flex;align-items:center;overflow:hidden}
-.ticker-content{display:flex;gap:48px;animation:scroll 20s linear infinite;white-space:nowrap;font-size:12px;font-weight:600;color:white}
-.ticker-content span{display:flex;align-items:center;gap:6px}
-
-/* SOCIAL PROOF POPUP */
-.social-proof{position:fixed;bottom:80px;left:20px;z-index:998;background:white;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);animation:slideInLeft .5s ease;max-width:320px}
-.sp-avatar{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6366F1,#06B6D4);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.sp-name{font-size:13px;font-weight:600;color:#1e293b}
-.sp-action{font-size:12px;color:#64748b}
-.sp-time{font-size:11px;color:#94a3b8;margin-top:2px}
-
-/* HERO DOTS */
-.hero-dots{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.hero-dots span{position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(99,102,241,.2);animation:float 6s ease-in-out infinite}
-
-.demo-tab:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.1)}
-.demo-site{display:none}.demo-site.active{display:block;animation:fadeIn .4s ease}
-@media(max-width:900px){.demo-grid{grid-template-columns:1fr!important}}
-
+/* REVEAL SYSTEM */
 .reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.16,1,.3,1)}
 .reveal.active{opacity:1;transform:translateY(0)}
 .reveal-left{opacity:0;transform:translateX(-40px);transition:all .8s cubic-bezier(.16,1,.3,1)}
 .reveal-left.active{opacity:1;transform:translateX(0)}
 .reveal-right{opacity:0;transform:translateX(40px);transition:all .8s cubic-bezier(.16,1,.3,1)}
 .reveal-right.active{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.85);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.reveal-scale.active{opacity:1;transform:scale(1)}
 .stagger-1{transition-delay:.1s}.stagger-2{transition-delay:.2s}.stagger-3{transition-delay:.3s}
 .stagger-4{transition-delay:.4s}.stagger-5{transition-delay:.5s}.stagger-6{transition-delay:.6s}
 .stagger-7{transition-delay:.7s}
 
-/* NAV */
-.nav{position:fixed;top:32px;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);transition:all .3s}
-.nav.scrolled{background:rgba(255,255,255,.95);box-shadow:0 4px 20px rgba(0,0,0,.06)}
+/* ========== 1. TICKER BAR ========== */
+.ticker-bar{position:fixed;top:0;left:0;right:0;z-index:1001;height:36px;background:linear-gradient(90deg,#6366F1,#06B6D4,#8B5CF6,#6366F1);background-size:300% 100%;animation:gradientFlow 8s linear infinite;display:flex;align-items:center;overflow:hidden;direction:ltr}
+.ticker-content{display:flex;gap:48px;animation:scroll 20s linear infinite;white-space:nowrap;font-size:12px;font-weight:600;color:white;direction:ltr}
+.ticker-content span{display:flex;align-items:center;gap:6px}
+
+/* ========== 2. STICKY NAV ========== */
+.nav{position:fixed;top:36px;left:0;right:0;z-index:1000;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,.06);transition:all .3s}
+.nav.scrolled{background:rgba(255,255,255,.97);box-shadow:0 4px 20px rgba(0,0,0,.08)}
 .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:-.3px}
 .nav-logo span{font-size:20px}
 .nav-links{display:flex;gap:2px;align-items:center}
 .nav-links a{color:#64748b;text-decoration:none;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;transition:.2s;white-space:nowrap}
 .nav-links a:hover,.nav-links a.active{color:#1e293b;background:rgba(99,102,241,.08)}
-.nav-cta{padding:8px 20px;background:var(--g1);border:none;border-radius:10px;color:white;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:.2s;position:relative;overflow:hidden}
+.nav-btns{display:flex;align-items:center;gap:12px}
+.nav-login{color:#64748b;text-decoration:none;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;transition:.2s}
+.nav-login:hover{color:#1e293b;background:rgba(99,102,241,.08)}
+.nav-cta{padding:8px 20px;background:linear-gradient(135deg,#6366F1,#06B6D4);border:none;border-radius:10px;color:white;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:.2s;position:relative;overflow:hidden}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(99,102,241,.4)}
 .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
 .hamburger span{display:block;width:22px;height:2px;background:#1e293b;border-radius:2px;transition:.3s}
@@ -103,910 +75,859 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
 .hamburger.active span:nth-child(2){opacity:0}
 .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-/* SECTIONS */
+/* ========== COMMON ========== */
 .section{padding:100px 40px;position:relative;overflow:hidden}
 .section-alt{background:#f8fafc}
 .container{max-width:1200px;margin:0 auto}
-.section-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:#4F46E5;margin-bottom:16px}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:#6366F1;margin-bottom:16px}
 .section-title{font-size:48px;font-weight:800;margin-bottom:16px;letter-spacing:-1.5px;line-height:1.1;color:#0f172a}
 .section-desc{font-size:18px;color:#64748b;max-width:640px;line-height:1.7;margin-bottom:48px}
 .section-center{text-align:center}
 .section-center .section-desc{margin:0 auto 48px}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:152px 40px 80px;position:relative;background:radial-gradient(ellipse at 50% -20%,rgba(99,102,241,.08),transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(6,182,212,.05),transparent 50%);background-size:200% 200%;animation:gradientShift 15s ease infinite}
-.hero::before{content:'';position:absolute;inset:0;opacity:.04;background-image:radial-gradient(circle at 1px 1px,rgba(0,0,0,.15) 1px,transparent 0);background-size:40px 40px;pointer-events:none}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);padding:8px 24px;border-radius:100px;font-size:13px;color:#4F46E5;margin-bottom:32px;font-weight:500;animation:fadeInUp .8s ease both}
-.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulse 2s ease infinite}
-.hero h1{font-size:72px;font-weight:900;line-height:1.05;margin-bottom:24px;letter-spacing:-3px;animation:fadeInUp .8s ease .1s both;color:#0f172a}
-.hero h1 .gt{background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero>p{font-size:20px;color:#64748b;max-width:680px;margin:0 auto 40px;line-height:1.7;animation:fadeInUp .8s ease .2s both}
-.hero-buttons{display:flex;gap:16px;justify-content:center;align-items:center;animation:fadeInUp .8s ease .3s both;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:var(--g1);border:none;border-radius:14px;color:white;font-size:16px;font-weight:700;cursor:pointer;transition:.3s;text-decoration:none;position:relative;overflow:hidden}
-.btn-primary::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transition:none}
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:linear-gradient(135deg,#6366F1,#06B6D4);border:none;border-radius:14px;color:white;font-size:16px;font-weight:700;cursor:pointer;transition:.3s;text-decoration:none;position:relative;overflow:hidden;animation:ripple 2s ease infinite}
+.btn-primary::after{content:'';position:absolute;top:0;right:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transition:none}
 .btn-primary:hover::after{animation:shimmer .8s ease}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(99,102,241,.4)}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.1);border-radius:14px;color:#1e293b;font-size:16px;font-weight:600;cursor:pointer;transition:.3s;text-decoration:none}
 .btn-secondary:hover{background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.15);transform:translateY(-2px)}
+
+/* BADGES */
+.badge{padding:2px 10px;border-radius:100px;font-size:11px;font-weight:600}
+.badge-green{background:rgba(16,185,129,.15);color:#10B981}
+.badge-yellow{background:rgba(245,158,11,.15);color:#F59E0B}
+.badge-blue{background:rgba(99,102,241,.15);color:#6366F1}
+.badge-red{background:rgba(239,68,68,.15);color:#EF4444}
+
+/* ========== 3. HERO ========== */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:152px 40px 80px;position:relative;background:radial-gradient(ellipse at 50% -20%,rgba(99,102,241,.08),transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(6,182,212,.05),transparent 50%);background-size:200% 200%;animation:gradientShift 15s ease infinite}
+.hero::before{content:'';position:absolute;inset:0;opacity:.04;background-image:radial-gradient(circle at 1px 1px,rgba(0,0,0,.15) 1px,transparent 0);background-size:40px 40px;pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.15);padding:8px 24px;border-radius:100px;font-size:13px;color:#6366F1;margin-bottom:32px;font-weight:500;animation:fadeInUp .8s ease both}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#10B981;animation:pulse 2s ease infinite}
+.hero h1{font-size:72px;font-weight:900;line-height:1.05;margin-bottom:24px;letter-spacing:-3px;color:#0f172a;animation:fadeInUp .8s ease .1s both}
+.hero h1 .gradient-text{background:linear-gradient(135deg,#6366F1,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero>p{font-size:20px;color:#64748b;max-width:680px;margin:0 auto 40px;line-height:1.7;animation:fadeInUp .8s ease .2s both}
+.hero-buttons{display:flex;gap:16px;justify-content:center;align-items:center;animation:fadeInUp .8s ease .3s both;flex-wrap:wrap}
 .hero-stats{display:flex;justify-content:center;gap:48px;margin-top:64px;animation:fadeInUp .8s ease .4s both}
-.hero-stat h3{font-size:48px;font-weight:800;background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-stat p{color:var(--gray);font-size:13px;margin-top:2px;font-weight:500}
+.hero-stat h3{font-size:48px;font-weight:800;background:linear-gradient(135deg,#6366F1,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-stat p{color:#64748b;font-size:13px;margin-top:2px;font-weight:500}
 .hero-trust{display:flex;justify-content:center;gap:32px;margin-top:48px;animation:fadeInUp .8s ease .5s both}
-.hero-trust span{color:#64748b;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px}
+.hero-trust span{color:#94a3b8;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px}
 
-/* PAIN */
+/* ========== 4. LOGO BAR ========== */
+.logo-bar{padding:48px 40px;border-top:1px solid rgba(0,0,0,.04);border-bottom:1px solid rgba(0,0,0,.04);background:#ffffff;text-align:center}
+.logo-bar-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:#94a3b8;margin-bottom:24px}
+.logo-bar-logos{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;opacity:.5;direction:ltr}
+.logo-bar-logos span{font-size:15px;font-weight:700;color:#64748b;letter-spacing:-.3px}
+
+/* ========== 5. PROBLEM ========== */
 .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.pain-card{background:#fff;border:1px solid rgba(239,68,68,.12);border-radius:var(--radius);padding:32px;text-align:center;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.pain-card:hover{border-color:rgba(239,68,68,.25);transform:translateY(-4px)}
-.pain-card .icon{font-size:36px;margin-bottom:16px}
-.pain-card h4{font-size:17px;font-weight:700;margin-bottom:8px;color:#1e293b}
+.pain-card{background:#fff;border:1px solid rgba(239,68,68,.1);border-radius:16px;padding:36px;text-align:center;transition:.3s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.pain-card:hover{border-color:rgba(239,68,68,.25);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.pain-card .icon{font-size:40px;margin-bottom:16px}
+.pain-card .stat{font-size:32px;font-weight:800;color:#F87171;margin-bottom:4px}
+.pain-card h4{font-size:17px;font-weight:700;margin-bottom:8px;color:#0f172a}
 .pain-card p{font-size:14px;color:#64748b;line-height:1.6}
-.pain-card .stat{font-size:28px;font-weight:800;color:#F87171;margin-bottom:4px}
 
-/* PHASE GRID */
-.phase-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.phase-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:28px;transition:.4s;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.phase-card:hover{border-color:rgba(99,102,241,.3);transform:translateY(-6px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
-.phase-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
-.phase-card:nth-child(1)::before{background:var(--g1)}.phase-card:nth-child(2)::before{background:var(--g4)}
-.phase-card:nth-child(3)::before{background:var(--g2)}.phase-card:nth-child(4)::before{background:var(--g3)}
-.phase-card:nth-child(5)::before{background:linear-gradient(135deg,#06B6D4,#8B5CF6)}
-.phase-card:nth-child(6)::before{background:linear-gradient(135deg,#EC4899,#F59E0B)}
-.phase-card:nth-child(7)::before{background:linear-gradient(135deg,#10B981,#F59E0B)}
-.phase-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;font-weight:800;font-size:14px;margin-bottom:16px;background:rgba(99,102,241,.15);color:var(--primary-light)}
-.phase-card h3{font-size:18px;font-weight:700;margin-bottom:8px;color:#1e293b}
-.phase-card>p{color:#64748b;font-size:13px;line-height:1.6}
-.phase-tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px}
-.tag{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08);padding:3px 10px;border-radius:100px;font-size:11px;color:#64748b}
+/* ========== 6. FEATURE PILLARS ========== */
+.pillar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pillar-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:32px 24px;transition:.4s;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);text-align:right}
+.pillar-card:hover{border-color:rgba(99,102,241,.3);transform:translateY(-6px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
+.pillar-card:nth-child(1)::before{background:linear-gradient(135deg,#6366F1,#06B6D4)}
+.pillar-card:nth-child(2)::before{background:linear-gradient(135deg,#10B981,#06B6D4)}
+.pillar-card:nth-child(3)::before{background:linear-gradient(135deg,#8B5CF6,#EC4899)}
+.pillar-card:nth-child(4)::before{background:linear-gradient(135deg,#F59E0B,#EF4444)}
+.pillar-card .pillar-icon{font-size:36px;margin-bottom:16px}
+.pillar-card h3{font-size:18px;font-weight:700;margin-bottom:8px;color:#0f172a}
+.pillar-card>p{color:#64748b;font-size:13px;line-height:1.6;margin-bottom:16px}
+.pillar-card ul{list-style:none;padding:0}
+.pillar-card ul li{font-size:12px;color:#334155;padding:4px 0;display:flex;align-items:center;gap:8px}
+.pillar-card ul li::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:#10B981;flex-shrink:0}
 
-/* MID CTA */
-.mid-cta{text-align:center;padding:64px 40px;background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04));border-top:1px solid rgba(99,102,241,.08);border-bottom:1px solid rgba(99,102,241,.08)}
-.mid-cta h3{font-size:32px;font-weight:800;margin-bottom:12px;letter-spacing:-.5px;color:#0f172a}
-.mid-cta p{color:#64748b;font-size:16px;margin-bottom:28px}
-.mid-cta .trust-line{color:#94a3b8;font-size:13px;margin-top:16px}
+/* ========== 7. LIVE DEMO ========== */
+.demo-tab-he{padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit;border:1px solid rgba(0,0,0,.08)}
+.demo-tab-he:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.mock-browser{background:#fff;border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.08);box-shadow:0 4px 16px rgba(0,0,0,.06);direction:ltr}
+.mock-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#f1f5f9;border-bottom:1px solid rgba(0,0,0,.06);direction:ltr}
+.dot-r{width:10px;height:10px;border-radius:50%;background:#EF4444}
+.dot-y{width:10px;height:10px;border-radius:50%;background:#F59E0B}
+.dot-g{width:10px;height:10px;border-radius:50%;background:#10B981}
+.mock-url{flex:1;background:#fff;border-radius:6px;padding:6px 12px;font-size:11px;color:#64748b;margin:0 12px;border:1px solid rgba(0,0,0,.06);direction:ltr;text-align:left}
 
-/* FEATURE ROW */
-.feature-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px}
-.feature-row:last-child{margin-bottom:0}
-.feature-row.reverse{direction:rtl}
-.feature-row.reverse>*{direction:ltr}
-.feature-row h3{font-size:32px;font-weight:800;margin-bottom:12px;letter-spacing:-.5px;color:#0f172a}
-.feature-row>div>p{color:#64748b;font-size:15px;line-height:1.7;margin-bottom:20px}
-.feature-list{list-style:none}
-.feature-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;font-size:14px;color:#334155;line-height:1.5}
-.feature-list .ck{color:var(--success);font-size:16px;flex-shrink:0;margin-top:1px}
+.demo-info-panel{display:grid;grid-template-columns:auto 1fr;gap:24px;margin-top:20px;align-items:start;direction:rtl}
+.demo-niche-card{border-radius:14px;padding:24px;color:white;min-width:180px;text-align:center}
+.demo-niche-card .niche-emoji{font-size:36px;margin-bottom:8px}
+.demo-niche-card h4{font-size:16px;font-weight:700;margin-bottom:4px}
+.demo-niche-card p{font-size:12px;opacity:.85}
+.demo-info-right{display:flex;flex-direction:column;gap:12px}
+.demo-features-row{display:flex;gap:8px;flex-wrap:wrap}
+.demo-features-row span{background:rgba(99,102,241,.06);border:1px solid rgba(99,102,241,.12);padding:4px 12px;border-radius:100px;font-size:12px;color:#6366F1;font-weight:500}
+.demo-stat-boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;direction:ltr}
+.demo-stat-box{background:#f8fafc;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;text-align:center}
+.demo-stat-box .num{font-size:22px;font-weight:800;color:#0f172a}
+.demo-stat-box .label{font-size:11px;color:#64748b;margin-top:2px}
 
-/* MOCK */
-.mock-browser{background:#fff;border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.08);box-shadow:0 8px 32px rgba(0,0,0,.08)}
-.mock-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:#f1f5f9;border-bottom:1px solid rgba(0,0,0,.06)}
-.dot{width:10px;height:10px;border-radius:50%}.dot-r{background:#EF4444}.dot-y{background:#F59E0B}.dot-g{background:#10B981}
-.mock-url{flex:1;background:rgba(0,0,0,.04);border-radius:6px;padding:6px 12px;font-size:11px;color:#64748b;margin:0 12px}
-.mock-body{padding:20px;min-height:260px}
-.mock-item{background:#f8fafc;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;margin-bottom:10px;transition:.2s}
-.mock-item:last-child{margin-bottom:0}
+/* ========== 8. COST CALCULATOR ========== */
+.calc-grid{display:grid;grid-template-columns:1fr 80px 1fr;gap:32px;align-items:start;max-width:900px;margin:0 auto;direction:ltr}
+.calc-col{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:32px;box-shadow:0 1px 3px rgba(0,0,0,.04);direction:rtl}
+.calc-col h3{font-size:20px;font-weight:800;margin-bottom:20px;color:#0f172a}
+.calc-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:14px}
+.calc-item:last-child{border-bottom:none}
+.calc-item .name{color:#334155}
+.calc-item .cost{font-weight:700;color:#EF4444}
+.calc-total{display:flex;justify-content:space-between;padding:14px 0;border-top:2px solid rgba(0,0,0,.08);margin-top:8px;font-size:18px;font-weight:800}
+.calc-vs{display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#64748b}
+.calc-col-winner{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.02)}
+.calc-col-winner .calc-total .cost{color:#10B981}
 
-/* TOOL GRID */
-.tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.tool-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:24px;text-align:center;transition:.4s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.tool-card:hover{border-color:rgba(99,102,241,.3);transform:translateY(-6px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
-.tool-card .icon{font-size:36px;margin-bottom:14px}
-.tool-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:#1e293b}
-.tool-card p{font-size:12px;color:#64748b;line-height:1.5}
-.tool-card .cost{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:600;background:rgba(16,185,129,.1);color:#34D399}
+/* ========== 9. TESTIMONIALS ========== */
+.testimonial-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.testimonial-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:32px;transition:.3s;box-shadow:0 1px 3px rgba(0,0,0,.04);text-align:right}
+.testimonial-card:hover{border-color:rgba(99,102,241,.2);transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.testimonial-stars{color:#F59E0B;font-size:14px;margin-bottom:12px;letter-spacing:2px}
+.testimonial-text{font-size:15px;color:#334155;line-height:1.7;margin-bottom:20px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.testimonial-avatar{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.testimonial-name{font-size:14px;font-weight:700;color:#0f172a}
+.testimonial-role{font-size:12px;color:#64748b}
 
-/* INFRA */
-.infra-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.infra-card{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:28px;text-align:center;transition:.4s;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.infra-card:hover{border-color:rgba(99,102,241,.3);transform:translateY(-6px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
-.infra-card .icon{font-size:40px;margin-bottom:16px}
-.infra-card h4{font-size:17px;font-weight:700;margin-bottom:8px;color:#1e293b}
-.infra-card p{font-size:13px;color:#64748b;line-height:1.6;margin-bottom:14px}
-.infra-callout{background:linear-gradient(135deg,rgba(99,102,241,.04),rgba(6,182,212,.04));border:1px solid rgba(99,102,241,.1);border-radius:var(--radius);padding:32px;text-align:center;margin-top:32px}
-.infra-callout p{font-size:20px;font-weight:700;color:#1e293b;line-height:1.4}
-.infra-callout span{color:#4F46E5}
-.infra-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:32px}
-.infra-stat{background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:14px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.infra-stat .num{font-size:32px;font-weight:800}
-.infra-stat .label{font-size:12px;color:var(--gray);margin-top:4px}
-
-/* AI GRID */
-.ai-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.ai-item{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:16px 20px;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.ai-item:hover{border-color:rgba(139,92,246,.3);background:rgba(139,92,246,.03);transform:translateY(-2px)}
-.ai-item .em{font-size:24px;flex-shrink:0}
-.ai-item h4{font-size:13px;font-weight:600;color:#1e293b}
-.ai-item p{font-size:11px;color:#64748b;margin-top:1px}
-
-/* WORKFLOW */
-.flow-steps{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin:48px 0}
-.flow-step{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px}
-.flow-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;transition:.3s}
-.flow-icon:hover{transform:scale(1.1)}
-.flow-label{font-size:12px;font-weight:600;text-align:center;max-width:80px;color:#334155}
-.flow-arrow{font-size:20px;color:var(--gray);margin:0 2px;align-self:center}
-
-/* TABLE */
-.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius);border:1px solid rgba(0,0,0,.06)}
-.compare-table{width:100%;border-collapse:separate;border-spacing:0;min-width:600px}
-.compare-table th{background:rgba(99,102,241,.06);padding:16px 24px;text-align:left;font-weight:600;font-size:14px;color:#1e293b}
-.compare-table td{padding:14px 24px;font-size:14px;border-bottom:1px solid rgba(0,0,0,.04);color:#334155}
-.compare-table tr:last-child td{border-bottom:none}
-.compare-table tr:nth-child(even) td{background:rgba(0,0,0,.015)}
-
-/* SCREENSHOT TABS */
+/* ========== 10. PLATFORM SCREENSHOTS ========== */
 .screen-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:32px}
-.screen-tab{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:500;color:#64748b;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);cursor:pointer;transition:.2s;white-space:nowrap}
+.screen-tab{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:500;color:#64748b;background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);cursor:pointer;transition:.2s;white-space:nowrap}
 .screen-tab:hover{color:#1e293b;background:rgba(99,102,241,.06)}
 .screen-tab.active{color:#fff;background:rgba(99,102,241,.85);border-color:rgba(99,102,241,.3)}
 .screen-panels{max-width:1100px;margin:0 auto}
 .screen-panel{display:none;animation:fadeInUp .5s ease}
 .screen-panel.active{display:block}
+.mock-body{padding:20px;min-height:260px}
+.mock-item{background:#f8fafc;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;margin-bottom:10px;transition:.2s}
+.mock-item:last-child{margin-bottom:0}
 
-/* FAQ */
+/* ========== 11. FAQ ========== */
 .faq-list{max-width:800px;margin:0 auto}
-.faq-item{border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:.3s;background:#fff}
+.faq-item{border:1px solid rgba(0,0,0,.06);border-radius:16px;margin-bottom:12px;overflow:hidden;transition:.3s;background:#fff;text-align:right}
 .faq-item:hover{border-color:rgba(99,102,241,.2)}
-.faq-q{padding:20px 24px;font-size:16px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:.2s;user-select:none;color:#1e293b}
-.faq-q:hover{color:#4F46E5}
-.faq-q::after{content:'+';font-size:24px;font-weight:300;color:var(--gray);transition:.3s}
-.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--primary-light)}
+.faq-q{padding:20px 24px;font-size:16px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:.2s;user-select:none;color:#0f172a}
+.faq-q:hover{color:#6366F1}
+.faq-q::after{content:'+';font-size:24px;font-weight:300;color:#64748b;transition:.3s}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:#6366F1}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 24px}
 .faq-item.open .faq-a{max-height:300px;padding:0 24px 20px}
 .faq-a p{color:#64748b;font-size:14px;line-height:1.7}
 
-/* CTA FINAL */
-.cta-final{text-align:center;padding:120px 40px;position:relative;background:radial-gradient(ellipse at 50% 50%,rgba(99,102,241,.05),transparent 60%)}
+/* ========== 12. CREDENTIALS ========== */
+.credentials-box{max-width:480px;margin:0 auto;background:#fff;border:2px solid rgba(99,102,241,.2);border-radius:16px;padding:32px;text-align:center;box-shadow:0 4px 16px rgba(99,102,241,.08)}
+.credentials-box h3{font-size:20px;font-weight:800;margin-bottom:16px;color:#0f172a}
+.cred-row{display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:12px 16px;margin-bottom:10px;font-size:14px;direction:ltr}
+.cred-row .label{color:#64748b;font-weight:500}
+.cred-row .value{font-weight:700;color:#0f172a;font-family:monospace}
+.cred-copy{background:linear-gradient(135deg,#6366F1,#06B6D4);border:none;padding:6px 14px;border-radius:8px;color:white;font-size:11px;font-weight:600;cursor:pointer;transition:.2s}
+.cred-copy:hover{transform:scale(1.05)}
+
+/* ========== 13. FINAL CTA ========== */
+.cta-final{text-align:center;padding:120px 40px;position:relative;background:radial-gradient(ellipse at 50% 50%,rgba(99,102,241,.06),transparent 60%)}
 .cta-final h2{font-size:52px;font-weight:900;margin-bottom:16px;letter-spacing:-2px;color:#0f172a}
 .cta-final>p{color:#64748b;font-size:18px;max-width:560px;margin:0 auto 40px;line-height:1.6}
 .cta-badges{display:flex;justify-content:center;gap:24px;margin-top:24px;flex-wrap:wrap}
-.cta-badges span{color:#64748b;font-size:13px;display:flex;align-items:center;gap:6px}
+.cta-badges span{color:#94a3b8;font-size:13px;display:flex;align-items:center;gap:6px}
+
+/* ========== 14. SOCIAL PROOF POPUP ========== */
+.social-proof{position:fixed;bottom:80px;right:20px;z-index:998;background:white;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);animation:slideInRight .5s ease;max-width:320px}
+.sp-avatar{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6366F1,#06B6D4);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.sp-name{font-size:13px;font-weight:600;color:#1e293b}
+.sp-action{font-size:12px;color:#64748b}
+.sp-time{font-size:11px;color:#94a3b8;margin-top:2px}
 
 /* FLOATING CTA */
-.floating-cta{position:fixed;bottom:0;left:0;right:0;z-index:999;padding:12px 24px;background:linear-gradient(90deg,rgba(99,102,241,.06),rgba(6,182,212,.06),rgba(139,92,246,.06));backdrop-filter:blur(16px);border-top:1px solid rgba(99,102,241,.15);display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .4s ease;pointer-events:none}
+.floating-cta{position:fixed;bottom:0;left:0;right:0;z-index:999;padding:12px 24px;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;gap:16px;transform:translateY(100%);transition:transform .4s ease;pointer-events:none;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
 .floating-cta.visible{transform:translateY(0);pointer-events:auto}
 .floating-cta p{font-size:14px;color:#334155;font-weight:500}
-.floating-cta .btn-sm{padding:10px 24px;background:var(--g1);border:none;border-radius:10px;color:white;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:.2s;animation:ripple 2s ease infinite}
-.floating-cta .btn-sm:hover{box-shadow:0 4px 16px rgba(99,102,241,.4);transform:translateY(-1px)}
+.floating-cta .btn-sm{padding:10px 24px;background:linear-gradient(135deg,#6366F1,#06B6D4);border:none;border-radius:10px;color:white;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:.2s}
+.floating-cta .btn-sm:hover{box-shadow:0 4px 16px rgba(99,102,241,.4)}
 
 .footer{text-align:center;padding:40px;border-top:1px solid rgba(0,0,0,.06);font-size:13px;color:#64748b;background:#f8fafc}
-.badge{padding:2px 10px;border-radius:100px;font-size:11px;font-weight:600}
-.badge-green{background:rgba(16,185,129,.15);color:#34D399}
-.badge-yellow{background:rgba(245,158,11,.15);color:#FBBF24}
-.badge-blue{background:rgba(99,102,241,.15);color:var(--primary-light)}
-.badge-red{background:rgba(239,68,68,.15);color:#F87171}
 
-/* RESPONSIVE */
-@media(max-width:1280px){.hero h1{font-size:60px}.section-title{font-size:40px}.phase-grid{grid-template-columns:repeat(3,1fr)}}
+/* ========== RESPONSIVE ========== */
+@media(max-width:1280px){
+  .hero h1{font-size:60px}
+  .section-title{font-size:40px}
+  .pillar-grid{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:1024px){
-  .nav{padding:0 24px}.nav-links{display:none;position:fixed;top:96px;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:40px 24px}
-  .nav-links.open{display:flex;animation:slideDown .3s ease}.hamburger{display:flex}
-  .section{padding:72px 24px}.hero{padding:120px 24px 60px}.hero h1{font-size:48px;letter-spacing:-2px}.hero>p{font-size:17px}.hero-stats{gap:32px}.hero-stat h3{font-size:36px}
-  .feature-row{grid-template-columns:1fr;gap:40px}.feature-row.reverse{direction:ltr}
-  .phase-grid,.tool-grid,.infra-grid,.ai-grid,.pain-grid{grid-template-columns:repeat(2,1fr)}
-  .infra-stats{grid-template-columns:repeat(3,1fr)}
+  .nav{padding:0 24px}
+  .nav-links{display:none;position:fixed;top:100px;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:40px 24px}
+  .nav-links.open{display:flex;animation:slideDown .3s ease}
+  .hamburger{display:flex}
+  .section{padding:72px 24px}
+  .hero{padding:120px 24px 60px}
+  .hero h1{font-size:48px;letter-spacing:-2px}
+  .hero>p{font-size:17px}
+  .hero-stats{gap:32px}
+  .hero-stat h3{font-size:36px}
+  .pain-grid{grid-template-columns:repeat(2,1fr)}
+  .pillar-grid{grid-template-columns:repeat(2,1fr)}
+  .testimonial-grid{grid-template-columns:1fr}
+  .calc-grid{grid-template-columns:1fr;gap:16px}
+  .calc-vs{transform:rotate(90deg)}
+  .demo-info-panel{grid-template-columns:1fr}
+  .demo-stat-boxes{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
-  .hero h1{font-size:38px;letter-spacing:-1.5px}.hero>p{font-size:16px}.hero-stats{flex-wrap:wrap;gap:24px}.hero-stat h3{font-size:32px}
-  .hero-buttons{flex-direction:column;width:100%;max-width:320px;margin:0 auto}.hero-buttons .btn-primary,.hero-buttons .btn-secondary{width:100%;justify-content:center}
-  .section-title{font-size:32px}.section-desc{font-size:16px}.infra-stats{grid-template-columns:repeat(2,1fr)}
-  .screen-tabs{gap:4px}.screen-tab{padding:6px 12px;font-size:12px}.cta-final h2{font-size:36px}
+  .hero h1{font-size:38px;letter-spacing:-1.5px}
+  .hero>p{font-size:16px}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .hero-stat h3{font-size:32px}
+  .hero-buttons{flex-direction:column;width:100%;max-width:320px;margin:0 auto}
+  .hero-buttons .btn-primary,.hero-buttons .btn-secondary{width:100%;justify-content:center}
+  .section-title{font-size:32px}
+  .section-desc{font-size:16px}
+  .screen-tabs{gap:4px}
+  .screen-tab{padding:6px 12px;font-size:12px}
+  .cta-final h2{font-size:36px}
+  .logo-bar-logos{gap:24px}
+  .demo-stat-boxes{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
-  .nav{padding:0 16px}.section{padding:56px 16px}.hero{padding:100px 16px 48px}.hero h1{font-size:30px;letter-spacing:-1px}
-  .hero-stats{gap:20px}.hero-stat h3{font-size:28px}.hero-trust{flex-direction:column;align-items:center;gap:12px}
-  .section-title{font-size:26px}.phase-grid,.tool-grid,.infra-grid,.ai-grid,.pain-grid{grid-template-columns:1fr}
-  .infra-stats{grid-template-columns:1fr 1fr}.mid-cta h3{font-size:24px}.cta-final h2{font-size:28px}.cta-final>p{font-size:16px}
-  .feature-row h3{font-size:24px}.flow-arrow{display:none}.flow-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .nav{padding:0 16px}
+  .section{padding:56px 16px}
+  .hero{padding:100px 16px 48px}
+  .hero h1{font-size:30px;letter-spacing:-1px}
+  .hero-stats{gap:20px}
+  .hero-stat h3{font-size:28px}
+  .hero-trust{flex-direction:column;align-items:center;gap:12px}
+  .section-title{font-size:26px}
+  .pain-grid,.pillar-grid{grid-template-columns:1fr}
+  .cta-final h2{font-size:28px}
+  .cta-final>p{font-size:16px}
+  .demo-stat-boxes{grid-template-columns:1fr 1fr}
+  .logo-bar-logos span{font-size:13px}
 }
 </style>
 </head>
 <body>
 
-<div class="ticker-bar" id="tickerBar">
+<!-- ========== 1. TICKER BAR ========== -->
+<div class="ticker-bar">
   <div class="ticker-content">
-    <span>🔥 <strong>127 brands</strong> launched this month</span>
-    <span>⚡ Last signup: <strong>3 minutes ago</strong> from London</span>
-    <span>📈 <strong>2,847</strong> total sites built</span>
-    <span>🎯 Limited: <strong>Free plan</strong> available for new users</span>
-    <span>🔥 <strong>127 brands</strong> launched this month</span>
-    <span>⚡ Last signup: <strong>3 minutes ago</strong> from London</span>
-    <span>📈 <strong>2,847</strong> total sites built</span>
-    <span>🎯 Limited: <strong>Free plan</strong> available for new users</span>
+    <span>🔥 <strong>127 מותגים</strong> הושקו החודש</span>
+    <span>⚡ הרשמה אחרונה: <strong>לפני 3 דקות</strong> מלונדון</span>
+    <span>📈 <strong>2,847</strong> אתרים נבנו בסה"כ</span>
+    <span>🎯 מוגבל: <strong>תוכנית חינמית</strong> זמינה למשתמשים חדשים</span>
+    <span>🔥 <strong>127 מותגים</strong> הושקו החודש</span>
+    <span>⚡ הרשמה אחרונה: <strong>לפני 3 דקות</strong> מלונדון</span>
+    <span>📈 <strong>2,847</strong> אתרים נבנו בסה"כ</span>
+    <span>🎯 מוגבל: <strong>תוכנית חינמית</strong> זמינה למשתמשים חדשים</span>
   </div>
 </div>
 
+<!-- ========== 2. STICKY NAV ========== -->
 <nav class="nav" id="nav">
   <div class="nav-logo"><span>🚀</span> Tradesite Autopilot</div>
   <div class="nav-links" id="navLinks">
-    <a href="#hero" class="active">Home</a>
-    <a href="#problem">Why</a>
-    <a href="#phases">7 Phases</a>
-    <a href="#content">Content</a>
-    <a href="#marketing">Marketing</a>
-    <a href="#infra">Infrastructure</a>
-    <a href="#screens">Platform</a>
-    <a href="#demo">Live Demo</a>
-    <a href="#faq">FAQ</a>
-    <a href="#access">Access</a>
+    <a href="#hero" class="active">ראשי</a>
+    <a href="#features">תכונות</a>
+    <a href="#demo">הדגמה חיה</a>
+    <a href="#calculator">תמחור</a>
+    <a href="#screens">פלטפורמה</a>
+    <a href="#faq">שאלות נפוצות</a>
   </div>
-  <a href="#cta" class="nav-cta">Get Started Free</a>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-btns">
+    <a href="https://tradesite-autopilot.vercel.app" class="nav-login">התחברות</a>
+    <a href="#cta" class="nav-cta">התחל בחינם ←</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="תפריט"><span></span><span></span><span></span></button>
 </nav>
 
+<!-- ========== 3. HERO ========== -->
 <section class="hero" id="hero">
-  <div class="hero-dots">
-    <span style="top:15%;left:10%;animation-delay:0s"></span>
-    <span style="top:25%;left:85%;animation-delay:1s"></span>
-    <span style="top:60%;left:5%;animation-delay:2s"></span>
-    <span style="top:70%;left:90%;animation-delay:0.5s"></span>
-    <span style="top:40%;left:20%;animation-delay:1.5s"></span>
-    <span style="top:80%;left:75%;animation-delay:3s"></span>
-    <span style="top:10%;left:50%;animation-delay:2.5s"></span>
-    <span style="top:50%;left:95%;animation-delay:0.8s"></span>
-    <span style="top:35%;left:3%;animation-delay:1.8s"></span>
-    <span style="top:90%;left:40%;animation-delay:3.5s"></span>
-  </div>
-  <div class="hero-badge"><span class="dot"></span> AI-Powered Trading Brand Builder</div>
-  <h1>Launch Your Trading Brand<br><span class="gt">In Hours, Not Months</span></h1>
-  <p>Stop spending 6-12 months and $15K+ assembling websites, content, SEO, and social media. One platform, 7 phases, 27 AI modules — your complete trading brand, ready to go live.</p>
+  <div class="hero-badge"><span class="dot"></span> 🚀 מונע AI · 2,847 מותגים הושקו</div>
+  <h1>המותג המסחרי שלך,<br><span class="gradient-text">נבנה באמצעות AI</span></h1>
+  <p>הפסק לבזבז חודשים ואלפי שקלים. פלטפורמה אחת, 7 שלבי AI — המותג המסחרי המלא שלך מוכן תוך שעות, לא חודשים.</p>
   <div class="hero-buttons">
-    <a href="#cta" class="btn-primary">Start Building — Free <span>→</span></a>
-    <a href="#screens" class="btn-secondary">See the Platform <span>▶</span></a>
+    <a href="#cta" class="btn-primary">התחל לבנות — חינם <span>←</span></a>
+    <a href="#demo" class="btn-secondary">צפה בהדגמה <span>▶</span></a>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><h3><span class="counter" data-target="7">0</span></h3><p>Automated Phases</p></div>
-    <div class="hero-stat"><h3><span class="counter" data-target="27">0</span></h3><p>AI Modules</p></div>
-    <div class="hero-stat"><h3><span class="counter" data-target="20">0</span>+</h3><p>Website Pages</p></div>
-    <div class="hero-stat"><h3><span class="counter" data-target="90">0</span></h3><p>Day Strategy</p></div>
+    <div class="hero-stat"><h3><span class="counter" data-target="4">0</span></h3><p>נישות</p></div>
+    <div class="hero-stat"><h3><span class="counter" data-target="20">0</span>+</h3><p>עמודים</p></div>
+    <div class="hero-stat"><h3><span class="counter" data-target="27">0</span></h3><p>מודולי AI</p></div>
+    <div class="hero-stat"><h3><span class="counter" data-target="90">0</span> יום</h3><p>אסטרטגיה</p></div>
   </div>
   <div class="hero-trust">
-    <span>✓ No credit card required</span>
-    <span>✓ Full AI automation</span>
-    <span>✓ Deploy in hours</span>
-  </div>
-  <div class="hero-logos" style="display:flex;justify-content:center;gap:40px;margin-top:40px;animation:fadeInUp .8s ease .6s both;opacity:.4;flex-wrap:wrap">
-    <span style="font-size:14px;font-weight:700;letter-spacing:1px;color:#94a3b8">POWERED BY</span>
-    <span style="font-size:13px;font-weight:600;color:#94a3b8">⚡ Vercel</span>
-    <span style="font-size:13px;font-weight:600;color:#94a3b8">🤖 OpenAI</span>
-    <span style="font-size:13px;font-weight:600;color:#94a3b8">🔒 Prisma</span>
-    <span style="font-size:13px;font-weight:600;color:#94a3b8">☁️ Neon DB</span>
-    <span style="font-size:13px;font-weight:600;color:#94a3b8">🔐 NextAuth</span>
+    <span>✓ ללא כרטיס אשראי</span>
+    <span>✓ פריסה תוך שעות</span>
+    <span>✓ אוטומציית AI מלאה</span>
   </div>
 </section>
 
+<!-- ========== 4. LOGO BAR ========== -->
+<div class="logo-bar">
+  <div class="logo-bar-label">מופעל על ידי</div>
+  <div class="logo-bar-logos">
+    <span>▲ Vercel</span>
+    <span>◆ OpenAI</span>
+    <span>◈ Prisma</span>
+    <span>⬡ Neon</span>
+    <span>🔐 NextAuth</span>
+    <span>📊 MetaTrader</span>
+    <span>📈 TradingView</span>
+  </div>
+</div>
+
+<!-- ========== 5. PROBLEM ========== -->
 <section class="section section-alt" id="problem">
   <div class="container section-center">
-    <div class="section-label reveal">💡 The Problem</div>
-    <h2 class="section-title reveal">Building a Trading Brand Manually Is Broken</h2>
-    <p class="section-desc reveal">Most trading companies spend months and thousands of dollars coordinating freelancers, agencies, and tools. Here's what it actually costs:</p>
+    <div class="section-label reveal">😤 הבעיה</div>
+    <h2 class="section-title reveal">בניית מותג מסחרי לא צריכה לקחת נצח</h2>
+    <p class="section-desc reveal">רוב היזמים בתחום המסחר נתקלים באותם שלושה מכשולים עוד לפני שהם מתחילים.</p>
     <div class="pain-grid">
-      <div class="pain-card reveal stagger-1"><div class="icon">⏱️</div><div class="stat">6-12 months</div><h4>Time to Launch</h4><p>Website development, content writing, SEO setup, social media profiles — each step takes weeks of coordination.</p></div>
-      <div class="pain-card reveal stagger-2"><div class="icon">💸</div><div class="stat">$15,000+</div><h4>Total Cost</h4><p>Web design ($3K), copywriting ($2K), SEO ($500/mo), social media ($1K/mo), email tools ($200/mo)...</p></div>
-      <div class="pain-card reveal stagger-3"><div class="icon">🧩</div><div class="stat">8+ Tools</div><h4>Fragmented Stack</h4><p>WordPress, Mailchimp, Hootsuite, Ahrefs, Canva, Analytics — none of them talk to each other.</p></div>
+      <div class="pain-card reveal stagger-1">
+        <div class="icon">⏰</div>
+        <div class="stat">6-12 חודשים</div>
+        <h4>יותר מדי זמן</h4>
+        <p>אתר, תוכן, SEO, רשתות חברתיות, אימייל — להרכיב את הכל ידנית לוקח 6-12 חודשים לפני שבכלל עולים לאוויר.</p>
+      </div>
+      <div class="pain-card reveal stagger-2">
+        <div class="icon">💸</div>
+        <div class="stat">$15K+</div>
+        <h4>יותר מדי עלות</h4>
+        <p>מעצבים, מפתחים, כותבי תוכן, מומחי SEO, מנהלי רשתות חברתיות — בקלות $15,000+ לפני הליד הראשון.</p>
+      </div>
+      <div class="pain-card reveal stagger-3">
+        <div class="icon">🧩</div>
+        <div class="stat">+8</div>
+        <h4>יותר מדי כלים</h4>
+        <p>WordPress, Mailchimp, Hootsuite, Ahrefs, Canva, HubSpot, ועוד — סיוט של מנויים ואינטגרציות.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="phases">
+<!-- ========== 6. FEATURE PILLARS ========== -->
+<section class="section" id="features">
   <div class="container section-center">
-    <div class="section-label reveal">⚙️ The Solution</div>
-    <h2 class="section-title reveal">7 Phases That Replace 6 Months of Work</h2>
-    <p class="section-desc reveal">Each phase builds another layer of your digital brand automatically. From domain to a 90-day marketing roadmap — all AI-powered.</p>
-    <div class="phase-grid">
-      <div class="phase-card reveal stagger-1"><div class="phase-num">1</div><h3>🌐 Domain Intelligence</h3><p>AI analyzes your niche, suggests perfect domains with SEO scoring, keyword relevance, and real-time availability.</p><div class="phase-tags"><span class="tag">SEO Analysis</span><span class="tag">Domain Scoring</span><span class="tag">Price Check</span></div></div>
-      <div class="phase-card reveal stagger-2"><div class="phase-num">2</div><h3>🧱 Site Structures</h3><p>Choose from Forex, Crypto, or Multi-Asset templates. Define page maps, block types, and CTA zones.</p><div class="phase-tags"><span class="tag">Templates</span><span class="tag">Page Map</span><span class="tag">Schema Preview</span></div></div>
-      <div class="phase-card reveal stagger-3"><div class="phase-num">3</div><h3>🏗️ Website Factory</h3><p>20+ professional pages generated in minutes — homepage, pricing, education, legal, and more.</p><div class="phase-tags"><span class="tag">20+ Pages</span><span class="tag">5 Hero Variants</span><span class="tag">Legal Pages</span></div></div>
-      <div class="phase-card reveal stagger-4"><div class="phase-num">4</div><h3>📊 SEO & GEO</h3><p>Keyword research, meta tags, technical audit, Schema Markup, and geo targeting — all automatic.</p><div class="phase-tags"><span class="tag">Keywords</span><span class="tag">Audit</span><span class="tag">GEO Targeting</span></div></div>
-      <div class="phase-card reveal stagger-5"><div class="phase-num">5</div><h3>📱 Social Media</h3><p>Profiles across 7 platforms with 25+ ready assets — captions, videos, carousels, and hashtags.</p><div class="phase-tags"><span class="tag">7 Platforms</span><span class="tag">Content Bank</span><span class="tag">Scheduling</span></div></div>
-      <div class="phase-card reveal stagger-6"><div class="phase-num">6</div><h3>📅 Daily Posting</h3><p>AI generates platform-specific content with optimal timing. Schedule up to 90 days in one click.</p><div class="phase-tags"><span class="tag">90 Days</span><span class="tag">Calendar View</span><span class="tag">Analytics</span></div></div>
-      <div class="phase-card reveal stagger-7"><div class="phase-num">7</div><h3>🗓️ 90-Day Timeline</h3><p>Strategic roadmap with 21 milestones, KPIs, progress tracking, and traffic forecasts.</p><div class="phase-tags"><span class="tag">21 Milestones</span><span class="tag">KPIs</span><span class="tag">Traffic Forecast</span></div></div>
-    </div>
-  </div>
-</section>
-
-<div class="mid-cta reveal">
-  <h3>Ready to see what 27 AI modules can build?</h3>
-  <p>Join the companies that stopped waiting and started launching.</p>
-  <a href="#cta" class="btn-primary">Start Building — Free <span>→</span></a>
-  <div class="trust-line">No credit card · No commitment · Full AI automation</div>
-</div>
-
-<section class="section section-alt" id="content">
-  <div class="container">
-    <div class="section-label reveal">📝 Content Engine</div>
-    <h2 class="section-title reveal">Publish Content Without Hiring a Single Writer</h2>
-    <p class="section-desc reveal">Blog, courses, landing pages, and a content library — all powered by AI that writes better than most freelancers.</p>
-
-    <div class="feature-row reveal">
-      <div>
-        <h3>📰 AI Blog Writer</h3>
-        <p>Enter a topic, get a full SEO-optimized article in seconds. Categories, scheduling, and meta tags — all automatic.</p>
-        <ul class="feature-list">
-          <li><span class="ck">✓</span> Full articles from just a topic — 800-2,000 words</li>
-          <li><span class="ck">✓</span> Auto-generated SEO meta tags and slugs</li>
-          <li><span class="ck">✓</span> Draft / Published / Scheduled workflow</li>
-          <li><span class="ck">✓</span> Market Analysis, Education, News, Strategy categories</li>
+    <div class="section-label reveal">⚡ מה מקבלים</div>
+    <h2 class="section-title reveal">ארבעה עמודים. פלטפורמה אחת. אפס חיכוך.</h2>
+    <p class="section-desc reveal">כל מה שמותג מסחרי צריך — מיוצר, מחובר ונפרס באופן אוטומטי.</p>
+    <div class="pillar-grid">
+      <div class="pillar-card reveal stagger-1">
+        <div class="pillar-icon">🌐</div>
+        <h3>מותג ואתר</h3>
+        <p>AI מייצר את האתר המסחרי המלא שלך עם 20+ עמודים, תוכן ייחודי, דפי משפטיים ומשפכי המרה.</p>
+        <ul>
+          <li>דומיין מותאם + מיתוג</li>
+          <li>20+ עמודים ייחודיים</li>
+          <li>דפי נחיתה + לכידת לידים</li>
+          <li>מסמכי ציות משפטיים</li>
         </ul>
       </div>
-      <div class="mock-browser reveal-right">
-        <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / blog</div></div>
-        <div class="mock-body">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font-weight:700;font-size:16px">📝 Blog Posts</div><div style="background:var(--g1);padding:7px 14px;border-radius:8px;font-size:11px;font-weight:600">+ Generate with AI</div></div>
-          <div class="mock-item"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">Understanding Forex Spreads in 2026</span><span class="badge badge-green">Published</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">Market Analysis · 1,200 words</div></div>
-          <div class="mock-item"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">Top 5 Trading Strategies for Beginners</span><span class="badge badge-yellow">Draft</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">Education · 850 words</div></div>
-          <div class="mock-item"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">Bitcoin vs. Traditional Forex Trading</span><span class="badge badge-blue">Scheduled</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">Strategy · 1,500 words</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-row reverse reveal">
-      <div>
-        <h3>🎯 High-Converting Landing Pages</h3>
-        <p>6 landing page templates built for the trading industry with built-in conversion tracking.</p>
-        <ul class="feature-list">
-          <li><span class="ck">✓</span> Webinar, Demo, Promotion, Contest, Lead Magnet, Comparison</li>
-          <li><span class="ck">✓</span> Flexible form builder with custom fields</li>
-          <li><span class="ck">✓</span> Conversion tracking — views, leads, CVR</li>
-          <li><span class="ck">✓</span> Auto-connected to lead management system</li>
+      <div class="pillar-card reveal stagger-2">
+        <div class="pillar-icon">📈</div>
+        <h3>SEO ותוכן</h3>
+        <p>הגדרת SEO מלאה מהיום הראשון — מילות מפתח, סכמה, דפי GEO, בלוג CMS וכיתת לימוד אונליין.</p>
+        <ul>
+          <li>מחקר מילות מפתח + סכמה</li>
+          <li>מחולל פוסטים בבלוג ב-AI</li>
+          <li>דפים ממוקדי מיקום גיאוגרפי</li>
+          <li>בונה כיתות לימוד אונליין</li>
         </ul>
       </div>
-      <div class="mock-browser reveal-left">
-        <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / landing-pages</div></div>
-        <div class="mock-body">
-          <div style="font-weight:700;font-size:14px;margin-bottom:14px">🎯 Landing Page Templates</div>
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
-            <div style="background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:22px;margin-bottom:4px">📚</div><div style="font-size:11px;font-weight:600">Lead Magnet</div></div>
-            <div style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:22px;margin-bottom:4px">🎥</div><div style="font-size:11px;font-weight:600">Webinar</div></div>
-            <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:22px;margin-bottom:4px">🎁</div><div style="font-size:11px;font-weight:600">Promotion</div></div>
-            <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:22px;margin-bottom:4px">⚔️</div><div style="font-size:11px;font-weight:600">Comparison</div></div>
-          </div>
-          <div style="margin-top:12px;display:flex;gap:14px;font-size:10px;color:var(--gray);justify-content:center"><span>👁️ 2,450 Views</span><span>📧 186 Leads</span><span>📈 7.6% CVR</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="feature-row reveal">
-      <div>
-        <h3>🎓 Classroom Platform</h3>
-        <p>Build trust and authority with an educational platform — video courses, quizzes, and certificates for your registered leads.</p>
-        <ul class="feature-list">
-          <li><span class="ck">✓</span> Video tutorials with progress tracking</li>
-          <li><span class="ck">✓</span> Written guides and PDF downloads</li>
-          <li><span class="ck">✓</span> Quizzes & tests after each module</li>
-          <li><span class="ck">✓</span> Completion certificates for students</li>
-          <li><span class="ck">✓</span> Beginner / Intermediate / Advanced levels</li>
+      <div class="pillar-card reveal stagger-3">
+        <div class="pillar-icon">📱</div>
+        <h3>רשתות חברתיות ושיווק</h3>
+        <p>90 ימים של תוכן חברתי ב-7 פלטפורמות, קמפיינים באימייל, פורטל שותפים ואוטומציית שיווק.</p>
+        <ul>
+          <li>7 פרופילים חברתיים + תוכנית 90 יום</li>
+          <li>קמפיינים אוטומטיים באימייל</li>
+          <li>פורטל שותפים / IB</li>
+          <li>אסטרטגיית Meta Ads</li>
         </ul>
       </div>
-      <div class="mock-browser reveal-right">
-        <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / classroom</div></div>
-        <div class="mock-body">
-          <div style="font-weight:700;font-size:14px;margin-bottom:14px">🎓 Course Library</div>
-          <div class="mock-item"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">📈 Forex Trading Fundamentals</span><span class="badge badge-green">published</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">Beginner · 12 lessons · 4h 30m · ⭐ 4.7</div></div>
-          <div class="mock-item"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">📊 Technical Analysis Masterclass</span><span class="badge badge-green">published</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">Intermediate · 18 lessons · 7h 15m · ⭐ 4.8</div></div>
-          <div class="mock-item"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">🧠 Risk Management & Psychology</span><span class="badge badge-yellow">draft</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">Advanced · 8 lessons · 3h 20m · ⭐ 4.9</div></div>
-        </div>
+      <div class="pillar-card reveal stagger-4">
+        <div class="pillar-icon">🏗️</div>
+        <h3>תשתית</h3>
+        <p>נכסי סמכות מוכנים מראש שלוקח לסוכנויות חודשים לבנות — דומיינים ותיקים, רשתות בלוגים, פרסומי PR.</p>
+        <ul>
+          <li>דומיינים ותיקים (DA 15+)</li>
+          <li>רשת בלוגים (5+ אתרים)</li>
+          <li>פרסומים בעיתונות ו-PR</li>
+          <li>נכסים חברתיים + עוקבים</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="marketing">
-  <div class="container section-center">
-    <div class="section-label reveal">📈 Marketing Engine</div>
-    <h2 class="section-title reveal">8 Marketing Systems Your Competitors Pay $1,000+/month For</h2>
-    <p class="section-desc reveal">Email, CRM, affiliates, campaigns, communities — all built in. Zero external subscriptions.</p>
-    <div class="tool-grid">
-      <div class="tool-card reveal stagger-1"><div class="icon">📧</div><h4>Email Marketing</h4><p>8 pre-built templates, drip & broadcast campaigns, subscriber management</p><div class="cost">Saves $200/mo</div></div>
-      <div class="tool-card reveal stagger-2"><div class="icon">👥</div><h4>Lead Management</h4><p>Full CRM — capture, status tracking, pipeline, CSV export</p><div class="cost">Saves $150/mo</div></div>
-      <div class="tool-card reveal stagger-3"><div class="icon">🤝</div><h4>Affiliates / IB Portal</h4><p>Referral codes, CPA/RevShare/Hybrid, AI marketing materials</p><div class="cost">Saves $300/mo</div></div>
-      <div class="tool-card reveal stagger-4"><div class="icon">💬</div><h4>Communities</h4><p>WhatsApp, Telegram & YouTube — AI content, scheduling</p><div class="cost">Saves $100/mo</div></div>
-      <div class="tool-card reveal stagger-5"><div class="icon">🔄</div><h4>Marketing Flows</h4><p>30-day automation — WhatsApp, SMS, email, calls, Meta Ads</p><div class="cost">Saves $200/mo</div></div>
-      <div class="tool-card reveal stagger-6"><div class="icon">📢</div><h4>Meta Campaigns</h4><p>Retargeting, Lookalike, Acquisition with AI strategy</p><div class="cost">Saves $500/mo</div></div>
-      <div class="tool-card reveal stagger-7"><div class="icon">📊</div><h4>Analytics Dashboard</h4><p>Traffic, conversions, keywords, SEO score, funnel</p><div class="cost">Saves $100/mo</div></div>
-      <div class="tool-card reveal stagger-7"><div class="icon">🎯</div><h4>Landing Pages</h4><p>6 templates — Lead Magnet, Webinar, Demo, Contest</p><div class="cost">Saves $150/mo</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-alt" id="infra">
-  <div class="container section-center">
-    <div class="section-label reveal">🏗️ Unfair Advantage</div>
-    <h2 class="section-title reveal">The Infrastructure Layer That Takes Competitors Years</h2>
-    <p class="section-desc reveal">Pre-purchased aged domains, blog networks, press placements, and social assets — deploy day-one authority.</p>
-    <div class="infra-grid">
-      <div class="infra-card reveal stagger-1"><div class="icon">🗄️</div><h4>Aged Domains</h4><p>Pre-purchased domains (12+ months, DA 15+) with warming pipelines.</p><div class="phase-tags" style="justify-content:center"><span class="tag">12+ Months</span><span class="tag">DA Scoring</span><span class="tag">Warming</span></div></div>
-      <div class="infra-card reveal stagger-2"><div class="icon">📡</div><h4>Blog Network</h4><p>Owned niche blog properties with keyword-optimized articles and link injection.</p><div class="phase-tags" style="justify-content:center"><span class="tag">5+ Sites</span><span class="tag">DA 25-38</span><span class="tag">Anchors</span></div></div>
-      <div class="infra-card reveal stagger-3"><div class="icon">🏆</div><h4>PR & Authority</h4><p>High-DA placements on news sites, directories, and press syndication.</p><div class="phase-tags" style="justify-content:center"><span class="tag">DA 40+</span><span class="tag">Press</span><span class="tag">Syndication</span></div></div>
-      <div class="infra-card reveal stagger-4"><div class="icon">🛒</div><h4>Social Assets</h4><p>Pre-purchased aged social pages with real followers across 4 platforms.</p><div class="phase-tags" style="justify-content:center"><span class="tag">Real Followers</span><span class="tag">4 Platforms</span><span class="tag">Rebrand</span></div></div>
-    </div>
-    <div class="infra-callout reveal"><p>What takes agencies <span>6-12 months</span> and <span>$5,000+</span> to build, you deploy on <span>day one</span>.</p></div>
-    <div class="infra-stats reveal">
-      <div class="infra-stat"><div class="num" style="color:var(--primary-light)"><span class="counter" data-target="8">0</span>+</div><div class="label">Aged Domains</div></div>
-      <div class="infra-stat"><div class="num" style="color:var(--success)"><span class="counter" data-target="5">0</span></div><div class="label">Blog Properties</div></div>
-      <div class="infra-stat"><div class="num" style="color:var(--accent)"><span class="counter" data-target="8">0</span></div><div class="label">Authority Sites</div></div>
-      <div class="infra-stat"><div class="num" style="color:var(--accent2)"><span class="counter" data-target="7">0</span></div><div class="label">Social Assets</div></div>
-      <div class="infra-stat"><div class="num" style="color:var(--warning)">53K+</div><div class="label">Combined Followers</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="ai">
-  <div class="container section-center">
-    <div class="section-label reveal">🤖 AI Engine</div>
-    <h2 class="section-title reveal">16 AI Capabilities Powering Every Module</h2>
-    <p class="section-desc reveal">From domain generation to daily social posts — AI handles the work of a full team.</p>
-    <div class="ai-grid">
-      <div class="ai-item reveal stagger-1"><span class="em">🌐</span><div><h4>Domain Generation</h4><p>Niche-tailored suggestions</p></div></div>
-      <div class="ai-item reveal stagger-1"><span class="em">🧱</span><div><h4>Site Blueprints</h4><p>Auto-generate page maps</p></div></div>
-      <div class="ai-item reveal stagger-2"><span class="em">🏗️</span><div><h4>Website Content</h4><p>20+ pages of writing</p></div></div>
-      <div class="ai-item reveal stagger-2"><span class="em">🔍</span><div><h4>SEO Optimization</h4><p>Keywords & meta tags</p></div></div>
-      <div class="ai-item reveal stagger-3"><span class="em">📱</span><div><h4>Social Content</h4><p>Captions, hashtags & videos</p></div></div>
-      <div class="ai-item reveal stagger-3"><span class="em">📅</span><div><h4>Daily Posts</h4><p>90 days of content</p></div></div>
-      <div class="ai-item reveal stagger-4"><span class="em">📝</span><div><h4>Blog Writing</h4><p>Full articles from a topic</p></div></div>
-      <div class="ai-item reveal stagger-4"><span class="em">🎓</span><div><h4>Course Creation</h4><p>Lessons, quizzes & certs</p></div></div>
-      <div class="ai-item reveal stagger-5"><span class="em">📧</span><div><h4>Email Templates</h4><p>Trading-specific emails</p></div></div>
-      <div class="ai-item reveal stagger-5"><span class="em">🤝</span><div><h4>Affiliate Materials</h4><p>Banners, posts & emails</p></div></div>
-      <div class="ai-item reveal stagger-6"><span class="em">📢</span><div><h4>Campaign Strategy</h4><p>Meta ads with AI targeting</p></div></div>
-      <div class="ai-item reveal stagger-6"><span class="em">🔄</span><div><h4>Marketing Flows</h4><p>30-day automation</p></div></div>
-      <div class="ai-item reveal stagger-7"><span class="em">💬</span><div><h4>Community Posts</h4><p>WhatsApp/Telegram content</p></div></div>
-      <div class="ai-item reveal stagger-7"><span class="em">📡</span><div><h4>Blog Network</h4><p>SEO articles for blogs</p></div></div>
-      <div class="ai-item reveal stagger-7"><span class="em">🛒</span><div><h4>Social Assets</h4><p>Daily content for pages</p></div></div>
-      <div class="ai-item reveal stagger-7"><span class="em">📊</span><div><h4>GEO Pages</h4><p>Geo-targeted pages</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-alt" id="flow">
-  <div class="container section-center">
-    <div class="section-label reveal">🔄 How It Works</div>
-    <h2 class="section-title reveal">From Idea to Full Brand — In Hours</h2>
-    <p class="section-desc reveal">The automated process from initial idea to a live digital brand.</p>
-    <div class="flow-steps reveal">
-      <div class="flow-step"><div class="flow-icon" style="background:rgba(99,102,241,.15)">🌐</div><div class="flow-label">Domain</div></div><div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-icon" style="background:rgba(245,158,11,.15)">🧱</div><div class="flow-label">Structures</div></div><div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-icon" style="background:rgba(139,92,246,.15)">🏗️</div><div class="flow-label">Website</div></div><div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-icon" style="background:rgba(16,185,129,.15)">🔍</div><div class="flow-label">SEO & GEO</div></div><div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-icon" style="background:rgba(6,182,212,.15)">📱</div><div class="flow-label">Social</div></div><div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-icon" style="background:rgba(236,72,153,.15)">📅</div><div class="flow-label">Posting</div></div><div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="flow-icon" style="background:rgba(245,158,11,.15)">🗓️</div><div class="flow-label">90-Day Plan</div></div>
-    </div>
-    <h3 class="reveal" style="font-size:28px;font-weight:800;margin:48px 0 24px">What Do You Actually Get?</h3>
-    <div class="table-wrap reveal">
-      <table class="compare-table">
-        <thead><tr><th>Capability</th><th>Tradesite Autopilot</th><th>Manual Build</th></tr></thead>
-        <tbody>
-          <tr><td>Complete website (20+ pages)</td><td><span style="color:var(--success)">✅ Automatic</span></td><td><span style="color:var(--warning)">⏱️ 2-4 weeks</span></td></tr>
-          <tr><td>Site structure & blueprints</td><td><span style="color:var(--success)">✅ AI templates</span></td><td><span style="color:var(--warning)">⏱️ 1-2 weeks</span></td></tr>
-          <tr><td>Full SEO + Schema Markup</td><td><span style="color:var(--success)">✅ Automatic</span></td><td><span style="color:var(--warning)">⏱️ 1-2 weeks</span></td></tr>
-          <tr><td>7 social profiles + content</td><td><span style="color:var(--success)">✅ One click</span></td><td><span style="color:var(--warning)">⏱️ 3-4 weeks</span></td></tr>
-          <tr><td>90 days of scheduled posts</td><td><span style="color:var(--success)">✅ AI-generated</span></td><td><span style="color:var(--warning)">⏱️ 3+ months</span></td></tr>
-          <tr><td>Blog + Landing + Classroom</td><td><span style="color:var(--success)">✅ Built-in</span></td><td><span style="color:var(--danger)">💰 $200+/mo</span></td></tr>
-          <tr><td>Email Marketing + CRM</td><td><span style="color:var(--success)">✅ Built-in</span></td><td><span style="color:var(--danger)">💰 $350+/mo</span></td></tr>
-          <tr><td>Affiliate / IB Portal</td><td><span style="color:var(--success)">✅ Built-in</span></td><td><span style="color:var(--danger)">💰 $300+/mo</span></td></tr>
-          <tr><td>Aged domains + Blog network</td><td><span style="color:var(--success)">✅ Pre-built</span></td><td><span style="color:var(--danger)">💰 $2K+ & 6+ months</span></td></tr>
-          <tr><td>PR + Social assets</td><td><span style="color:var(--success)">✅ Ready to deploy</span></td><td><span style="color:var(--danger)">💰 $3K+ & months</span></td></tr>
-          <tr style="background:rgba(99,102,241,.05)"><td><strong>Total</strong></td><td><strong style="color:var(--success)">⚡ Hours + one platform</strong></td><td><strong style="color:var(--danger)">📅 6-12 months + $15K+</strong></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="screens">
-  <div class="container section-center">
-    <div class="section-label reveal">🖥️ See the Real Platform</div>
-    <h2 class="section-title reveal">Every Feature, Built and Working</h2>
-    <p class="section-desc reveal">Actual screens from the platform. Click any tab to explore.</p>
-    <div class="screen-tabs reveal" id="screenTabs">
-      <div class="screen-tab active" data-tab="dashboard">📊 Dashboard</div>
-      <div class="screen-tab" data-tab="structures">🧱 Structures</div>
-      <div class="screen-tab" data-tab="website">🏗️ Website</div>
-      <div class="screen-tab" data-tab="seo">🔍 SEO</div>
-      <div class="screen-tab" data-tab="social">📱 Social</div>
-      <div class="screen-tab" data-tab="blog">📝 Blog</div>
-      <div class="screen-tab" data-tab="email">📧 Email</div>
-      <div class="screen-tab" data-tab="affiliates">🤝 Affiliates</div>
-      <div class="screen-tab" data-tab="classroom">🎓 Classroom</div>
-      <div class="screen-tab" data-tab="domains">🗄️ Domains</div>
-    </div>
-    <div class="screen-panels">
-      <div class="screen-panel active" data-panel="dashboard"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Nova Markets Demo</div></div><div style="display:flex;min-height:380px;background:#fff"><div style="width:180px;background:#f1f5f9;border-right:1px solid rgba(0,0,0,.06);padding:16px 12px;flex-shrink:0;font-size:12px"><div style="font-weight:800;font-size:14px;margin-bottom:3px">🚀 Tradesite</div><div style="font-size:9px;color:var(--gray);margin-bottom:16px">Autopilot Platform</div><div style="color:var(--primary-light);background:rgba(99,102,241,.12);padding:7px 10px;border-radius:7px;margin-bottom:14px;font-weight:600;font-size:11px">🔷 Nova Markets</div><div style="font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:600">Phases</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Domain</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Structures</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Website</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ SEO & GEO</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Social Media</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Daily Posting</div><div style="padding:4px 0;color:#64748b;font-size:11px">7️⃣ Timeline</div><div style="font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin:10px 0 4px;font-weight:600">Content</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">📝 Blog · 📚 Library</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">🎯 Landing · 🎓 Class</div><div style="font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin:10px 0 4px;font-weight:600">Infrastructure</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">🗄️ Domains · 📡 Blogs</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">🏆 PR · 🛒 Social</div></div><div style="flex:1;padding:20px 24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><div><div style="font-size:18px;font-weight:800">Nova Markets Demo</div><div style="font-size:11px;color:var(--gray)">Nova Markets</div></div><div style="background:var(--g1);padding:8px 16px;border-radius:8px;font-size:11px;font-weight:600">▶ Continue Phase 7</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px 16px;margin-bottom:16px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span>Overall Progress</span><span style="color:var(--success);font-weight:700">83%</span></div><div style="background:rgba(0,0,0,.06);border-radius:100px;height:6px;overflow:hidden"><div style="background:var(--g1);height:100%;width:83%;border-radius:100px"></div></div></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:var(--gray)">🌐 Domain</div><div style="font-size:14px;font-weight:800;margin-top:3px">alphatrading.com</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:var(--gray)">📄 Pages</div><div style="font-size:20px;font-weight:800;margin-top:3px">20</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:var(--gray)">📱 Social</div><div style="font-size:20px;font-weight:800;margin-top:3px">7</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:var(--gray)">📈 Traffic</div><div style="font-size:20px;font-weight:800;margin-top:3px;color:var(--primary-light)">9.8K</div></div></div></div></div></div></div>
-      <div class="screen-panel" data-panel="structures"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Structures</div></div><div style="padding:24px;background:#fff"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Site Structures <span class="badge badge-green">✓ Complete</span></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px"><div style="background:rgba(99,102,241,.06);border:2px solid rgba(99,102,241,.25);border-radius:10px;padding:14px"><div style="font-weight:700;font-size:13px;margin-bottom:4px">📈 Forex Broker Pro <span class="badge badge-blue">Active</span></div><div style="font-size:11px;color:var(--gray)">20 pages · 6 blocks · Full legal</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:700;font-size:13px;margin-bottom:4px">₿ Crypto Exchange</div><div style="font-size:11px;color:var(--gray)">18 pages · 5 blocks</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:700;font-size:13px;margin-bottom:4px">🌐 Multi-Asset Broker</div><div style="font-size:11px;color:var(--gray)">22 pages · 7 blocks</div></div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-size:12px;font-weight:600;margin-bottom:8px">Page Map — Forex Broker Pro</div><div style="display:flex;gap:6px;flex-wrap:wrap;font-size:11px"><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Homepage</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">About</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Platforms</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Account Types</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Education</span><span style="background:rgba(16,185,129,.12);padding:4px 10px;border-radius:6px;color:#34D399">+ 15 more</span></div></div></div></div></div>
-      <div class="screen-panel" data-panel="website"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Website Factory</div></div><div style="padding:24px;background:#fff"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Website Factory <span class="badge badge-green">✓ Complete</span></div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.03);border-radius:8px;font-size:12px"><span>📄 Homepage</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.03);border-radius:8px;font-size:12px"><span>📄 About Us</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.03);border-radius:8px;font-size:12px"><span>📄 Platforms</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.03);border-radius:8px;font-size:12px"><span>📄 Account Types</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.03);border-radius:8px;font-size:12px"><span>📄 Forex Trading</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.03);border-radius:8px;font-size:12px"><span>⚖️ Terms</span><span class="badge badge-green">generated</span></div></div><div style="text-align:center;color:var(--gray);font-size:11px;margin-top:10px">+ 14 more pages generated</div></div></div></div>
-      <div class="screen-panel" data-panel="seo"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / SEO Keywords</div></div><div style="padding:24px;background:#fff"><div style="display:flex;gap:10px;margin-bottom:16px"><span style="background:var(--primary);padding:6px 14px;border-radius:7px;font-size:12px;font-weight:600">Keywords</span><span style="background:rgba(0,0,0,.04);padding:6px 14px;border-radius:7px;font-size:12px;color:var(--gray)">Technical Audit</span><span style="background:rgba(0,0,0,.04);padding:6px 14px;border-radius:7px;font-size:12px;color:var(--gray)">GEO</span></div><table style="width:100%;font-size:12px;border-collapse:collapse"><tr style="color:var(--gray);border-bottom:1px solid rgba(0,0,0,.06)"><td style="padding:8px">Keyword</td><td style="padding:8px;text-align:center">Volume</td><td style="padding:8px;text-align:center">KD</td><td style="padding:8px">Intent</td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.04)"><td style="padding:8px;font-weight:600">best forex broker</td><td style="padding:8px;text-align:center">12,000</td><td style="padding:8px;text-align:center"><span class="badge badge-red">78</span></td><td style="padding:8px">Transactional</td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.04)"><td style="padding:8px;font-weight:600">how to trade forex</td><td style="padding:8px;text-align:center">22,000</td><td style="padding:8px;text-align:center"><span class="badge badge-green">45</span></td><td style="padding:8px">Informational</td></tr><tr><td style="padding:8px;font-weight:600">forex demo account</td><td style="padding:8px;text-align:center">9,500</td><td style="padding:8px;text-align:center"><span class="badge badge-green">40</span></td><td style="padding:8px">Transactional</td></tr></table></div></div></div>
-      <div class="screen-panel" data-panel="social"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Social Profiles</div></div><div style="padding:24px;background:#fff"><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px"><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">📘 Facebook</div><div style="font-size:11px;color:var(--gray)">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">📸 Instagram</div><div style="font-size:11px;color:var(--gray)">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">💼 LinkedIn</div><div style="font-size:11px;color:var(--gray)">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">🎵 TikTok</div><div style="font-size:11px;color:var(--gray)">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">✈️ Telegram</div><div style="font-size:11px;color:var(--gray)">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">▶️ YouTube</div><div style="font-size:11px;color:var(--gray)">@novamarkets</div></div><span class="badge badge-green">Active</span></div></div></div></div></div>
-      <div class="screen-panel" data-panel="blog"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Blog CMS</div></div><div style="padding:24px;background:#fff"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font-size:18px;font-weight:800">Blog CMS</div><div style="background:var(--g1);padding:8px 14px;border-radius:8px;font-size:11px;font-weight:600">✨ Generate with AI</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;margin-bottom:10px"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">Understanding Market Volatility</span><span class="badge badge-yellow">draft</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">education · 1,200 words</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">Top 5 Forex Strategies 2026</span><span class="badge badge-green">published</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">strategy · 1,500 words</div></div></div></div></div>
-      <div class="screen-panel" data-panel="email"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Email Marketing</div></div><div style="padding:24px;background:#fff"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Email Marketing</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px"><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Subscribers</div><div style="font-size:18px;font-weight:800;margin-top:2px">284</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Templates</div><div style="font-size:18px;font-weight:800;margin-top:2px">8</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Campaigns</div><div style="font-size:18px;font-weight:800;margin-top:2px">3</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Open Rate</div><div style="font-size:18px;font-weight:800;margin-top:2px;color:var(--success)">42%</div></div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">Welcome to Nova Markets <span class="badge badge-blue">welcome</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">Your Trading Journey Starts Here</div></div></div></div></div>
-      <div class="screen-panel" data-panel="affiliates"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Affiliates</div></div><div style="padding:24px;background:#fff"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Affiliates / IB Portal</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px"><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Affiliates</div><div style="font-size:18px;font-weight:800;margin-top:2px">3</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Referrals</div><div style="font-size:18px;font-weight:800;margin-top:2px;color:var(--success)">47</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Commissions</div><div style="font-size:18px;font-weight:800;margin-top:2px">$2.4K</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:var(--gray)">Active</div><div style="font-size:18px;font-weight:800;margin-top:2px;color:var(--success)">3</div></div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">🤝 ForexSignals Pro <span class="badge badge-green">active</span> <span style="font-size:11px;color:var(--gray)">CPA · $250</span></div><div style="color:var(--gray);font-size:11px;margin-top:4px">partner@forexsignalspro.com · 12 referrals · $3,000 earned</div></div></div></div></div>
-      <div class="screen-panel" data-panel="classroom"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Classroom</div></div><div style="padding:24px;background:#fff"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Classroom</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">📈 Forex Fundamentals <span class="badge badge-green">published</span></div><div style="font-size:11px;color:var(--gray);margin-top:4px">Beginner · 12 lessons · ⭐ 4.7 · 2,840 students</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">📊 Technical Analysis <span class="badge badge-green">published</span></div><div style="font-size:11px;color:var(--gray);margin-top:4px">Intermediate · 18 lessons · ⭐ 4.8</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">₿ Crypto Trading A-Z <span class="badge badge-green">published</span></div><div style="font-size:11px;color:var(--gray);margin-top:4px">Beginner · 15 lessons · ⭐ 4.6</div></div><div style="background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">🧠 Risk Management <span class="badge badge-yellow">draft</span></div><div style="font-size:11px;color:var(--gray);margin-top:4px">Advanced · 8 lessons · ⭐ 4.9</div></div></div></div></div></div>
-      <div class="screen-panel" data-panel="domains"><div class="mock-browser"><div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">dashboard / Aged Domains</div></div><div style="padding:24px;background:#fff"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Aged Domains Arsenal</div><table style="width:100%;font-size:12px;border-collapse:collapse"><tr style="color:var(--gray);border-bottom:1px solid rgba(0,0,0,.06)"><td style="padding:8px">Domain</td><td style="padding:8px;text-align:center">Age</td><td style="padding:8px;text-align:center">DA</td><td style="padding:8px">Niche</td><td style="padding:8px">Status</td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.04)"><td style="padding:8px;font-weight:600">tradepro-fx.com</td><td style="padding:8px;text-align:center">5yr</td><td style="padding:8px;text-align:center;color:var(--success);font-weight:700">28</td><td style="padding:8px">Forex</td><td style="padding:8px"><span class="badge badge-green">deployed</span></td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.04)"><td style="padding:8px;font-weight:600">cryptovault-io.com</td><td style="padding:8px;text-align:center">4yr</td><td style="padding:8px;text-align:center;color:var(--primary-light);font-weight:700">22</td><td style="padding:8px">Crypto</td><td style="padding:8px"><span class="badge badge-yellow">warming</span></td></tr><tr><td style="padding:8px;font-weight:600">alphatrade-zone.com</td><td style="padding:8px;text-align:center">6yr</td><td style="padding:8px;text-align:center;color:var(--success);font-weight:700">31</td><td style="padding:8px">Multi-Asset</td><td style="padding:8px"><span class="badge badge-green">deployed</span></td></tr></table><div style="text-align:center;color:var(--gray);font-size:11px;margin-top:10px">8 domains · 3 deployed · 2 warming · 3 queued</div></div></div></div>
-    </div>
-  </div>
-</section>
-
+<!-- ========== 7. LIVE DEMO ========== -->
 <section class="section section-alt" id="demo">
   <div class="container section-center">
-    <div class="section-label reveal">🌐 Live Demo</div>
-    <h2 class="section-title reveal">4 Sites — 4 Niches — One Platform</h2>
-    <p class="section-desc reveal">Each site is auto-generated with unique content, design, and brand identity. Same system — completely different results.</p>
+    <div class="section-label reveal">🌐 הדגמה חיה</div>
+    <h2 class="section-title reveal">4 אתרים — 4 נישות — פלטפורמה אחת</h2>
+    <p class="section-desc reveal">כל אתר נוצר אוטומטית עם תוכן, עיצוב וזהות מותגית ייחודיים. אותה מערכת — תוצאות שונות לחלוטין.</p>
 
     <!-- Tabs -->
-    <div style="display:flex;justify-content:center;gap:10px;margin-bottom:40px;flex-wrap:wrap" class="reveal">
-      <button class="demo-tab active" data-niche="forex" onclick="switchDemo(0)" style="padding:14px 28px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit;background:linear-gradient(135deg,#0066ff,#0044cc);color:white;border:none">📊 Nova Markets — Forex Broker</button>
-      <button class="demo-tab" data-niche="crypto" onclick="switchDemo(1)" style="padding:14px 28px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit;background:rgba(0,0,0,.06);color:#64748B;border:1px solid rgba(0,0,0,.1)">🪙 CryptoVault — Crypto Exchange</button>
-      <button class="demo-tab" data-niche="prop" onclick="switchDemo(2)" style="padding:14px 28px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit;background:rgba(0,0,0,.06);color:#64748B;border:1px solid rgba(0,0,0,.1)">🏆 TradeUp — Prop Trading</button>
-      <button class="demo-tab" data-niche="copy" onclick="switchDemo(3)" style="padding:14px 28px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;font-family:inherit;background:rgba(0,0,0,.06);color:#64748B;border:1px solid rgba(0,0,0,.1)">👥 SocialTrade — Copy Trading</button>
+    <div style="display:flex;justify-content:center;gap:8px;margin-bottom:32px;flex-wrap:wrap" class="reveal">
+      <button class="demo-tab-he active" onclick="switchDemoHE(0)" style="background:linear-gradient(135deg,#0066ff,#0044cc);color:white;border:none">📊 Nova Markets — פורקס</button>
+      <button class="demo-tab-he" onclick="switchDemoHE(1)" style="background:rgba(0,0,0,.04);color:#64748B">🪙 CryptoVault — קריפטו</button>
+      <button class="demo-tab-he" onclick="switchDemoHE(2)" style="background:rgba(0,0,0,.04);color:#64748B">🏆 TradeUp — פרופ טריידינג</button>
+      <button class="demo-tab-he" onclick="switchDemoHE(3)" style="background:rgba(0,0,0,.04);color:#64748B">👥 SocialTrade — קופי טריידינג</button>
     </div>
 
-    <div style="max-width:1200px;margin:0 auto">
-
-      <!-- ===== SITE 1: Nova Markets ===== -->
-      <div class="demo-site active" id="demo-site-0">
-        <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start" class="demo-grid">
-          <div>
-            <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(0,102,255,.3)">
-              <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz</div></div>
-              <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz" style="width:100%;height:500px;border:none" loading="lazy"></iframe></div>
-            </div>
-            <div style="text-align:center;margin-top:16px">
-              <a href="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz" target="_blank" class="btn-primary">🌐 Open Full Site <span>→</span></a>
-            </div>
+    <div style="max-width:1000px;margin:0 auto;direction:ltr">
+      <!-- Site 1: Nova Markets -->
+      <div class="demo-site-he active" id="demo-he-0">
+        <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(0,102,255,.3)">
+          <div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz</div></div>
+          <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz" style="width:100%;height:480px;border:none" loading="lazy"></iframe></div>
+        </div>
+        <div class="demo-info-panel">
+          <div class="demo-niche-card" style="background:linear-gradient(135deg,#0066ff,#0044cc)">
+            <div class="niche-emoji">📊</div>
+            <h4>Nova Markets</h4>
+            <p>ברוקר פורקס</p>
           </div>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div style="background:linear-gradient(135deg,#0066ff,#0044cc);border-radius:16px;padding:24px">
-              <div style="font-size:12px;color:rgba(255,255,255,.7)">Niche</div>
-              <div style="font-size:22px;font-weight:800;color:white">Forex Broker</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.7);margin-top:8px">Professional forex trading platform with full regulatory compliance, multi-asset pricing, and institutional-grade features.</div>
+          <div class="demo-info-right">
+            <div class="demo-features-row">
+              <span>📄 20 עמודים</span><span>⚖️ 5 משפטיים</span><span>📊 MT4/MT5</span><span>📈 מרווחים חיים</span><span>🔐 KYC מוכן</span>
             </div>
-            <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:20px">
-              <div style="font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">What's Included</div>
-              <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#334155">
-                <span>✓ Homepage with animated dashboard mockup</span>
-                <span>✓ 20 full content pages (About, Platforms, Education...)</span>
-                <span>✓ 5 legal compliance pages (Terms, AML, Privacy...)</span>
-                <span>✓ Dynamic pricing tables with spreads</span>
-                <span>✓ Multi-step registration flow</span>
-                <span>✓ Full SEO meta tags + sitemap.xml</span>
-                <span>✓ Fully responsive (mobile + tablet + desktop)</span>
-                <span>✓ 5 unique hero section variants</span>
-              </div>
+            <div class="demo-stat-boxes">
+              <div class="demo-stat-box"><div class="num">20</div><div class="label">עמודים</div></div>
+              <div class="demo-stat-box"><div class="num">90</div><div class="label">תוכנית יום</div></div>
+              <div class="demo-stat-box"><div class="num">7</div><div class="label">רשתות</div></div>
+              <div class="demo-stat-box"><div class="num">48h</div><div class="label">פריסה</div></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#4d9fff">20</div>
-                <div style="font-size:11px;color:var(--gray)">Pages</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:var(--success)">5</div>
-                <div style="font-size:11px;color:var(--gray)">Legal Pages</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:var(--primary-light)">5</div>
-                <div style="font-size:11px;color:var(--gray)">Hero Variants</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:var(--warning)">100%</div>
-                <div style="font-size:11px;color:var(--gray)">Responsive</div>
-              </div>
-            </div>
+            <a href="https://tradesite-autopilot.vercel.app/site/cmmp0q7p90001sbkisaxts1fz" target="_blank" class="btn-primary" style="font-size:14px;padding:12px 24px;align-self:flex-start">🌐 פתח אתר מלא ←</a>
           </div>
         </div>
       </div>
 
-      <!-- ===== SITE 2: CryptoVault ===== -->
-      <div class="demo-site" id="demo-site-1" style="display:none">
-        <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start" class="demo-grid">
-          <div>
-            <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(16,185,129,.3)">
-              <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40</div></div>
-              <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40" style="width:100%;height:500px;border:none" loading="lazy"></iframe></div>
-            </div>
-            <div style="text-align:center;margin-top:16px">
-              <a href="https://tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40" target="_blank" class="btn-primary">🌐 Open Full Site <span>→</span></a>
-            </div>
+      <!-- Site 2: CryptoVault -->
+      <div class="demo-site-he" id="demo-he-1" style="display:none">
+        <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(16,185,129,.3)">
+          <div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40</div></div>
+          <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40" style="width:100%;height:480px;border:none" loading="lazy"></iframe></div>
+        </div>
+        <div class="demo-info-panel">
+          <div class="demo-niche-card" style="background:linear-gradient(135deg,#10b981,#059669)">
+            <div class="niche-emoji">🪙</div>
+            <h4>CryptoVault</h4>
+            <p>בורסת קריפטו</p>
           </div>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div style="background:linear-gradient(135deg,#10b981,#059669);border-radius:16px;padding:24px">
-              <div style="font-size:12px;color:rgba(255,255,255,.7)">Niche</div>
-              <div style="font-size:22px;font-weight:800;color:white">Crypto Exchange</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.7);margin-top:8px">Web3-inspired crypto trading platform with glassmorphism design, live price tickers, and institutional security features.</div>
+          <div class="demo-info-right">
+            <div class="demo-features-row">
+              <span>📄 20 עמודים</span><span>🪙 600+ טוקנים</span><span>📊 גרפים חיים</span><span>🔐 2FA</span><span>💱 Spot + Futures</span>
             </div>
-            <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:20px">
-              <div style="font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">What's Included</div>
-              <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#334155">
-                <span>✓ Side-by-side hero with smiling trader photo</span>
-                <span>✓ Floating data cards (BTC price, Portfolio value)</span>
-                <span>✓ Glassmorphism design system throughout</span>
-                <span>✓ Live price ticker bar with real-time data</span>
-                <span>✓ Bento grid feature layout</span>
-                <span>✓ Web3 dashboard aesthetic</span>
-                <span>✓ Regulatory badges (FinCEN, VASP, AUSTRAC)</span>
-                <span>✓ Dark theme with emerald accents</span>
-              </div>
+            <div class="demo-stat-boxes">
+              <div class="demo-stat-box"><div class="num">20</div><div class="label">עמודים</div></div>
+              <div class="demo-stat-box"><div class="num">600+</div><div class="label">טוקנים</div></div>
+              <div class="demo-stat-box"><div class="num">7</div><div class="label">רשתות</div></div>
+              <div class="demo-stat-box"><div class="num">48h</div><div class="label">פריסה</div></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#10b981">20</div>
-                <div style="font-size:11px;color:var(--gray)">Pages</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#10b981">600+</div>
-                <div style="font-size:11px;color:var(--gray)">Tokens</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#10b981">8M+</div>
-                <div style="font-size:11px;color:var(--gray)">Users</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#10b981">$12B</div>
-                <div style="font-size:11px;color:var(--gray)">24h Volume</div>
-              </div>
-            </div>
+            <a href="https://tradesite-autopilot.vercel.app/site/cmmq5iv4x0001mdzq18nkeq40" target="_blank" class="btn-primary" style="font-size:14px;padding:12px 24px;align-self:flex-start">🌐 פתח אתר מלא ←</a>
           </div>
         </div>
       </div>
 
-      <!-- ===== SITE 3: TradeUp ===== -->
-      <div class="demo-site" id="demo-site-2" style="display:none">
-        <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start" class="demo-grid">
-          <div>
-            <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(249,115,22,.3)">
-              <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978</div></div>
-              <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978" style="width:100%;height:500px;border:none" loading="lazy"></iframe></div>
-            </div>
-            <div style="text-align:center;margin-top:16px">
-              <a href="https://tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978" target="_blank" class="btn-primary">🌐 Open Full Site <span>→</span></a>
-            </div>
+      <!-- Site 3: TradeUp -->
+      <div class="demo-site-he" id="demo-he-2" style="display:none">
+        <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(249,115,22,.3)">
+          <div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978</div></div>
+          <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978" style="width:100%;height:480px;border:none" loading="lazy"></iframe></div>
+        </div>
+        <div class="demo-info-panel">
+          <div class="demo-niche-card" style="background:linear-gradient(135deg,#f97316,#ea580c)">
+            <div class="niche-emoji">🏆</div>
+            <h4>TradeUp</h4>
+            <p>פרופ טריידינג</p>
           </div>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div style="background:linear-gradient(135deg,#f97316,#ea580c);border-radius:16px;padding:24px">
-              <div style="font-size:12px;color:rgba(255,255,255,.7)">Niche</div>
-              <div style="font-size:22px;font-weight:800;color:white">Prop Trading</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.7);margin-top:8px">Young, vibrant prop trading firm with white background, colorful animations, and appeal to a diverse trader audience.</div>
+          <div class="demo-info-right">
+            <div class="demo-features-row">
+              <span>📄 20 עמודים</span><span>🏆 חשבון $200K</span><span>📈 אתגרים</span><span>📊 לוח מובילים</span><span>💰 תשלומים</span>
             </div>
-            <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:20px">
-              <div style="font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">What's Included</div>
-              <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#334155">
-                <span>✓ White background with young, energetic vibe</span>
-                <span>✓ 15+ unique animations (bounce, wiggle, glow...)</span>
-                <span>✓ Colorful rounded buttons (50px radius)</span>
-                <span>✓ Gradient headings (orange → pink → purple)</span>
-                <span>✓ Color-bordered feature cards with left accent</span>
-                <span>✓ Challenge tier pricing ($10K → $200K)</span>
-                <span>✓ Light footer with subtle gradients</span>
-                <span>✓ Trader photo hero with floating elements</span>
-              </div>
+            <div class="demo-stat-boxes">
+              <div class="demo-stat-box"><div class="num">20</div><div class="label">עמודים</div></div>
+              <div class="demo-stat-box"><div class="num">$200K</div><div class="label">חשבונות</div></div>
+              <div class="demo-stat-box"><div class="num">7</div><div class="label">רשתות</div></div>
+              <div class="demo-stat-box"><div class="num">48h</div><div class="label">פריסה</div></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#f97316">20</div>
-                <div style="font-size:11px;color:var(--gray)">Pages</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#f97316">$200K</div>
-                <div style="font-size:11px;color:var(--gray)">Max Account</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#f97316">90%</div>
-                <div style="font-size:11px;color:var(--gray)">Profit Split</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#f97316">15+</div>
-                <div style="font-size:11px;color:var(--gray)">Animations</div>
-              </div>
-            </div>
+            <a href="https://tradesite-autopilot.vercel.app/site/cmmqly8gk00017aiap34fg978" target="_blank" class="btn-primary" style="font-size:14px;padding:12px 24px;align-self:flex-start">🌐 פתח אתר מלא ←</a>
           </div>
         </div>
       </div>
 
-      <!-- ===== SITE 4: SocialTrade ===== -->
-      <div class="demo-site" id="demo-site-3" style="display:none">
-        <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start" class="demo-grid">
-          <div>
-            <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(168,85,247,.3)">
-              <div class="mock-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs</div></div>
-              <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs" style="width:100%;height:500px;border:none" loading="lazy"></iframe></div>
-            </div>
-            <div style="text-align:center;margin-top:16px">
-              <a href="https://tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs" target="_blank" class="btn-primary">🌐 Open Full Site <span>→</span></a>
-            </div>
+      <!-- Site 4: SocialTrade -->
+      <div class="demo-site-he" id="demo-he-3" style="display:none">
+        <div class="mock-browser reveal" style="animation:glow 3s ease-in-out infinite;border-color:rgba(168,85,247,.3)">
+          <div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs</div></div>
+          <div><iframe src="https://tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs" style="width:100%;height:480px;border:none" loading="lazy"></iframe></div>
+        </div>
+        <div class="demo-info-panel">
+          <div class="demo-niche-card" style="background:linear-gradient(135deg,#a855f7,#ec4899)">
+            <div class="niche-emoji">👥</div>
+            <h4>SocialTrade</h4>
+            <p>קופי טריידינג</p>
           </div>
-          <div style="display:flex;flex-direction:column;gap:16px">
-            <div style="background:linear-gradient(135deg,#a855f7,#ec4899);border-radius:16px;padding:24px">
-              <div style="font-size:12px;color:rgba(255,255,255,.7)">Niche</div>
-              <div style="font-size:22px;font-weight:800;color:white">Copy Trading</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.7);margin-top:8px">Social trading platform with top trader leaderboards, automatic copy trading, community features, and strategy marketplace.</div>
+          <div class="demo-info-right">
+            <div class="demo-features-row">
+              <span>📄 20 עמודים</span><span>👥 10K+ סוחרים</span><span>📊 ביצועים</span><span>🔄 העתקה אוטומטית</span><span>💬 קהילה</span>
             </div>
-            <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:20px">
-              <div style="font-size:12px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">What's Included</div>
-              <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#334155">
-                <span>✓ Dark purple theme with glassmorphism cards</span>
-                <span>✓ Top Traders leaderboard with avatars & stats</span>
-                <span>✓ Purple-to-pink gradient accents throughout</span>
-                <span>✓ Social media-inspired profile cards</span>
-                <span>✓ Strategy marketplace with performance metrics</span>
-                <span>✓ Community hub with social feed aesthetic</span>
-                <span>✓ Pill-shaped CTA buttons</span>
-                <span>✓ Copy trading subscription tiers (Free/Pro/Elite)</span>
-              </div>
+            <div class="demo-stat-boxes">
+              <div class="demo-stat-box"><div class="num">20</div><div class="label">עמודים</div></div>
+              <div class="demo-stat-box"><div class="num">10K+</div><div class="label">סוחרים</div></div>
+              <div class="demo-stat-box"><div class="num">7</div><div class="label">רשתות</div></div>
+              <div class="demo-stat-box"><div class="num">48h</div><div class="label">פריסה</div></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#a855f7">20</div>
-                <div style="font-size:11px;color:var(--gray)">Pages</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#a855f7">10K+</div>
-                <div style="font-size:11px;color:var(--gray)">Traders</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#ec4899">500+</div>
-                <div style="font-size:11px;color:var(--gray)">Strategies</div>
-              </div>
-              <div style="background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:16px;text-align:center">
-                <div style="font-size:28px;font-weight:800;color:#ec4899">85%</div>
-                <div style="font-size:11px;color:var(--gray)">Win Rate</div>
-              </div>
-            </div>
+            <a href="https://tradesite-autopilot.vercel.app/site/cmmqplgqw00018shr2bvjhpgs" target="_blank" class="btn-primary" style="font-size:14px;padding:12px 24px;align-self:flex-start">🌐 פתח אתר מלא ←</a>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<section class="section" id="faq">
+<!-- ========== 8. COST CALCULATOR ========== -->
+<section class="section" id="calculator">
   <div class="container section-center">
-    <div class="section-label reveal">❓ FAQ</div>
-    <h2 class="section-title reveal">Common Questions</h2>
-    <p class="section-desc reveal">Everything you need to know before getting started.</p>
+    <div class="section-label reveal">💰 מחשבון עלויות</div>
+    <h2 class="section-title reveal">הדרך הידנית לעומת Autopilot</h2>
+    <p class="section-desc reveal">חשב כמה תשלם כל חודש להפעיל מותג מסחרי ידנית — ואז ראה את האלטרנטיבה.</p>
+    <div class="calc-grid reveal">
+      <div class="calc-col">
+        <h3>🔧 גישה ידנית</h3>
+        <div class="calc-item"><span class="name">🌐 אחסון + תחזוקת אתר</span><span class="cost">$300/חודש</span></div>
+        <div class="calc-item"><span class="name">✍️ כותב תוכן</span><span class="cost">$500/חודש</span></div>
+        <div class="calc-item"><span class="name">🔍 מומחה SEO</span><span class="cost">$400/חודש</span></div>
+        <div class="calc-item"><span class="name">📱 מנהל רשתות חברתיות</span><span class="cost">$500/חודש</span></div>
+        <div class="calc-item"><span class="name">📧 כלי שיווק באימייל</span><span class="cost">$200/חודש</span></div>
+        <div class="calc-item"><span class="name">👥 תוכנת CRM</span><span class="cost">$150/חודש</span></div>
+        <div class="calc-item"><span class="name">🤝 פלטפורמת שותפים</span><span class="cost">$300/חודש</span></div>
+        <div class="calc-item"><span class="name">🎨 כלי עיצוב</span><span class="cost">$250/חודש</span></div>
+        <div class="calc-total"><span>סה"כ</span><span class="cost" style="color:#EF4444">$2,600/חודש</span></div>
+      </div>
+      <div class="calc-vs">VS</div>
+      <div class="calc-col calc-col-winner">
+        <h3>🚀 Tradesite Autopilot</h3>
+        <div class="calc-item"><span class="name">🌐 אתר (20+ עמודים)</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-item"><span class="name">✍️ כותב תוכן AI</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-item"><span class="name">🔍 חבילת SEO מלאה</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-item"><span class="name">📱 רשתות (7 פלטפורמות)</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-item"><span class="name">📧 שיווק באימייל</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-item"><span class="name">👥 CRM מובנה</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-item"><span class="name">🤝 פורטל שותפים / IB</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-item"><span class="name">🎨 עיצוב + מיתוג</span><span class="cost" style="color:#10B981">כלול</span></div>
+        <div class="calc-total"><span>תוכנית חינמית</span><span class="cost" style="color:#10B981;font-size:24px">$0/חודש</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 9. TESTIMONIALS ========== -->
+<section class="section section-alt" id="testimonials">
+  <div class="container section-center">
+    <div class="section-label reveal">💬 לקוחות ממליצים</div>
+    <h2 class="section-title reveal">מקצוענים בתחום המסחר סומכים עלינו</h2>
+    <p class="section-desc reveal">משוב אמיתי ממייסדים ומנהלים שהשתמשו בפלטפורמה.</p>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal stagger-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"עברנו מקונספט לברוקרג' פורקס ממותג מלא תוך 48 שעות. האתר, ערוצי הרשתות החברתיות, הבלוג, רצפי האימייל — הכל נוצר ומוכן לפריסה. לצוות שלנו זה היה לוקח 4 חודשים."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#6366F1,#06B6D4)">👨‍💼</div>
+          <div>
+            <div class="testimonial-name">ג'יימס צ'ן</div>
+            <div class="testimonial-role">מנכ"ל, Pacific FX Partners</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal stagger-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"שכבת התשתית היא מה שמבדיל את זה. דומיינים ותיקים, רשתות בלוגים, נכסים חברתיים — דברים שלוקח לסוכנויות חודשים לבנות מוכנים מהיום הראשון. זה לא רק בונה אתרים, זה משיק מותגים."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#8B5CF6,#EC4899)">👩‍💼</div>
+          <div>
+            <div class="testimonial-name">שרה מיטשל</div>
+            <div class="testimonial-role">סמנכ"לית שיווק, CryptoEdge</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal stagger-3">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"חסכנו $2,600 בחודש על מנויי כלים ועלויות קבלנים. הכל מאימייל שיווקי דרך ניהול שותפים ועד תזמון פוסטים חברתיים מובנה בפנים. ה-ROI היה מיידי."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#F59E0B,#EF4444)">👨‍💻</div>
+          <div>
+            <div class="testimonial-name">דיוויד אוקונקוו</div>
+            <div class="testimonial-role">מייסד, TradeVista Prop</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal stagger-4">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"הייתי סקפטית לגבי תוכן שנוצר ב-AI לפלטפורמת קופי טריידינג. אבל האיכות הפתיעה אותי — 20 עמודים של תוכן ייחודי ומותאם ציות, בתוספת 90 ימים של פוסטים חברתיים. הפלטפורמה שלנו הייתה באוויר תוך סופ״ש."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,#10B981,#06B6D4)">👩‍🔬</div>
+          <div>
+            <div class="testimonial-name">אלנה וולקוב</div>
+            <div class="testimonial-role">סמנכ"לית טכנולוגיה, SocialFunds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 10. PLATFORM SCREENSHOTS ========== -->
+<section class="section" id="screens">
+  <div class="container section-center">
+    <div class="section-label reveal">🖥️ ראו את הפלטפורמה האמיתית</div>
+    <h2 class="section-title reveal">כל תכונה, בנויה ועובדת</h2>
+    <p class="section-desc reveal">מסכים אמיתיים מהפלטפורמה. לחצו על כל לשונית לחקירה.</p>
+    <div class="screen-tabs reveal" id="screenTabs">
+      <div class="screen-tab active" data-tab="dashboard">📊 דשבורד</div>
+      <div class="screen-tab" data-tab="structures">🧱 מבנים</div>
+      <div class="screen-tab" data-tab="website">🏗️ אתר</div>
+      <div class="screen-tab" data-tab="seo">🔍 SEO</div>
+      <div class="screen-tab" data-tab="social">📱 רשתות</div>
+      <div class="screen-tab" data-tab="blog">📝 בלוג</div>
+      <div class="screen-tab" data-tab="email">📧 אימייל</div>
+      <div class="screen-tab" data-tab="affiliates">🤝 שותפים</div>
+      <div class="screen-tab" data-tab="classroom">🎓 כיתת לימוד</div>
+      <div class="screen-tab" data-tab="domains">🗄️ דומיינים</div>
+    </div>
+    <div class="screen-panels">
+      <div class="screen-panel active" data-panel="dashboard"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Nova Markets Demo</div></div><div style="display:flex;min-height:380px;background:#f8fafc;direction:ltr"><div style="width:180px;background:#f1f5f9;border-right:1px solid rgba(0,0,0,.06);padding:16px 12px;flex-shrink:0;font-size:12px"><div style="font-weight:800;font-size:14px;margin-bottom:3px">🚀 Tradesite</div><div style="font-size:9px;color:#64748b;margin-bottom:16px">Autopilot Platform</div><div style="color:#6366F1;background:rgba(99,102,241,.12);padding:7px 10px;border-radius:7px;margin-bottom:14px;font-weight:600;font-size:11px">🔷 Nova Markets</div><div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:600">Phases</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Domain</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Structures</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Website</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ SEO & GEO</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Social Media</div><div style="padding:4px 0;color:#64748b;font-size:11px">✅ Daily Posting</div><div style="padding:4px 0;color:#64748b;font-size:11px">7️⃣ Timeline</div><div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin:10px 0 4px;font-weight:600">Content</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">📝 Blog · 📚 Library</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">🎯 Landing · 🎓 Class</div><div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin:10px 0 4px;font-weight:600">Infrastructure</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">🗄️ Domains · 📡 Blogs</div><div style="padding:3px 0;color:#94a3b8;font-size:11px">🏆 PR · 🛒 Social</div></div><div style="flex:1;padding:20px 24px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><div><div style="font-size:18px;font-weight:800">Nova Markets Demo</div><div style="font-size:11px;color:#64748b">Nova Markets</div></div><div style="background:linear-gradient(135deg,#6366F1,#06B6D4);padding:8px 16px;border-radius:8px;font-size:11px;font-weight:600;color:white">▶ Continue Phase 7</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px 16px;margin-bottom:16px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px"><span>Overall Progress</span><span style="color:#10B981;font-weight:700">83%</span></div><div style="background:rgba(0,0,0,.06);border-radius:100px;height:6px;overflow:hidden"><div style="background:linear-gradient(135deg,#6366F1,#06B6D4);height:100%;width:83%;border-radius:100px"></div></div></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:#64748b">🌐 Domain</div><div style="font-size:14px;font-weight:800;margin-top:3px">alphatrading.com</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:#64748b">📄 Pages</div><div style="font-size:20px;font-weight:800;margin-top:3px">20</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:#64748b">📱 Social</div><div style="font-size:20px;font-weight:800;margin-top:3px">7</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px"><div style="font-size:10px;color:#64748b">📈 Traffic</div><div style="font-size:20px;font-weight:800;margin-top:3px;color:#6366F1">9.8K</div></div></div></div></div></div></div>
+
+      <div class="screen-panel" data-panel="structures"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Structures</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Site Structures <span class="badge badge-green">✓ Complete</span></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px"><div style="background:rgba(99,102,241,.06);border:2px solid rgba(99,102,241,.25);border-radius:10px;padding:14px"><div style="font-weight:700;font-size:13px;margin-bottom:4px">📈 Forex Broker Pro <span class="badge badge-blue">Active</span></div><div style="font-size:11px;color:#64748b">20 pages · 6 blocks · Full legal</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:700;font-size:13px;margin-bottom:4px">₿ Crypto Exchange</div><div style="font-size:11px;color:#64748b">18 pages · 5 blocks</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:700;font-size:13px;margin-bottom:4px">🌐 Multi-Asset Broker</div><div style="font-size:11px;color:#64748b">22 pages · 7 blocks</div></div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-size:12px;font-weight:600;margin-bottom:8px">Page Map — Forex Broker Pro</div><div style="display:flex;gap:6px;flex-wrap:wrap;font-size:11px"><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Homepage</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">About</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Platforms</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Account Types</span><span style="background:rgba(99,102,241,.12);padding:4px 10px;border-radius:6px">Education</span><span style="background:rgba(16,185,129,.12);padding:4px 10px;border-radius:6px;color:#10B981">+ 15 more</span></div></div></div></div></div>
+
+      <div class="screen-panel" data-panel="website"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Website Factory</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Website Factory <span class="badge badge-green">✓ Complete</span></div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.02);border-radius:8px;font-size:12px"><span>📄 Homepage</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.02);border-radius:8px;font-size:12px"><span>📄 About Us</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.02);border-radius:8px;font-size:12px"><span>📄 Platforms</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.02);border-radius:8px;font-size:12px"><span>📄 Account Types</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.02);border-radius:8px;font-size:12px"><span>📄 Forex Trading</span><span class="badge badge-green">generated</span></div><div style="display:flex;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,.02);border-radius:8px;font-size:12px"><span>⚖️ Terms</span><span class="badge badge-green">generated</span></div></div><div style="text-align:center;color:#64748b;font-size:11px;margin-top:10px">+ 14 more pages generated</div></div></div></div>
+
+      <div class="screen-panel" data-panel="seo"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / SEO Keywords</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="display:flex;gap:10px;margin-bottom:16px"><span style="background:#6366F1;color:white;padding:6px 14px;border-radius:7px;font-size:12px;font-weight:600">Keywords</span><span style="background:rgba(0,0,0,.03);padding:6px 14px;border-radius:7px;font-size:12px;color:#64748b">Technical Audit</span><span style="background:rgba(0,0,0,.03);padding:6px 14px;border-radius:7px;font-size:12px;color:#64748b">GEO</span></div><table style="width:100%;font-size:12px;border-collapse:collapse"><tr style="color:#64748b;border-bottom:1px solid rgba(0,0,0,.06)"><td style="padding:8px">Keyword</td><td style="padding:8px;text-align:center">Volume</td><td style="padding:8px;text-align:center">KD</td><td style="padding:8px">Intent</td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.03)"><td style="padding:8px;font-weight:600">best forex broker</td><td style="padding:8px;text-align:center">12,000</td><td style="padding:8px;text-align:center"><span class="badge badge-red">78</span></td><td style="padding:8px">Transactional</td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.03)"><td style="padding:8px;font-weight:600">how to trade forex</td><td style="padding:8px;text-align:center">22,000</td><td style="padding:8px;text-align:center"><span class="badge badge-green">45</span></td><td style="padding:8px">Informational</td></tr><tr><td style="padding:8px;font-weight:600">forex demo account</td><td style="padding:8px;text-align:center">9,500</td><td style="padding:8px;text-align:center"><span class="badge badge-green">40</span></td><td style="padding:8px">Transactional</td></tr></table></div></div></div>
+
+      <div class="screen-panel" data-panel="social"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Social Profiles</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px"><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">📘 Facebook</div><div style="font-size:11px;color:#64748b">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">📸 Instagram</div><div style="font-size:11px;color:#64748b">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">💼 LinkedIn</div><div style="font-size:11px;color:#64748b">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">🎵 TikTok</div><div style="font-size:11px;color:#64748b">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">✈️ Telegram</div><div style="font-size:11px;color:#64748b">@novamarkets</div></div><span class="badge badge-green">Active</span></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:13px">▶️ YouTube</div><div style="font-size:11px;color:#64748b">@novamarkets</div></div><span class="badge badge-green">Active</span></div></div></div></div></div>
+
+      <div class="screen-panel" data-panel="blog"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Blog CMS</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font-size:18px;font-weight:800">Blog CMS</div><div style="background:linear-gradient(135deg,#6366F1,#06B6D4);padding:8px 14px;border-radius:8px;font-size:11px;font-weight:600;color:white">✨ Generate with AI</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px;margin-bottom:10px"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">Understanding Market Volatility</span><span class="badge badge-yellow">draft</span></div><div style="color:#64748b;font-size:11px;margin-top:4px">education · 1,200 words</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:13px">Top 5 Forex Strategies 2026</span><span class="badge badge-green">published</span></div><div style="color:#64748b;font-size:11px;margin-top:4px">strategy · 1,500 words</div></div></div></div></div>
+
+      <div class="screen-panel" data-panel="email"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Email Marketing</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Email Marketing</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px"><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Subscribers</div><div style="font-size:18px;font-weight:800;margin-top:2px">284</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Templates</div><div style="font-size:18px;font-weight:800;margin-top:2px">8</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Campaigns</div><div style="font-size:18px;font-weight:800;margin-top:2px">3</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Open Rate</div><div style="font-size:18px;font-weight:800;margin-top:2px;color:#10B981">42%</div></div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">Welcome to Nova Markets <span class="badge badge-blue">welcome</span></div><div style="color:#64748b;font-size:11px;margin-top:4px">Your Trading Journey Starts Here</div></div></div></div></div>
+
+      <div class="screen-panel" data-panel="affiliates"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Affiliates</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Affiliates / IB Portal</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px"><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Affiliates</div><div style="font-size:18px;font-weight:800;margin-top:2px">3</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Referrals</div><div style="font-size:18px;font-weight:800;margin-top:2px;color:#10B981">47</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Commissions</div><div style="font-size:18px;font-weight:800;margin-top:2px">$2.4K</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:8px;padding:12px;text-align:center"><div style="font-size:10px;color:#64748b">Active</div><div style="font-size:18px;font-weight:800;margin-top:2px;color:#10B981">3</div></div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">🤝 ForexSignals Pro <span class="badge badge-green">active</span> <span style="font-size:11px;color:#64748b">CPA · $250</span></div><div style="color:#64748b;font-size:11px;margin-top:4px">partner@forexsignalspro.com · 12 referrals · $3,000 earned</div></div></div></div></div>
+
+      <div class="screen-panel" data-panel="classroom"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Classroom</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Classroom</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">📈 Forex Fundamentals <span class="badge badge-green">published</span></div><div style="font-size:11px;color:#64748b;margin-top:4px">Beginner · 12 lessons · 4.7 · 2,840 students</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">📊 Technical Analysis <span class="badge badge-green">published</span></div><div style="font-size:11px;color:#64748b;margin-top:4px">Intermediate · 18 lessons · 4.8</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">₿ Crypto Trading A-Z <span class="badge badge-green">published</span></div><div style="font-size:11px;color:#64748b;margin-top:4px">Beginner · 15 lessons · 4.6</div></div><div style="background:rgba(0,0,0,.02);border:1px solid rgba(0,0,0,.06);border-radius:10px;padding:14px"><div style="font-weight:600;font-size:13px">🧠 Risk Management <span class="badge badge-yellow">draft</span></div><div style="font-size:11px;color:#64748b;margin-top:4px">Advanced · 8 lessons · 4.9</div></div></div></div></div></div>
+
+      <div class="screen-panel" data-panel="domains"><div class="mock-browser"><div class="mock-bar"><div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div><div class="mock-url">dashboard / Aged Domains</div></div><div style="padding:24px;background:#f8fafc;direction:ltr"><div style="font-size:18px;font-weight:800;margin-bottom:16px">Aged Domains Arsenal</div><table style="width:100%;font-size:12px;border-collapse:collapse"><tr style="color:#64748b;border-bottom:1px solid rgba(0,0,0,.06)"><td style="padding:8px">Domain</td><td style="padding:8px;text-align:center">Age</td><td style="padding:8px;text-align:center">DA</td><td style="padding:8px">Niche</td><td style="padding:8px">Status</td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.03)"><td style="padding:8px;font-weight:600">tradepro-fx.com</td><td style="padding:8px;text-align:center">5yr</td><td style="padding:8px;text-align:center;color:#10B981;font-weight:700">28</td><td style="padding:8px">Forex</td><td style="padding:8px"><span class="badge badge-green">deployed</span></td></tr><tr style="border-bottom:1px solid rgba(0,0,0,.03)"><td style="padding:8px;font-weight:600">cryptovault-io.com</td><td style="padding:8px;text-align:center">4yr</td><td style="padding:8px;text-align:center;color:#6366F1;font-weight:700">22</td><td style="padding:8px">Crypto</td><td style="padding:8px"><span class="badge badge-yellow">warming</span></td></tr><tr><td style="padding:8px;font-weight:600">alphatrade-zone.com</td><td style="padding:8px;text-align:center">6yr</td><td style="padding:8px;text-align:center;color:#10B981;font-weight:700">31</td><td style="padding:8px">Multi-Asset</td><td style="padding:8px"><span class="badge badge-green">deployed</span></td></tr></table><div style="text-align:center;color:#64748b;font-size:11px;margin-top:10px">8 domains · 3 deployed · 2 warming · 3 queued</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 11. FAQ ========== -->
+<section class="section section-alt" id="faq">
+  <div class="container section-center">
+    <div class="section-label reveal">❓ שאלות נפוצות</div>
+    <h2 class="section-title reveal">שאלות נפוצות</h2>
+    <p class="section-desc reveal">כל מה שצריך לדעת לפני שמתחילים.</p>
     <div class="faq-list">
-      <div class="faq-item reveal"><div class="faq-q">Is this only for forex brokers?</div><div class="faq-a"><p>No. Tradesite Autopilot works for any trading-related business — forex, crypto, CFDs, prop firms, signal providers, education companies, and affiliate marketers in finance.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-q">Can I customize the generated content?</div><div class="faq-a"><p>Absolutely. All AI-generated content — website pages, blog posts, social media, emails — is fully editable. Modify, rewrite, or regenerate any piece at any time.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-q">How does the infrastructure layer work?</div><div class="faq-a"><p>We pre-purchase aged domains, build blog networks, secure press placements, and acquire social media accounts. When you create a project, these assets activate for your brand — giving you instant authority.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-q">What happens after the 90-day plan?</div><div class="faq-a"><p>The 90-day timeline is your launch roadmap. After that, all systems continue — daily posting, blogs, emails, communities. Extend or modify the strategy anytime.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-q">Do I need technical skills?</div><div class="faq-a"><p>Zero. The platform handles everything — domain setup, website deployment, SEO, social scheduling. If you can click a button, you can build a brand.</p></div></div>
-      <div class="faq-item reveal"><div class="faq-q">Can I export my website?</div><div class="faq-a"><p>Yes. Export your complete website as a ZIP with all HTML, CSS, and assets. Deploy anywhere — your hosting, Netlify, Vercel, or any server.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q">האם זה רק לברוקרי פורקס?</div><div class="faq-a"><p>לא. Tradesite Autopilot עובד לכל עסק הקשור למסחר — פורקס, קריפטו, CFDs, חברות פרופ, ספקי סיגנלים, חברות חינוך ומשווקים שותפים בפיננסים.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q">האם אפשר להתאים אישית את התוכן שנוצר?</div><div class="faq-a"><p>בהחלט. כל התוכן שנוצר ב-AI — עמודי אתר, פוסטים בבלוג, רשתות חברתיות, אימיילים — ניתן לעריכה מלאה. שנה, כתוב מחדש או צור מחדש כל חלק בכל זמן.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q">איך שכבת התשתית עובדת?</div><div class="faq-a"><p>אנחנו רוכשים מראש דומיינים ותיקים, בונים רשתות בלוגים, מבטיחים פרסומי עיתונות ורוכשים חשבונות רשתות חברתיות. כשאתה יוצר פרויקט, הנכסים האלה מופעלים למותג שלך — ונותנים לך סמכות מיידית.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q">מה קורה אחרי תוכנית 90 הימים?</div><div class="faq-a"><p>ציר הזמן של 90 הימים הוא מפת הדרכים להשקה. אחרי זה, כל המערכות ממשיכות — פרסום יומי, בלוגים, אימיילים, קהילות. הרחב או שנה את האסטרטגיה בכל זמן.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q">האם אני צריך ידע טכני?</div><div class="faq-a"><p>אפס. הפלטפורמה מטפלת בהכל — הגדרת דומיין, פריסת אתר, SEO, תזמון ברשתות חברתיות. אם אתה יכול ללחוץ על כפתור, אתה יכול לבנות מותג.</p></div></div>
+      <div class="faq-item reveal"><div class="faq-q">האם אפשר לייצא את האתר?</div><div class="faq-a"><p>כן. ייצא את האתר המלא שלך כ-ZIP עם כל HTML, CSS והנכסים. פרוס בכל מקום — האחסון שלך, Netlify, Vercel, או כל שרת.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- ===== CREDENTIALS / ACCESS ===== -->
-<section class="section" id="access" style="padding:80px 40px">
+<!-- ========== 12. CREDENTIALS ========== -->
+<section class="section">
   <div class="container section-center">
-    <div class="section-label reveal">🔑 Try It Yourself</div>
-    <h2 class="section-title reveal">Access the Full Dashboard</h2>
-    <p class="section-desc reveal">Log in to explore the complete platform — all 7 phases, AI modules, content engine, and marketing tools. Full access, no restrictions.</p>
-    <div class="reveal" style="max-width:600px;margin:0 auto">
-      <div style="background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.06));border:1px solid rgba(99,102,241,.2);border-radius:20px;padding:36px 40px;text-align:center">
-        <div style="font-size:16px;font-weight:700;color:var(--primary-light);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:8px">🔐 Dashboard Login Credentials</div>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px">
-          <div style="background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:16px 28px;flex:1;min-width:200px">
-            <div style="font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Username</div>
-            <code class="copy-cred" style="font-size:16px;font-weight:700;color:#1e293b;font-family:'SF Mono','Fira Code',monospace;cursor:pointer;user-select:all">admin@tradesite.com</code>
-          </div>
-          <div style="background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.1);border-radius:12px;padding:16px 28px;flex:1;min-width:200px">
-            <div style="font-size:11px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Password</div>
-            <code class="copy-cred" style="font-size:16px;font-weight:700;color:#1e293b;font-family:'SF Mono','Fira Code',monospace;cursor:pointer;user-select:all">demo1234</code>
-          </div>
-        </div>
-        <div style="font-size:13px;color:var(--gray);margin-bottom:20px">Click credentials to copy · Full access to all features</div>
-        <a href="https://tradesite-autopilot.vercel.app/login" target="_blank" class="btn-primary" style="font-size:16px;padding:14px 36px">
-          🚀 Open Dashboard <span>→</span>
-        </a>
+    <div class="section-label reveal">🔑 נסו עכשיו</div>
+    <h2 class="section-title reveal">פרטי גישה להדגמה</h2>
+    <p class="section-desc reveal">התחברו לפלטפורמה המלאה וחקרו כל תכונה בעצמכם.</p>
+    <div class="credentials-box reveal">
+      <h3>🔐 גישת אדמין</h3>
+      <div class="cred-row">
+        <span class="label">Email</span>
+        <span class="value" id="credEmail">admin@tradesite.com</span>
+        <button class="cred-copy" onclick="copyCredential('credEmail')">העתק</button>
+      </div>
+      <div class="cred-row">
+        <span class="label">Password</span>
+        <span class="value" id="credPass">demo1234</span>
+        <button class="cred-copy" onclick="copyCredential('credPass')">העתק</button>
+      </div>
+      <div style="margin-top:16px">
+        <a href="https://tradesite-autopilot.vercel.app" target="_blank" class="btn-primary" style="font-size:14px;padding:12px 28px">פתח פלטפורמה ←</a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ========== 13. FINAL CTA ========== -->
 <section class="cta-final" id="cta">
   <div style="font-size:56px;margin-bottom:24px">🚀</div>
-  <h2 class="reveal">Stop Building Manually.<br>Start Launching.</h2>
-  <p class="reveal">Your competitors spend months and thousands. You can have everything ready in hours. 7 phases, 27 modules, one click.</p>
   <div class="reveal" style="display:inline-flex;align-items:center;gap:8px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);padding:8px 20px;border-radius:100px;font-size:13px;color:#ef4444;font-weight:600;margin-bottom:24px">
-    <span style="animation:pulse 1s ease infinite">🔴</span> Limited: Free plan spots are filling up fast
-  </div><br>
-  <a href="https://tradesite-autopilot.vercel.app" target="_blank" class="btn-primary reveal" style="font-size:18px;padding:18px 44px">Get Started — Free <span>→</span></a>
+    <span style="animation:pulse 1s ease infinite">🔴</span> מוגבל: מקומות בתוכנית החינמית מתמלאים מהר
+  </div>
+  <h2 class="reveal">הפסק לבנות ידנית.<br>התחל להשיק.</h2>
+  <p class="reveal">המתחרים שלך מבזבזים חודשים ואלפים. אתה יכול שהכל יהיה מוכן תוך שעות. 7 שלבים, 27 מודולים, לחיצה אחת.</p>
+  <a href="https://tradesite-autopilot.vercel.app" target="_blank" class="btn-primary reveal" style="font-size:18px;padding:18px 44px">התחל עכשיו — חינם <span>←</span></a>
   <div class="cta-badges reveal">
-    <span>✓ No credit card</span>
-    <span>✓ Full AI automation</span>
-    <span>✓ Deploy in hours</span>
-    <span>✓ Cancel anytime</span>
+    <span>✓ ללא כרטיס אשראי</span>
+    <span>✓ פריסה תוך שעות</span>
+    <span>✓ ביטול בכל עת</span>
   </div>
 </section>
 
+<!-- FLOATING CTA -->
 <div class="floating-cta" id="floatingCta">
-  <p>Ready to build your trading brand?</p>
-  <a href="#cta" class="btn-sm">Get Started Free →</a>
+  <p>מוכן לבנות את המותג המסחרי שלך?</p>
+  <a href="#cta" class="btn-sm">התחל בחינם ←</a>
 </div>
 
-<div class="footer"><p>Tradesite Autopilot &copy; 2026 — AI-Powered Trading Brand Builder</p></div>
+<!-- FOOTER -->
+<div class="footer"><p>Tradesite Autopilot &copy; 2026 — בונה מותגי מסחר מונע AI</p></div>
 
+<!-- ========== 14. SOCIAL PROOF POPUP ========== -->
 <div class="social-proof" id="socialProof" style="display:none">
   <div class="sp-avatar">🧑‍💻</div>
-  <div class="sp-text">
-    <div class="sp-name">Someone from <strong>New York</strong></div>
-    <div class="sp-action">just launched their trading brand</div>
-    <div class="sp-time">2 minutes ago</div>
+  <div>
+    <div class="sp-name">מישהו מ<strong>ניו יורק</strong></div>
+    <div class="sp-action">זה עתה השיק את המותג המסחרי שלו</div>
+    <div class="sp-time">לפני 2 דקות</div>
   </div>
 </div>
 
 <script>
-const observer=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('active')})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el=>observer.observe(el));
+// Reveal on scroll
+const observer = new IntersectionObserver(e => {
+  e.forEach(el => { if (el.isIntersecting) el.target.classList.add('active'); });
+}, { threshold: .1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el => observer.observe(el));
 
-const cObs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting&&!el.target.dataset.counted){el.target.dataset.counted='1';const t=+el.target.dataset.target,s=performance.now();const a=n=>{const p=Math.min((n-s)/1500,1);el.target.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(a)};requestAnimationFrame(a)}})},{threshold:.5});
-document.querySelectorAll('.counter').forEach(el=>cObs.observe(el));
+// Counter animation
+const cObs = new IntersectionObserver(e => {
+  e.forEach(el => {
+    if (el.isIntersecting && !el.target.dataset.counted) {
+      el.target.dataset.counted = '1';
+      const t = +el.target.dataset.target, s = performance.now();
+      const a = n => {
+        const p = Math.min((n - s) / 1500, 1);
+        el.target.textContent = Math.round(t * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(a);
+      };
+      requestAnimationFrame(a);
+    }
+  });
+}, { threshold: .5 });
+document.querySelectorAll('.counter').forEach(el => cObs.observe(el));
 
-const nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>50));
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
 
-const secs=document.querySelectorAll('section[id]'),nls=document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)c=s.id});nls.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+c)l.classList.add('active')})});
+// Active nav link
+const secs = document.querySelectorAll('section[id]'), nls = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let c = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 100) c = s.id; });
+  nls.forEach(l => { l.classList.remove('active'); if (l.getAttribute('href') === '#' + c) l.classList.add('active'); });
+});
 
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}document.getElementById('navLinks').classList.remove('open');document.getElementById('hamburger').classList.remove('active')})});
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('active');
+  });
+});
 
-document.getElementById('hamburger').addEventListener('click',()=>{document.getElementById('navLinks').classList.toggle('open');document.getElementById('hamburger').classList.toggle('active')});
+// Hamburger
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+  document.getElementById('hamburger').classList.toggle('active');
+});
 
-const fc=document.getElementById('floatingCta'),hs=document.getElementById('hero'),cs=document.getElementById('cta');
-window.addEventListener('scroll',()=>{const ph=window.scrollY>hs.offsetHeight,nc=window.scrollY+window.innerHeight>cs.offsetTop;fc.classList.toggle('visible',ph&&!nc)});
+// Floating CTA
+const fc = document.getElementById('floatingCta'), hs = document.getElementById('hero'), cs = document.getElementById('cta');
+window.addEventListener('scroll', () => {
+  const ph = window.scrollY > hs.offsetHeight, nc = window.scrollY + window.innerHeight > cs.offsetTop;
+  fc.classList.toggle('visible', ph && !nc);
+});
 
-document.querySelectorAll('.screen-tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.screen-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.screen-panel').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.querySelector(`.screen-panel[data-panel="${t.dataset.tab}"]`).classList.add('active')})});
+// Screenshot tabs
+document.querySelectorAll('.screen-tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.screen-tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.screen-panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelector(`.screen-panel[data-panel="${t.dataset.tab}"]`).classList.add('active');
+  });
+});
 
-document.querySelectorAll('.faq-q').forEach(q=>{q.addEventListener('click',()=>{const i=q.parentElement,w=i.classList.contains('open');document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));if(!w)i.classList.add('open')})});
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const i = q.parentElement, w = i.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(x => x.classList.remove('open'));
+    if (!w) i.classList.add('open');
+  });
+});
 
 // Demo site tab switching
-const demoColors = [
+const demoTabColorsHE = [
   'linear-gradient(135deg, #0066ff, #0044cc)',
   'linear-gradient(135deg, #10b981, #059669)',
   'linear-gradient(135deg, #f97316, #ea580c)',
   'linear-gradient(135deg, #a855f7, #ec4899)'
 ];
-function switchDemo(index) {
-  document.querySelectorAll('.demo-site').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
-  const site = document.getElementById('demo-site-' + index);
+function switchDemoHE(index) {
+  document.querySelectorAll('.demo-site-he').forEach(s => { s.style.display = 'none'; s.classList.remove('active'); });
+  const site = document.getElementById('demo-he-' + index);
   if (site) { site.style.display = 'block'; site.classList.add('active'); site.style.animation = 'fadeIn .4s ease'; }
-  document.querySelectorAll('.demo-tab').forEach((tab, i) => {
-    if (i === index) { tab.style.background = demoColors[i]; tab.style.color = 'white'; tab.style.border = 'none'; tab.classList.add('active'); }
-    else { tab.style.background = 'rgba(0,0,0,0.03)'; tab.style.color = '#64748B'; tab.style.border = '1px solid rgba(0,0,0,0.08)'; tab.classList.remove('active'); }
+  document.querySelectorAll('.demo-tab-he').forEach((tab, i) => {
+    if (i === index) { tab.style.background = demoTabColorsHE[i]; tab.style.color = 'white'; tab.style.border = 'none'; tab.classList.add('active'); }
+    else { tab.style.background = 'rgba(0,0,0,0.04)'; tab.style.color = '#64748B'; tab.style.border = '1px solid rgba(0,0,0,0.08)'; tab.classList.remove('active'); }
   });
 }
 
-// Copy credentials on click
-document.querySelectorAll('.copy-cred').forEach(code => {
-  code.addEventListener('click', () => {
-    navigator.clipboard.writeText(code.textContent).then(() => {
-      const orig = code.textContent;
-      code.textContent = '✓ Copied!';
-      code.style.color = '#10B981';
-      setTimeout(() => { code.textContent = orig; code.style.color = ''; }, 1500);
-    });
+// Credential copy
+function copyCredential(id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(id).nextElementSibling;
+    btn.textContent = 'הועתק!';
+    btn.style.background = '#10B981';
+    setTimeout(() => { btn.textContent = 'העתק'; btn.style.background = 'linear-gradient(135deg,#6366F1,#06B6D4)'; }, 2000);
   });
-});
+}
 
-// Social Proof Popup
-const spData=[
-  {emoji:'🧑‍💻',city:'New York',action:'just launched their trading brand',time:'2 minutes ago'},
-  {emoji:'👩‍💼',city:'London',action:'generated 20 website pages',time:'5 minutes ago'},
-  {emoji:'👨‍💻',city:'Dubai',action:'deployed a crypto exchange site',time:'8 minutes ago'},
-  {emoji:'🧑‍🎓',city:'Singapore',action:'built a prop trading brand',time:'12 minutes ago'},
-  {emoji:'👩‍🔬',city:'Frankfurt',action:'activated social media automation',time:'15 minutes ago'}
+// Social proof popup
+const spData = [
+  { emoji: '🧑‍💻', city: 'ניו יורק', action: 'זה עתה השיק את המותג המסחרי שלו', time: 'לפני 2 דקות' },
+  { emoji: '👩‍💼', city: 'לונדון', action: 'יצר 20 עמודי אתר', time: 'לפני 5 דקות' },
+  { emoji: '👨‍💻', city: 'דובאי', action: 'פרס אתר בורסת קריפטו', time: 'לפני 8 דקות' },
+  { emoji: '🧑‍🎓', city: 'סינגפור', action: 'בנה מותג פרופ טריידינג', time: 'לפני 12 דקות' },
+  { emoji: '👩‍🔬', city: 'פרנקפורט', action: 'הפעיל אוטומציית רשתות חברתיות', time: 'לפני 15 דקות' }
 ];
-let spIdx=0;
-function showSocialProof(){
-  const sp=document.getElementById('socialProof');
-  const d=spData[spIdx%spData.length];
-  sp.querySelector('.sp-avatar').textContent=d.emoji;
-  sp.querySelector('.sp-name').innerHTML=`Someone from <strong>${d.city}</strong>`;
-  sp.querySelector('.sp-action').textContent=d.action;
-  sp.querySelector('.sp-time').textContent=d.time;
-  sp.style.display='flex';
-  sp.style.animation='slideInLeft .5s ease';
-  setTimeout(()=>{sp.style.animation='slideInLeft .5s ease reverse';setTimeout(()=>{sp.style.display='none';spIdx++;},400);},5000);
+let spIdx = 0;
+function showSocialProof() {
+  const sp = document.getElementById('socialProof');
+  const d = spData[spIdx % spData.length];
+  sp.querySelector('.sp-avatar').textContent = d.emoji;
+  sp.querySelector('.sp-name').innerHTML = 'מישהו מ<strong>' + d.city + '</strong>';
+  sp.querySelector('.sp-action').textContent = d.action;
+  sp.querySelector('.sp-time').textContent = d.time;
+  sp.style.display = 'flex';
+  sp.style.animation = 'slideInRight .5s ease';
+  setTimeout(() => {
+    sp.style.animation = 'slideInRight .5s ease reverse';
+    setTimeout(() => { sp.style.display = 'none'; spIdx++; }, 400);
+  }, 5000);
 }
-setTimeout(()=>showSocialProof(),3000);
-setInterval(()=>showSocialProof(),12000);
+setTimeout(() => showSocialProof(), 3000);
+setInterval(() => showSocialProof(), 12000);
 </script>
 </body>
 </html>
