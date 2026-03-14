@@ -301,6 +301,179 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
 .floating-cta .btn-sm{padding:10px 24px;background:linear-gradient(135deg,#6366F1,#06B6D4);border:none;border-radius:10px;color:white;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:.2s}
 .floating-cta .btn-sm:hover{box-shadow:0 4px 16px rgba(99,102,241,.4)}
 
+/* GRADIENT MESH */
+.hero{position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(99,102,241,.08) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(6,182,212,.08) 0%,transparent 50%),radial-gradient(circle at 40% 80%,rgba(139,92,246,.06) 0%,transparent 50%);animation:meshMove 20s ease-in-out infinite;z-index:0}
+@keyframes meshMove{0%,100%{background-position:0% 50%,100% 0%,50% 100%}33%{background-position:50% 0%,0% 100%,100% 50%}66%{background-position:100% 100%,50% 50%,0% 0%}}
+.hero>*{position:relative;z-index:1}
+
+.orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.4}
+.orb-1{width:400px;height:400px;background:#6366F1;top:-100px;left:-100px;animation:orbFloat1 15s ease-in-out infinite}
+.orb-2{width:350px;height:350px;background:#06B6D4;bottom:-50px;right:-50px;animation:orbFloat2 18s ease-in-out infinite}
+.orb-3{width:300px;height:300px;background:#8B5CF6;top:50%;left:50%;transform:translate(-50%,-50%);animation:orbFloat3 12s ease-in-out infinite}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,-30px)}}
+@keyframes orbFloat3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-40%,-60%) scale(1.1)}}
+
+/* SCROLL PROGRESS */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#6366F1,#06B6D4,#8B5CF6);z-index:10002;width:0;transition:width .1s linear}
+
+/* ========== VIDEO DEMO ========== */
+.video-wrapper{position:relative;max-width:900px;margin:0 auto;border-radius:20px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.12);cursor:pointer;aspect-ratio:16/9;background:#0f172a}
+.video-wrapper img{width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.3);transition:.3s}
+.video-play:hover{background:rgba(0,0,0,.15)}
+.video-play-btn{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(0,0,0,.2);transition:.3s}
+.video-play:hover .video-play-btn{transform:scale(1.1)}
+.video-play-btn::after{content:'';border:0;border-top:14px solid transparent;border-bottom:14px solid transparent;border-left:22px solid #6366F1;margin-left:4px}
+.video-features{display:flex;justify-content:center;gap:32px;margin-top:32px;flex-wrap:wrap}
+.video-feat{display:flex;align-items:center;gap:8px;font-size:14px;color:#64748b;font-weight:500}
+.video-feat .vf-icon{width:32px;height:32px;border-radius:8px;background:rgba(99,102,241,.1);display:flex;align-items:center;justify-content:center;font-size:16px}
+
+/* ========== PERSONAS ========== */
+.persona-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.persona-card{background:white;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:28px 24px;text-align:center;transition:.3s;cursor:default;position:relative;overflow:hidden}
+.persona-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--pc1),var(--pc2));opacity:0;transition:.3s}
+.persona-card:hover::before{opacity:.05}
+.persona-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.1);border-color:transparent}
+.persona-icon{font-size:40px;margin-bottom:12px;position:relative}
+.persona-card h3{font-size:17px;font-weight:700;margin-bottom:6px;color:#0f172a;position:relative}
+.persona-card p{font-size:13px;color:#64748b;line-height:1.6;position:relative}
+.persona-tag{display:inline-flex;align-items:center;gap:4px;margin-top:12px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600;position:relative}
+
+/* ========== ROI CALCULATOR ========== */
+.roi-calc{max-width:700px;margin:0 auto;background:white;border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:40px;box-shadow:0 8px 32px rgba(0,0,0,.06)}
+.roi-slider-group{margin-bottom:24px}
+.roi-slider-group label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#1e293b;margin-bottom:8px}
+.roi-slider-group label span{color:#6366F1;font-weight:700}
+.roi-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:10px;background:rgba(0,0,0,.06);outline:none}
+.roi-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#06B6D4);cursor:pointer;box-shadow:0 4px 12px rgba(99,102,241,.3)}
+.roi-result{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;padding-top:24px;border-top:1px solid rgba(0,0,0,.06)}
+.roi-box{text-align:center;padding:20px;border-radius:12px}
+.roi-box.cost{background:rgba(239,68,68,.06)}
+.roi-box.save{background:rgba(16,185,129,.06)}
+.roi-box .roi-num{font-size:32px;font-weight:800;margin-bottom:4px}
+.roi-box.cost .roi-num{color:#EF4444}
+.roi-box.save .roi-num{color:#10B981}
+.roi-box .roi-lbl{font-size:12px;color:#64748b}
+
+/* ========== PRICING ========== */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:960px;margin:0 auto}
+.pricing-card{background:white;border:1px solid rgba(0,0,0,.06);border-radius:20px;padding:36px 28px;text-align:center;transition:.3s;position:relative;overflow:hidden}
+.pricing-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.1)}
+.pricing-card.featured{border:2px solid #6366F1;box-shadow:0 8px 32px rgba(99,102,241,.15)}
+.pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:16px;right:-32px;background:linear-gradient(135deg,#6366F1,#06B6D4);color:white;font-size:10px;font-weight:700;padding:4px 40px;transform:rotate(45deg);letter-spacing:.5px}
+.pricing-name{font-size:14px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.pricing-price{font-size:48px;font-weight:800;color:#0f172a;margin-bottom:4px;letter-spacing:-2px}
+.pricing-price span{font-size:16px;font-weight:500;color:#94a3b8}
+.pricing-desc{font-size:13px;color:#94a3b8;margin-bottom:24px}
+.pricing-features{text-align:left;margin-bottom:28px}
+.pricing-features li{padding:8px 0;font-size:13px;color:#1e293b;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(0,0,0,.04)}
+.pricing-features li::before{content:'✓';color:#10B981;font-weight:700;font-size:14px}
+.pricing-features li:last-child{border:none}
+.pricing-btn{display:block;padding:14px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;transition:.3s;text-align:center}
+.pricing-btn-outline{background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.1);color:#1e293b}
+.pricing-btn-outline:hover{background:rgba(0,0,0,.06)}
+.pricing-btn-primary{background:linear-gradient(135deg,#6366F1,#06B6D4);color:white;border:none}
+.pricing-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.4)}
+body.dark .pricing-card{background:#1e293b;border-color:rgba(255,255,255,.06)}
+body.dark .pricing-card.featured{border-color:#6366F1}
+body.dark .pricing-name{color:#94a3b8}
+body.dark .pricing-price{color:#f1f5f9}
+body.dark .pricing-features li{color:#e2e8f0;border-bottom-color:rgba(255,255,255,.04)}
+body.dark .pricing-btn-outline{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:#e2e8f0}
+
+/* DARK MODE */
+.dark-toggle{position:fixed;bottom:24px;left:24px;z-index:9999;width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.1);background:white;box-shadow:0 4px 16px rgba(0,0,0,.1);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:.3s}
+.dark-toggle:hover{transform:scale(1.1);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+body.dark{background:#0f172a;color:#e2e8f0}
+body.dark .section-alt{background:#1e293b}
+body.dark .section-title{color:#f1f5f9}
+body.dark .section-desc{color:#94a3b8}
+body.dark .section-label{color:#818cf8}
+body.dark .nav{background:rgba(15,23,42,.85);border-bottom-color:rgba(255,255,255,.06)}
+body.dark .nav.scrolled{background:rgba(15,23,42,.97)}
+body.dark .nav-links a{color:#94a3b8}
+body.dark .nav-links a:hover,body.dark .nav-links a.active{color:#f1f5f9;background:rgba(99,102,241,.15)}
+body.dark .nav-login{color:#94a3b8}
+body.dark .pillar-card,body.dark .pain-card,body.dark .testimonial-card,body.dark .persona-card,body.dark .credentials-box,body.dark .roi-calc{background:#1e293b;border-color:rgba(255,255,255,.06);color:#e2e8f0}
+body.dark .pillar-card h3,body.dark .pain-card h4,body.dark .persona-card h3{color:#f1f5f9}
+body.dark .pillar-card p,body.dark .pain-card p,body.dark .persona-card p{color:#94a3b8}
+body.dark .pillar-card ul li{color:#94a3b8}
+body.dark .mock-browser{background:#1e293b;border-color:rgba(255,255,255,.08)}
+body.dark .mock-bar{background:#1e293b;border-bottom-color:rgba(255,255,255,.06)}
+body.dark .mock-url{color:#94a3b8}
+body.dark .faq-q{color:#f1f5f9;border-color:rgba(255,255,255,.06)}
+body.dark .faq-q:hover{background:rgba(99,102,241,.08)}
+body.dark .faq-a p{color:#94a3b8}
+body.dark .calc-col{background:#1e293b;border-color:rgba(255,255,255,.06)}
+body.dark .calc-item{border-bottom-color:rgba(255,255,255,.06);color:#e2e8f0}
+body.dark .calc-item .name{color:#e2e8f0}
+body.dark .compare-table th{background:#1e293b;color:#94a3b8}
+body.dark .compare-table td{color:#e2e8f0;border-bottom-color:rgba(255,255,255,.06)}
+body.dark .compare-table tbody tr:hover{background:rgba(99,102,241,.06)}
+body.dark .screen-tab{color:#94a3b8;background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.06)}
+body.dark .screen-tab.active{color:white}
+body.dark .dark-toggle{background:#1e293b;border-color:rgba(255,255,255,.1)}
+body.dark .floating-cta{background:rgba(15,23,42,.95);border-color:rgba(255,255,255,.06)}
+body.dark .floating-cta p{color:#e2e8f0}
+body.dark .footer{background:#0b1120;color:#64748b}
+body.dark .logo-bar{background:#1e293b;border-color:rgba(255,255,255,.06)}
+body.dark .logo-bar-label{color:#64748b}
+body.dark .logo-bar-logos span{color:#94a3b8}
+body.dark .trust-badge{color:#94a3b8}
+body.dark .trust-badge .icon{background:rgba(99,102,241,.15)}
+body.dark .how-step h3{color:#f1f5f9}
+body.dark .how-step p{color:#94a3b8}
+body.dark .cta-final{background:linear-gradient(135deg,#1e1b4b,#0f172a)}
+body.dark .roi-slider-group label{color:#e2e8f0}
+body.dark .roi-slider{background:rgba(255,255,255,.1)}
+body.dark .exit-modal{background:#1e293b;color:#e2e8f0}
+body.dark .exit-modal h3{color:#f1f5f9}
+body.dark .exit-modal p{color:#94a3b8}
+
+/* CHAT WIDGET */
+.chat-widget{position:fixed;bottom:24px;right:24px;z-index:9998}
+.chat-btn{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#06B6D4);border:none;color:white;font-size:24px;cursor:pointer;box-shadow:0 8px 32px rgba(99,102,241,.4);display:flex;align-items:center;justify-content:center;transition:.3s;position:relative}
+.chat-btn:hover{transform:scale(1.1)}
+.chat-btn .chat-dot{position:absolute;top:2px;right:2px;width:12px;height:12px;border-radius:50%;background:#10B981;border:2px solid white;animation:pulse 2s ease infinite}
+.chat-box{position:absolute;bottom:70px;right:0;width:340px;background:white;border-radius:16px;box-shadow:0 16px 64px rgba(0,0,0,.15);overflow:hidden;display:none;animation:slideDown .3s ease}
+.chat-box.open{display:block}
+.chat-header{background:linear-gradient(135deg,#6366F1,#06B6D4);color:white;padding:16px 20px;display:flex;align-items:center;gap:12px}
+.chat-header-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:18px}
+.chat-header-info .name{font-weight:700;font-size:14px}
+.chat-header-info .status{font-size:11px;opacity:.8;display:flex;align-items:center;gap:4px}
+.chat-header-info .status::before{content:'';width:6px;height:6px;border-radius:50%;background:#10B981}
+.chat-body{padding:20px;min-height:200px;background:#f8fafc}
+.chat-msg{background:white;border-radius:12px 12px 12px 4px;padding:12px 16px;font-size:13px;color:#1e293b;line-height:1.5;box-shadow:0 2px 8px rgba(0,0,0,.06);max-width:85%;margin-bottom:8px}
+.chat-msg.bot{background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.08))}
+.chat-time{font-size:10px;color:#94a3b8;margin-top:4px}
+.chat-input{display:flex;gap:8px;padding:12px 16px;border-top:1px solid rgba(0,0,0,.06);background:white}
+.chat-input input{flex:1;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:10px 14px;font-size:13px;outline:none;font-family:inherit}
+.chat-input input:focus{border-color:#6366F1}
+.chat-input button{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#6366F1,#06B6D4);border:none;color:white;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+body.dark .chat-box{background:#1e293b}
+body.dark .chat-body{background:#0f172a}
+body.dark .chat-msg{background:#1e293b;color:#e2e8f0;box-shadow:none;border:1px solid rgba(255,255,255,.06)}
+body.dark .chat-input{background:#1e293b;border-top-color:rgba(255,255,255,.06)}
+body.dark .chat-input input{background:#0f172a;border-color:rgba(255,255,255,.1);color:#e2e8f0}
+
+/* COOKIE BANNER */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9997;background:white;box-shadow:0 -4px 24px rgba(0,0,0,.1);padding:16px 40px;display:none;align-items:center;justify-content:space-between;gap:16px;animation:slideDown .4s ease}
+.cookie-banner.show{display:flex}
+.cookie-banner p{font-size:13px;color:#64748b;line-height:1.5;flex:1}
+.cookie-banner p a{color:#6366F1;text-decoration:underline}
+.cookie-btns{display:flex;gap:8px;flex-shrink:0}
+.cookie-btn{padding:8px 20px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:.2s}
+.cookie-accept{background:linear-gradient(135deg,#6366F1,#06B6D4);color:white}
+.cookie-accept:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(99,102,241,.3)}
+.cookie-decline{background:rgba(0,0,0,.04);color:#64748b}
+.cookie-decline:hover{background:rgba(0,0,0,.08)}
+body.dark .cookie-banner{background:#1e293b;box-shadow:0 -4px 24px rgba(0,0,0,.3)}
+body.dark .cookie-banner p{color:#94a3b8}
+body.dark .cookie-decline{background:rgba(255,255,255,.06);color:#94a3b8}
+
 .footer{text-align:center;padding:40px;border-top:1px solid rgba(0,0,0,.06);font-size:13px;color:#64748b;background:#f8fafc}
 
 /* ========== RESPONSIVE ========== */
@@ -350,6 +523,14 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
   .cta-final h2{font-size:36px}
   .logo-bar-logos{gap:24px}
   .demo-stat-boxes{grid-template-columns:repeat(2,1fr)}
+  .persona-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .pricing-card.featured{order:-1}
+  .video-features{gap:16px}
+  .roi-calc{padding:24px}
+  .roi-result{grid-template-columns:1fr}
+  .cookie-banner{flex-direction:column;padding:16px 20px}
+  .chat-box{width:calc(100vw - 32px);right:-8px}
 }
 @media(max-width:480px){
   .nav{padding:0 16px}
@@ -361,6 +542,7 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
   .hero-trust{flex-direction:column;align-items:center;gap:12px}
   .section-title{font-size:26px}
   .pain-grid,.pillar-grid{grid-template-columns:1fr}
+  .persona-grid{grid-template-columns:1fr}
   .cta-final h2{font-size:28px}
   .cta-final>p{font-size:16px}
   .demo-stat-boxes{grid-template-columns:1fr 1fr}
@@ -369,6 +551,7 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
 </style>
 </head>
 <body>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- ========== 1. TICKER BAR ========== -->
 <div class="ticker-bar">
@@ -392,7 +575,9 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
     <a href="#how">How It Works</a>
     <a href="#features">Features</a>
     <a href="#demo">Live Demo</a>
+    <a href="#video">Video</a>
     <a href="#calculator">Pricing</a>
+    <a href="#pricing">Plans</a>
     <a href="#compare">Compare</a>
     <a href="#screens">Platform</a>
     <a href="#faq">FAQ</a>
@@ -406,6 +591,12 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
 
 <!-- ========== 3. HERO ========== -->
 <section class="hero" id="hero">
+<div class="orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+<canvas id="particles" style="position:absolute;inset:0;z-index:0;pointer-events:none"></canvas>
   <div class="hero-badge"><span class="dot"></span> 🚀 AI-Powered · 2,847 brands launched</div>
   <h1>Your Complete <span class="typing-container" id="heroTyping"></span><span class="typing-cursor"></span><br><span class="gradient-text">Built by AI</span></h1>
   <p>Stop spending months and thousands. One platform, 7 AI phases — your complete trading brand deployed in hours, not months.</p>
@@ -510,6 +701,41 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
   </div>
 </section>
 
+<!-- ========== BUILT FOR PERSONAS ========== -->
+<section class="section section-alt" id="personas">
+  <div class="container section-center">
+    <div class="section-label reveal">🎯 Built For</div>
+    <h2 class="section-title reveal">Whatever Your Trading Niche, We've Got You</h2>
+    <p class="section-desc reveal">Tailored AI generation for every type of trading business.</p>
+    <div class="persona-grid">
+      <div class="persona-card reveal stagger-1" style="--pc1:#0066ff;--pc2:#0044cc">
+        <div class="persona-icon">📊</div>
+        <h3>Forex Brokers</h3>
+        <p>MT4/MT5 integration, spread tables, account types, KYC flows, and regulation-ready legal pages.</p>
+        <div class="persona-tag" style="background:rgba(0,102,255,.1);color:#0066ff">20+ pages · Live spreads</div>
+      </div>
+      <div class="persona-card reveal stagger-2" style="--pc1:#10b981;--pc2:#059669">
+        <div class="persona-icon">🪙</div>
+        <h3>Crypto Startups</h3>
+        <p>Token listings, live charts, wallet integration, staking pages, and compliance documentation.</p>
+        <div class="persona-tag" style="background:rgba(16,185,129,.1);color:#10b981">600+ tokens · DeFi ready</div>
+      </div>
+      <div class="persona-card reveal stagger-3" style="--pc1:#f97316;--pc2:#ea580c">
+        <div class="persona-icon">🏆</div>
+        <h3>Prop Trading Firms</h3>
+        <p>Challenge pages, pricing tiers, leaderboards, payout systems, and trader dashboards.</p>
+        <div class="persona-tag" style="background:rgba(249,115,22,.1);color:#f97316">Challenges · Payouts</div>
+      </div>
+      <div class="persona-card reveal stagger-4" style="--pc1:#a855f7;--pc2:#ec4899">
+        <div class="persona-icon">👥</div>
+        <h3>Copy Trading</h3>
+        <p>Top trader leaderboards, performance stats, auto-copy features, community pages, and signal providers.</p>
+        <div class="persona-tag" style="background:rgba(168,85,247,.1);color:#a855f7">Social · Leaderboards</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ========== 6. FEATURE PILLARS ========== -->
 <section class="section" id="features">
   <div class="container section-center">
@@ -561,6 +787,29 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
           <li>Social assets + followers</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VIDEO DEMO ========== -->
+<section class="section section-alt" id="video">
+  <div class="container section-center">
+    <div class="section-label reveal">🎬 See It In Action</div>
+    <h2 class="section-title reveal">Watch a Brand Get Built in 2 Minutes</h2>
+    <p class="section-desc reveal">From blank slate to a fully deployed trading brand — powered entirely by AI.</p>
+    <div class="video-wrapper reveal" onclick="this.innerHTML='<iframe src=\'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1\' style=\'width:100%;height:100%;border:none;position:absolute;inset:0\' allow=\'autoplay\'></iframe>'">
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px">
+        <div style="font-size:64px">🚀</div>
+        <div style="color:white;font-size:20px;font-weight:700">Tradesite Autopilot — Full Demo</div>
+        <div style="color:rgba(255,255,255,.6);font-size:14px">2:34 · Click to play</div>
+      </div>
+      <div class="video-play"><div class="video-play-btn"></div></div>
+    </div>
+    <div class="video-features reveal">
+      <div class="video-feat"><div class="vf-icon">🎯</div> Niche Selection</div>
+      <div class="video-feat"><div class="vf-icon">🤖</div> AI Generation</div>
+      <div class="video-feat"><div class="vf-icon">🌐</div> Live Deployment</div>
+      <div class="video-feat"><div class="vf-icon">📊</div> Dashboard Tour</div>
     </div>
   </div>
 </section>
@@ -764,6 +1013,99 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
   </div>
 </section>
 
+<!-- ========== ROI CALCULATOR ========== -->
+<section class="section" id="roi">
+  <div class="container section-center">
+    <div class="section-label reveal">💰 ROI Calculator</div>
+    <h2 class="section-title reveal">See How Much You'll Save in 12 Months</h2>
+    <p class="section-desc reveal">Adjust the sliders to match your current spending. Watch the savings add up.</p>
+    <div class="roi-calc reveal">
+      <div class="roi-slider-group">
+        <label>Monthly website & hosting costs <span id="roiWeb">$300</span></label>
+        <input type="range" class="roi-slider" id="sliderWeb" min="0" max="1000" value="300" step="50">
+      </div>
+      <div class="roi-slider-group">
+        <label>Monthly marketing spend <span id="roiMkt">$1,200</span></label>
+        <input type="range" class="roi-slider" id="sliderMkt" min="0" max="5000" value="1200" step="100">
+      </div>
+      <div class="roi-slider-group">
+        <label>Monthly content & SEO <span id="roiSeo">$900</span></label>
+        <input type="range" class="roi-slider" id="sliderSeo" min="0" max="3000" value="900" step="50">
+      </div>
+      <div class="roi-slider-group">
+        <label>Monthly tools & subscriptions <span id="roiTools">$200</span></label>
+        <input type="range" class="roi-slider" id="sliderTools" min="0" max="1000" value="200" step="25">
+      </div>
+      <div class="roi-result">
+        <div class="roi-box cost">
+          <div class="roi-num" id="roiCost">$31,200</div>
+          <div class="roi-lbl">Your 12-month cost (manual)</div>
+        </div>
+        <div class="roi-box save">
+          <div class="roi-num" id="roiSave">$31,200</div>
+          <div class="roi-lbl">You save with Autopilot</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRICING ========== -->
+<section class="section section-alt" id="pricing">
+  <div class="container section-center">
+    <div class="section-label reveal">💎 Pricing</div>
+    <h2 class="section-title reveal">Simple, Transparent Pricing</h2>
+    <p class="section-desc reveal">Start free. Upgrade when you're ready. No hidden fees, ever.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal stagger-1">
+        <div class="pricing-name">Free</div>
+        <div class="pricing-price">$0<span>/mo</span></div>
+        <div class="pricing-desc">Perfect to explore the platform</div>
+        <ul class="pricing-features">
+          <li>1 project</li>
+          <li>20 AI-generated pages</li>
+          <li>Basic SEO setup</li>
+          <li>3 social profiles</li>
+          <li>Community support</li>
+        </ul>
+        <a href="https://tradesite-autopilot.vercel.app" class="pricing-btn pricing-btn-outline">Get Started Free</a>
+      </div>
+      <div class="pricing-card featured reveal stagger-2">
+        <div class="pricing-name">Pro</div>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <div class="pricing-desc">For serious trading entrepreneurs</div>
+        <ul class="pricing-features">
+          <li>5 projects</li>
+          <li>Unlimited AI pages</li>
+          <li>Full SEO + GEO pages</li>
+          <li>7 social profiles + 90-day plan</li>
+          <li>Email campaigns</li>
+          <li>Affiliate / IB portal</li>
+          <li>Blog CMS + Classroom</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="https://tradesite-autopilot.vercel.app" class="pricing-btn pricing-btn-primary">Start Pro Trial →</a>
+      </div>
+      <div class="pricing-card reveal stagger-3">
+        <div class="pricing-name">Enterprise</div>
+        <div class="pricing-price">$199<span>/mo</span></div>
+        <div class="pricing-desc">Full infrastructure + white label</div>
+        <ul class="pricing-features">
+          <li>Unlimited projects</li>
+          <li>Everything in Pro</li>
+          <li>Aged domains (DA 15+)</li>
+          <li>Blog network (5+ sites)</li>
+          <li>Press & PR placements</li>
+          <li>White-label option</li>
+          <li>Dedicated account manager</li>
+          <li>Custom integrations</li>
+        </ul>
+        <a href="https://tradesite-autopilot.vercel.app" class="pricing-btn pricing-btn-outline">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ========== 9. TESTIMONIALS ========== -->
 <section class="section section-alt" id="testimonials">
   <div class="container section-center">
@@ -925,6 +1267,33 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
   <a href="#cta" class="btn-sm">Get Started Free →</a>
 </div>
 
+<button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget">
+  <div class="chat-box" id="chatBox">
+    <div class="chat-header">
+      <div class="chat-header-avatar">🤖</div>
+      <div class="chat-header-info">
+        <div class="name">Autopilot AI</div>
+        <div class="status">Online · Responds instantly</div>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="chat-msg bot">👋 Hi there! I'm the Autopilot assistant. Have questions about building your trading brand? I'm here to help!</div>
+      <div class="chat-time">Just now</div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type a message..." id="chatInput">
+      <button onclick="sendChat()">➤</button>
+    </div>
+  </div>
+  <button class="chat-btn" onclick="document.getElementById('chatBox').classList.toggle('open')">
+    💬
+    <span class="chat-dot"></span>
+  </button>
+</div>
+
 <!-- FOOTER -->
 <div class="footer"><p>Tradesite Autopilot &copy; 2026 — AI-Powered Trading Brand Builder</p></div>
 
@@ -952,6 +1321,15 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e293b;overflow-x:
     </div>
     <a href="https://tradesite-autopilot.vercel.app" target="_blank" class="btn-primary" style="width:100%;justify-content:center;font-size:16px">Start Building Free →</a>
     <div style="margin-top:12px;font-size:12px;color:#94a3b8">No credit card required · Cancel anytime</div>
+  </div>
+</div>
+
+<!-- COOKIE CONSENT -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>🍪 We use cookies to enhance your experience. By continuing, you agree to our <a href="#">Privacy Policy</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-btn cookie-decline" onclick="document.getElementById('cookieBanner').classList.remove('show');localStorage.setItem('cookies','declined')">Decline</button>
+    <button class="cookie-btn cookie-accept" onclick="document.getElementById('cookieBanner').classList.remove('show');localStorage.setItem('cookies','accepted')">Accept All</button>
   </div>
 </div>
 
@@ -1143,6 +1521,69 @@ document.addEventListener('mouseleave', e => {
 document.getElementById('exitOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) e.currentTarget.classList.remove('show');
 });
+
+// Scroll progress bar
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('scrollProgress').style.width=(window.scrollY/h*100)+'%';
+});
+
+// Particle effect
+const cvs=document.getElementById('particles'),ctx=cvs.getContext('2d');
+function resizeCanvas(){const h=document.getElementById('hero');cvs.width=h.offsetWidth;cvs.height=h.offsetHeight}
+resizeCanvas();window.addEventListener('resize',resizeCanvas);
+const pts=Array.from({length:50},()=>({x:Math.random()*cvs.width,y:Math.random()*cvs.height,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*2+1,o:Math.random()*.3+.1}));
+function drawParticles(){ctx.clearRect(0,0,cvs.width,cvs.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cvs.width)p.vx*=-1;if(p.y<0||p.y>cvs.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(99,102,241,${p.o})`;ctx.fill()});pts.forEach((a,i)=>{pts.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<120){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(99,102,241,${.08*(1-d/120)})`;ctx.stroke()}})});requestAnimationFrame(drawParticles)}
+drawParticles();
+
+// Confetti effect on CTA
+function launchConfetti(){const colors=['#6366F1','#06B6D4','#8B5CF6','#10B981','#F59E0B','#EC4899'];for(let i=0;i<60;i++){const c=document.createElement('div');c.style.cssText=`position:fixed;width:${Math.random()*8+4}px;height:${Math.random()*8+4}px;background:${colors[Math.floor(Math.random()*colors.length)]};top:50%;left:50%;z-index:99999;pointer-events:none;border-radius:${Math.random()>.5?'50%':'2px'};`;document.body.appendChild(c);const angle=Math.random()*Math.PI*2,vel=Math.random()*600+200,vx=Math.cos(angle)*vel,vy=Math.sin(angle)*vel;let x=window.innerWidth/2,y=window.innerHeight/2,gy=0,op=1;function anim(){gy+=8;x+=vx*.016;y+=vy*.016+gy*.016;op-=.012;c.style.left=x+'px';c.style.top=y+'px';c.style.opacity=op;c.style.transform=`rotate(${Math.random()*360}deg)`;if(op>0)requestAnimationFrame(anim);else c.remove()}requestAnimationFrame(anim)}}
+document.querySelectorAll('.btn-primary').forEach(b=>b.addEventListener('click',launchConfetti));
+
+// ROI Calculator
+function updateROI(){
+  const w=+document.getElementById('sliderWeb').value;
+  const m=+document.getElementById('sliderMkt').value;
+  const s=+document.getElementById('sliderSeo').value;
+  const t=+document.getElementById('sliderTools').value;
+  document.getElementById('roiWeb').textContent='$'+w.toLocaleString();
+  document.getElementById('roiMkt').textContent='$'+m.toLocaleString();
+  document.getElementById('roiSeo').textContent='$'+s.toLocaleString();
+  document.getElementById('roiTools').textContent='$'+t.toLocaleString();
+  const total=(w+m+s+t)*12;
+  document.getElementById('roiCost').textContent='$'+total.toLocaleString();
+  document.getElementById('roiSave').textContent='$'+total.toLocaleString();
+}
+document.querySelectorAll('.roi-slider').forEach(s=>s.addEventListener('input',updateROI));
+
+// Dark mode toggle
+const dt=document.getElementById('darkToggle');
+dt.addEventListener('click',()=>{
+  document.body.classList.toggle('dark');
+  dt.textContent=document.body.classList.contains('dark')?'☀️':'🌙';
+  localStorage.setItem('darkMode',document.body.classList.contains('dark'));
+});
+if(localStorage.getItem('darkMode')==='true'){document.body.classList.add('dark');dt.textContent='☀️';}
+
+// Chat widget
+function sendChat(){
+  const input=document.getElementById('chatInput');
+  const msg=input.value.trim();
+  if(!msg)return;
+  const body=document.querySelector('.chat-body');
+  body.innerHTML+=`<div class="chat-msg" style="margin-left:auto;border-radius:12px 12px 4px 12px;background:linear-gradient(135deg,#6366F1,#06B6D4);color:white">${msg}</div>`;
+  input.value='';
+  setTimeout(()=>{
+    const replies=['Great question! Tradesite Autopilot generates everything automatically — website, content, SEO, social media, and more.','You can launch a complete trading brand in just hours. Want to try the free plan?','We support forex, crypto, prop trading, and copy trading niches. Each gets unique AI-generated content.','The platform includes 20+ pages, 90-day marketing plans, email campaigns, and affiliate portals — all built by AI.'];
+    body.innerHTML+=`<div class="chat-msg bot">${replies[Math.floor(Math.random()*replies.length)]}</div><div class="chat-time">Just now</div>`;
+    body.scrollTop=body.scrollHeight;
+  },1000);
+  body.scrollTop=body.scrollHeight;
+}
+document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
+
+// Cookie banner
+if(!localStorage.getItem('cookies')){setTimeout(()=>document.getElementById('cookieBanner').classList.add('show'),2000)}
 </script>
 </body>
 </html>
