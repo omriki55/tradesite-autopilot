@@ -281,6 +281,53 @@ img{max-width:100%;height:auto}
 ::selection{background:color-mix(in srgb,var(--color-accent) 25%,white)}
 a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-radius:2px}
 
+/* ─── Breadcrumb ─── */
+.breadcrumb{max-width:var(--max-w);margin:0 auto;padding:12px 28px 0;font-size:.74rem;color:var(--color-text-light);display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:var(--color-text-secondary);font-weight:500}
+.breadcrumb a:hover{color:var(--color-accent)}
+.breadcrumb .bc-sep{opacity:.4}
+.breadcrumb .bc-current{color:var(--color-text);font-weight:600}
+.hero--platform+.social-proof-bar .breadcrumb,.hero--market+.social-proof-bar .breadcrumb{display:none}
+
+/* ─── Language Selector ─── */
+.lang-selector{position:relative;display:flex;align-items:center;gap:4px;font-size:.78rem;color:var(--color-text-secondary);cursor:pointer;padding:6px 10px;border-radius:var(--radius);transition:background .15s;border:1px solid transparent}
+.lang-selector:hover{background:var(--color-bg-alt);border-color:var(--color-border)}
+.lang-selector .lang-flag{font-size:.9rem}
+.lang-selector .lang-code{font-weight:600;font-size:.74rem;text-transform:uppercase}
+.lang-selector .lang-arrow{font-size:.5rem;opacity:.5}
+.lang-dropdown{display:none;position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:0 8px 24px rgba(0,0,0,.1);padding:6px 0;min-width:140px;z-index:200}
+.lang-selector:hover .lang-dropdown{display:block}
+.lang-dropdown a{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:.82rem;color:var(--color-text-secondary);font-weight:500;transition:background .15s}
+.lang-dropdown a:hover{background:var(--color-bg-alt);color:var(--color-primary)}
+.lang-dropdown a.active{color:var(--color-accent);font-weight:700}
+
+/* ─── Cookie Consent ─── */
+.cookie-banner{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:#fff;border-top:1px solid var(--color-border);padding:16px 28px;box-shadow:0 -4px 20px rgba(0,0,0,.08);animation:slideUp .3s ease}
+.cookie-banner.show{display:block}
+.cookie-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.cookie-text{font-size:.82rem;color:var(--color-text-secondary);line-height:1.6;flex:1;min-width:280px}
+.cookie-text a{color:var(--color-accent);text-decoration:underline;font-weight:500}
+.cookie-actions{display:flex;gap:10px;flex-shrink:0}
+.cookie-actions .btn-cookie{padding:8px 20px;border-radius:50px;font-size:.8rem;font-weight:600;cursor:pointer;border:none;transition:all var(--transition)}
+.cookie-actions .btn-accept{background:var(--color-accent);color:#fff}
+.cookie-actions .btn-accept:hover{filter:brightness(1.1)}
+.cookie-actions .btn-decline{background:var(--color-bg-alt);color:var(--color-text-secondary);border:1px solid var(--color-border)}
+.cookie-actions .btn-decline:hover{border-color:var(--color-text-light)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@media(max-width:768px){.cookie-inner{flex-direction:column;text-align:center}.cookie-actions{width:100%;justify-content:center}}
+
+/* ─── Footer Social & App Links ─── */
+.footer-social{display:flex;gap:12px;margin-top:16px}
+.footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);font-size:.85rem;transition:all var(--transition);border:1px solid rgba(255,255,255,.06)}
+.footer-social a:hover{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.15)}
+.footer-app-badges{display:flex;gap:10px;margin-top:16px}
+.footer-app-badge{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--radius);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);font-size:.72rem;font-weight:500;transition:all var(--transition)}
+.footer-app-badge:hover{background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.2)}
+.footer-app-badge .fab-icon{font-size:1.1rem}
+.footer-app-badge .fab-text{line-height:1.2}
+.footer-app-badge .fab-label{display:block;font-size:.6rem;opacity:.7;font-weight:400}
+.footer-app-badge .fab-store{display:block;font-weight:700;font-size:.78rem;color:rgba(255,255,255,.85)}
+
 /* ─── Risk Warning Bar ─── */
 .announcement-bar{background:var(--color-bg-darker);color:rgba(255,255,255,.75);text-align:center;padding:10px 16px;font-size:.72rem;line-height:1.5;letter-spacing:.01em}
 .announcement-bar strong{color:#fff;font-weight:600}
@@ -1003,6 +1050,20 @@ ${gtmBody(options)}${heroConfig.variant !== 'legal' ? `  <div class="promo-bar">
 ${navLinks}
       </ul>
       <div class="navbar-actions">
+        <div class="lang-selector">
+          <span class="lang-flag">🌐</span>
+          <span class="lang-code">EN</span>
+          <span class="lang-arrow">▼</span>
+          <div class="lang-dropdown">
+            <a href="#" class="active">🇬🇧 English</a>
+            <a href="#">🇪🇸 Español</a>
+            <a href="#">🇩🇪 Deutsch</a>
+            <a href="#">🇫🇷 Français</a>
+            <a href="#">🇦🇪 العربية</a>
+            <a href="#">🇯🇵 日本語</a>
+            <a href="#">🇨🇳 中文</a>
+          </div>
+        </div>
         <a href="#" class="navbar-login">Log In</a>
         <a href="#" class="navbar-cta">Start Trading</a>
       </div>
@@ -1018,6 +1079,11 @@ ${allMobileLinks}
     </div>
   </nav>
 
+${page.slug !== 'home' && heroConfig.variant !== 'legal' ? `  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="bc-sep">/</span>
+${page.slug.startsWith('markets/') ? `    <a href="#">Markets</a>\n    <span class="bc-sep">/</span>\n` : ''}    <span class="bc-current">${escapeHtml(page.title)}</span>
+  </div>` : ''}
   <section class="hero hero--${heroConfig.variant}">
     <div class="hero-container">
       <div class="hero-inner">
@@ -1197,6 +1263,18 @@ ${faqHtml}
         <div class="footer-col">
           <h4>${escapeHtml(brandName)}</h4>
           <p>Your trusted partner for online trading. Access global markets with institutional-grade technology, tight spreads, and award-winning service.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="YouTube">▶</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="TradingView">📊</a>
+          </div>
+          <div class="footer-app-badges">
+            <a href="#" class="footer-app-badge"><span class="fab-icon">🍎</span><span class="fab-text"><span class="fab-label">Download on the</span><span class="fab-store">App Store</span></span></a>
+            <a href="#" class="footer-app-badge"><span class="fab-icon">▶️</span><span class="fab-text"><span class="fab-label">Get it on</span><span class="fab-store">Google Play</span></span></a>
+          </div>
         </div>
 ${marketPages.length ? `        <div class="footer-col">\n          <h4>Markets</h4>\n          <ul>\n${marketPages.map((p) => `            <li><a href="${p.slug.replace(/\//g, '-')}.html">${escapeHtml(p.title)}</a></li>`).join('\n')}\n          </ul>\n        </div>` : ''}
 ${corePages.length ? `        <div class="footer-col">\n          <h4>Company</h4>\n          <ul>\n${corePages.map((p) => `            <li><a href="${p.slug.replace(/\//g, '-')}.html">${escapeHtml(p.title)}</a></li>`).join('\n')}\n          </ul>\n        </div>` : ''}
@@ -1251,9 +1329,20 @@ ${heroConfig.variant !== 'legal' ? `  <div class="sticky-cta">
     <button class="la-close">&times;</button>
   </div>
 ` : ''}${chatWidget(options)}
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-inner">
+      <div class="cookie-text">We use cookies to enhance your trading experience, analyze site traffic, and assist in marketing. By clicking &ldquo;Accept All&rdquo;, you consent to our use of cookies. <a href="privacy.html">Privacy Policy</a></div>
+      <div class="cookie-actions">
+        <button class="btn-cookie btn-decline" onclick="document.getElementById('cookieBanner').classList.remove('show');localStorage.setItem('cookies','declined')">Decline</button>
+        <button class="btn-cookie btn-accept" onclick="document.getElementById('cookieBanner').classList.remove('show');localStorage.setItem('cookies','accepted')">Accept All</button>
+      </div>
+    </div>
+  </div>
 <script>
 // Navbar scroll shadow
 window.addEventListener('scroll',function(){document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>10)});
+// Cookie consent
+if(!localStorage.getItem('cookies')){setTimeout(function(){var cb=document.getElementById('cookieBanner');if(cb)cb.classList.add('show');},1500);}
 // Live activity notifications
 (function(){
   var msgs=[
