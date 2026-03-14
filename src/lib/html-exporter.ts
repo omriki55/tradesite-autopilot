@@ -452,7 +452,153 @@ function getNicheContent(niche: string): NicheContent {
     }
   }
 
-  // prop_trading and default: return forex content
+  const propTradingContent: NicheContent = {
+    heroHeading: 'Get Funded Up to $200K — Keep 90% of Profits',
+    heroBadge: 'Trusted by 50,000+ Traders in 190 Countries',
+    heroPills: ['Zero Risk Your Capital', 'Up to $200K Funding', '90% Profit Split', 'Instant Payouts'],
+    heroMicro: ['✓ Start from $49', '✓ No time limits', '✓ Free retakes'],
+    heroTrust: ['50K+ Funded Traders', 'Instant Payouts', '$25M+ Paid Out', '24/7 Support'],
+    heroCTAPrimary: 'Start Your Challenge — From $49',
+    heroCTASecondary: 'View All Plans',
+    trustpilotScore: '4.8/5',
+    trustpilotReviews: '8,200+ Reviews on Trustpilot',
+    navSlugs: ['home', 'about', 'challenges', 'pricing', 'how-it-works', 'payouts', 'contact'],
+    navCTA: 'Get Funded',
+    loginLabel: 'Dashboard',
+    mobileCTA: 'Start Challenge',
+    promoHTML: '🔥 <strong>Flash Sale:</strong> 20% off all challenges this week! Use code TRADE20 <a href="#">Claim Now &rarr;</a>',
+    announcementHTML: 'Trading involves risk. Past performance is not indicative of future results. You should only trade with money you can afford to lose. Please read our <a href="risk-warning.html"><strong>Risk Warning</strong></a> before participating.',
+    socialProof: [
+      {icon: '⭐', bold: '4.8/5', text: 'Trustpilot'},
+      {icon: '👥', bold: '50K+', text: 'Funded Traders'},
+      {icon: '💰', bold: '$25M+', text: 'Paid Out'},
+      {icon: '🏆', bold: '#1 Prop Firm', text: '2024'},
+      {icon: '🌍', bold: '190+', text: 'Countries'},
+    ],
+    tickerItems: [
+      {symbol: 'EUR/USD', price: '1.0842', change: '+0.15%', up: true},
+      {symbol: 'GBP/USD', price: '1.2731', change: '-0.08%', up: false},
+      {symbol: 'Gold', price: '2,342.50', change: '+0.42%', up: true},
+      {symbol: 'NAS100', price: '18,234', change: '+1.24%', up: true},
+      {symbol: 'BTC/USD', price: '67,240', change: '+2.34%', up: true},
+      {symbol: 'US30', price: '39,120', change: '+0.38%', up: true},
+    ],
+    regulationItems: [
+      {icon: '🇬🇧', label: 'UK Registered', num: 'Company No. 14523890'},
+      {icon: '🇺🇸', label: 'US Compliant', num: 'NFA Exempt'},
+      {icon: '🇪🇺', label: 'EU Registered', num: 'VAT: EU372891045'},
+      {icon: '🛡️', label: 'Insured Payouts', num: "Lloyd's of London"},
+      {icon: '✅', label: 'Verified Payouts', num: 'Blockchain Verified'},
+    ],
+    mediaLogos: ['Forbes', 'Bloomberg', 'Entrepreneur', 'Business Insider', 'Yahoo Finance', 'TechCrunch'],
+    awards: [
+      {icon: '🏆', name: 'Best Prop Firm', source: 'Prop Firm Awards', year: '2024'},
+      {icon: '⭐', name: 'Most Innovative', source: 'FinTech Awards', year: '2024'},
+      {icon: '🥇', name: 'Best Payouts', source: 'Traders Union', year: '2024'},
+      {icon: '📱', name: 'Best Dashboard', source: 'UX Design Awards', year: '2024'},
+      {icon: '🎓', name: 'Best Education', source: 'Trading Education', year: '2024'},
+      {icon: '💎', name: 'Most Trusted', source: 'TrustRadius', year: '2024'},
+    ],
+    perfMetrics: [
+      {value: '50', unit: 'K+', label: 'Funded Traders'},
+      {value: '99.2', unit: '%', label: 'Payout Rate'},
+      {value: '$25', unit: 'M+', label: 'Total Paid Out'},
+      {value: '4.2', unit: 'hrs', label: 'Avg. Payout Time'},
+      {value: '190', unit: '+', label: 'Countries'},
+    ],
+    securityBadges: [
+      {icon: '🔒', label: '256-bit SSL', sub: 'Encryption'},
+      {icon: '💳', label: 'Secure Payments', sub: 'PCI Compliant'},
+      {icon: '🛡️', label: 'Insured Payouts', sub: "Lloyd's Backed"},
+      {icon: '📋', label: 'Verified', sub: 'Blockchain Proof'},
+      {icon: '🔐', label: '2FA', sub: 'Authentication'},
+      {icon: '📊', label: 'Real-Time', sub: 'Monitoring'},
+    ],
+    fundProtection: {
+      icon: '💰',
+      title: 'Payout Protection Guarantee',
+      text: "All trader payouts are backed by Lloyd's of London insurance and processed within 24 hours. We've never missed a payout in our history. Your earnings are guaranteed and verifiable on-chain.",
+      amounts: [
+        {flag: '💵', label: 'Standard: up to <strong>$10,000</strong> per payout'},
+        {flag: '💎', label: 'Pro: up to <strong>$50,000</strong> per payout'},
+        {flag: '🏆', label: 'Elite: up to <strong>$200,000</strong> per payout'},
+      ],
+    },
+    footerDesc: "The world's most trusted prop trading firm. Get funded up to $200K, keep 90% of profits, and join a community of 50,000+ successful traders.",
+    footerLicenses: [
+      {title: 'United Kingdom', text: ' Ltd is registered in England and Wales. Company No. 14523890'},
+      {title: 'United States', text: ' LLC is registered in Delaware. NFA Exempt.'},
+      {title: 'European Union', text: ' EU is registered under EU business regulations. VAT: EU372891045'},
+      {title: 'Insurance', text: " payouts are insured by Lloyd's of London syndicate."},
+    ],
+    footerRegulatory: [
+      '🇬🇧 UK Registered',
+      '🇺🇸 US Compliant',
+      '🇪🇺 EU Registered',
+      '🛡️ Insured Payouts',
+      '✅ Verified Payouts',
+      '📊 Live Tracking',
+    ],
+    footerPayments: ['💳 Visa', '💳 Mastercard', '🏦 Wire Transfer', '₿ Bitcoin', 'Ξ Ethereum', '📱 Apple Pay', '📱 Google Pay'],
+    footerAddress: 'One Canada Square, Canary Wharf, London E14 5AB, United Kingdom',
+    footerPhone: '+44 20 7946 0958',
+    footerRisk: "Risk Warning: Trading involves significant risk of loss. Past performance is not indicative of future results. You should not trade with money you cannot afford to lose.",
+    liveActivityMsgs: [
+      {flag: '🇺🇸', text: 'A trader in <strong>New York</strong> just passed the Challenge'},
+      {flag: '🇬🇧', text: 'A trader in <strong>London</strong> received a <strong>$12,400</strong> payout'},
+      {flag: '🇩🇪', text: '<strong>2,847</strong> traders active right now'},
+      {flag: '🇯🇵', text: 'A trader in <strong>Tokyo</strong> got funded for <strong>$100K</strong>'},
+      {flag: '🇦🇺', text: 'A trader in <strong>Sydney</strong> just started a Challenge'},
+      {flag: '🇧🇷', text: 'A trader in <strong>São Paulo</strong> hit <strong>$50K</strong> profit target'},
+      {flag: '🇮🇳', text: '<strong>148 traders</strong> passed this week'},
+      {flag: '🇳🇬', text: 'A trader in <strong>Lagos</strong> received instant payout'},
+    ],
+    stickyCTA: 'Get Funded Now',
+    faqCTA: 'Start Your Challenge',
+    mockupRows: [
+      {symbol: 'EUR/USD', price: '+$2,340', change: '+4.2%', up: true},
+      {symbol: 'Gold', price: '+$1,850', change: '+3.1%', up: true},
+      {symbol: 'NAS100', price: '-$420', change: '-1.2%', up: false},
+      {symbol: 'GBP/JPY', price: '+$960', change: '+2.8%', up: true},
+    ],
+    mockupLabel: 'Trading Dashboard',
+    getPageCTAVerb: (slug: string) => {
+      const map: Record<string, string> = {
+        home: 'Start Your Challenge',
+        about: 'Join Our Community',
+        challenges: 'Choose Your Challenge',
+        pricing: 'Get Funded Today',
+        'how-it-works': 'Begin Your Journey',
+        payouts: 'Start Earning',
+        contact: 'Get in Touch',
+      }
+      return map[slug] || 'Get Funded Now'
+    },
+    getFaqData: () => ({
+      home: [
+        {q: 'What is prop trading?', a: "Prop trading (proprietary trading) means trading with a firm's capital instead of your own. You prove your skills through a challenge, get funded with up to $200K, and keep up to 90% of the profits you generate."},
+        {q: 'How much does it cost to start?', a: "Challenges start from just $49 for a $10K account. We offer accounts from $10K to $200K with various challenge options. All plans include free retakes if you don't pass on your first attempt."},
+        {q: 'How fast are payouts processed?', a: "Payouts are processed within 24 hours on average. We support bank transfers, crypto (BTC/ETH), and digital wallets. All payouts are insured by Lloyd's of London."},
+        {q: 'Is there a time limit to pass the challenge?', a: 'No! Unlike other prop firms, we have no time limits on any of our challenges. Take as long as you need to reach the profit target while respecting the drawdown rules.'},
+        {q: 'Can I trade any instrument?', a: 'Yes! Trade Forex, Indices, Commodities, Crypto, and Stocks. We provide access to 200+ instruments on MetaTrader 4, MetaTrader 5, and our proprietary platform.'},
+        {q: 'What happens if I fail the challenge?', a: "Don't worry — all our plans include free retakes. If you fail, you can restart the challenge at no extra cost. We believe in giving traders every opportunity to succeed."},
+      ],
+    }),
+    marketDropdownIcons: {
+      'challenges': '🎯',
+      'how-it-works': '📋',
+      'payouts': '💰',
+      'leaderboard': '🏆',
+    },
+    marketDropdownDescs: {
+      'challenges': 'Choose your funded account size',
+      'how-it-works': 'Simple 3-step process',
+      'payouts': 'Fast & insured withdrawals',
+      'leaderboard': 'Top performing traders',
+    },
+  }
+
+  if (niche === 'prop_trading') return propTradingContent
   return forexContent
 }
 
@@ -479,6 +625,18 @@ function getHeroConfig(slug: string, niche: string = 'forex_broker', n?: NicheCo
     if (['terms', 'privacy', 'risk-disclosure', 'risk-warning'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
     if (slug === 'contact') return { variant: 'tools', badge: 'Get In Touch', showMockup: false, visual: getToolsVisual('contact'), pills: ['24/7 Live Support', 'Live Chat', 'Email Support'] }
     if (slug === 'education') return { variant: 'tools', badge: 'Learn Crypto', showMockup: false, visual: getToolsVisual('education'), pills: ['Free Courses', 'Trading Guides', 'Video Tutorials'] }
+  }
+
+  // Prop trading niche
+  if (niche === 'prop_trading' && n) {
+    if (slug === 'home') return { variant: 'platform', badge: n.heroBadge, showMockup: true, pills: n.heroPills }
+    if (slug === 'challenges') return { variant: 'tools', badge: 'Trading Challenges', showMockup: false, visual: getToolsVisual('account-types'), pills: ['$10K to $200K', '90% Profit Split', 'Free Retakes'] }
+    if (slug === 'how-it-works') return { variant: 'tools', badge: 'How It Works', showMockup: false, visual: getToolsVisual('education'), pills: ['3 Simple Steps', 'No Time Limits', 'Get Funded Fast'] }
+    if (slug === 'payouts') return { variant: 'tools', badge: 'Payouts', showMockup: false, visual: getToolsVisual('pricing'), pills: ['Instant Payouts', "Lloyd's Insured", 'Crypto & Bank'] }
+    if (slug === 'pricing') return { variant: 'tools', badge: 'Challenge Plans', showMockup: false, visual: getToolsVisual('pricing'), pills: ['From $49', 'All Account Sizes', 'No Hidden Fees'] }
+    if (['about', 'regulation', 'partners'].includes(slug)) return { variant: 'corporate', badge: slug === 'about' ? 'About Us' : slug === 'regulation' ? 'Compliance' : 'Partners', showMockup: false }
+    if (['terms', 'privacy', 'risk-disclosure', 'risk-warning'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
+    if (slug === 'contact') return { variant: 'tools', badge: 'Get In Touch', showMockup: false, visual: getToolsVisual('contact'), pills: ['24/7 Support', 'Live Chat', 'Discord Community'] }
   }
 
   // Homepage — full platform mockup
@@ -666,7 +824,7 @@ function generateStylesheet(options: ExportOptions): string {
   const nicheColors: Record<string, { primary: string; primaryDark: string; accent: string }> = {
     forex_broker: { primary: '#0a2540', primaryDark: '#061b2e', accent: '#0066ff' },
     crypto_exchange: { primary: '#0c1222', primaryDark: '#070d18', accent: '#10b981' },
-    prop_trading: { primary: '#0c3547', primaryDark: '#082530', accent: '#0891b2' },
+    prop_trading: { primary: '#1a1a2e', primaryDark: '#12121f', accent: '#f97316' },
   }
   const c = nicheColors[options.niche] || nicheColors.forex_broker
 
@@ -1638,6 +1796,352 @@ h1,h2,h3,.section-title{letter-spacing:-.03em;font-weight:900}
 /* Reduced motion */
 @media(prefers-reduced-motion:reduce){.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.sp-item,.reg-item,.hero h1,.hero p,.hero-buttons,.hero-pills,.hero-badge,.hero-trustpilot,.hero-mockup,.hero-visual,.hero-visual *,.live-activity,.fund-protection{animation:none!important;opacity:1!important;transform:none!important}}
 ` : ''}
+${options.niche === 'prop_trading' ? `
+/* ═══ Prop Trading — Bright, Young, Animated ═══ */
+:root{--color-accent:#f97316;--color-accent-light:#fb923c;--color-accent-glow:rgba(249,115,22,.3);--color-accent-subtle:rgba(249,115,22,.06);--color-secondary:#8b5cf6;--color-secondary-glow:rgba(139,92,246,.25);--color-pink:#ec4899;--gradient-accent:linear-gradient(135deg,#f97316 0%,#f59e0b 50%,#fb923c 100%);--gradient-hero:linear-gradient(135deg,#fff7ed 0%,#fff 40%,#faf5ff 100%);--gradient-fun:linear-gradient(135deg,#f97316 0%,#ec4899 50%,#8b5cf6 100%);--gradient-card:linear-gradient(135deg,#fff 0%,#fffbeb 100%);--radius-fun:20px;--font-display:'Inter',-apple-system,sans-serif}
+
+/* ─── Global — bright, airy, friendly ─── */
+body{background:#fff!important;color:#1e1b4b}
+h1,h2,h3{font-weight:900;letter-spacing:-.03em;color:#1e1b4b}
+.section{background:#fff}
+.section-alt{background:linear-gradient(180deg,#fff7ed 0%,#fff 100%)!important}
+.section-title{font-size:2.2rem;position:relative;display:inline-block}
+.section-title::after{content:'';display:block;width:60px;height:4px;background:var(--gradient-fun);margin:14px auto 0;border-radius:99px}
+.section-subtitle{font-size:1rem;color:#64748b;max-width:560px}
+.section-inner{text-align:center}
+
+/* ─── Animations — lots of them! ─── */
+@keyframes revealUp{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+@keyframes revealDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes revealLeft{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:translateX(0)}}
+@keyframes revealRight{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:translateX(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.95)}100%{transform:scale(1)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(100px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes wiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(249,115,22,.2)}50%{box-shadow:0 0 40px rgba(249,115,22,.4)}}
+@keyframes slideInBounce{0%{opacity:0;transform:translateY(40px)}60%{transform:translateY(-8px)}80%{transform:translateY(4px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes countUp{from{opacity:0;transform:translateY(15px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes borderDance{0%{border-color:rgba(249,115,22,.15)}33%{border-color:rgba(139,92,246,.15)}66%{border-color:rgba(236,72,153,.15)}100%{border-color:rgba(249,115,22,.15)}}
+@keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes fadeInStagger{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.section{opacity:0;animation:slideInBounce .8s ease forwards}
+.section:nth-child(odd){animation-delay:.1s}
+.section:nth-child(even){animation-delay:.2s}
+.section-alt{animation-delay:.15s}
+
+/* ─── Hero — BRIGHT WHITE with colorful accents (opposite of both forex/crypto dark heroes) ─── */
+.hero{background:var(--gradient-hero)!important;position:relative;overflow:hidden;padding:80px 28px 70px!important}
+.hero::before{content:'';position:absolute;top:-200px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(249,115,22,.08) 0%,rgba(236,72,153,.04) 40%,transparent 70%);pointer-events:none;animation:float 8s ease-in-out infinite}
+.hero::after{content:'';position:absolute;bottom:-150px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(139,92,246,.06) 0%,transparent 60%);pointer-events:none;animation:float 10s ease-in-out infinite 3s}
+.hero h1{color:#1e1b4b!important;-webkit-text-fill-color:#1e1b4b!important;font-size:3.2rem!important;line-height:1.08!important;animation:revealLeft .8s ease .2s both}
+.hero h1 strong,.hero h1 em{background:var(--gradient-fun);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal}
+.hero p{color:#475569!important;animation:revealLeft .8s ease .4s both;font-size:1.05rem}
+.hero-buttons{animation:revealLeft .8s ease .6s both}
+.hero .btn-primary{background:var(--gradient-fun)!important;border:none!important;border-radius:50px!important;padding:16px 40px!important;font-size:.9rem!important;font-weight:800;box-shadow:0 8px 30px var(--color-accent-glow);animation:glow 3s ease-in-out infinite;color:#fff!important}
+.hero .btn-primary:hover{box-shadow:0 12px 40px rgba(249,115,22,.45);transform:translateY(-4px) scale(1.03)}
+.hero .btn-outline{border-color:#e2e8f0!important;color:#1e1b4b!important;border-radius:50px!important;padding:16px 40px!important;font-size:.9rem!important;font-weight:700;background:#fff!important;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.hero .btn-outline:hover{border-color:#f97316!important;color:#f97316!important;transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.hero-badge{background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(236,72,153,.06))!important;border:1px solid rgba(249,115,22,.15)!important;border-radius:50px!important;animation:bounceIn .8s ease .1s both;color:#f97316!important}
+.hero-badge .badge-dot{background:var(--gradient-fun);box-shadow:0 0 8px var(--color-accent-glow);animation:pulse 1.5s ease infinite}
+.hero-pill{background:#fff!important;border:1px solid #e2e8f0!important;color:#475569!important;border-radius:50px!important;font-size:.82rem!important;box-shadow:0 2px 8px rgba(0,0,0,.03);transition:all .3s}
+.hero-pill:hover{border-color:#f97316!important;color:#f97316!important;transform:translateY(-2px);box-shadow:0 4px 12px rgba(249,115,22,.1)}
+.hero-pills{animation:revealLeft .8s ease .5s both}
+.hero-micro span{color:#94a3b8!important}
+.hero-trust span{color:#64748b!important;border-color:#e2e8f0!important}
+.hero-trustpilot{animation:revealUp .6s ease .15s both}
+.hero-trustpilot .tp-stars{color:#f97316!important}
+.hero-trustpilot .tp-score{color:#1e1b4b!important;font-weight:800}
+.hero-trustpilot .tp-text{color:#64748b!important}
+
+/* ─── Hero visual — trader image with fun floating cards ─── */
+.hero-container{align-items:center!important}
+.hero-visual{animation:revealRight .8s ease .3s both!important}
+.hero-trader-img{position:relative;max-width:400px;margin:0 auto}
+.trader-photo{width:100%;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.1);border:3px solid #fff;object-fit:cover;max-height:460px}
+.hero-floating-card{position:absolute;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #f1f5f9;border-radius:16px;padding:12px 18px;box-shadow:0 8px 30px rgba(0,0,0,.08);z-index:2}
+.hero-floating-card.card-top{top:12%;right:-50px;animation:float 4s ease-in-out infinite}
+.hero-floating-card.card-bottom{bottom:18%;left:-50px;animation:float 4s ease-in-out infinite 2s}
+.hfc-icon{font-size:1.5rem}
+.hfc-label{font-size:.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.hfc-value{font-size:1rem;font-weight:800;color:#1e1b4b}
+.hfc-value.up{color:#10b981}
+
+/* ─── Mockup — light dashboard (for forex-style hero on prop_trading) ─── */
+.hero-mockup{background:#fff!important;border:1px solid #e2e8f0!important;box-shadow:0 20px 60px rgba(0,0,0,.08)!important;border-radius:20px!important;animation:revealRight .8s ease .3s both}
+.mockup-topbar{border-bottom-color:#f1f5f9!important}
+.mockup-topbar span{color:#f97316!important}
+.mockup-amount{color:#1e1b4b!important;font-weight:900}
+.mockup-change.up{background:rgba(16,185,129,.1)!important;color:#10b981!important;border-radius:50px}
+.mockup-sublabel{color:#94a3b8!important}
+.mockup-row{border-left:3px solid transparent;transition:all .2s}
+.mockup-row:hover{background:rgba(249,115,22,.04);border-left-color:#f97316}
+.mockup-row span:first-child{color:#1e1b4b!important;font-weight:600}
+.mockup-row .up{color:#10b981!important}
+.mockup-row .down{color:#ef4444!important}
+
+/* ─── Buttons — EXTRA ROUNDED, gradient, playful ─── */
+.btn-primary{border-radius:50px!important;font-weight:800;background:var(--gradient-fun)!important;color:#fff!important;box-shadow:0 4px 16px var(--color-accent-glow);transition:all .3s}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 24px var(--color-accent-glow)}
+.btn-outline{border-radius:50px!important;font-weight:700;border-color:#e2e8f0!important;color:#1e1b4b!important;background:#fff!important}
+.btn-outline:hover{border-color:#f97316!important;color:#f97316!important}
+.btn-primary:focus-visible,.btn-outline:focus-visible{outline:3px solid #f97316;outline-offset:3px}
+
+/* ─── Promo bar — fun gradient ─── */
+.promo-bar{background:var(--gradient-fun)!important;animation:gradientShift 6s ease infinite;background-size:200% 200%!important;font-weight:600}
+.promo-bar a{color:#fff!important;text-decoration:underline;font-weight:800}
+.promo-bar strong{color:#fff!important}
+
+/* ─── Social proof — colorful ─── */
+.social-proof-bar{background:#fff!important;border-bottom:1px solid #f1f5f9}
+.sp-item{animation:fadeInStagger .5s ease both}
+.sp-item:nth-child(1){animation-delay:.1s}.sp-item:nth-child(3){animation-delay:.2s}.sp-item:nth-child(5){animation-delay:.3s}.sp-item:nth-child(7){animation-delay:.4s}.sp-item:nth-child(9){animation-delay:.5s}
+.sp-item strong{color:#f97316!important;font-weight:800}
+
+/* ─── Ticker ─── */
+.market-ticker{background:#1e1b4b!important;border-bottom:none}
+.ticker-symbol{color:#fb923c!important;font-weight:700}
+.ticker-price{color:#e2e8f0}
+.ticker-change.up{color:#34d399!important;font-weight:700}
+.ticker-change.down{color:#f87171!important;font-weight:700}
+
+/* ─── Regulation ─── */
+.regulation-bar{background:linear-gradient(180deg,#1e1b4b,#12121f)!important}
+.reg-label{color:#e2e8f0}
+.reg-num{color:rgba(251,146,60,.5)}
+.reg-item{animation:fadeInStagger .5s ease both}
+.reg-item:nth-child(1){animation-delay:.05s}.reg-item:nth-child(3){animation-delay:.1s}.reg-item:nth-child(5){animation-delay:.15s}.reg-item:nth-child(7){animation-delay:.2s}.reg-item:nth-child(9){animation-delay:.25s}
+
+/* ─── Feature cards — WHITE with colorful LEFT BORDER + bounce animation ─── */
+.features-grid{grid-template-columns:repeat(3,1fr)!important;gap:20px!important}
+.feature-card{background:#fff!important;border:1px solid #f1f5f9!important;border-left:4px solid transparent!important;border-radius:var(--radius-fun)!important;box-shadow:0 4px 16px rgba(0,0,0,.04);transition:all .4s ease;animation:slideInBounce .6s ease both;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;right:0;width:100px;height:100px;background:radial-gradient(circle,var(--color-accent-subtle),transparent 70%);opacity:0;transition:opacity .3s}
+.feature-card:hover::before{opacity:1}
+.features-grid .feature-card:nth-child(1){border-left-color:#f97316!important;animation-delay:.1s}
+.features-grid .feature-card:nth-child(2){border-left-color:#8b5cf6!important;animation-delay:.2s}
+.features-grid .feature-card:nth-child(3){border-left-color:#ec4899!important;animation-delay:.3s}
+.features-grid .feature-card:nth-child(4){border-left-color:#10b981!important;animation-delay:.35s}
+.features-grid .feature-card:nth-child(5){border-left-color:#3b82f6!important;animation-delay:.4s}
+.features-grid .feature-card:nth-child(6){border-left-color:#f59e0b!important;animation-delay:.45s}
+.feature-card:hover{transform:translateY(-8px)!important;box-shadow:0 16px 48px rgba(0,0,0,.08)!important;border-left-width:4px!important}
+.feature-card-icon{font-size:2.2rem;width:64px;height:64px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff7ed,#faf5ff)!important;border-radius:16px!important;margin-bottom:18px;transition:all .3s;animation:iconBounce 3s ease-in-out infinite}
+.feature-card:nth-child(2) .feature-card-icon{animation-delay:.5s}
+.feature-card:nth-child(3) .feature-card-icon{animation-delay:1s}
+.feature-card:nth-child(4) .feature-card-icon{animation-delay:1.5s}
+.feature-card:hover .feature-card-icon{transform:scale(1.15) rotate(5deg);animation:wiggle .5s ease}
+.feature-card h3{color:#1e1b4b!important;font-weight:800}
+.feature-card p{color:#64748b}
+
+/* ─── Stats — HORIZONTAL colorful number cards (different from both forex bar and crypto grid) ─── */
+.stats-bar{display:flex!important;flex-wrap:wrap!important;gap:16px!important;justify-content:center}
+.stat-item{background:#fff!important;border:1px solid #f1f5f9!important;border-radius:var(--radius-fun)!important;padding:32px 28px!important;flex:1 1 200px;max-width:240px;box-shadow:0 4px 16px rgba(0,0,0,.04);transition:all .4s;animation:bounceIn .6s ease both;text-align:center}
+.stat-item:nth-child(1){animation-delay:.2s}.stat-item:nth-child(2){animation-delay:.35s}.stat-item:nth-child(3){animation-delay:.5s}.stat-item:nth-child(4){animation-delay:.65s}
+.stat-item:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 36px rgba(249,115,22,.1);border-color:rgba(249,115,22,.2)!important}
+.stat-divider{display:none!important}
+.stat-value{background:var(--gradient-fun)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;background-clip:text;font-weight:900;font-size:2.8rem}
+.stat-label{color:#64748b!important;text-transform:uppercase;font-size:.7rem;letter-spacing:.1em;font-weight:700;margin-top:6px}
+
+/* ─── Steps — colorful numbered circles ─── */
+.step-number{background:var(--gradient-fun)!important;box-shadow:0 6px 20px var(--color-accent-glow);font-weight:900;transition:all .3s}
+.step-item{animation:slideInBounce .6s ease both;border:1px solid #f1f5f9;border-radius:var(--radius-fun)!important;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.03);transition:all .4s}
+.step-item:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,0,0,.06);border-color:rgba(249,115,22,.15)}
+.step-item:nth-child(1){animation-delay:.15s}.step-item:nth-child(2){animation-delay:.3s}.step-item:nth-child(3){animation-delay:.45s}
+.step-item:hover .step-number{transform:scale(1.2) rotate(10deg)!important;box-shadow:0 8px 28px var(--color-accent-glow)}
+.step-connector{background:var(--gradient-fun)!important;opacity:.2;height:3px}
+
+/* ─── Data table — clean white ─── */
+.data-table{border:1px solid #f1f5f9;border-radius:var(--radius-fun)!important;overflow:hidden}
+.data-table th{background:linear-gradient(135deg,#1e1b4b,#312e81)!important;color:#fb923c!important;font-size:.78rem;letter-spacing:.06em}
+.data-table td{font-size:.88rem;transition:all .2s}
+.data-table td:nth-child(3){font-weight:700;color:#f97316}
+.data-table tbody tr{transition:all .2s;border-left:3px solid transparent}
+.data-table tbody tr:hover{background:rgba(249,115,22,.03);border-left-color:#f97316}
+
+/* ─── CTA section — gradient party! ─── */
+.cta-section{background:var(--gradient-fun)!important;animation:gradientShift 8s ease infinite;background-size:200% 200%!important;position:relative;padding:100px 28px!important;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.15),transparent 60%)}
+.cta-section::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(255,255,255,.1),transparent 60%)}
+.cta-section h2{color:#fff!important;-webkit-text-fill-color:#fff!important;animation:revealUp .6s ease both;position:relative;z-index:1}
+.cta-section h2::after{background:#fff!important;margin:14px auto 0}
+.cta-section p{color:rgba(255,255,255,.85)!important;position:relative;z-index:1}
+.cta-section .btn-primary{background:#fff!important;color:#f97316!important;box-shadow:0 8px 30px rgba(0,0,0,.15);position:relative;z-index:1;font-weight:900}
+.cta-section .btn-primary:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 12px 40px rgba(0,0,0,.2)}
+
+/* ─── Section padding ─── */
+.section{padding:72px 28px}
+
+/* ─── Awards — fun bouncy cards ─── */
+.awards-section{background:#fff!important;border-top:1px solid #f1f5f9;padding:56px 28px!important}
+.awards-label{color:#94a3b8!important;text-transform:uppercase;letter-spacing:.12em;font-size:.74rem;font-weight:700}
+.awards-title{color:#1e1b4b!important;font-size:1.5rem!important}
+.award-card{border:1px solid #f1f5f9!important;background:#fff!important;border-radius:16px!important;box-shadow:0 2px 8px rgba(0,0,0,.03);transition:all .4s;animation:bounceIn .5s ease both}
+.award-card:nth-child(1){animation-delay:.1s}.award-card:nth-child(2){animation-delay:.15s}.award-card:nth-child(3){animation-delay:.2s}.award-card:nth-child(4){animation-delay:.25s}.award-card:nth-child(5){animation-delay:.3s}.award-card:nth-child(6){animation-delay:.35s}
+.award-card:hover{transform:translateY(-6px) rotate(-1deg)!important;box-shadow:0 12px 36px rgba(249,115,22,.1)!important;border-color:rgba(249,115,22,.2)!important}
+.award-icon{font-size:2.4rem;animation:iconBounce 3s ease-in-out infinite}
+.award-name{color:#1e1b4b!important;font-weight:700}
+.award-source{color:#94a3b8!important}
+.award-year{color:#f97316!important;font-weight:800}
+
+/* ─── Performance bar — dark with orange numbers ─── */
+.perf-bar{background:linear-gradient(135deg,#1e1b4b,#312e81)!important}
+.perf-value{color:#fff;font-weight:900}
+.perf-unit{color:#fb923c!important}
+.perf-label{color:rgba(251,146,60,.5)}
+.perf-item{animation:countUp .5s ease both}
+.perf-item:nth-child(1){animation-delay:.1s}.perf-item:nth-child(2){animation-delay:.2s}.perf-item:nth-child(3){animation-delay:.3s}.perf-item:nth-child(4){animation-delay:.4s}.perf-item:nth-child(5){animation-delay:.5s}
+
+/* ─── Security — light cards with color ─── */
+.security-bar{background:linear-gradient(180deg,#1e1b4b,#12121f)!important}
+.security-badge{background:rgba(249,115,22,.05)!important;border:1px solid rgba(249,115,22,.1)!important;border-radius:16px!important;padding:22px 16px;transition:all .4s;animation:bounceIn .4s ease both}
+.security-badge:nth-child(1){animation-delay:.05s}.security-badge:nth-child(2){animation-delay:.1s}.security-badge:nth-child(3){animation-delay:.15s}.security-badge:nth-child(4){animation-delay:.2s}.security-badge:nth-child(5){animation-delay:.25s}.security-badge:nth-child(6){animation-delay:.3s}
+.security-badge:hover{border-color:rgba(249,115,22,.3)!important;background:rgba(249,115,22,.1)!important;transform:translateY(-4px)}
+.sb-icon{font-size:1.6rem}
+.sb-label{color:#e2e8f0;font-weight:700}
+.sb-sub{color:rgba(251,146,60,.4)}
+
+/* ─── Fund protection ─── */
+.fund-protection{border:1px solid rgba(249,115,22,.1)!important;border-left:4px solid #f97316!important;background:linear-gradient(135deg,rgba(249,115,22,.03),rgba(139,92,246,.02),transparent)!important;border-radius:var(--radius-fun)!important;animation:revealLeft .6s ease both}
+.fp-title{color:#1e1b4b;font-weight:800}
+.fp-amount{background:rgba(249,115,22,.04)!important;border:1px solid rgba(249,115,22,.1)!important;border-radius:12px!important;transition:all .2s}
+.fp-amount:hover{border-color:rgba(249,115,22,.3)!important;background:rgba(249,115,22,.08)!important;transform:translateX(4px)}
+.fp-amount strong{color:#f97316!important}
+
+/* ─── FAQ — playful ─── */
+.faq-q{color:#1e1b4b;font-weight:700}
+.faq-item.open .faq-q{color:#f97316!important}
+.faq-q::after{color:#f97316!important}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-item{animation:fadeInStagger .4s ease both;border-radius:16px!important;border-color:#f1f5f9!important}
+.faq-item:nth-child(1){animation-delay:.05s}.faq-item:nth-child(2){animation-delay:.1s}.faq-item:nth-child(3){animation-delay:.15s}.faq-item:nth-child(4){animation-delay:.2s}.faq-item:nth-child(5){animation-delay:.25s}.faq-item:nth-child(6){animation-delay:.3s}
+
+/* ─── Section CTAs ─── */
+.section-cta .btn-primary{background:var(--gradient-fun)!important;box-shadow:0 6px 20px var(--color-accent-glow);border-radius:50px!important;padding:14px 36px;transition:all .3s}
+.section-cta .btn-primary:hover{box-shadow:0 10px 32px rgba(249,115,22,.35);transform:translateY(-3px) scale(1.02)}
+
+/* ─── Testimonials — fun cards ─── */
+.testimonial-card{border:1px solid #f1f5f9!important;background:#fff!important;border-radius:var(--radius-fun)!important;box-shadow:0 4px 16px rgba(0,0,0,.03);transition:all .4s}
+.testimonial-card::before{color:rgba(249,115,22,.15)!important}
+.testimonial-card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(0,0,0,.06);border-color:rgba(249,115,22,.15)!important}
+
+/* ─── Pricing — white with gradient highlight ─── */
+.pricing-card{border:1px solid #f1f5f9!important;border-radius:var(--radius-fun)!important;background:#fff!important;box-shadow:0 4px 16px rgba(0,0,0,.03);transition:all .4s}
+.pricing-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(0,0,0,.08)}
+.pricing-card.highlighted{border-color:rgba(249,115,22,.25)!important;background:linear-gradient(180deg,#fff7ed,#fff)!important;box-shadow:0 8px 32px rgba(249,115,22,.1)}
+.pricing-card.highlighted::before{background:var(--gradient-fun)!important}
+
+/* ─── Footer — LIGHT (different from both forex/crypto dark footers) ─── */
+.footer{background:#fafafa!important;border-top:1px solid #f1f5f9;color:#475569!important}
+.footer h4{color:#1e1b4b!important;font-weight:800;font-size:.85rem!important}
+.footer a{color:#64748b!important}
+.footer a:hover{color:#f97316!important}
+.footer p{color:#94a3b8!important}
+.footer-col p{color:#94a3b8!important}
+.footer-social a{color:#94a3b8!important;transition:all .3s;width:36px;height:36px;border-radius:50%!important;border:1px solid #e2e8f0!important;display:inline-flex;align-items:center;justify-content:center}
+.footer-social a:hover{color:#f97316!important;border-color:#f97316!important;background:rgba(249,115,22,.04);transform:translateY(-3px) rotate(5deg)}
+.footer-licenses{border-color:#f1f5f9!important}
+.footer-licenses-title{color:#f97316!important;font-weight:700}
+.footer-license-item strong{color:#1e1b4b!important}
+.footer-license-item{color:#64748b!important}
+.footer-regulatory span{background:rgba(249,115,22,.04)!important;border:1px solid rgba(249,115,22,.1)!important;border-radius:50px!important;padding:6px 16px;font-size:.72rem;color:#f97316!important;transition:all .2s}
+.footer-regulatory span:hover{background:rgba(249,115,22,.1)!important;transform:translateY(-2px)}
+.footer-payments span{color:#94a3b8!important}
+.footer-risk{border-top-color:#f1f5f9!important;color:#94a3b8!important}
+.footer-bottom p{color:#94a3b8!important}
+.footer-bottom a{color:#94a3b8!important}
+.footer-bottom a:hover{color:#f97316!important}
+.footer-app-badge{border-color:#e2e8f0!important;border-radius:12px!important;background:#fff!important}
+.footer-app-badge:hover{border-color:#f97316!important}
+.footer-address span,.footer-address a{color:#94a3b8!important}
+
+/* ─── Navbar — white glass ─── */
+.navbar{background:#fff!important;border-bottom:1px solid #f1f5f9}
+.navbar.scrolled{background:rgba(255,255,255,.95)!important;backdrop-filter:blur(16px);box-shadow:0 2px 16px rgba(0,0,0,.06)}
+.navbar-brand{color:#1e1b4b!important;font-weight:900}
+.navbar-links a{color:#475569!important;font-weight:500;transition:all .2s}
+.navbar-links a:hover,.navbar-links a.active{color:#f97316!important}
+.navbar-cta{background:var(--gradient-fun)!important;border-radius:50px!important;font-weight:800;box-shadow:0 4px 16px var(--color-accent-glow);color:#fff!important;transition:all .3s!important}
+.navbar-cta:hover{box-shadow:0 6px 24px var(--color-accent-glow)!important;transform:translateY(-2px)}
+.navbar-login{color:#475569!important}
+
+/* ─── Announcement bar ─── */
+.announcement-bar{background:#fff7ed!important;border-bottom:1px solid rgba(249,115,22,.08);color:#92400e!important}
+.announcement-bar a{color:#f97316!important;font-weight:700}
+
+/* ─── Sticky CTA ─── */
+.sticky-cta .btn-primary{background:var(--gradient-fun)!important;border-radius:50px!important;box-shadow:0 6px 24px var(--color-accent-glow);animation:glow 3s ease-in-out infinite;color:#fff!important}
+
+/* ─── Live activity ─── */
+.live-activity{border:1px solid #f1f5f9!important;box-shadow:0 8px 30px rgba(0,0,0,.08);background:#fff!important;border-radius:16px!important;animation:slideInBounce .4s ease both}
+.la-dot{background:#f97316!important;box-shadow:0 0 10px var(--color-accent-glow);animation:pulse 1.5s ease infinite}
+.live-activity .la-text{color:#475569!important}
+.live-activity .la-text strong{color:#f97316!important}
+
+/* ─── Cookie ─── */
+.btn-accept{background:var(--gradient-fun)!important;border-radius:50px!important;color:#fff!important}
+.btn-decline{border-radius:50px!important}
+
+/* ─── Media bar ─── */
+.media-bar{background:#fff!important}
+.media-label{color:#94a3b8!important;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:700}
+.media-logo{color:#cbd5e1!important;transition:all .3s}
+.media-logo:hover{color:#f97316!important;transform:scale(1.05)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(min-width:1440px){
+.hero{padding:100px 40px 90px!important}
+.hero h1{font-size:3.6rem!important}
+.features-grid{gap:24px!important}
+.section{padding:88px 40px}
+}
+@media(min-width:1024px){
+.hero h1{font-size:3.2rem}
+.features-grid{grid-template-columns:repeat(3,1fr)!important;gap:20px!important}
+.stats-bar{flex-wrap:nowrap!important;gap:16px}
+.stat-item{max-width:none}
+.steps-grid{grid-template-columns:repeat(3,1fr);gap:28px}
+.section{padding:80px 28px}
+.cta-section{padding:100px 28px!important}
+.cta-section h2{font-size:2.2rem}
+.footer-grid{grid-template-columns:2fr 1fr 1fr 1fr 1fr!important}
+}
+@media(min-width:768px) and (max-width:1023px){
+.hero{padding:72px 24px 56px!important}
+.hero h1{font-size:2.4rem!important}
+.features-grid{grid-template-columns:repeat(2,1fr)!important}
+.stats-bar{flex-wrap:wrap!important}
+.stat-item{flex:1 1 45%}
+.footer-grid{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:767px){
+.hero{padding:56px 20px 48px!important}
+.hero h1{font-size:2rem!important;line-height:1.12!important}
+.hero-container{flex-direction:column!important;gap:24px}
+.hero-visual{width:100%!important}
+.hero-trader-img{max-width:260px}
+.trader-photo{max-height:320px;border-radius:18px}
+.hero-floating-card.card-top{right:-15px;top:10%;padding:8px 12px}
+.hero-floating-card.card-bottom{left:-15px;bottom:15%;padding:8px 12px}
+.hfc-icon{font-size:1.1rem}
+.hfc-label{font-size:.6rem}
+.hfc-value{font-size:.8rem}
+.features-grid{grid-template-columns:1fr!important;gap:12px!important}
+.feature-card{border-left-width:4px!important}
+.stats-bar{flex-direction:column!important;gap:12px!important}
+.stat-item{max-width:100%!important;flex:1 1 100%}
+.stat-value{font-size:2.2rem}
+.steps-grid{grid-template-columns:1fr;gap:12px}
+.cta-section{padding:56px 20px!important}
+.cta-section h2{font-size:1.5rem}
+.section-title{font-size:1.5rem}
+.footer-grid{grid-template-columns:1fr!important;gap:28px}
+}
+@media(prefers-reduced-motion:reduce){.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.sp-item,.reg-item,.hero h1,.hero p,.hero-buttons,.hero-pills,.hero-badge,.hero-trustpilot,.hero-mockup,.hero-visual,.hero-visual *,.live-activity,.fund-protection,.hero-floating-card,.feature-card-icon,.award-icon{animation:none!important;opacity:1!important;transform:none!important}}
+` : ''}
 `
 }
 
@@ -1927,6 +2431,18 @@ ${heroConfig.showMockup ? (options.niche === 'crypto_exchange' ? `      <div cla
             <div><div class="hfc-label">Portfolio</div><div class="hfc-value">$125,430</div></div>
           </div>
         </div>
+      </div>` : options.niche === 'prop_trading' ? `      <div class="hero-visual">
+        <div class="hero-trader-img">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=700&fit=crop&crop=face" alt="Young funded trader" class="trader-photo" loading="eager"/>
+          <div class="hero-floating-card card-top">
+            <span class="hfc-icon">🏆</span>
+            <div><div class="hfc-label">Challenge</div><div class="hfc-value up">Passed!</div></div>
+          </div>
+          <div class="hero-floating-card card-bottom">
+            <span class="hfc-icon">💰</span>
+            <div><div class="hfc-label">Funded</div><div class="hfc-value">$200,000</div></div>
+          </div>
+        </div>
       </div>` : `      <div class="hero-visual">
         <div class="hero-mockup">
           <div class="mockup-topbar">
@@ -2142,7 +2658,7 @@ ${n.liveActivityMsgs.map(m => `    {flag:'${m.flag}',text:'${m.text.replace(/'/g
   }
   setTimeout(showNext,4000+Math.random()*3000);
 })();
-${options.niche === 'crypto_exchange' ? `
+${(options.niche === 'crypto_exchange' || options.niche === 'prop_trading') ? `
 // Scroll-reveal: animate elements when they enter viewport
 (function(){
   var observed=document.querySelectorAll('.section,.feature-card,.award-card,.security-badge,.stat-item,.step-item,.faq-item,.perf-item,.fund-protection');
