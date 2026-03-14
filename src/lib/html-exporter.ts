@@ -689,6 +689,67 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--color-border);padding:10px 16px;text-align:center;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
 .sticky-cta .btn-primary{width:100%;padding:14px;font-size:.92rem;font-weight:700}
 
+/* ─── Regulation License Bar ─── */
+.regulation-bar{background:var(--color-bg-alt);border-bottom:1px solid var(--color-border);padding:14px 28px}
+.regulation-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:wrap}
+.reg-item{display:flex;align-items:center;gap:8px;font-size:.72rem;color:var(--color-text-secondary);font-weight:500}
+.reg-item .reg-icon{width:28px;height:28px;border-radius:50%;background:var(--color-bg);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--color-accent);flex-shrink:0}
+.reg-item .reg-label{font-weight:700;color:var(--color-text);font-size:.74rem}
+.reg-item .reg-num{color:var(--color-text-light);font-size:.68rem;font-variant-numeric:tabular-nums}
+.reg-divider{width:1px;height:20px;background:var(--color-border)}
+
+/* ─── Awards Section ─── */
+.awards-section{padding:56px 28px;background:var(--color-bg)}
+.awards-inner{max-width:var(--max-w);margin:0 auto;text-align:center}
+.awards-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--color-text-light);font-weight:600;margin-bottom:8px}
+.awards-title{font-size:1.5rem;font-weight:800;color:var(--color-text);margin-bottom:36px;font-family:var(--font-heading)}
+.awards-grid{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.award-card{background:var(--color-bg-alt);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:24px 20px;width:180px;text-align:center;transition:all var(--transition)}
+.award-card:hover{border-color:color-mix(in srgb,var(--color-accent) 30%,var(--color-border));box-shadow:var(--shadow-md)}
+.award-icon{font-size:2rem;margin-bottom:10px;display:block}
+.award-name{font-size:.78rem;font-weight:700;color:var(--color-text);margin-bottom:4px;line-height:1.35}
+.award-source{font-size:.68rem;color:var(--color-text-light);font-weight:500}
+.award-year{font-size:.65rem;color:var(--color-accent);font-weight:700;margin-top:4px}
+
+/* ─── Performance Metrics Bar ─── */
+.perf-bar{background:var(--color-bg-dark);padding:48px 28px;color:var(--color-text-inv)}
+.perf-inner{max-width:var(--max-w);margin:0 auto;display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.perf-item{flex:1;min-width:160px;text-align:center;padding:0 28px;border-right:1px solid rgba(255,255,255,.08)}
+.perf-item:last-child{border-right:none}
+.perf-value{font-size:2rem;font-weight:800;color:#fff;font-family:var(--font-heading);letter-spacing:-.02em;line-height:1.2}
+.perf-value .perf-unit{font-size:.9rem;font-weight:600;opacity:.7}
+.perf-label{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+
+/* ─── Security Badges ─── */
+.security-bar{padding:40px 28px;background:var(--color-bg)}
+.security-inner{max-width:var(--max-w);margin:0 auto;text-align:center}
+.security-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--color-text-light);font-weight:600;margin-bottom:20px}
+.security-badges{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.security-badge{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:100px}
+.security-badge .sb-icon{width:48px;height:48px;border-radius:50%;background:var(--color-bg-alt);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.security-badge .sb-label{font-size:.72rem;font-weight:600;color:var(--color-text);line-height:1.3}
+.security-badge .sb-sub{font-size:.65rem;color:var(--color-text-light)}
+
+/* ─── Fund Protection Box ─── */
+.fund-protection{background:color-mix(in srgb,var(--color-success) 4%,white);border:1px solid color-mix(in srgb,var(--color-success) 12%,white);border-radius:var(--radius-lg);padding:28px 32px;max-width:740px;margin:32px auto 0;display:flex;gap:16px;align-items:flex-start}
+.fund-protection .fp-icon{font-size:1.5rem;flex-shrink:0}
+.fund-protection .fp-content{flex:1}
+.fund-protection .fp-title{font-weight:700;font-size:.92rem;color:var(--color-text);margin-bottom:6px}
+.fund-protection .fp-text{font-size:.84rem;color:var(--color-text-secondary);line-height:1.7}
+.fund-protection .fp-amounts{display:flex;gap:20px;margin-top:12px;flex-wrap:wrap}
+.fund-protection .fp-amount{background:#fff;border:1px solid color-mix(in srgb,var(--color-success) 15%,white);border-radius:var(--radius);padding:8px 14px;font-size:.78rem}
+.fund-protection .fp-amount strong{color:var(--color-success);font-weight:700}
+
+/* ─── Enhanced Footer ─── */
+.footer-licenses{border-top:1px solid rgba(255,255,255,.08);padding:20px 0;margin-bottom:16px}
+.footer-licenses-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:12px;font-weight:600}
+.footer-licenses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.footer-license-item{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.5}
+.footer-license-item strong{color:rgba(255,255,255,.65);font-weight:600;display:block}
+.footer-address{border-top:1px solid rgba(255,255,255,.08);padding:16px 0;font-size:.76rem;color:rgba(255,255,255,.4);display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.footer-address a{color:rgba(255,255,255,.55)}
+.footer-address a:hover{color:rgba(255,255,255,.85)}
+
 /* ─── Animations ─── */
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -698,7 +759,7 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 
 /* ─── Responsive ─── */
 @media(max-width:1024px){.footer-grid{grid-template-columns:repeat(2,1fr)}.hero-container{gap:32px}.hero-mockup{width:320px}.market-cards{width:300px}.tv-laptop{width:280px}.tv-phone{width:100px}.tv-tier{width:100px;padding:12px 10px}.tv-spread-card{width:240px}.tv-edu-card{width:240px}.tv-contact-card{width:220px}.nav-dropdown-menu{left:0;transform:none}}
-@media(max-width:768px){.sticky-cta{display:block}.navbar-links{display:none}.navbar-actions{display:none}.navbar-toggle{display:block}.social-proof-inner{gap:16px}.sp-divider{display:none}.hero h1{font-size:2rem}.hero p{font-size:.95rem}.hero{padding:60px 20px 52px;text-align:left}.hero--tools{padding:56px 20px 44px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:32px}.hero-visual{width:100%;max-width:360px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:340px}.tools-visual{width:100%;display:flex;justify-content:center}.tv-laptop{width:100%;max-width:320px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.feature-card{padding:28px 24px}.pricing-card{padding:32px 24px}.stat-item{padding:16px 24px}.pricing-card.highlighted{transform:none}.footer{padding:48px 20px 20px}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
+@media(max-width:768px){.sticky-cta{display:block}.navbar-links{display:none}.navbar-actions{display:none}.navbar-toggle{display:block}.social-proof-inner{gap:16px}.sp-divider{display:none}.regulation-inner{gap:12px}.reg-divider{display:none}.awards-grid{gap:12px}.award-card{width:140px;padding:16px 12px}.perf-inner{flex-direction:column;gap:24px}.perf-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:20px}.perf-item:last-child{border-bottom:none;padding-bottom:0}.security-badges{gap:20px}.fund-protection{flex-direction:column}.footer-address{flex-direction:column;gap:8px}.hero h1{font-size:2rem}.hero p{font-size:.95rem}.hero{padding:60px 20px 52px;text-align:left}.hero--tools{padding:56px 20px 44px}.hero--legal{padding:36px 20px 28px}.hero-container{flex-direction:column;gap:32px}.hero-visual{width:100%;max-width:360px}.hero-mockup{width:100%}.market-cards{width:100%;max-width:340px}.tools-visual{width:100%;display:flex;justify-content:center}.tv-laptop{width:100%;max-width:320px}.section{padding:60px 20px}.section-title{font-size:1.65rem}.feature-card{padding:28px 24px}.pricing-card{padding:32px 24px}.stat-item{padding:16px 24px}.pricing-card.highlighted{transform:none}.footer{padding:48px 20px 20px}.footer-bottom{flex-direction:column;text-align:center}.two-col{grid-template-columns:1fr;gap:32px}.stats-bar{flex-direction:column;gap:0}.stats-bar .stat-divider{width:60%;height:1px;margin:0 auto}.step-connector{display:none}.steps-grid{gap:8px}.footer-grid{grid-template-columns:1fr 1fr}.footer-regulatory{gap:14px}.hero--corporate .hero-inner{text-align:left}.hero--corporate .hero-trust,.hero--corporate .hero-buttons{justify-content:flex-start}}
 @media(max-width:640px){.hero h1{font-size:2rem}.section{padding:52px 16px}.feature-card{padding:24px 20px}.pricing-card{padding:28px 20px}.testimonial-card{padding:24px 20px}.stat-item{padding:14px 16px}.step-item{padding:20px 16px}}
 @media(max-width:480px){.hero{padding:52px 16px 40px}.hero h1{font-size:1.8rem}.hero-visual{display:none}.hero-trust{flex-direction:column;gap:8px}.hero-buttons{flex-direction:column}.hero .btn-primary,.hero .btn-outline{width:100%;text-align:center}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}.icon-grid{grid-template-columns:repeat(2,1fr)}.testimonials-grid{grid-template-columns:1fr}.footer{padding:40px 16px 16px}.footer-grid{grid-template-columns:1fr;gap:28px}.section-title{font-size:1.45rem}.stat-value{font-size:2.2rem}.hero--tools .hero-inner{border-left-width:3px;padding-left:20px}}
 `
@@ -948,9 +1009,80 @@ ${heroConfig.variant !== 'legal' ? `  <div class="social-proof-bar">
       <span class="ticker-item"><span class="ticker-symbol">AAPL</span> <span class="ticker-price">189.42</span> <span class="ticker-change up">▲ +1.12%</span></span>
     </div>
   </div>
+
+  <div class="regulation-bar">
+    <div class="regulation-inner">
+      <div class="reg-item"><div class="reg-icon">🇬🇧</div><div><div class="reg-label">FCA (UK)</div><div class="reg-num">Ref. No. 595450</div></div></div>
+      <div class="reg-divider"></div>
+      <div class="reg-item"><div class="reg-icon">🇪🇺</div><div><div class="reg-label">CySEC (EU)</div><div class="reg-num">License No. 201/13</div></div></div>
+      <div class="reg-divider"></div>
+      <div class="reg-item"><div class="reg-icon">🇦🇪</div><div><div class="reg-label">DFSA (UAE)</div><div class="reg-num">Ref. No. F003484</div></div></div>
+      <div class="reg-divider"></div>
+      <div class="reg-item"><div class="reg-icon">🇦🇺</div><div><div class="reg-label">ASIC (AU)</div><div class="reg-num">License No. 443670</div></div></div>
+      <div class="reg-divider"></div>
+      <div class="reg-item"><div class="reg-icon">🛡️</div><div><div class="reg-label">Segregated Funds</div><div class="reg-num">Barclays &amp; Lloyds Bank</div></div></div>
+    </div>
+  </div>
 ` : ''}
 ${sectionBlocks}
 
+${heroConfig.variant !== 'legal' ? `
+  <div class="awards-section">
+    <div class="awards-inner">
+      <div class="awards-label">Industry Recognition</div>
+      <h3 class="awards-title">Award-Winning Trading Platform</h3>
+      <div class="awards-grid">
+        <div class="award-card"><span class="award-icon">🏆</span><div class="award-name">Best CFD Broker</div><div class="award-source">Global Forex Awards</div><div class="award-year">2024</div></div>
+        <div class="award-card"><span class="award-icon">⭐</span><div class="award-name">Best Trading Platform</div><div class="award-source">ForexBrokers.com</div><div class="award-year">2024</div></div>
+        <div class="award-card"><span class="award-icon">🥇</span><div class="award-name">Most Trusted Broker</div><div class="award-source">Finance Magnates</div><div class="award-year">2024</div></div>
+        <div class="award-card"><span class="award-icon">📱</span><div class="award-name">Best Mobile App</div><div class="award-source">Good Money Guide</div><div class="award-year">2024</div></div>
+        <div class="award-card"><span class="award-icon">🎓</span><div class="award-name">Best Education</div><div class="award-source">Investment Trends</div><div class="award-year">2024</div></div>
+        <div class="award-card"><span class="award-icon">💎</span><div class="award-name">Best Value Broker</div><div class="award-source">BrokerChooser</div><div class="award-year">2024</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="perf-bar">
+    <div class="perf-inner">
+      <div class="perf-item"><div class="perf-value">0.018<span class="perf-unit">s</span></div><div class="perf-label">Avg. Execution Speed</div></div>
+      <div class="perf-item"><div class="perf-value">99.9<span class="perf-unit">%</span></div><div class="perf-label">Platform Uptime</div></div>
+      <div class="perf-item"><div class="perf-value">99.3<span class="perf-unit">%</span></div><div class="perf-label">Order Fill Rate</div></div>
+      <div class="perf-item"><div class="perf-value">$2.4<span class="perf-unit">B+</span></div><div class="perf-label">Client Assets</div></div>
+      <div class="perf-item"><div class="perf-value">500<span class="perf-unit">K+</span></div><div class="perf-label">Daily Trades</div></div>
+    </div>
+  </div>
+
+  <div class="security-bar">
+    <div class="security-inner">
+      <div class="security-label">Your Security Is Our Priority</div>
+      <div class="security-badges">
+        <div class="security-badge"><div class="sb-icon">🔒</div><div class="sb-label">256-bit SSL</div><div class="sb-sub">Encryption</div></div>
+        <div class="security-badge"><div class="sb-icon">🏦</div><div class="sb-label">Segregated</div><div class="sb-sub">Client Funds</div></div>
+        <div class="security-badge"><div class="sb-icon">🛡️</div><div class="sb-label">Negative Balance</div><div class="sb-sub">Protection</div></div>
+        <div class="security-badge"><div class="sb-icon">📋</div><div class="sb-label">ISO 27001</div><div class="sb-sub">Certified</div></div>
+        <div class="security-badge"><div class="sb-icon">💳</div><div class="sb-label">PCI DSS</div><div class="sb-sub">Compliant</div></div>
+        <div class="security-badge"><div class="sb-icon">🔐</div><div class="sb-label">2FA</div><div class="sb-sub">Authentication</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-inner">
+      <div class="fund-protection">
+        <div class="fp-icon">🛡️</div>
+        <div class="fp-content">
+          <div class="fp-title">Client Fund Protection</div>
+          <div class="fp-text">All client funds are held in segregated accounts with tier-1 banks, completely separate from our operational funds. In the unlikely event of insolvency, your funds are protected by regulatory compensation schemes.</div>
+          <div class="fp-amounts">
+            <div class="fp-amount">🇬🇧 FSCS: up to <strong>&pound;85,000</strong></div>
+            <div class="fp-amount">🇪🇺 ICF: up to <strong>&euro;20,000</strong></div>
+            <div class="fp-amount">🇨🇭 esisuisse: up to <strong>CHF 100,000</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+` : ''}
 ${faqHtml}
 
   <footer class="footer">
@@ -972,21 +1104,36 @@ ${legalPages.length ? `        <div class="footer-col">\n          <h4>Legal</h4
           </ul>
         </div>
       </div>
+      <div class="footer-licenses">
+        <div class="footer-licenses-title">Regulatory Licenses</div>
+        <div class="footer-licenses-grid">
+          <div class="footer-license-item"><strong>FCA (United Kingdom)</strong>${escapeHtml(brandName)} UK Ltd is authorised and regulated by the Financial Conduct Authority. Ref. No. 595450</div>
+          <div class="footer-license-item"><strong>CySEC (European Union)</strong>${escapeHtml(brandName)} EU Ltd is licensed by the Cyprus Securities and Exchange Commission. License No. 201/13</div>
+          <div class="footer-license-item"><strong>DFSA (UAE)</strong>${escapeHtml(brandName)} MENA Ltd is authorised by the Dubai Financial Services Authority. Ref. No. F003484</div>
+          <div class="footer-license-item"><strong>ASIC (Australia)</strong>${escapeHtml(brandName)} AU Pty Ltd is regulated by the Australian Securities &amp; Investments Commission. License No. 443670</div>
+        </div>
+      </div>
       <div class="footer-regulatory">
-        <span>FCA Regulated (UK)</span>
-        <span>CySEC Licensed (EU)</span>
-        <span>DFSA Authorized (UAE)</span>
-        <span>256-bit SSL Encryption</span>
-        <span>Segregated Client Funds</span>
+        <span>🛡️ FCA Regulated (UK)</span>
+        <span>🇪🇺 CySEC Licensed (EU)</span>
+        <span>🇦🇪 DFSA Authorized (UAE)</span>
+        <span>🇦🇺 ASIC Licensed (AU)</span>
+        <span>🔒 256-bit SSL Encryption</span>
+        <span>🏦 Segregated Client Funds</span>
       </div>
       <div class="footer-payments">
-        <span>Visa</span><span>Mastercard</span><span>Wire Transfer</span><span>Skrill</span><span>Neteller</span>
+        <span>💳 Visa</span><span>💳 Mastercard</span><span>🏦 Wire Transfer</span><span>Skrill</span><span>Neteller</span><span>Apple Pay</span><span>Google Pay</span>
+      </div>
+      <div class="footer-address">
+        <span>📍 ${escapeHtml(brandName)} UK Ltd, 110 Bishopsgate, London EC2N 4AY, United Kingdom</span>
+        <a href="tel:+442012345678">📞 +44 20 1234 5678</a>
+        <a href="mailto:support@${escapeHtml(domain)}">📧 support@${escapeHtml(domain)}</a>
       </div>
       <div class="footer-bottom">
         <p>&copy; ${year} ${escapeHtml(brandName)}. All rights reserved.</p>
-        <p><a href="terms.html" style="color:inherit;opacity:.6">Terms</a> &middot; <a href="privacy.html" style="color:inherit;opacity:.6">Privacy</a> &middot; <a href="risk-disclosure.html" style="color:inherit;opacity:.6">Risk Disclosure</a></p>
+        <p><a href="terms.html" style="color:inherit;opacity:.6">Terms</a> &middot; <a href="privacy.html" style="color:inherit;opacity:.6">Privacy</a> &middot; <a href="risk-disclosure.html" style="color:inherit;opacity:.6">Risk Disclosure</a> &middot; <a href="about.html" style="color:inherit;opacity:.6">About Us</a></p>
       </div>
-      <p class="footer-risk">Risk Warning: Trading in Contracts for Difference (CFDs) carries a high level of risk and may not be suitable for all investors. You could lose more than your initial investment. Approximately 72% of retail investor accounts lose money when trading CFDs. Please ensure you fully understand the risks involved and seek independent advice if necessary. Past performance is not indicative of future results.</p>
+      <p class="footer-risk">Risk Warning: Trading in Contracts for Difference (CFDs) carries a high level of risk and may not be suitable for all investors. You could lose more than your initial investment. <strong>Approximately 72% of retail investor accounts lose money when trading CFDs with this provider.</strong> You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money. Please ensure you fully understand the risks involved and seek independent advice if necessary. Past performance is not indicative of future results. ${escapeHtml(brandName)} is a registered trading name. Company registration no. 12345678.</p>
     </div>
   </footer>
 ${heroConfig.variant !== 'legal' ? `  <div class="sticky-cta">
