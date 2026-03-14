@@ -71,6 +71,391 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;')
 }
 
+// ─── Niche-specific content ──────────────────────────────
+
+interface NicheContent {
+  heroHeading: string
+  heroBadge: string
+  heroPills: string[]
+  heroMicro: string[]
+  heroTrust: string[]
+  heroCTAPrimary: string
+  heroCTASecondary: string
+  trustpilotScore: string
+  trustpilotReviews: string
+  navSlugs: string[]
+  navCTA: string
+  loginLabel: string
+  mobileCTA: string
+  promoHTML: string
+  announcementHTML: string
+  socialProof: Array<{icon: string; bold: string; text: string}>
+  tickerItems: Array<{symbol: string; price: string; change: string; up: boolean}>
+  regulationItems: Array<{icon: string; label: string; num: string}>
+  mediaLogos: string[]
+  awards: Array<{icon: string; name: string; source: string; year: string}>
+  perfMetrics: Array<{value: string; unit: string; label: string}>
+  securityBadges: Array<{icon: string; label: string; sub: string}>
+  fundProtection: {icon: string; title: string; text: string; amounts: Array<{flag: string; label: string}>}
+  footerDesc: string
+  footerLicenses: Array<{title: string; text: string}>
+  footerRegulatory: string[]
+  footerPayments: string[]
+  footerAddress: string
+  footerPhone: string
+  footerRisk: string
+  liveActivityMsgs: Array<{flag: string; text: string}>
+  stickyCTA: string
+  faqCTA: string
+  mockupRows: Array<{symbol: string; price: string; change: string; up: boolean}>
+  mockupLabel: string
+  getPageCTAVerb: (slug: string) => string
+  getFaqData: () => Record<string, Array<{q: string; a: string}>>
+  marketDropdownIcons: Record<string, string>
+  marketDropdownDescs: Record<string, string>
+}
+
+function getNicheContent(niche: string): NicheContent {
+  const forexContent: NicheContent = {
+    heroHeading: 'Join 35M+ Traders — Spreads from 0.0 Pips',
+    heroBadge: 'Established &amp; Regulated since 2018',
+    heroPills: ['Free Demo Account', 'No Platform Fees', '0.0 Pip Spreads', 'Ultra-Fast Execution'],
+    heroMicro: ['✓ No credit card required', '✓ $100K free demo', '✓ Instant access'],
+    heroTrust: ['FCA Regulated', 'Segregated Funds', '200+ Instruments', '24/5 Support'],
+    heroCTAPrimary: 'Open Free Account — 2 Minutes',
+    heroCTASecondary: 'Try $100K Demo',
+    trustpilotScore: '4.5/5',
+    trustpilotReviews: '12,400+ Reviews on Trustpilot',
+    navSlugs: ['home', 'about', 'platforms', 'account-types', 'pricing', 'education', 'contact'],
+    navCTA: 'Start Trading',
+    loginLabel: 'Log In',
+    mobileCTA: 'Open Free Account',
+    promoHTML: '🎁 <strong>Limited Offer:</strong> Open an account today &amp; get $100,000 Demo Credits + 0% Commission for 30 Days <a href="#">Claim Now &rarr;</a>',
+    announcementHTML: 'CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. <strong>72% of retail investor accounts lose money when trading CFDs with this provider.</strong> You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.',
+    socialProof: [
+      {icon: '⭐', bold: '4.5/5', text: 'Trustpilot'},
+      {icon: '👥', bold: '35M+', text: 'Active Users'},
+      {icon: '🛡️', bold: 'FCA', text: 'Regulated'},
+      {icon: '🏆', bold: 'Best Broker', text: '2024'},
+      {icon: '📰', bold: 'Bloomberg', text: ', Reuters'},
+    ],
+    tickerItems: [
+      {symbol: 'EUR/USD', price: '1.0842', change: '+0.15%', up: true},
+      {symbol: 'BTC/USD', price: '67,240', change: '+2.34%', up: true},
+      {symbol: 'Gold', price: '2,342.50', change: '+0.42%', up: true},
+      {symbol: 'S&amp;P 500', price: '5,234.18', change: '+0.52%', up: true},
+      {symbol: 'GBP/USD', price: '1.2731', change: '-0.08%', up: false},
+      {symbol: 'AAPL', price: '189.42', change: '+1.12%', up: true},
+    ],
+    regulationItems: [
+      {icon: '🇬🇧', label: 'FCA (UK)', num: 'Ref. No. 595450'},
+      {icon: '🇪🇺', label: 'CySEC (EU)', num: 'License No. 201/13'},
+      {icon: '🇦🇪', label: 'DFSA (UAE)', num: 'Ref. No. F003484'},
+      {icon: '🇦🇺', label: 'ASIC (AU)', num: 'License No. 443670'},
+      {icon: '🛡️', label: 'Segregated Funds', num: 'Barclays &amp; Lloyds Bank'},
+    ],
+    mediaLogos: ['Bloomberg', 'Reuters', 'Financial Times', 'Forbes', 'CNBC', 'The Wall Street Journal'],
+    awards: [
+      {icon: '🏆', name: 'Best CFD Broker', source: 'Global Forex Awards', year: '2024'},
+      {icon: '⭐', name: 'Best Trading Platform', source: 'ForexBrokers.com', year: '2024'},
+      {icon: '🥇', name: 'Most Trusted Broker', source: 'Finance Magnates', year: '2024'},
+      {icon: '📱', name: 'Best Mobile App', source: 'Good Money Guide', year: '2024'},
+      {icon: '🎓', name: 'Best Education', source: 'Investment Trends', year: '2024'},
+      {icon: '💎', name: 'Best Value Broker', source: 'BrokerChooser', year: '2024'},
+    ],
+    perfMetrics: [
+      {value: '0.018', unit: 's', label: 'Avg. Execution Speed'},
+      {value: '99.9', unit: '%', label: 'Platform Uptime'},
+      {value: '99.3', unit: '%', label: 'Order Fill Rate'},
+      {value: '$2.4', unit: 'B+', label: 'Client Assets'},
+      {value: '500', unit: 'K+', label: 'Daily Trades'},
+    ],
+    securityBadges: [
+      {icon: '🔒', label: '256-bit SSL', sub: 'Encryption'},
+      {icon: '🏦', label: 'Segregated', sub: 'Client Funds'},
+      {icon: '🛡️', label: 'Negative Balance', sub: 'Protection'},
+      {icon: '📋', label: 'ISO 27001', sub: 'Certified'},
+      {icon: '💳', label: 'PCI DSS', sub: 'Compliant'},
+      {icon: '🔐', label: '2FA', sub: 'Authentication'},
+    ],
+    fundProtection: {
+      icon: '🛡️',
+      title: 'Client Fund Protection',
+      text: 'All client funds are held in segregated accounts with tier-1 banks, completely separate from our operational funds. In the unlikely event of insolvency, your funds are protected by regulatory compensation schemes.',
+      amounts: [
+        {flag: '🇬🇧', label: 'FSCS: up to <strong>&pound;85,000</strong>'},
+        {flag: '🇪🇺', label: 'ICF: up to <strong>&euro;20,000</strong>'},
+        {flag: '🇨🇭', label: 'esisuisse: up to <strong>CHF 100,000</strong>'},
+      ],
+    },
+    footerDesc: 'Your trusted partner for online trading. Access global markets with institutional-grade technology, tight spreads, and award-winning service.',
+    footerLicenses: [
+      {title: 'FCA (United Kingdom)', text: ' UK Ltd is authorised and regulated by the Financial Conduct Authority. Ref. No. 595450'},
+      {title: 'CySEC (European Union)', text: ' EU Ltd is licensed by the Cyprus Securities and Exchange Commission. License No. 201/13'},
+      {title: 'DFSA (UAE)', text: ' MENA Ltd is authorised by the Dubai Financial Services Authority. Ref. No. F003484'},
+      {title: 'ASIC (Australia)', text: ' AU Pty Ltd is regulated by the Australian Securities &amp; Investments Commission. License No. 443670'},
+    ],
+    footerRegulatory: [
+      '🛡️ FCA Regulated (UK)',
+      '🇪🇺 CySEC Licensed (EU)',
+      '🇦🇪 DFSA Authorized (UAE)',
+      '🇦🇺 ASIC Licensed (AU)',
+      '🔒 256-bit SSL Encryption',
+      '🏦 Segregated Client Funds',
+    ],
+    footerPayments: ['💳 Visa', '💳 Mastercard', '🏦 Wire Transfer', 'Skrill', 'Neteller', 'Apple Pay', 'Google Pay'],
+    footerAddress: '110 Bishopsgate, London EC2N 4AY, United Kingdom',
+    footerPhone: '+44 20 1234 5678',
+    footerRisk: 'Risk Warning: Trading in Contracts for Difference (CFDs) carries a high level of risk and may not be suitable for all investors. You could lose more than your initial investment. <strong>Approximately 72% of retail investor accounts lose money when trading CFDs with this provider.</strong> You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money. Please ensure you fully understand the risks involved and seek independent advice if necessary. Past performance is not indicative of future results.',
+    liveActivityMsgs: [
+      {flag: '🇬🇧', text: 'A trader in <strong>London</strong> just opened an account'},
+      {flag: '🇩🇪', text: '<strong>148 traders</strong> are viewing this page right now'},
+      {flag: '🇦🇺', text: 'A trader in <strong>Sydney</strong> deposited $5,000'},
+      {flag: '🇺🇸', text: '<strong>2,847 trades</strong> executed in the last hour'},
+      {flag: '🇯🇵', text: 'A trader in <strong>Tokyo</strong> just opened an account'},
+      {flag: '🇫🇷', text: '<strong>New:</strong> EUR/USD spread at 0.1 pips right now'},
+      {flag: '🇸🇬', text: 'A trader in <strong>Singapore</strong> upgraded to VIP'},
+    ],
+    stickyCTA: 'Open Free Account — Start Trading',
+    faqCTA: 'Open Free Account',
+    mockupRows: [
+      {symbol: 'EUR/USD', price: '1.0842', change: '+0.15%', up: true},
+      {symbol: 'GBP/USD', price: '1.2731', change: '-0.08%', up: false},
+      {symbol: 'BTC/USD', price: '67,240', change: '+2.34%', up: true},
+      {symbol: 'AAPL', price: '189.42', change: '+1.12%', up: true},
+    ],
+    mockupLabel: 'Trading Platform',
+    getPageCTAVerb: (slug: string) => {
+      const map: Record<string, string> = {
+        'home': 'Join 35M+ Traders Today',
+        'platforms': 'Download Platform &amp; Start Trading',
+        'account-types': 'Choose Your Account &amp; Start',
+        'pricing': 'Open Account — No Hidden Fees',
+        'education': 'Start Learning for Free',
+        'contact': 'Open Free Account Instead',
+      }
+      if (slug.startsWith('markets/')) return 'Trade This Market Now'
+      return map[slug] || 'Open Free Account'
+    },
+    getFaqData: () => ({
+      home: [
+        { q: 'How long does account verification take?', a: 'Most accounts are verified within 24 hours. You&rsquo;ll need to provide a valid ID and proof of address. In many cases, verification is completed in under 1 hour during business hours.' },
+        { q: 'What is the minimum deposit?', a: 'The minimum deposit for a Standard account is $100. You can fund your account using credit/debit card, bank wire, or e-wallets like Skrill and Neteller with no deposit fees.' },
+        { q: 'Can I withdraw my funds at any time?', a: 'Yes, you can withdraw your funds at any time with no lock-in period. Withdrawal requests are typically processed within 1&ndash;2 business days depending on the payment method.' },
+        { q: 'Is my money protected?', a: 'Absolutely. All client funds are held in segregated accounts with tier-1 banks, separate from company funds. We are regulated by the FCA, CySEC, and DFSA, ensuring the highest level of fund protection.' },
+        { q: 'What platforms do you support?', a: 'We offer MetaTrader 4, MetaTrader 5, and our proprietary WebTrader platform. All are available on desktop, web, iOS, and Android &mdash; trade anywhere, anytime.' },
+        { q: 'Do I need experience to start trading?', a: 'No prior experience is needed. We offer a free $100,000 demo account, educational resources, and 24/5 support to help you learn at your own pace before trading with real money.' },
+      ],
+      platforms: [
+        { q: 'Which trading platform is best for beginners?', a: 'Our WebTrader platform is ideal for beginners &mdash; it runs in your browser with no download required and features an intuitive interface. For more advanced features, MetaTrader 4 is the industry standard.' },
+        { q: 'Can I use multiple platforms with one account?', a: 'Yes. Your single trading account works across all our platforms &mdash; MT4, MT5, WebTrader, and our mobile apps. Switch between them seamlessly.' },
+        { q: 'Is there a mobile trading app?', a: 'Yes, our mobile apps for iOS and Android give you full trading functionality on the go, including charts, indicators, one-tap trading, and real-time push notifications.' },
+        { q: 'Do you offer API access for automated trading?', a: 'Yes. We provide FIX API access for algorithmic traders and institutional clients. MT4/MT5 also support Expert Advisors (EAs) for automated strategies.' },
+      ],
+      'account-types': [
+        { q: 'Which account type should I choose?', a: 'If you&rsquo;re starting out, our Standard account with a $100 minimum deposit is perfect. Active traders benefit from our Professional account with tighter spreads, while high-volume traders should consider VIP for the best conditions.' },
+        { q: 'Can I upgrade my account later?', a: 'Yes. You can upgrade your account type at any time as your trading volume grows. Simply contact your account manager or request an upgrade through your dashboard.' },
+        { q: 'What&rsquo;s the difference between Standard and Professional accounts?', a: 'Professional accounts offer tighter spreads (from 0.0 pips vs 1.2), priority support, and higher leverage. They require a $1,000 minimum deposit and are suited for experienced traders.' },
+        { q: 'Do you offer Islamic (swap-free) accounts?', a: 'Yes. We offer swap-free Islamic accounts compliant with Sharia law, available across all account types. No overnight interest is charged on positions held past market close.' },
+      ],
+      pricing: [
+        { q: 'Are there any hidden fees?', a: 'No. We believe in full transparency. You&rsquo;ll see the exact spread before you trade, and our fee schedule is published on this page. There are no deposit fees, no inactivity fees for the first 12 months, and no platform fees.' },
+        { q: 'How are spreads calculated?', a: 'Our spreads are variable and sourced from 15+ tier-1 liquidity providers. We aggregate the best bid/ask prices to deliver the tightest possible spreads, often as low as 0.0 pips on major pairs.' },
+        { q: 'Do you charge commission?', a: 'It depends on your account type. Standard accounts have zero commission with spreads from 1.2 pips. Professional and VIP accounts offer raw spreads from 0.0 pips with a small commission per lot.' },
+        { q: 'What are swap/overnight fees?', a: 'Swap fees are applied when positions are held overnight and reflect the interest rate differential between the two currencies in a pair. Swap rates are updated daily and displayed in your platform.' },
+      ],
+      education: [
+        { q: 'Is the education content free?', a: 'Yes, all our educational resources are completely free for registered users. This includes video courses, webinars, eBooks, and daily market analysis.' },
+        { q: 'Do you offer live webinars?', a: 'Yes. We host weekly live webinars with professional analysts covering market outlook, trading strategies, and platform tutorials. Recordings are available for on-demand viewing.' },
+        { q: 'Is the content suitable for complete beginners?', a: 'Absolutely. Our courses are structured from beginner to advanced level. Start with &ldquo;Trading Fundamentals&rdquo; and progress at your own pace through intermediate and advanced modules.' },
+        { q: 'Do I get a certificate after completing courses?', a: 'Yes. Upon completing each course module, you receive a digital certificate of completion that you can add to your LinkedIn profile or professional portfolio.' },
+      ],
+      contact: [
+        { q: 'What are your support hours?', a: 'Our support team is available 24 hours a day, 5 days a week (Monday to Friday). We offer support via live chat, email, and phone in 12 languages.' },
+        { q: 'How quickly will I get a response?', a: 'Live chat responses are typically instant during business hours. Email inquiries are answered within 4 hours. Phone support connects you to an agent in under 60 seconds on average.' },
+        { q: 'Do you offer a dedicated account manager?', a: 'Yes. Professional and VIP account holders receive a dedicated account manager for personalized support, trading insights, and priority assistance.' },
+        { q: 'Can I request a callback?', a: 'Yes. Fill out the callback form on our contact page and one of our specialists will call you back at your preferred time, typically within 30 minutes during business hours.' },
+      ],
+    }),
+    marketDropdownIcons: { 'markets/forex': '💱', 'markets/crypto': '₿', 'markets/commodities': '🥇', 'markets/indices': '📊' },
+    marketDropdownDescs: { 'markets/forex': '70+ currency pairs', 'markets/crypto': '30+ cryptocurrencies', 'markets/commodities': 'Gold, Oil &amp; Silver', 'markets/indices': '15+ global indices' },
+  }
+
+  if (niche === 'crypto_exchange') {
+    return {
+      heroHeading: 'Trade 600+ Crypto Assets — Spot, Futures &amp; Earn',
+      heroBadge: 'The Most Trusted Crypto Exchange',
+      heroPills: ['600+ Tokens', 'Spot &amp; Futures', 'Earn up to 12% APY', 'Instant Deposits'],
+      heroMicro: ['✓ No minimum deposit', '✓ Bank-grade security', '✓ 24/7 trading'],
+      heroTrust: ['SOC 2 Certified', '98% Cold Storage', '600+ Assets', '24/7 Support'],
+      heroCTAPrimary: 'Create Free Account — 30 Seconds',
+      heroCTASecondary: 'Explore Markets',
+      trustpilotScore: '4.7/5',
+      trustpilotReviews: '18,200+ Reviews on App Store',
+      navSlugs: ['home', 'about', 'spot-trading', 'futures', 'staking', 'fees', 'contact'],
+      navCTA: 'Get Started',
+      loginLabel: 'Sign In',
+      mobileCTA: 'Create Free Account',
+      promoHTML: '🔥 <strong>New Listing:</strong> Trade $SOL, $AVAX &amp; $ARB with 0% maker fees for 7 days <a href="#">Start Trading &rarr;</a>',
+      announcementHTML: 'Cryptocurrency trading involves significant risk. Prices can fluctuate widely in short periods. You should not invest more than you can afford to lose. Please read our <a href="risk-warning.html">Risk Warning</a> before trading.',
+      socialProof: [
+        {icon: '⭐', bold: '4.7/5', text: 'App Store'},
+        {icon: '👥', bold: '10M+', text: 'Verified Users'},
+        {icon: '🔒', bold: 'SOC 2', text: 'Certified'},
+        {icon: '🏆', bold: 'Best Exchange', text: '2024'},
+        {icon: '📰', bold: 'CoinDesk', text: ', The Block'},
+      ],
+      tickerItems: [
+        {symbol: 'BTC/USDT', price: '68,420', change: '+2.84%', up: true},
+        {symbol: 'ETH/USDT', price: '3,580', change: '+1.92%', up: true},
+        {symbol: 'SOL/USDT', price: '152.40', change: '+4.15%', up: true},
+        {symbol: 'BNB/USDT', price: '612.30', change: '-0.45%', up: false},
+        {symbol: 'XRP/USDT', price: '0.6284', change: '+1.12%', up: true},
+        {symbol: 'DOGE/USDT', price: '0.1542', change: '+8.34%', up: true},
+      ],
+      regulationItems: [
+        {icon: '🇺🇸', label: 'FinCEN (US)', num: 'MSB Reg. No. 31000184930425'},
+        {icon: '🇪🇺', label: 'VASP (EU)', num: 'MiCA Compliant'},
+        {icon: '🇦🇺', label: 'AUSTRAC (AU)', num: 'DCE Reg. 100723058'},
+        {icon: '🇸🇬', label: 'MAS (SG)', num: 'License Pending'},
+        {icon: '🔐', label: 'Proof of Reserves', num: 'Verified by Armanino LLP'},
+      ],
+      mediaLogos: ['CoinDesk', 'The Block', 'CoinTelegraph', 'TechCrunch', 'Bloomberg', 'Forbes'],
+      awards: [
+        {icon: '🏆', name: 'Best Crypto Exchange', source: 'CoinDesk Awards', year: '2024'},
+        {icon: '⭐', name: 'Best Trading App', source: 'App Store', year: '2024'},
+        {icon: '🥇', name: 'Most Secure Exchange', source: 'CER.live', year: '2024'},
+        {icon: '📱', name: 'Best Mobile Experience', source: 'The Block', year: '2024'},
+        {icon: '💎', name: 'Best Staking Platform', source: 'DeFi Awards', year: '2024'},
+        {icon: '🔒', name: 'Top Security Rating', source: 'CoinGecko Trust', year: '2024'},
+      ],
+      perfMetrics: [
+        {value: '<0.01', unit: 's', label: 'Matching Engine'},
+        {value: '99.99', unit: '%', label: 'Platform Uptime'},
+        {value: '$12', unit: 'B+', label: '24h Trading Volume'},
+        {value: '600', unit: '+', label: 'Trading Pairs'},
+        {value: '10', unit: 'M+', label: 'Verified Users'},
+      ],
+      securityBadges: [
+        {icon: '🧊', label: '98% Cold', sub: 'Storage'},
+        {icon: '🔒', label: 'SOC 2 Type II', sub: 'Certified'},
+        {icon: '🐛', label: 'Bug Bounty', sub: 'Program'},
+        {icon: '🔐', label: '2FA + Biometric', sub: 'Auth'},
+        {icon: '🛡️', label: '$250M Insurance', sub: 'Fund'},
+        {icon: '📊', label: 'Proof of', sub: 'Reserves'},
+      ],
+      fundProtection: {
+        icon: '🛡️',
+        title: 'Asset Protection',
+        text: 'We store 98% of all digital assets in air-gapped cold storage with multi-signature authorization. Our $250M insurance fund covers potential losses from security breaches. All reserves are independently verified through Proof of Reserves.',
+        amounts: [
+          {flag: '🧊', label: '98% of assets in <strong>Cold Storage</strong>'},
+          {flag: '🛡️', label: '<strong>$250M</strong> Insurance Fund'},
+          {flag: '📊', label: '1:1 <strong>Proof of Reserves</strong> — verified monthly'},
+        ],
+      },
+      footerDesc: 'The world\'s most trusted cryptocurrency exchange. Trade 600+ digital assets with institutional-grade security, ultra-low fees, and 24/7 support.',
+      footerLicenses: [
+        {title: 'FinCEN (United States)', text: ' registered as a Money Services Business. MSB Reg. No. 31000184930425'},
+        {title: 'VASP (European Union)', text: ' licensed as a Virtual Asset Service Provider under MiCA regulation.'},
+        {title: 'AUSTRAC (Australia)', text: ' registered as a Digital Currency Exchange. DCE Reg. 100723058'},
+        {title: 'MAS (Singapore)', text: ' licensed under the Payment Services Act for Digital Payment Token services.'},
+      ],
+      footerRegulatory: [
+        '🇺🇸 FinCEN Registered (US)',
+        '🇪🇺 MiCA Compliant (EU)',
+        '🇦🇺 AUSTRAC Licensed (AU)',
+        '🇸🇬 MAS Licensed (SG)',
+        '🔐 Proof of Reserves',
+        '🧊 98% Cold Storage',
+      ],
+      footerPayments: ['₿ Bitcoin', 'Ξ Ethereum', '🏦 Wire Transfer', '💳 Visa', '💳 Mastercard', 'Apple Pay', 'Google Pay'],
+      footerAddress: 'CryptoVault Global Ltd, One Raffles Quay, #22-01, Singapore 048583',
+      footerPhone: '+65 6123 4567',
+      footerRisk: 'Risk Warning: Cryptocurrency trading involves substantial risk of loss and is not suitable for every investor. The value of cryptocurrencies can fluctuate widely and you may lose more than your initial investment. Past performance is not indicative of future results. Please ensure you fully understand the risks involved before trading.',
+      liveActivityMsgs: [
+        {flag: '🇺🇸', text: 'A user in <strong>New York</strong> just bought 0.5 BTC'},
+        {flag: '🇰🇷', text: '<strong>2,847 trades</strong> executed in the last minute'},
+        {flag: '🇯🇵', text: 'A user in <strong>Tokyo</strong> started earning 6.2% APY on ETH'},
+        {flag: '🇬🇧', text: '<strong>$4.2M</strong> in withdrawals processed in the last hour'},
+        {flag: '🇸🇬', text: 'A user in <strong>Singapore</strong> just listed a limit order for SOL'},
+        {flag: '🇩🇪', text: '<strong>New listing:</strong> $ARB now available for spot trading'},
+        {flag: '🇦🇺', text: 'A user in <strong>Sydney</strong> just completed KYC verification'},
+      ],
+      stickyCTA: 'Create Free Account — Start Trading Crypto',
+      faqCTA: 'Create Free Account',
+      mockupRows: [
+        {symbol: 'BTC/USDT', price: '68,420', change: '+2.84%', up: true},
+        {symbol: 'ETH/USDT', price: '3,580.42', change: '+1.92%', up: true},
+        {symbol: 'SOL/USDT', price: '152.40', change: '+4.15%', up: true},
+        {symbol: 'DOGE/USDT', price: '0.1542', change: '+8.34%', up: true},
+      ],
+      mockupLabel: 'Exchange',
+      getPageCTAVerb: (slug: string) => {
+        const map: Record<string, string> = {
+          'home': 'Join 10M+ Crypto Traders',
+          'spot-trading': 'Start Spot Trading Now',
+          'futures': 'Trade Futures with Up to 125x Leverage',
+          'staking': 'Start Earning Crypto Today',
+          'fees': 'Create Account — Lowest Fees',
+          'education': 'Start Learning for Free',
+          'contact': 'Create Free Account Instead',
+          'tokens': 'Explore All 600+ Tokens',
+          'wallet': 'Secure Your Assets Now',
+          'api': 'Get API Access — Free',
+        }
+        if (slug.startsWith('markets')) return 'Trade This Market Now'
+        return map[slug] || 'Create Free Account'
+      },
+      getFaqData: () => ({
+        home: [
+          { q: 'How do I create an account?', a: 'Creating an account takes less than 30 seconds. Simply enter your email, create a password, and verify your identity. Basic accounts allow instant trading with limits, while full KYC verification unlocks higher limits within 24 hours.' },
+          { q: 'What is the minimum deposit?', a: 'There is no minimum deposit for crypto deposits. For fiat deposits, the minimum is $10 via card or $100 via bank transfer. We support 50+ fiat currencies.' },
+          { q: 'How do I buy Bitcoin?', a: 'After creating your account and depositing funds, navigate to the BTC/USDT market, enter the amount you want to buy, and click &ldquo;Buy BTC&rdquo;. You can also use our instant buy feature for one-click purchases.' },
+          { q: 'Is my crypto safe?', a: 'We store 98% of all digital assets in air-gapped cold storage with multi-signature authorization. Our platform is SOC 2 Type II certified, has a $250M insurance fund, and publishes monthly Proof of Reserves verified by Armanino LLP.' },
+          { q: 'What are your trading fees?', a: 'Spot trading fees start at 0.10% for both maker and taker. VIP tiers offer reduced fees down to 0.01% maker / 0.03% taker. Earn further discounts by holding our native token.' },
+          { q: 'Can I earn interest on my crypto?', a: 'Yes! Our Earn program offers flexible and locked staking with APY rates up to 12%. Popular options include ETH staking (4-6% APY), SOL staking (5-8% APY), and stablecoin lending (8-12% APY).' },
+        ],
+        'spot-trading': [
+          { q: 'What order types are available?', a: 'We support market orders, limit orders, stop-limit orders, OCO (one-cancels-other), trailing stops, and iceberg orders. Advanced traders can also use our API for algorithmic trading.' },
+          { q: 'How many trading pairs are available?', a: 'We offer 600+ trading pairs across BTC, ETH, USDT, USDC, and BUSD markets. New pairs are added weekly based on community votes and listing criteria.' },
+          { q: 'What are the fees for spot trading?', a: 'Maker fees start at 0.10% and taker fees at 0.10%. VIP traders (30-day volume &gt; $1M) enjoy reduced rates. You can also pay fees with our native token for an additional 25% discount.' },
+          { q: 'Is there a mobile app for trading?', a: 'Yes. Our iOS and Android apps offer full trading functionality including advanced charts, price alerts, one-tap trading, and biometric security. Rated 4.7/5 on the App Store.' },
+        ],
+        futures: [
+          { q: 'What leverage is available?', a: 'Perpetual futures offer up to 125x leverage on BTC and ETH, up to 75x on major altcoins, and up to 25x on newer tokens. We recommend starting with low leverage and using stop-loss orders.' },
+          { q: 'What are funding rates?', a: 'Funding rates are exchanged between long and short positions every 8 hours. Positive rates mean longs pay shorts; negative rates mean shorts pay longs. Current rates are displayed on each contract page.' },
+          { q: 'How does liquidation work?', a: 'Positions are liquidated when your margin ratio falls below the maintenance margin. We use a tiered liquidation system that partially reduces positions first. An insurance fund helps prevent socialized losses.' },
+          { q: 'Can I use futures for hedging?', a: 'Yes. Many traders use our perpetual contracts to hedge their spot positions. You can simultaneously hold long spot and short futures positions to reduce portfolio risk.' },
+        ],
+        staking: [
+          { q: 'What is crypto staking?', a: 'Staking involves locking your cryptocurrency to support network operations (like validating transactions) in exchange for rewards. It&rsquo;s like earning interest on your crypto holdings.' },
+          { q: 'What APY rates do you offer?', a: 'Rates vary by asset: ETH 4-6% APY, SOL 5-8% APY, DOT 10-14% APY, ATOM 8-12% APY. Stablecoin lending offers 8-12% APY. Rates are updated in real-time on our Earn page.' },
+          { q: 'Can I unstake at any time?', a: 'Flexible staking allows instant withdrawals. Locked staking offers higher rates but requires a commitment period (30, 60, or 90 days). Early withdrawal from locked staking forfeits pending rewards.' },
+          { q: 'Is staking risky?', a: 'Staking carries lower risk than trading but still involves market risk (asset value can decline), slashing risk (validator penalties), and smart contract risk. We only support established, audited protocols.' },
+        ],
+        fees: [
+          { q: 'Are there any hidden fees?', a: 'No. All our fees are transparent and published on this page. There are no deposit fees for crypto, no account maintenance fees, and no platform fees. The only fees are trading commissions and network withdrawal fees.' },
+          { q: 'How do VIP tiers work?', a: 'VIP tiers are based on your 30-day trading volume. Higher tiers unlock lower fees, priority support, and exclusive features. VIP 1 starts at $1M monthly volume with 0.08% maker / 0.08% taker fees.' },
+          { q: 'What are withdrawal fees?', a: 'Withdrawal fees cover blockchain network costs and vary by asset and network. For example, BTC withdrawal costs ~0.0001 BTC, ETH ~0.001 ETH (ERC-20), and USDT as low as $1 (TRC-20).' },
+          { q: 'Do you offer fee discounts?', a: 'Yes! Hold our native token for a 25% fee discount. Referral program participants earn 20% of referred users&rsquo; trading fees. VIP market makers can negotiate custom fee structures.' },
+        ],
+        contact: [
+          { q: 'What are your support hours?', a: 'Our support team is available 24 hours a day, 7 days a week. We offer live chat (instant), email support (under 4 hours), and phone support for VIP clients.' },
+          { q: 'How do I report a security issue?', a: 'Security issues should be reported through our Bug Bounty program at security@cryptovault.exchange. We offer rewards up to $250,000 for critical vulnerabilities.' },
+          { q: 'Do you have a community?', a: 'Yes! Join our Telegram group (500K+ members), Discord server, Twitter, and Reddit community for announcements, trading discussions, and support.' },
+          { q: 'How do I reach VIP support?', a: 'VIP account holders (30-day volume &gt; $1M) get a dedicated account manager, priority live chat, and direct phone support. Contact vip@cryptovault.exchange to apply.' },
+        ],
+      }),
+      marketDropdownIcons: { 'spot-trading': '📈', 'futures': '📊', 'staking': '💰', 'tokens': '🪙', 'wallet': '🔐' },
+      marketDropdownDescs: { 'spot-trading': '600+ trading pairs', 'futures': 'Up to 125x leverage', 'staking': 'Earn up to 12% APY', 'tokens': '600+ listed tokens', 'wallet': 'Cold storage security' },
+    }
+  }
+
+  // prop_trading and default: return forex content
+  return forexContent
+}
+
 // ─── Hero config per page ──────────────────────────────
 interface HeroConfig {
   variant: 'platform' | 'market' | 'corporate' | 'tools' | 'legal'
@@ -80,9 +465,24 @@ interface HeroConfig {
   pills?: string[] // Plus500-style feature pills
 }
 
-function getHeroConfig(slug: string): HeroConfig {
+function getHeroConfig(slug: string, niche: string = 'forex_broker', n?: NicheContent): HeroConfig {
+  // Crypto exchange niche
+  if (niche === 'crypto_exchange' && n) {
+    if (slug === 'home') return { variant: 'platform', badge: n.heroBadge, showMockup: true, pills: n.heroPills }
+    if (slug === 'spot-trading') return { variant: 'tools', badge: 'Spot Trading', showMockup: false, visual: getToolsVisual('pricing'), pills: ['600+ Pairs', 'Lowest Fees', 'Instant Settlement'] }
+    if (slug === 'futures') return { variant: 'tools', badge: 'Crypto Futures', showMockup: false, visual: getToolsVisual('platforms'), pills: ['Up to 125x Leverage', 'Perpetual Contracts', 'Real-Time Funding'] }
+    if (slug === 'staking') return { variant: 'tools', badge: 'Earn Crypto', showMockup: false, visual: getToolsVisual('education'), pills: ['Up to 12% APY', 'Flexible &amp; Locked', '30+ Assets'] }
+    if (slug === 'tokens') return { variant: 'tools', badge: 'Listed Tokens', showMockup: false, visual: getToolsVisual('platforms'), pills: ['600+ Tokens', 'New Listings Weekly', 'Community Voted'] }
+    if (slug === 'wallet') return { variant: 'tools', badge: 'Secure Wallet', showMockup: false, visual: getToolsVisual('contact'), pills: ['98% Cold Storage', 'Multi-Sig', '$250M Insurance'] }
+    if (slug === 'fees') return { variant: 'tools', badge: 'Fee Schedule', showMockup: false, visual: getToolsVisual('pricing'), pills: ['Lowest Fees', 'VIP Tiers', 'Token Discounts'] }
+    if (['about', 'regulation', 'partners'].includes(slug)) return { variant: 'corporate', badge: slug === 'about' ? 'About Our Exchange' : slug === 'regulation' ? 'Compliance &amp; Licenses' : 'Partnership Programme', showMockup: false }
+    if (['terms', 'privacy', 'risk-disclosure', 'risk-warning'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
+    if (slug === 'contact') return { variant: 'tools', badge: 'Get In Touch', showMockup: false, visual: getToolsVisual('contact'), pills: ['24/7 Live Support', 'Live Chat', 'Email Support'] }
+    if (slug === 'education') return { variant: 'tools', badge: 'Learn Crypto', showMockup: false, visual: getToolsVisual('education'), pills: ['Free Courses', 'Trading Guides', 'Video Tutorials'] }
+  }
+
   // Homepage — full platform mockup
-  if (slug === 'home') return { variant: 'platform', badge: 'Established &amp; Regulated since 2018', showMockup: true, pills: ['Free Demo Account', 'No Platform Fees', '0.0 Pip Spreads', 'Ultra-Fast Execution'] }
+  if (slug === 'home') return { variant: 'platform', badge: n ? n.heroBadge : 'Established &amp; Regulated since 2018', showMockup: true, pills: n ? n.heroPills : ['Free Demo Account', 'No Platform Fees', '0.0 Pip Spreads', 'Ultra-Fast Execution'] }
 
   // Market pages — unique market visuals
   if (slug === 'markets/forex') return { variant: 'market', badge: 'Live Forex Markets', showMockup: false, visual: getMarketVisual('forex'), pills: ['50+ Currency Pairs', 'Spreads from 0.0', '24/5 Trading'] }
@@ -94,7 +494,7 @@ function getHeroConfig(slug: string): HeroConfig {
   if (['about', 'regulation', 'partners'].includes(slug)) return { variant: 'corporate', badge: slug === 'about' ? 'About Our Company' : slug === 'regulation' ? 'Regulatory Framework' : 'Partnership Programme', showMockup: false }
 
   // Legal pages — minimal
-  if (['terms', 'privacy', 'risk-disclosure'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
+  if (['terms', 'privacy', 'risk-disclosure', 'risk-warning'].includes(slug)) return { variant: 'legal', badge: '', showMockup: false }
 
   // Tools/service pages — with unique visuals
   const toolsConfig: Record<string, { badge: string; pills: string[]; visual: string }> = {
@@ -840,6 +1240,7 @@ a:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px;border-
 
 function generatePageHTML(page: ExportPage, options: ExportOptions): string {
   const { brandName, domain, pages } = options
+  const n = getNicheContent(options.niche)
   const metaTitle = page.metaTitle || `${page.title} | ${brandName}`
   const metaDescription = page.metaDescription || `${page.title} — ${brandName}. Your trusted trading partner at ${domain}.`
 
@@ -853,11 +1254,16 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
   const heroTitle = parsed.heroTitle || page.title
   const heroSubtitle = parsed.heroSubtitle || ''
   const sections = parsed.sections || []
-  const heroConfig = getHeroConfig(page.slug)
-  const navSlugs = ['home', 'about', 'platforms', 'account-types', 'pricing', 'education', 'contact']
+  const heroConfig = getHeroConfig(page.slug, options.niche, n)
+  const navSlugs = n.navSlugs
   const navPages = pages.filter((p) => navSlugs.includes(p.slug))
-  const marketPagesNav = pages.filter((p) => p.slug.startsWith('markets/'))
-  const isMarketPage = page.slug.startsWith('markets/')
+  const cryptoSubPages = ['spot-trading', 'futures', 'staking', 'tokens', 'wallet']
+  const marketPagesNav = options.niche === 'crypto_exchange'
+    ? pages.filter(p => cryptoSubPages.includes(p.slug))
+    : pages.filter(p => p.slug.startsWith('markets/'))
+  const isMarketPage = options.niche === 'crypto_exchange'
+    ? cryptoSubPages.includes(page.slug)
+    : page.slug.startsWith('markets/')
 
   const navLinks = navPages.map((p) => {
     const href = p.slug === 'home' ? 'index.html' : `${p.slug.replace(/\//g, '-')}.html`
@@ -865,8 +1271,8 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
     if (p.slug === 'about' && marketPagesNav.length > 0) {
       const aboutCls = p.slug === page.slug ? ' class="active"' : ''
       const marketsCls = isMarketPage ? ' class="active"' : ''
-      const marketIcons: Record<string, string> = { 'markets/forex': '💱', 'markets/crypto': '₿', 'markets/commodities': '🥇', 'markets/indices': '📊' }
-      const marketDescs: Record<string, string> = { 'markets/forex': '70+ currency pairs', 'markets/crypto': '30+ cryptocurrencies', 'markets/commodities': 'Gold, Oil &amp; Silver', 'markets/indices': '15+ global indices' }
+      const marketIcons: Record<string, string> = n.marketDropdownIcons
+      const marketDescs: Record<string, string> = n.marketDropdownDescs
       const dropdownLinks = marketPagesNav.map((mp) => {
         const mpHref = `${mp.slug.replace(/\//g, '-')}.html`
         const icon = marketIcons[mp.slug] || '📈'
@@ -875,7 +1281,7 @@ function generatePageHTML(page: ExportPage, options: ExportOptions): string {
       }).join('\n')
       return `        <li><a href="${href}"${aboutCls}>${escapeHtml(p.title)}</a></li>
         <li class="nav-dropdown">
-          <a href="#"${marketsCls}>Markets</a>
+          <a href="#"${marketsCls}>${options.niche === 'crypto_exchange' ? 'Products' : 'Markets'}</a>
           <div class="nav-dropdown-menu">
 ${dropdownLinks}
             <div class="nav-dropdown-footer"><a href="#">View All Markets &rarr;</a></div>
@@ -905,14 +1311,7 @@ ${dropdownLinks}
 
   // Section CTA map — inject CTAs after key sections on ALL pages with contextual copy
   const isLegalPage = heroConfig.variant === 'legal'
-  const pageCtaVerb = page.slug === 'home' ? 'Join 35M+ Traders Today'
-    : page.slug === 'platforms' ? 'Download Platform &amp; Start Trading'
-    : page.slug === 'account-types' ? 'Choose Your Account &amp; Start'
-    : page.slug === 'pricing' ? 'Open Account — No Hidden Fees'
-    : page.slug === 'education' ? 'Start Learning for Free'
-    : page.slug === 'contact' ? 'Open Free Account Instead'
-    : page.slug.startsWith('markets/') ? 'Trade This Market Now'
-    : 'Open Free Account'
+  const pageCtaVerb = n.getPageCTAVerb(page.slug)
   const sectionCtaMap: Record<string, string> = isLegalPage ? {} : {
     stats: pageCtaVerb,
     features: page.slug === 'platforms' ? 'Try All Platforms Free' : 'Start Trading Now',
@@ -939,56 +1338,24 @@ ${dropdownLinks}
   }).join('\n\n')
 
   // FAQ HTML for all non-legal pages — contextual per page type
-  const faqData: Record<string, Array<{ q: string; a: string }>> = {
-    home: [
-      { q: 'How long does account verification take?', a: 'Most accounts are verified within 24 hours. You&rsquo;ll need to provide a valid ID and proof of address. In many cases, verification is completed in under 1 hour during business hours.' },
-      { q: 'What is the minimum deposit?', a: 'The minimum deposit for a Standard account is $100. You can fund your account using credit/debit card, bank wire, or e-wallets like Skrill and Neteller with no deposit fees.' },
-      { q: 'Can I withdraw my funds at any time?', a: 'Yes, you can withdraw your funds at any time with no lock-in period. Withdrawal requests are typically processed within 1&ndash;2 business days depending on the payment method.' },
-      { q: 'Is my money protected?', a: 'Absolutely. All client funds are held in segregated accounts with tier-1 banks, separate from company funds. We are regulated by the FCA, CySEC, and DFSA, ensuring the highest level of fund protection.' },
-      { q: 'What platforms do you support?', a: 'We offer MetaTrader 4, MetaTrader 5, and our proprietary WebTrader platform. All are available on desktop, web, iOS, and Android &mdash; trade anywhere, anytime.' },
-      { q: 'Do I need experience to start trading?', a: 'No prior experience is needed. We offer a free $100,000 demo account, educational resources, and 24/5 support to help you learn at your own pace before trading with real money.' },
-    ],
-    platforms: [
-      { q: 'Which trading platform is best for beginners?', a: 'Our WebTrader platform is ideal for beginners &mdash; it runs in your browser with no download required and features an intuitive interface. For more advanced features, MetaTrader 4 is the industry standard.' },
-      { q: 'Can I use multiple platforms with one account?', a: 'Yes. Your single trading account works across all our platforms &mdash; MT4, MT5, WebTrader, and our mobile apps. Switch between them seamlessly.' },
-      { q: 'Is there a mobile trading app?', a: 'Yes, our mobile apps for iOS and Android give you full trading functionality on the go, including charts, indicators, one-tap trading, and real-time push notifications.' },
-      { q: 'Do you offer API access for automated trading?', a: 'Yes. We provide FIX API access for algorithmic traders and institutional clients. MT4/MT5 also support Expert Advisors (EAs) for automated strategies.' },
-    ],
-    'account-types': [
-      { q: 'Which account type should I choose?', a: 'If you&rsquo;re starting out, our Standard account with a $100 minimum deposit is perfect. Active traders benefit from our Professional account with tighter spreads, while high-volume traders should consider VIP for the best conditions.' },
-      { q: 'Can I upgrade my account later?', a: 'Yes. You can upgrade your account type at any time as your trading volume grows. Simply contact your account manager or request an upgrade through your dashboard.' },
-      { q: 'What&rsquo;s the difference between Standard and Professional accounts?', a: 'Professional accounts offer tighter spreads (from 0.0 pips vs 1.2), priority support, and higher leverage. They require a $1,000 minimum deposit and are suited for experienced traders.' },
-      { q: 'Do you offer Islamic (swap-free) accounts?', a: 'Yes. We offer swap-free Islamic accounts compliant with Sharia law, available across all account types. No overnight interest is charged on positions held past market close.' },
-    ],
-    pricing: [
-      { q: 'Are there any hidden fees?', a: 'No. We believe in full transparency. You&rsquo;ll see the exact spread before you trade, and our fee schedule is published on this page. There are no deposit fees, no inactivity fees for the first 12 months, and no platform fees.' },
-      { q: 'How are spreads calculated?', a: 'Our spreads are variable and sourced from 15+ tier-1 liquidity providers. We aggregate the best bid/ask prices to deliver the tightest possible spreads, often as low as 0.0 pips on major pairs.' },
-      { q: 'Do you charge commission?', a: 'It depends on your account type. Standard accounts have zero commission with spreads from 1.2 pips. Professional and VIP accounts offer raw spreads from 0.0 pips with a small commission per lot.' },
-      { q: 'What are swap/overnight fees?', a: 'Swap fees are applied when positions are held overnight and reflect the interest rate differential between the two currencies in a pair. Swap rates are updated daily and displayed in your platform.' },
-    ],
-    education: [
-      { q: 'Is the education content free?', a: 'Yes, all our educational resources are completely free for registered users. This includes video courses, webinars, eBooks, and daily market analysis.' },
-      { q: 'Do you offer live webinars?', a: 'Yes. We host weekly live webinars with professional analysts covering market outlook, trading strategies, and platform tutorials. Recordings are available for on-demand viewing.' },
-      { q: 'Is the content suitable for complete beginners?', a: 'Absolutely. Our courses are structured from beginner to advanced level. Start with &ldquo;Trading Fundamentals&rdquo; and progress at your own pace through intermediate and advanced modules.' },
-      { q: 'Do I get a certificate after completing courses?', a: 'Yes. Upon completing each course module, you receive a digital certificate of completion that you can add to your LinkedIn profile or professional portfolio.' },
-    ],
-    contact: [
-      { q: 'What are your support hours?', a: 'Our support team is available 24 hours a day, 5 days a week (Monday to Friday). We offer support via live chat, email, and phone in 12 languages.' },
-      { q: 'How quickly will I get a response?', a: 'Live chat responses are typically instant during business hours. Email inquiries are answered within 4 hours. Phone support connects you to an agent in under 60 seconds on average.' },
-      { q: 'Do you offer a dedicated account manager?', a: 'Yes. Professional and VIP account holders receive a dedicated account manager for personalized support, trading insights, and priority assistance.' },
-      { q: 'Can I request a callback?', a: 'Yes. Fill out the callback form on our contact page and one of our specialists will call you back at your preferred time, typically within 30 minutes during business hours.' },
-    ],
-  }
+  const faqData: Record<string, Array<{ q: string; a: string }>> = n.getFaqData()
   // Market pages share generic trading FAQ
-  const marketFaq = [
-    { q: 'How do I start trading this market?', a: 'Open a free account in 2 minutes, verify your identity, deposit funds (minimum $100), and start trading. You can also practice first with our $100,000 demo account at no cost.' },
-    { q: 'What leverage is available?', a: 'Leverage varies by instrument and jurisdiction. Retail clients can access up to 1:30 (EU/UK) or 1:500 (professional clients). Higher leverage amplifies both profits and losses.' },
-    { q: 'Are there any overnight fees?', a: 'Swap fees may apply when holding positions overnight. Rates depend on the instrument and direction of your trade. Swap-free Islamic accounts are available upon request.' },
-    { q: 'Can I trade on mobile?', a: 'Yes. All our markets are available on our mobile apps for iOS and Android, plus our browser-based WebTrader. Trade from anywhere with full charting and order management.' },
-  ]
-  if (page.slug.startsWith('markets/')) { faqData[page.slug] = marketFaq }
+  if (options.niche !== 'crypto_exchange') {
+    const marketFaq = [
+      { q: 'How do I start trading this market?', a: 'Open a free account in 2 minutes, verify your identity, deposit funds (minimum $100), and start trading. You can also practice first with our $100,000 demo account at no cost.' },
+      { q: 'What leverage is available?', a: 'Leverage varies by instrument and jurisdiction. Retail clients can access up to 1:30 (EU/UK) or 1:500 (professional clients). Higher leverage amplifies both profits and losses.' },
+      { q: 'Are there any overnight fees?', a: 'Swap fees may apply when holding positions overnight. Rates depend on the instrument and direction of your trade. Swap-free Islamic accounts are available upon request.' },
+      { q: 'Can I trade on mobile?', a: 'Yes. All our markets are available on our mobile apps for iOS and Android, plus our browser-based WebTrader. Trade from anywhere with full charting and order management.' },
+    ]
+    if (page.slug.startsWith('markets/')) { faqData[page.slug] = marketFaq }
+  }
   // About/regulation share corporate FAQ
-  const corporateFaq = [
+  const corporateFaq = options.niche === 'crypto_exchange' ? [
+    { q: 'Where is the company headquartered?', a: 'Our global headquarters is located at One Raffles Quay, #22-01, Singapore 048583. We also have offices in New York, London, and Sydney.' },
+    { q: 'How long has the exchange been operating?', a: 'We were founded in 2019 and have grown to serve over 10 million verified users in 180+ countries. We are registered with FinCEN, AUSTRAC, and MAS.' },
+    { q: 'Is the exchange publicly listed?', a: 'We are a privately held company committed to long-term growth and stability. Our Proof of Reserves is published monthly and audited by Armanino LLP.' },
+    { q: 'How are digital assets protected?', a: 'We store 98% of all digital assets in air-gapped cold storage with multi-signature authorization. Our $250M insurance fund and SOC 2 Type II certification provide additional security.' },
+  ] : [
     { q: 'Where is the company headquartered?', a: 'Our global headquarters is located at 110 Bishopsgate, London EC2N 4AY, United Kingdom. We also have offices in Dubai, Singapore, and Sydney.' },
     { q: 'How long has the company been operating?', a: 'We were founded in 2018 and have grown to serve over 500,000 traders in 150+ countries. We are regulated by the FCA, CySEC, DFSA, and ASIC.' },
     { q: 'Is the company publicly listed?', a: 'We are a privately held company committed to long-term growth and stability. Our financial reports are available to regulators and audited by a Big Four accounting firm annually.' },
@@ -1005,7 +1372,7 @@ ${dropdownLinks}
       <div class="faq-list">
 ${pageFaqs.map(f => `        <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">${f.q}</div><div class="faq-a">${f.a}</div></div>`).join('\n')}
       </div>
-      <div class="section-cta"><a href="#" class="btn-primary">Open Free Account</a></div>
+      <div class="section-cta"><a href="#" class="btn-primary">${n.faqCTA}</a></div>
     </div>
   </section>` : ''
 
@@ -1037,10 +1404,10 @@ ${pageFaqs.map(f => `        <div class="faq-item"><div class="faq-q" onclick="t
 ${gtmHead(options)}${ga4Script(options)}</head>
 <body>
 ${gtmBody(options)}${heroConfig.variant !== 'legal' ? `  <div class="promo-bar">
-    🎁 <strong>Limited Offer:</strong> Open an account today &amp; get $100,000 Demo Credits + 0% Commission for 30 Days <a href="#">Claim Now &rarr;</a>
+    ${n.promoHTML}
   </div>
 ` : ''}  <div class="announcement-bar">
-    CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. <strong>72% of retail investor accounts lose money when trading CFDs with this provider.</strong> You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money.
+    ${n.announcementHTML}
   </div>
 
   <nav class="navbar">
@@ -1064,8 +1431,8 @@ ${navLinks}
             <a href="#">🇨🇳 中文</a>
           </div>
         </div>
-        <a href="#" class="navbar-login">Log In</a>
-        <a href="#" class="navbar-cta">Start Trading</a>
+        <a href="#" class="navbar-login">${n.loginLabel}</a>
+        <a href="#" class="navbar-cta">${n.navCTA}</a>
       </div>
       <button class="navbar-toggle" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
     </div>
@@ -1073,8 +1440,8 @@ ${navLinks}
 ${allMobileLinks}
       <div class="mobile-divider"></div>
       <div class="mobile-cta-group">
-        <a href="#" class="btn-primary">Open Free Account</a>
-        <a href="#" class="navbar-login">Log In</a>
+        <a href="#" class="btn-primary">${n.mobileCTA}</a>
+        <a href="#" class="navbar-login">${n.loginLabel}</a>
       </div>
     </div>
   </nav>
@@ -1090,45 +1457,39 @@ ${page.slug.startsWith('markets/') ? `    <a href="#">Markets</a>\n    <span cla
 ${heroConfig.badge ? `        <div class="hero-badge"><span class="badge-dot"></span> ${heroConfig.badge}</div>` : ''}
         <div class="hero-trustpilot">
           <span class="tp-stars">★★★★★</span>
-          <span class="tp-score">4.5/5</span>
-          <span class="tp-text">— 12,400+ Reviews on Trustpilot</span>
+          <span class="tp-score">${n.trustpilotScore}</span>
+          <span class="tp-text">— ${n.trustpilotReviews}</span>
         </div>
-        <h1>${page.slug === 'home' ? 'Join 35M+ Traders — Spreads from 0.0 Pips' : escapeHtml(heroTitle)}</h1>
+        <h1>${page.slug === 'home' ? n.heroHeading : escapeHtml(heroTitle)}</h1>
 ${heroSubtitle ? `        <p>${escapeHtml(heroSubtitle)}</p>` : ''}
 ${heroConfig.pills && heroConfig.pills.length ? `        <div class="hero-pills">${heroConfig.pills.map(p => `<span class="hero-pill">${p}</span>`).join('')}</div>` : ''}
         <div class="hero-buttons">
-          <a href="#" class="btn-primary">Open Free Account — 2 Minutes</a>
-          <a href="#" class="btn-outline">Try $100K Demo</a>
+          <a href="#" class="btn-primary">${n.heroCTAPrimary}</a>
+          <a href="#" class="btn-outline">${n.heroCTASecondary}</a>
         </div>
-        <div class="hero-micro"><span>✓ No credit card required</span><span>✓ $100K free demo</span><span>✓ Instant access</span></div>
+        <div class="hero-micro">${n.heroMicro.map(m => `<span>${m}</span>`).join('')}</div>
         <div class="hero-trust">
-          <span>FCA Regulated</span>
-          <span>Segregated Funds</span>
-          <span>200+ Instruments</span>
-          <span>24/5 Support</span>
+${n.heroTrust.map(t => `          <span>${t}</span>`).join('\n')}
         </div>
       </div>
 ${heroConfig.showMockup ? `      <div class="hero-visual">
         <div class="hero-mockup">
           <div class="mockup-topbar">
             <div class="mockup-dots"><span></span><span></span><span></span></div>
-            <span>Trading Platform</span>
+            <span>${n.mockupLabel}</span>
           </div>
           <div class="mockup-balance">
             <span class="mockup-amount">$125,430.00</span>
             <span class="mockup-change up">+2.4%</span>
           </div>
-          <div class="mockup-sublabel">Portfolio Value</div>
+          <div class="mockup-sublabel">${options.niche === 'crypto_exchange' ? 'Portfolio Balance' : 'Portfolio Value'}</div>
           <svg class="mockup-chart" viewBox="0 0 340 100" preserveAspectRatio="none">
             <defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#10b981" stop-opacity="0.15"/><stop offset="100%" stop-color="#10b981" stop-opacity="0"/></linearGradient></defs>
             <polyline points="0,85 30,78 60,80 90,65 120,68 150,50 180,55 210,38 240,42 270,25 300,28 340,12" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <polygon points="0,85 30,78 60,80 90,65 120,68 150,50 180,55 210,38 240,42 270,25 300,28 340,12 340,100 0,100" fill="url(#chartGrad)"/>
           </svg>
           <div class="mockup-rows">
-            <div class="mockup-row"><span>EUR/USD</span><span>1.0842</span><span class="up">+0.15%</span></div>
-            <div class="mockup-row"><span>GBP/USD</span><span>1.2731</span><span class="down">-0.08%</span></div>
-            <div class="mockup-row"><span>BTC/USD</span><span>67,240</span><span class="up">+2.34%</span></div>
-            <div class="mockup-row"><span>AAPL</span><span>189.42</span><span class="up">+1.12%</span></div>
+${n.mockupRows.map(r => `            <div class="mockup-row"><span>${r.symbol}</span><span>${r.price}</span><span class="${r.up ? 'up' : 'down'}">${r.change}</span></div>`).join('\n')}
           </div>
         </div>
       </div>` : heroConfig.visual ? `      <div class="hero-visual">
@@ -1139,46 +1500,20 @@ ${heroConfig.visual}
 
 ${heroConfig.variant !== 'legal' ? `  <div class="social-proof-bar">
     <div class="social-proof-inner">
-      <div class="sp-item"><span>⭐</span> <strong>4.5/5</strong> Trustpilot</div>
-      <div class="sp-divider"></div>
-      <div class="sp-item"><span>👥</span> <strong>35M+</strong> Active Users</div>
-      <div class="sp-divider"></div>
-      <div class="sp-item"><span>🛡️</span> <strong>FCA</strong> Regulated</div>
-      <div class="sp-divider"></div>
-      <div class="sp-item"><span>🏆</span> <strong>Best Broker</strong> 2024</div>
-      <div class="sp-divider"></div>
-      <div class="sp-item"><span>📰</span> As seen in <strong>Bloomberg</strong>, <strong>Reuters</strong></div>
+${n.socialProof.map((sp, i) => `      <div class="sp-item"><span>${sp.icon}</span> <strong>${sp.bold}</strong> ${sp.text}</div>${i < n.socialProof.length - 1 ? '\n      <div class="sp-divider"></div>' : ''}`).join('\n')}
     </div>
   </div>
 
   <div class="market-ticker">
     <div class="ticker-track">
-      <span class="ticker-item"><span class="ticker-symbol">EUR/USD</span> <span class="ticker-price">1.0842</span> <span class="ticker-change up">▲ +0.15%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">BTC/USD</span> <span class="ticker-price">67,240</span> <span class="ticker-change up">▲ +2.34%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">Gold</span> <span class="ticker-price">2,342.50</span> <span class="ticker-change up">▲ +0.42%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">S&amp;P 500</span> <span class="ticker-price">5,234.18</span> <span class="ticker-change up">▲ +0.52%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">GBP/USD</span> <span class="ticker-price">1.2731</span> <span class="ticker-change down">▼ -0.08%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">AAPL</span> <span class="ticker-price">189.42</span> <span class="ticker-change up">▲ +1.12%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">EUR/USD</span> <span class="ticker-price">1.0842</span> <span class="ticker-change up">▲ +0.15%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">BTC/USD</span> <span class="ticker-price">67,240</span> <span class="ticker-change up">▲ +2.34%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">Gold</span> <span class="ticker-price">2,342.50</span> <span class="ticker-change up">▲ +0.42%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">S&amp;P 500</span> <span class="ticker-price">5,234.18</span> <span class="ticker-change up">▲ +0.52%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">GBP/USD</span> <span class="ticker-price">1.2731</span> <span class="ticker-change down">▼ -0.08%</span></span>
-      <span class="ticker-item"><span class="ticker-symbol">AAPL</span> <span class="ticker-price">189.42</span> <span class="ticker-change up">▲ +1.12%</span></span>
+${n.tickerItems.map(t => `      <span class="ticker-item"><span class="ticker-symbol">${t.symbol}</span> <span class="ticker-price">${t.price}</span> <span class="ticker-change ${t.up ? 'up' : 'down'}">${t.up ? '▲' : '▼'} ${t.change}</span></span>`).join('\n')}
+${n.tickerItems.map(t => `      <span class="ticker-item"><span class="ticker-symbol">${t.symbol}</span> <span class="ticker-price">${t.price}</span> <span class="ticker-change ${t.up ? 'up' : 'down'}">${t.up ? '▲' : '▼'} ${t.change}</span></span>`).join('\n')}
     </div>
   </div>
 
   <div class="regulation-bar">
     <div class="regulation-inner">
-      <div class="reg-item"><div class="reg-icon">🇬🇧</div><div><div class="reg-label">FCA (UK)</div><div class="reg-num">Ref. No. 595450</div></div></div>
-      <div class="reg-divider"></div>
-      <div class="reg-item"><div class="reg-icon">🇪🇺</div><div><div class="reg-label">CySEC (EU)</div><div class="reg-num">License No. 201/13</div></div></div>
-      <div class="reg-divider"></div>
-      <div class="reg-item"><div class="reg-icon">🇦🇪</div><div><div class="reg-label">DFSA (UAE)</div><div class="reg-num">Ref. No. F003484</div></div></div>
-      <div class="reg-divider"></div>
-      <div class="reg-item"><div class="reg-icon">🇦🇺</div><div><div class="reg-label">ASIC (AU)</div><div class="reg-num">License No. 443670</div></div></div>
-      <div class="reg-divider"></div>
-      <div class="reg-item"><div class="reg-icon">🛡️</div><div><div class="reg-label">Segregated Funds</div><div class="reg-num">Barclays &amp; Lloyds Bank</div></div></div>
+${n.regulationItems.map((r, i) => `      <div class="reg-item"><div class="reg-icon">${r.icon}</div><div><div class="reg-label">${r.label}</div><div class="reg-num">${r.num}</div></div></div>${i < n.regulationItems.length - 1 ? '\n      <div class="reg-divider"></div>' : ''}`).join('\n')}
     </div>
   </div>
 
@@ -1186,12 +1521,7 @@ ${heroConfig.variant !== 'legal' ? `  <div class="social-proof-bar">
     <div class="media-inner">
       <div class="media-label">As Featured In</div>
       <div class="media-logos">
-        <span class="media-logo">Bloomberg</span>
-        <span class="media-logo">Reuters</span>
-        <span class="media-logo">Financial Times</span>
-        <span class="media-logo">Forbes</span>
-        <span class="media-logo">CNBC</span>
-        <span class="media-logo">The Wall Street Journal</span>
+${n.mediaLogos.map(l => `        <span class="media-logo">${l}</span>`).join('\n')}
       </div>
     </div>
   </div>
@@ -1202,25 +1532,16 @@ ${heroConfig.variant !== 'legal' ? `
   <div class="awards-section">
     <div class="awards-inner">
       <div class="awards-label">Industry Recognition</div>
-      <h3 class="awards-title">Award-Winning Trading Platform</h3>
+      <h3 class="awards-title">${options.niche === 'crypto_exchange' ? 'Award-Winning Crypto Exchange' : 'Award-Winning Trading Platform'}</h3>
       <div class="awards-grid">
-        <div class="award-card"><span class="award-icon">🏆</span><div class="award-name">Best CFD Broker</div><div class="award-source">Global Forex Awards</div><div class="award-year">2024</div></div>
-        <div class="award-card"><span class="award-icon">⭐</span><div class="award-name">Best Trading Platform</div><div class="award-source">ForexBrokers.com</div><div class="award-year">2024</div></div>
-        <div class="award-card"><span class="award-icon">🥇</span><div class="award-name">Most Trusted Broker</div><div class="award-source">Finance Magnates</div><div class="award-year">2024</div></div>
-        <div class="award-card"><span class="award-icon">📱</span><div class="award-name">Best Mobile App</div><div class="award-source">Good Money Guide</div><div class="award-year">2024</div></div>
-        <div class="award-card"><span class="award-icon">🎓</span><div class="award-name">Best Education</div><div class="award-source">Investment Trends</div><div class="award-year">2024</div></div>
-        <div class="award-card"><span class="award-icon">💎</span><div class="award-name">Best Value Broker</div><div class="award-source">BrokerChooser</div><div class="award-year">2024</div></div>
+${n.awards.map(a => `        <div class="award-card"><span class="award-icon">${a.icon}</span><div class="award-name">${a.name}</div><div class="award-source">${a.source}</div><div class="award-year">${a.year}</div></div>`).join('\n')}
       </div>
     </div>
   </div>
 
   <div class="perf-bar">
     <div class="perf-inner">
-      <div class="perf-item"><div class="perf-value">0.018<span class="perf-unit">s</span></div><div class="perf-label">Avg. Execution Speed</div></div>
-      <div class="perf-item"><div class="perf-value">99.9<span class="perf-unit">%</span></div><div class="perf-label">Platform Uptime</div></div>
-      <div class="perf-item"><div class="perf-value">99.3<span class="perf-unit">%</span></div><div class="perf-label">Order Fill Rate</div></div>
-      <div class="perf-item"><div class="perf-value">$2.4<span class="perf-unit">B+</span></div><div class="perf-label">Client Assets</div></div>
-      <div class="perf-item"><div class="perf-value">500<span class="perf-unit">K+</span></div><div class="perf-label">Daily Trades</div></div>
+${n.perfMetrics.map(p => `      <div class="perf-item"><div class="perf-value">${p.value}<span class="perf-unit">${p.unit}</span></div><div class="perf-label">${p.label}</div></div>`).join('\n')}
     </div>
   </div>
 
@@ -1228,12 +1549,7 @@ ${heroConfig.variant !== 'legal' ? `
     <div class="security-inner">
       <div class="security-label">Your Security Is Our Priority</div>
       <div class="security-badges">
-        <div class="security-badge"><div class="sb-icon">🔒</div><div class="sb-label">256-bit SSL</div><div class="sb-sub">Encryption</div></div>
-        <div class="security-badge"><div class="sb-icon">🏦</div><div class="sb-label">Segregated</div><div class="sb-sub">Client Funds</div></div>
-        <div class="security-badge"><div class="sb-icon">🛡️</div><div class="sb-label">Negative Balance</div><div class="sb-sub">Protection</div></div>
-        <div class="security-badge"><div class="sb-icon">📋</div><div class="sb-label">ISO 27001</div><div class="sb-sub">Certified</div></div>
-        <div class="security-badge"><div class="sb-icon">💳</div><div class="sb-label">PCI DSS</div><div class="sb-sub">Compliant</div></div>
-        <div class="security-badge"><div class="sb-icon">🔐</div><div class="sb-label">2FA</div><div class="sb-sub">Authentication</div></div>
+${n.securityBadges.map(b => `        <div class="security-badge"><div class="sb-icon">${b.icon}</div><div class="sb-label">${b.label}</div><div class="sb-sub">${b.sub}</div></div>`).join('\n')}
       </div>
     </div>
   </div>
@@ -1241,14 +1557,12 @@ ${heroConfig.variant !== 'legal' ? `
   <div class="section">
     <div class="section-inner">
       <div class="fund-protection">
-        <div class="fp-icon">🛡️</div>
+        <div class="fp-icon">${n.fundProtection.icon}</div>
         <div class="fp-content">
-          <div class="fp-title">Client Fund Protection</div>
-          <div class="fp-text">All client funds are held in segregated accounts with tier-1 banks, completely separate from our operational funds. In the unlikely event of insolvency, your funds are protected by regulatory compensation schemes.</div>
+          <div class="fp-title">${n.fundProtection.title}</div>
+          <div class="fp-text">${n.fundProtection.text}</div>
           <div class="fp-amounts">
-            <div class="fp-amount">🇬🇧 FSCS: up to <strong>&pound;85,000</strong></div>
-            <div class="fp-amount">🇪🇺 ICF: up to <strong>&euro;20,000</strong></div>
-            <div class="fp-amount">🇨🇭 esisuisse: up to <strong>CHF 100,000</strong></div>
+${n.fundProtection.amounts.map(a => `            <div class="fp-amount">${a.flag} ${a.label}</div>`).join('\n')}
           </div>
         </div>
       </div>
@@ -1262,7 +1576,7 @@ ${faqHtml}
       <div class="footer-grid">
         <div class="footer-col">
           <h4>${escapeHtml(brandName)}</h4>
-          <p>Your trusted partner for online trading. Access global markets with institutional-grade technology, tight spreads, and award-winning service.</p>
+          <p>${n.footerDesc}</p>
           <div class="footer-social">
             <a href="#" aria-label="Twitter">𝕏</a>
             <a href="#" aria-label="Facebook">f</a>
@@ -1291,37 +1605,29 @@ ${legalPages.length ? `        <div class="footer-col">\n          <h4>Legal</h4
       <div class="footer-licenses">
         <div class="footer-licenses-title">Regulatory Licenses</div>
         <div class="footer-licenses-grid">
-          <div class="footer-license-item"><strong>FCA (United Kingdom)</strong>${escapeHtml(brandName)} UK Ltd is authorised and regulated by the Financial Conduct Authority. Ref. No. 595450</div>
-          <div class="footer-license-item"><strong>CySEC (European Union)</strong>${escapeHtml(brandName)} EU Ltd is licensed by the Cyprus Securities and Exchange Commission. License No. 201/13</div>
-          <div class="footer-license-item"><strong>DFSA (UAE)</strong>${escapeHtml(brandName)} MENA Ltd is authorised by the Dubai Financial Services Authority. Ref. No. F003484</div>
-          <div class="footer-license-item"><strong>ASIC (Australia)</strong>${escapeHtml(brandName)} AU Pty Ltd is regulated by the Australian Securities &amp; Investments Commission. License No. 443670</div>
+${n.footerLicenses.map(l => `          <div class="footer-license-item"><strong>${l.title}</strong>${escapeHtml(brandName)}${l.text}</div>`).join('\n')}
         </div>
       </div>
       <div class="footer-regulatory">
-        <span>🛡️ FCA Regulated (UK)</span>
-        <span>🇪🇺 CySEC Licensed (EU)</span>
-        <span>🇦🇪 DFSA Authorized (UAE)</span>
-        <span>🇦🇺 ASIC Licensed (AU)</span>
-        <span>🔒 256-bit SSL Encryption</span>
-        <span>🏦 Segregated Client Funds</span>
+${n.footerRegulatory.map(r => `        <span>${r}</span>`).join('\n')}
       </div>
       <div class="footer-payments">
-        <span>💳 Visa</span><span>💳 Mastercard</span><span>🏦 Wire Transfer</span><span>Skrill</span><span>Neteller</span><span>Apple Pay</span><span>Google Pay</span>
+        ${n.footerPayments.map(p => `<span>${p}</span>`).join('')}
       </div>
       <div class="footer-address">
-        <span>📍 ${escapeHtml(brandName)} UK Ltd, 110 Bishopsgate, London EC2N 4AY, United Kingdom</span>
-        <a href="tel:+442012345678">📞 +44 20 1234 5678</a>
+        <span>📍 ${escapeHtml(brandName)}, ${n.footerAddress}</span>
+        <a href="tel:${n.footerPhone.replace(/\s/g, '')}">📞 ${n.footerPhone}</a>
         <a href="mailto:support@${escapeHtml(domain)}">📧 support@${escapeHtml(domain)}</a>
       </div>
       <div class="footer-bottom">
         <p>&copy; ${year} ${escapeHtml(brandName)}. All rights reserved.</p>
-        <p><a href="terms.html" style="color:inherit;opacity:.6">Terms</a> &middot; <a href="privacy.html" style="color:inherit;opacity:.6">Privacy</a> &middot; <a href="risk-disclosure.html" style="color:inherit;opacity:.6">Risk Disclosure</a> &middot; <a href="about.html" style="color:inherit;opacity:.6">About Us</a></p>
+        <p><a href="terms.html" style="color:inherit;opacity:.6">Terms</a> &middot; <a href="privacy.html" style="color:inherit;opacity:.6">Privacy</a> &middot; <a href="${options.niche === 'crypto_exchange' ? 'risk-warning.html' : 'risk-disclosure.html'}" style="color:inherit;opacity:.6">${options.niche === 'crypto_exchange' ? 'Risk Warning' : 'Risk Disclosure'}</a> &middot; <a href="about.html" style="color:inherit;opacity:.6">About Us</a></p>
       </div>
-      <p class="footer-risk">Risk Warning: Trading in Contracts for Difference (CFDs) carries a high level of risk and may not be suitable for all investors. You could lose more than your initial investment. <strong>Approximately 72% of retail investor accounts lose money when trading CFDs with this provider.</strong> You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money. Please ensure you fully understand the risks involved and seek independent advice if necessary. Past performance is not indicative of future results. ${escapeHtml(brandName)} is a registered trading name. Company registration no. 12345678.</p>
+      <p class="footer-risk">${n.footerRisk} ${escapeHtml(brandName)} is a registered trading name. Company registration no. 12345678.</p>
     </div>
   </footer>
 ${heroConfig.variant !== 'legal' ? `  <div class="sticky-cta">
-    <a href="#" class="btn-primary">Open Free Account — Start Trading</a>
+    <a href="#" class="btn-primary">${n.stickyCTA}</a>
   </div>
   <div class="live-activity">
     <span class="la-dot"></span>
@@ -1346,13 +1652,7 @@ if(!localStorage.getItem('cookies')){setTimeout(function(){var cb=document.getEl
 // Live activity notifications
 (function(){
   var msgs=[
-    {flag:'🇬🇧',text:'A trader in <strong>London</strong> just opened an account'},
-    {flag:'🇩🇪',text:'<strong>148 traders</strong> are viewing this page right now'},
-    {flag:'🇦🇺',text:'A trader in <strong>Sydney</strong> deposited $5,000'},
-    {flag:'🇺🇸',text:'<strong>2,847 trades</strong> executed in the last hour'},
-    {flag:'🇯🇵',text:'A trader in <strong>Tokyo</strong> just opened an account'},
-    {flag:'🇫🇷',text:'<strong>New:</strong> EUR/USD spread at 0.1 pips right now'},
-    {flag:'🇸🇬',text:'A trader in <strong>Singapore</strong> upgraded to VIP'},
+${n.liveActivityMsgs.map(m => `    {flag:'${m.flag}',text:'${m.text.replace(/'/g, "\\'")}'}`).join(',\n')}
   ];
   var el=document.querySelector('.live-activity');
   if(!el)return;
