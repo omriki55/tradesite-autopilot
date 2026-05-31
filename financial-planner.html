@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מתכנן פיננסי</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#0a0a0f',
+            surface: '#111118',
+            border: '#1e293b',
+            muted: '#1e1e2a',
+            'muted-fg': '#94a3b8',
+            fg: '#f0f0f5',
+            primary: '#3b82f6',
+            success: '#22c55e',
+            warn: '#f59e0b',
+            danger: '#ef4444',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #0a0a0f; color: #f0f0f5; font-family: system-ui, sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    input[type=number]::-webkit-inner-spin-button { opacity: 0.4; }
+    .fade { animation: fadeIn 0.15s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+<div id="app">
+
+<!-- ─── ADD CLIENT MODAL ─────────────────────────────────────────────────── -->
+<div v-if="showAddModal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" @click.self="showAddModal=false">
+  <div class="bg-surface border border-border rounded-xl p-6 w-full max-w-md fade">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="text-lg font-bold text-fg">לקוח חדש</h2>
+      <button @click="showAddModal=false" class="text-muted-fg hover:text-fg text-xl leading-none">✕</button>
+    </div>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm text-muted-fg mb-1">שם מלא *</label>
+        <input v-model.trim="newClient.name" type="text" placeholder="ישראל ישראלי"
+          class="w-full px-3 py-2 rounded-lg bg-bg border border-border text-fg placeholder:text-muted-fg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm" />
+      </div>
+      <div>
+        <label class="block text-sm text-muted-fg mb-1">אימייל</label>
+        <input v-model.trim="newClient.email" type="email" placeholder="israel@example.com" dir="ltr"
+          class="w-full px-3 py-2 rounded-lg bg-bg border border-border text-fg placeholder:text-muted-fg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm" />
+      </div>
+      <div>
+        <label class="block text-sm text-muted-fg mb-1">טלפון</label>
+        <input v-model.trim="newClient.phone" type="tel" placeholder="050-000-0000" dir="ltr"
+          class="w-full px-3 py-2 rounded-lg bg-bg border border-border text-fg placeholder:text-muted-fg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm" />
+      </div>
+    </div>
+    <div class="flex gap-3 mt-5">
+      <button @click="showAddModal=false" class="flex-1 py-2 rounded-lg border border-border text-muted-fg hover:bg-muted transition-colors text-sm">ביטול</button>
+      <button @click="addClient" :disabled="!newClient.name" class="flex-1 py-2 rounded-lg bg-primary text-white font-medium hover:opacity-90 disabled:opacity-40 transition-opacity text-sm">הוסף לקוח</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── DELETE CONFIRM MODAL ────────────────────────────────────────────── -->
+<div v-if="confirmDeleteId" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" @click.self="confirmDeleteId=null">
+  <div class="bg-surface border border-danger/40 rounded-xl p-6 w-full max-w-sm fade text-center">
+    <div class="text-3xl mb-3">⚠️</div>
+    <h2 class="text-lg font-bold text-fg mb-2">למחוק את הלקוח?</h2>
+    <p class="text-sm text-muted-fg mb-5">פעולה זו אינה הפיכה. כל הנתונים יאבדו.</p>
+    <div class="flex gap-3">
+      <button @click="confirmDeleteId=null" class="flex-1 py-2 rounded-lg border border-border text-muted-fg hover:bg-muted text-sm">ביטול</button>
+      <button @click="deleteClient(confirmDeleteId)" class="flex-1 py-2 rounded-lg bg-danger text-white font-medium hover:opacity-90 text-sm">מחק לצמיתות</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── MAIN WRAPPER ─────────────────────────────────────────────────────── -->
+<div class="min-h-screen">
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- LIST VIEW                                                          -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <div v-if="view==='list'" class="max-w-4xl mx-auto px-4 py-8 fade">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-fg">🗂️ מתכנן פיננסי</h1>
+        <p class="text-sm text-muted-fg mt-1">ניהול לקוחות ותהליכי תכנון פיננסי</p>
+      </div>
+      <button @click="openAddModal" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white font-medium hover:opacity-90 transition-opacity text-sm">
+        + לקוח חדש
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+      <div class="bg-surface border border-border rounded-xl p-4">
+        <p class="text-xs text-muted-fg mb-1">סה"כ לקוחות</p>
+        <p class="text-2xl font-bold text-fg">{{ clients.length }}</p>
+      </div>
+      <div class="bg-surface border border-border rounded-xl p-4">
+        <p class="text-xs text-blue-400 mb-1">פגישה 1 — מיפוי</p>
+        <p class="text-2xl font-bold text-fg">{{ clients.filter(c=>c.phase===1).length }}</p>
+      </div>
+      <div class="bg-surface border border-border rounded-xl p-4">
+        <p class="text-xs text-warn mb-1">פגישות 2–3</p>
+        <p class="text-2xl font-bold text-fg">{{ clients.filter(c=>c.phase>=2).length }}</p>
+      </div>
+      <div class="bg-surface border border-border rounded-xl p-4">
+        <p class="text-xs text-success mb-1">הושלמו</p>
+        <p class="text-2xl font-bold text-fg">{{ clients.filter(c=>c.status==='completed').length }}</p>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div v-if="clients.length===0" class="bg-surface border border-border rounded-xl p-12 text-center">
+      <div class="text-5xl mb-4">👥</div>
+      <h2 class="text-lg font-semibold text-fg mb-2">אין לקוחות עדיין</h2>
+      <p class="text-sm text-muted-fg mb-6">הוסף את הלקוח הראשון כדי להתחיל תהליך תכנון פיננסי</p>
+      <button @click="openAddModal" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white font-medium hover:opacity-90 text-sm">
+        + הוסף לקוח ראשון
+      </button>
+    </div>
+
+    <!-- Client list -->
+    <div v-else class="bg-surface border border-border rounded-xl overflow-hidden mb-6">
+      <div class="px-4 py-3 border-b border-border">
+        <p class="text-sm font-medium text-fg">רשימת לקוחות ({{ clients.length }})</p>
+      </div>
+      <div v-for="client in clients" :key="client.id" @click="openClient(client.id)"
+        class="flex items-center gap-3 px-4 py-3.5 hover:bg-muted/50 cursor-pointer border-b border-border/50 last:border-0 transition-colors">
+        <div class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm shrink-0">
+          {{ client.name.charAt(0) }}
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-fg">{{ client.name }}</span>
+            <span v-if="client.status==='completed'" class="text-xs text-success">✓</span>
+            <span v-else-if="client.status==='paused'" class="text-xs text-muted-fg">⏸</span>
+          </div>
+          <p class="text-xs text-muted-fg truncate">{{ client.email || client.phone || 'אין פרטי קשר' }}</p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="flex gap-0.5">
+            <div v-for="p in [1,2,3]" :key="p" :class="['w-2 h-2 rounded-full', p<=client.phase ? 'bg-primary' : 'bg-border']"></div>
+          </div>
+          <span :class="['text-xs px-2 py-0.5 rounded-full font-medium', phaseChipClass(client.phase)]">
+            פגישה {{ client.phase }}
+          </span>
+        </div>
+        <span class="text-muted-fg text-sm shrink-0">←</span>
+      </div>
+    </div>
+
+    <!-- Process info -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div v-for="info in processInfo" :key="info.phase" :class="['border rounded-xl p-4', info.cardClass]">
+        <p :class="['text-sm font-bold mb-1', info.titleClass]">{{ info.title }}</p>
+        <p class="text-xs text-muted-fg leading-relaxed">{{ info.desc }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- DETAIL VIEW                                                        -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <div v-else-if="view==='detail' && currentClient" class="max-w-3xl mx-auto px-4 py-8 fade">
+
+    <!-- Back + Header -->
+    <div class="flex items-start justify-between mb-5">
+      <div>
+        <button @click="view='list'" class="text-xs text-muted-fg hover:text-fg flex items-center gap-1 mb-2 transition-colors">← חזרה לרשימה</button>
+        <h1 class="text-2xl font-bold text-fg">{{ currentClient.name }}</h1>
+        <p class="text-xs text-muted-fg mt-0.5" dir="ltr">{{ currentClient.email }}{{ currentClient.email && currentClient.phone ? ' · ' : '' }}{{ currentClient.phone }}</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span :class="['text-xs px-2.5 py-1 rounded-full font-medium', statusClass(currentClient.status)]">
+          {{ statusLabel(currentClient.status) }}
+        </span>
+        <button @click="saveClient" :class="['flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all', savedFlash ? 'bg-success text-white' : 'bg-primary text-white hover:opacity-90']">
+          {{ savedFlash ? '✓ נשמר' : '💾 שמור' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Phase tabs + progress -->
+    <div class="bg-surface border border-border rounded-xl p-4 mb-5">
+      <div class="grid grid-cols-3 gap-1 mb-3">
+        <button v-for="p in [1,2,3]" :key="p" @click="activeTab=p"
+          :class="['py-2 rounded-lg text-sm font-medium transition-colors', activeTab===p ? phaseTabActive(p) : 'text-muted-fg hover:text-fg']">
+          {{ p===1 ? '📊' : p===2 ? '📚' : '💼' }} פגישה {{ p }} — {{ phaseLabels[p] }}
+        </button>
+      </div>
+      <div class="flex gap-1 mb-2">
+        <div v-for="p in [1,2,3]" :key="p" :class="['flex-1 h-1.5 rounded-full', p<=currentClient.phase ? 'bg-primary' : 'bg-border']"></div>
+      </div>
+      <div class="flex items-center justify-between text-xs">
+        <span class="text-muted-fg">שלב: <span :class="phaseChipClass(currentClient.phase)" class="font-medium">פגישה {{ currentClient.phase }} — {{ phaseLabels[currentClient.phase] }}</span></span>
+        <button v-if="currentClient.phase<3" @click="advancePhase" class="text-primary hover:opacity-70 font-medium transition-opacity">
+          קדם לפגישה {{ currentClient.phase+1 }} →
+        </button>
+        <button v-else-if="currentClient.status!=='completed'" @click="setStatus('completed')" class="text-success hover:opacity-70 font-medium transition-opacity">
+          סמן כהושלם ✓
+        </button>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 1: MAPPING ──────────────────────────────────────────── -->
+    <div v-if="activeTab===1" class="space-y-4 fade">
+
+      <!-- Cash flow -->
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('cashFlow')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-fg">שלב 1 — תזרים</p>
+            <p class="text-xs text-muted-fg">הכנסות, הוצאות וחיסכון חודשי</p>
+          </div>
+          <span class="text-muted-fg text-sm">{{ openSections.cashFlow ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.cashFlow" class="px-4 pb-4 border-t border-border">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+            <div>
+              <p class="text-xs font-bold text-success mb-2 uppercase">הכנסות</p>
+              <div v-for="(item,i) in edit.cashFlow.income" :key="i" class="flex gap-2 mb-1.5">
+                <input v-model="item.label" placeholder="תיאור" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <button @click="edit.cashFlow.income.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
+              </div>
+              <button @click="edit.cashFlow.income.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף הכנסה</button>
+              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
+                <span class="text-muted-fg">סה"כ הכנסות</span>
+                <span class="font-bold text-success">{{ formatILS(totalIncome) }}</span>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-danger mb-2 uppercase">הוצאות</p>
+              <div v-for="(item,i) in edit.cashFlow.expenses" :key="i" class="flex gap-2 mb-1.5">
+                <input v-model="item.label" placeholder="תיאור" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <button @click="edit.cashFlow.expenses.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
+              </div>
+              <button @click="edit.cashFlow.expenses.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף הוצאה</button>
+              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
+                <span class="text-muted-fg">סה"כ הוצאות</span>
+                <span class="font-bold text-danger">{{ formatILS(totalExpenses) }}</span>
+              </div>
+            </div>
+          </div>
+          <div :class="['mt-4 p-3 rounded-xl flex items-center justify-between', monthlySavings>=0 ? 'bg-success/10' : 'bg-danger/10']">
+            <span class="font-semibold text-fg">חיסכון חודשי נטו</span>
+            <span :class="['text-xl font-bold', monthlySavings>=0 ? 'text-success' : 'text-danger']">{{ formatILS(monthlySavings) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Balance sheet -->
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('balance')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-fg">שלב 2 — מאזן</p>
+            <p class="text-xs text-muted-fg">נכסים, התחייבויות ושווי נקי</p>
+          </div>
+          <span class="text-muted-fg text-sm">{{ openSections.balance ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.balance" class="px-4 pb-4 border-t border-border">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+            <div>
+              <p class="text-xs font-bold text-success mb-2 uppercase">נכסים</p>
+              <div v-for="(item,i) in edit.balanceSheet.assets" :key="i" class="flex gap-2 mb-1.5">
+                <input v-model="item.label" placeholder="שם נכס" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <button @click="edit.balanceSheet.assets.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
+              </div>
+              <button @click="edit.balanceSheet.assets.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף נכס</button>
+              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
+                <span class="text-muted-fg">סה"כ נכסים</span>
+                <span class="font-bold text-success">{{ formatILS(totalAssets) }}</span>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-danger mb-2 uppercase">התחייבויות</p>
+              <div v-for="(item,i) in edit.balanceSheet.liabilities" :key="i" class="flex gap-2 mb-1.5">
+                <input v-model="item.label" placeholder="שם התחייבות" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+                <button @click="edit.balanceSheet.liabilities.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
+              </div>
+              <button @click="edit.balanceSheet.liabilities.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף התחייבות</button>
+              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
+                <span class="text-muted-fg">סה"כ התחייבויות</span>
+                <span class="font-bold text-danger">{{ formatILS(totalLiabilities) }}</span>
+              </div>
+            </div>
+          </div>
+          <div :class="['mt-4 p-3 rounded-xl flex items-center justify-between', netWorth>=0 ? 'bg-success/10' : 'bg-danger/10']">
+            <span class="font-semibold text-fg">שווי נקי</span>
+            <span :class="['text-xl font-bold', netWorth>=0 ? 'text-success' : 'text-danger']">{{ formatILS(netWorth) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pension -->
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('pension')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-fg">שלב 3 — פנסיה</p>
+            <p class="text-xs text-muted-fg">קרן פנסיה, קרן השתלמות ותחזית קצבה</p>
+          </div>
+          <span class="text-muted-fg text-sm">{{ openSections.pension ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.pension" class="px-4 pb-4 border-t border-border">
+          <div class="mt-4">
+            <p class="text-xs font-bold text-muted-fg mb-3 uppercase">קרן פנסיה</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">שם הקרן</label>
+                <input v-model="edit.pension.pensionFund.name" placeholder="מגדל, מנורה..." class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">יתרה (₪)</label>
+                <input v-model.number="edit.pension.pensionFund.balance" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">הפקדה חודשית (₪)</label>
+                <input v-model.number="edit.pension.pensionFund.monthlyContribution" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">דמי ניהול (%)</label>
+                <input v-model.number="edit.pension.pensionFund.managementFee" type="number" step="0.1" placeholder="0.5" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">מסלול השקעה</label>
+                <input v-model="edit.pension.pensionFund.track" placeholder="מניות, כללי..." class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+            </div>
+            <p class="text-xs font-bold text-muted-fg mb-3 uppercase">קרן השתלמות</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">יתרה (₪)</label>
+                <input v-model.number="edit.pension.trainingFund.balance" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">הפקדה חודשית (₪)</label>
+                <input v-model.number="edit.pension.trainingFund.monthlyContribution" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">דמי ניהול (%)</label>
+                <input v-model.number="edit.pension.trainingFund.managementFee" type="number" step="0.1" placeholder="0.5" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+            </div>
+            <div class="flex items-center gap-4 mb-4">
+              <div>
+                <label class="block text-xs text-muted-fg mb-1">גיל פרישה</label>
+                <input v-model.number="edit.pension.retirementAge" type="number" dir="ltr" class="w-20 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs text-muted-fg mb-1">הערות פנסיה</label>
+              <textarea v-model="edit.pension.notes" rows="2" placeholder="פירוט, המלצות, הפניה לסוכן..." class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wealth projection -->
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('wealth')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-fg">שלב 4 — תחזית צמיחת הון</p>
+            <p class="text-xs text-muted-fg">הדמיית עושר לאורך עשרות שנים</p>
+          </div>
+          <span class="text-muted-fg text-sm">{{ openSections.wealth ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.wealth" class="px-4 pb-4 border-t border-border">
+          <div class="grid grid-cols-3 gap-3 mt-4 mb-4">
+            <div>
+              <label class="block text-xs text-muted-fg mb-1">הון ראשוני (₪)</label>
+              <input v-model.number="edit.wealthProjection.initialCapital" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+            </div>
+            <div>
+              <label class="block text-xs text-muted-fg mb-1">הוספה חודשית (₪)</label>
+              <input v-model.number="edit.wealthProjection.monthlyAddition" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+            </div>
+            <div>
+              <label class="block text-xs text-muted-fg mb-1">תשואה שנתית (%)</label>
+              <input v-model.number="edit.wealthProjection.annualReturn" type="number" step="0.5" placeholder="7" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+            </div>
+          </div>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border">
+                <th class="text-right py-2 px-2 text-xs text-muted-fg font-medium">שנה</th>
+                <th class="text-left py-2 px-2 text-xs text-muted-fg font-medium">ללא תשואה</th>
+                <th class="text-left py-2 px-2 text-xs text-primary font-medium">עם {{ edit.wealthProjection.annualReturn }}% תשואה</th>
+                <th class="text-left py-2 px-2 text-xs text-success font-medium">הפרש</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in projectionRows" :key="row.years" class="border-b border-border/40 hover:bg-muted/30">
+                <td class="py-1.5 px-2 text-right font-medium">{{ row.years }}</td>
+                <td class="py-1.5 px-2 text-left text-muted-fg text-xs" dir="ltr">{{ formatILS(row.noReturn) }}</td>
+                <td class="py-1.5 px-2 text-left font-semibold text-primary text-xs" dir="ltr">{{ formatILS(row.withReturn) }}</td>
+                <td class="py-1.5 px-2 text-left text-success font-medium text-xs" dir="ltr">+{{ formatILS(row.diff) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="text-xs text-muted-fg mt-2">* להמחשה בלבד. אינו מהווה ייעוץ השקעות.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 2: EDUCATION ────────────────────────────────────────── -->
+    <div v-if="activeTab===2" class="space-y-4 fade">
+      <div v-for="cat in educationCategories" :key="cat.key" class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('edu_'+cat.key)" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-fg">{{ cat.icon }} {{ cat.label }}</p>
+            <p class="text-xs text-muted-fg">{{ doneCount(cat.key) }}/{{ cat.topics.length }} נושאים נדונו</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-1.5 bg-border rounded-full overflow-hidden">
+              <div class="h-full bg-success rounded-full transition-all" :style="{width: (doneCount(cat.key)/cat.topics.length*100)+'%'}"></div>
+            </div>
+            <span class="text-muted-fg text-sm">{{ openSections['edu_'+cat.key] ? '▲' : '▼' }}</span>
+          </div>
+        </button>
+        <div v-if="openSections['edu_'+cat.key]" class="px-4 pb-4 border-t border-border">
+          <div class="mt-3 space-y-1.5">
+            <label v-for="topic in cat.topics" :key="topic.id"
+              :class="['flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-colors', isDone(cat.key,topic.id) ? 'bg-success/10' : 'hover:bg-muted/50']">
+              <div @click="toggleTopic(cat.key,topic.id)"
+                :class="['w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 cursor-pointer transition-colors', isDone(cat.key,topic.id) ? 'bg-success border-success' : 'border-border']">
+                <span v-if="isDone(cat.key,topic.id)" class="text-white text-[10px] font-bold">✓</span>
+              </div>
+              <span :class="['text-sm', isDone(cat.key,topic.id) ? 'text-fg' : 'text-muted-fg']">{{ topic.label }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="bg-surface border border-border rounded-xl p-4">
+        <p class="text-sm font-semibold text-fg mb-3">סיכום התקדמות לימוד</p>
+        <div v-for="cat in educationCategories" :key="cat.key" class="flex items-center gap-3 mb-2">
+          <span class="text-xs text-muted-fg w-28 text-right">{{ cat.label }}</span>
+          <div class="flex-1 h-2 bg-border rounded-full overflow-hidden">
+            <div class="h-full bg-success rounded-full transition-all" :style="{width: (doneCount(cat.key)/cat.topics.length*100)+'%'}"></div>
+          </div>
+          <span class="text-xs text-muted-fg w-10 text-left" dir="ltr">{{ doneCount(cat.key) }}/{{ cat.topics.length }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PHASE 3: DECISIONS ────────────────────────────────────────── -->
+    <div v-if="activeTab===3" class="space-y-4 fade">
+
+      <!-- Asset allocation -->
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('allocation')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-fg">הקצאת נכסים</p>
+            <p class="text-xs text-muted-fg">סה"כ מוקצה: {{ formatILS(totalAllocated) }}</p>
+          </div>
+          <span class="text-muted-fg text-sm">{{ openSections.allocation ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.allocation" class="px-4 pb-4 border-t border-border">
+          <div class="mt-4 space-y-2">
+            <div v-for="(item,i) in edit.allocation.allocations" :key="i" class="flex gap-2 items-center">
+              <input v-model="item.channel" placeholder="אפיק השקעה" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              <input v-model.number="item.amount" type="number" placeholder="סכום ₪" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              <input v-model="item.notes" placeholder="הערות" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
+              <button @click="edit.allocation.allocations.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
+            </div>
+            <button @click="edit.allocation.allocations.push({channel:'',amount:0,notes:''})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף אפיק</button>
+          </div>
+
+          <!-- Allocation breakdown -->
+          <div v-if="totalAllocated>0" class="mt-4 pt-4 border-t border-border">
+            <p class="text-xs text-muted-fg font-medium mb-3">פירוט אחוזים</p>
+            <div v-for="item in edit.allocation.allocations.filter(a=>a.amount>0)" :key="item.channel" class="flex items-center gap-3 mb-2">
+              <span class="text-xs text-muted-fg w-32 text-right truncate">{{ item.channel || 'אפיק' }}</span>
+              <div class="flex-1 h-2 bg-border rounded-full overflow-hidden">
+                <div class="h-full bg-primary rounded-full transition-all" :style="{width: (item.amount/totalAllocated*100)+'%'}"></div>
+              </div>
+              <span class="text-xs font-medium text-fg w-10 text-left" dir="ltr">{{ Math.round(item.amount/totalAllocated*100) }}%</span>
+              <span class="text-xs text-muted-fg w-24 text-left" dir="ltr">{{ formatILS(item.amount) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decisions notes -->
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('decisions')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right">
+            <p class="text-sm font-semibold text-fg">החלטות ומסקנות</p>
+            <p class="text-xs text-muted-fg">סיכום פגישה 3</p>
+          </div>
+          <span class="text-muted-fg text-sm">{{ openSections.decisions ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.decisions" class="px-4 pb-4 border-t border-border">
+          <textarea v-model="edit.allocation.generalNotes" rows="6" placeholder="נדל&quot;ן, שוק ההון, פנסיה, ביטוחים, הלוואות, משכנתא, מסלולים..." class="w-full mt-3 px-2.5 py-2 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── MEETING NOTES & GENERAL (always visible) ──────────────────── -->
+    <div class="mt-5 space-y-4">
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('meetingNotes')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right"><p class="text-sm font-semibold text-fg">הערות פגישות</p><p class="text-xs text-muted-fg">יומן מפגשים</p></div>
+          <span class="text-muted-fg text-sm">{{ openSections.meetingNotes ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.meetingNotes" class="px-4 pb-4 border-t border-border">
+          <textarea v-model="edit.meetingNotes" rows="4" placeholder="תאריך, נושאים, משימות..." class="w-full mt-3 px-2.5 py-2 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
+        </div>
+      </div>
+
+      <div class="bg-surface border border-border rounded-xl overflow-hidden">
+        <button @click="toggleSection('generalNotes')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
+          <div class="text-right"><p class="text-sm font-semibold text-fg">הערות כלליות</p><p class="text-xs text-muted-fg">מטרות, רקע אישי</p></div>
+          <span class="text-muted-fg text-sm">{{ openSections.generalNotes ? '▲' : '▼' }}</span>
+        </button>
+        <div v-if="openSections.generalNotes" class="px-4 pb-4 border-t border-border">
+          <textarea v-model="edit.generalNotes" rows="3" placeholder="מטרות הלקוח, מצב משפחתי, תכניות..." class="w-full mt-3 px-2.5 py-2 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── STATUS + DELETE ───────────────────────────────────────────── -->
+    <div class="mt-5 bg-surface border border-border rounded-xl p-4">
+      <p class="text-xs text-muted-fg mb-3 font-medium uppercase tracking-wider">ניהול לקוח</p>
+      <div class="flex flex-wrap items-center gap-2">
+        <button v-for="s in ['active','paused','completed']" :key="s" @click="setStatus(s)"
+          :class="['px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors', currentClient.status===s ? 'bg-primary/10 border-primary/30 text-primary' : 'border-border text-muted-fg hover:bg-muted']">
+          {{ s==='active' ? '● פעיל' : s==='paused' ? '⏸ בהמתנה' : '✓ הושלם' }}
+        </button>
+        <button @click="confirmDeleteId=currentClient.id" class="mr-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-danger border border-danger/30 hover:bg-danger/10 transition-colors">
+          🗑 מחק לקוח
+        </button>
+      </div>
+    </div>
+
+    <!-- Floating save -->
+    <div class="sticky bottom-4 flex justify-center mt-5 pb-2">
+      <button @click="saveClient" :class="['flex items-center gap-2 px-6 py-2.5 rounded-full font-medium text-sm shadow-xl transition-all', savedFlash ? 'bg-success text-white' : 'bg-primary text-white hover:opacity-90']">
+        {{ savedFlash ? '✓ נשמר בהצלחה!' : '💾 שמור שינויים' }}
+      </button>
+    </div>
+  </div>
+
+</div><!-- end #app -->
+
+<script>
+const { createApp, ref, reactive, computed, watch, onMounted } = Vue
+
+// ─── STORAGE ─────────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'fp_clients_v1'
+
+function loadClients() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') } catch { return [] }
+}
+function saveClientsToStorage(clients) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(clients))
+}
+function genId() {
+  return Math.random().toString(36).slice(2) + Date.now().toString(36)
+}
+
+// ─── DEFAULTS ─────────────────────────────────────────────────────────────────
+const defaultCashFlow = () => ({
+  income: [{ label: 'משכורת', amount: 0 }],
+  expenses: [
+    { label: 'שכירות / משכנתא', amount: 0 },
+    { label: 'מזון', amount: 0 },
+    { label: 'רכב', amount: 0 },
+    { label: 'חינוך', amount: 0 },
+  ],
+})
+const defaultBalance = () => ({
+  assets: [
+    { label: 'דירה', amount: 0 },
+    { label: 'קרן השתלמות', amount: 0 },
+    { label: 'חסכונות', amount: 0 },
+  ],
+  liabilities: [{ label: 'משכנתא', amount: 0 }],
+})
+const defaultPension = () => ({
+  pensionFund: { name: '', balance: 0, monthlyContribution: 0, managementFee: 0.5, track: '' },
+  trainingFund: { balance: 0, monthlyContribution: 0, managementFee: 0.5 },
+  retirementAge: 67,
+  notes: '',
+})
+const defaultWealth = () => ({ initialCapital: 0, monthlyAddition: 0, annualReturn: 7 })
+const defaultEducation = () => ({ moneyManagement: [], realEstate: [], stockMarket: [] })
+const defaultAllocation = () => ({
+  allocations: [
+    { channel: 'שוק ההון — מדדים/ETF', amount: 0, notes: '' },
+    { channel: 'נדל"ן', amount: 0, notes: '' },
+    { channel: 'קרן השתלמות', amount: 0, notes: '' },
+    { channel: 'פנסיה', amount: 0, notes: '' },
+  ],
+  generalNotes: '',
+})
+
+function deepClone(v) { return JSON.parse(JSON.stringify(v)) }
+
+// ─── EDUCATION CONTENT ────────────────────────────────────────────────────────
+const EDUCATION_CATS = [
+  {
+    key: 'moneyManagement', icon: '💰', label: 'ניהול כסף',
+    topics: [
+      { id: 'interest_inflation', label: 'הקשר בין ריבית ואינפלציה' },
+      { id: 'real_nominal', label: 'ריאלי ונומינלי' },
+      { id: 'current_account', label: 'כמה כסף לשמור בעו"ש' },
+      { id: 'short_term', label: 'פק"מ וקרן כספית — מתי ומה ההבדלים' },
+      { id: 'time_horizon', label: 'התאמת אפיקים לטווח ההשקעה' },
+      { id: 'beginners', label: 'אפיקים מתאימים לתחילת הדרך' },
+      { id: 'warnings', label: 'ממה להיזהר בעולם הפיננסים' },
+    ],
+  },
+  {
+    key: 'realEstate', icon: '🏠', label: 'נדל"ן',
+    topics: [
+      { id: 're_purchase', label: 'איך לרכוש נכון דירה להשקעה בישראל' },
+      { id: 're_vs_living', label: 'הבדלים בין דירה להשקעה ולמגורים' },
+      { id: 're_tax_first', label: 'הטבות מיסוי בדירה יחידה' },
+      { id: 're_mortgage', label: 'מתי ואיך לקחת משכנתא' },
+      { id: 're_leverage', label: 'כוח המינוף' },
+      { id: 're_roi_calc', label: 'חישוב תשואה ועלות משכנתא' },
+      { id: 're_investor_escort', label: 'מלווה משקיעים — מתי כדאי' },
+      { id: 're_tax_second', label: 'מיסים על דירה שנייה' },
+      { id: 're_professionals', label: 'אנשי מקצוע שאסור לוותר עליהם' },
+      { id: 're_abroad', label: 'נדל"ן בחו"ל — סיכויים וסיכונים' },
+    ],
+  },
+  {
+    key: 'stockMarket', icon: '📈', label: 'שוק ההון',
+    topics: [
+      { id: 'sm_long_term', label: 'עקרונות השקעה לטווח ארוך' },
+      { id: 'sm_passive', label: 'תורת ההשקעה הפסיבית' },
+      { id: 'sm_account', label: 'פתיחת חשבון מסחר עצמאי' },
+      { id: 'sm_first_buy', label: 'ביצוע הרכישה הראשונה' },
+      { id: 'sm_etf', label: 'מדדים ו-ETF — הבסיס' },
+      { id: 'sm_diversify', label: 'פיזור השקעות נכון' },
+    ],
+  },
+]
+
+// ─── VUE APP ──────────────────────────────────────────────────────────────────
+createApp({
+  data() {
+    return {
+      // Navigation
+      view: 'list', // 'list' | 'detail'
+      selectedClientId: null,
+
+      // Clients
+      clients: loadClients(),
+
+      // Add modal
+      showAddModal: false,
+      newClient: { name: '', email: '', phone: '' },
+
+      // Delete confirm
+      confirmDeleteId: null,
+
+      // Detail editing state
+      activeTab: 1,
+      savedFlash: false,
+      edit: {
+        cashFlow: defaultCashFlow(),
+        balanceSheet: defaultBalance(),
+        pension: defaultPension(),
+        wealthProjection: defaultWealth(),
+        education: defaultEducation(),
+        allocation: defaultAllocation(),
+        meetingNotes: '',
+        generalNotes: '',
+      },
+
+      // UI
+      openSections: {
+        cashFlow: true, balance: true, pension: false, wealth: false,
+        allocation: true, decisions: true, meetingNotes: false, generalNotes: false,
+        edu_moneyManagement: true, edu_realEstate: false, edu_stockMarket: false,
+      },
+
+      // Education categories (static)
+      educationCategories: EDUCATION_CATS,
+
+      // Process info cards
+      processInfo: [
+        {
+          phase: 1, icon: '📊', title: 'פגישה 1 — מיפוי',
+          cardClass: 'border-blue-400/30 bg-blue-400/5',
+          titleClass: 'text-blue-400',
+          desc: 'מיפוי תזרים הכנסות/הוצאות, מאזן נכסים, נתוני פנסיה ותחזית צמיחת הון',
+        },
+        {
+          phase: 2, icon: '📚', title: 'פגישה 2 — לימוד',
+          cardClass: 'border-warn/30 bg-warn/5',
+          titleClass: 'text-warn',
+          desc: 'ניהול כסף, השקעות נדל"ן בישראל ובחו"ל, שוק ההון ותורת ההשקעה הפסיבית',
+        },
+        {
+          phase: 3, icon: '💼', title: 'פגישה 3 — החלטות',
+          cardClass: 'border-success/30 bg-success/5',
+          titleClass: 'text-success',
+          desc: 'הקצאת נכסים, בניית תיק השקעות, החלטות נדל"ן ואפיקים בהתאם למטרות',
+        },
+      ],
+
+      // Phase labels
+      phaseLabels: { 1: 'מיפוי', 2: 'לימוד', 3: 'החלטות' },
+    }
+  },
+
+  computed: {
+    currentClient() {
+      return this.clients.find(c => c.id === this.selectedClientId) || null
+    },
+    // Cash flow
+    totalIncome() { return this.edit.cashFlow.income.reduce((s, i) => s + (i.amount || 0), 0) },
+    totalExpenses() { return this.edit.cashFlow.expenses.reduce((s, i) => s + (i.amount || 0), 0) },
+    monthlySavings() { return this.totalIncome - this.totalExpenses },
+    // Balance sheet
+    totalAssets() { return this.edit.balanceSheet.assets.reduce((s, i) => s + (i.amount || 0), 0) },
+    totalLiabilities() { return this.edit.balanceSheet.liabilities.reduce((s, i) => s + (i.amount || 0), 0) },
+    netWorth() { return this.totalAssets - this.totalLiabilities },
+    // Allocation
+    totalAllocated() { return this.edit.allocation.allocations.reduce((s, a) => s + (a.amount || 0), 0) },
+    // Wealth projection
+    projectionRows() {
+      const { initialCapital, monthlyAddition, annualReturn } = this.edit.wealthProjection
+      return [1, 3, 5, 10, 15, 20, 25, 30].map(years => {
+        const n = years * 12
+        const r = annualReturn / 100 / 12
+        const withReturn = r === 0
+          ? initialCapital + monthlyAddition * n
+          : initialCapital * Math.pow(1 + r, n) + monthlyAddition * (Math.pow(1 + r, n) - 1) / r
+        const noReturn = initialCapital + monthlyAddition * n
+        return { years, withReturn, noReturn, diff: withReturn - noReturn }
+      })
+    },
+  },
+
+  methods: {
+    // ── Navigation ────────────────────────────────────────────────────────────
+    openClient(id) {
+      this.selectedClientId = id
+      this.activeTab = 1
+      const c = this.clients.find(cl => cl.id === id)
+      if (!c) return
+      this.edit.cashFlow = deepClone(c.cashFlow || defaultCashFlow())
+      this.edit.balanceSheet = deepClone(c.balanceSheet || defaultBalance())
+      this.edit.pension = deepClone(c.pension || defaultPension())
+      this.edit.wealthProjection = deepClone(c.wealthProjection || defaultWealth())
+      this.edit.education = deepClone(c.education || defaultEducation())
+      this.edit.allocation = deepClone(c.allocation || defaultAllocation())
+      this.edit.meetingNotes = c.meetingNotes || ''
+      this.edit.generalNotes = c.notes || ''
+      this.view = 'detail'
+    },
+
+    // ── Add client ────────────────────────────────────────────────────────────
+    openAddModal() {
+      this.newClient = { name: '', email: '', phone: '' }
+      this.showAddModal = true
+    },
+    addClient() {
+      if (!this.newClient.name.trim()) return
+      const client = {
+        id: genId(),
+        name: this.newClient.name,
+        email: this.newClient.email || null,
+        phone: this.newClient.phone || null,
+        phase: 1,
+        status: 'active',
+        cashFlow: defaultCashFlow(),
+        balanceSheet: defaultBalance(),
+        pension: defaultPension(),
+        wealthProjection: defaultWealth(),
+        education: defaultEducation(),
+        allocation: defaultAllocation(),
+        meetingNotes: '',
+        notes: '',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+      this.clients.push(client)
+      saveClientsToStorage(this.clients)
+      this.showAddModal = false
+      this.openClient(client.id)
+    },
+
+    // ── Save client ───────────────────────────────────────────────────────────
+    saveClient() {
+      if (!this.currentClient) return
+      const idx = this.clients.findIndex(c => c.id === this.selectedClientId)
+      if (idx === -1) return
+      this.clients[idx] = {
+        ...this.clients[idx],
+        cashFlow: deepClone(this.edit.cashFlow),
+        balanceSheet: deepClone(this.edit.balanceSheet),
+        pension: deepClone(this.edit.pension),
+        wealthProjection: deepClone(this.edit.wealthProjection),
+        education: deepClone(this.edit.education),
+        allocation: deepClone(this.edit.allocation),
+        meetingNotes: this.edit.meetingNotes,
+        notes: this.edit.generalNotes,
+        updatedAt: new Date().toISOString(),
+      }
+      saveClientsToStorage(this.clients)
+      this.savedFlash = true
+      setTimeout(() => { this.savedFlash = false }, 2000)
+    },
+
+    // ── Delete client ─────────────────────────────────────────────────────────
+    deleteClient(id) {
+      this.clients = this.clients.filter(c => c.id !== id)
+      saveClientsToStorage(this.clients)
+      this.confirmDeleteId = null
+      this.view = 'list'
+      this.selectedClientId = null
+    },
+
+    // ── Phase / Status ────────────────────────────────────────────────────────
+    advancePhase() {
+      if (!this.currentClient || this.currentClient.phase >= 3) return
+      const idx = this.clients.findIndex(c => c.id === this.selectedClientId)
+      this.clients[idx].phase++
+      saveClientsToStorage(this.clients)
+    },
+    setStatus(s) {
+      if (!this.currentClient) return
+      const idx = this.clients.findIndex(c => c.id === this.selectedClientId)
+      this.clients[idx].status = s
+      saveClientsToStorage(this.clients)
+    },
+
+    // ── Education ─────────────────────────────────────────────────────────────
+    isDone(catKey, topicId) {
+      return (this.edit.education[catKey] || []).includes(topicId)
+    },
+    doneCount(catKey) {
+      return (this.edit.education[catKey] || []).length
+    },
+    toggleTopic(catKey, topicId) {
+      const arr = this.edit.education[catKey] || []
+      if (arr.includes(topicId)) {
+        this.edit.education[catKey] = arr.filter(t => t !== topicId)
+      } else {
+        this.edit.education[catKey] = [...arr, topicId]
+      }
+    },
+
+    // ── UI helpers ────────────────────────────────────────────────────────────
+    toggleSection(key) { this.openSections[key] = !this.openSections[key] },
+
+    phaseChipClass(phase) {
+      if (phase === 1) return 'text-blue-400 bg-blue-400/10'
+      if (phase === 2) return 'text-warn bg-warn/10'
+      return 'text-success bg-success/10'
+    },
+    phaseTabActive(p) {
+      if (p === 1) return 'bg-blue-400/10 text-blue-400'
+      if (p === 2) return 'bg-warn/10 text-warn'
+      return 'bg-success/10 text-success'
+    },
+    statusClass(s) {
+      if (s === 'completed') return 'bg-success/10 text-success'
+      if (s === 'paused') return 'bg-muted text-muted-fg'
+      return 'bg-primary/10 text-primary'
+    },
+    statusLabel(s) {
+      if (s === 'completed') return 'הושלם'
+      if (s === 'paused') return 'בהמתנה'
+      return 'פעיל'
+    },
+
+    // ── Formatting ────────────────────────────────────────────────────────────
+    formatILS(n) {
+      return new Intl.NumberFormat('he-IL', {
+        style: 'currency', currency: 'ILS', maximumFractionDigits: 0,
+      }).format(n || 0)
+    },
+  },
+}).mount('#app')
+</script>
+</body>
+</html>
