@@ -1,900 +1,452 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>מתכנן פיננסי</title>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bg: '#0a0a0f',
-            surface: '#111118',
-            border: '#1e293b',
-            muted: '#1e1e2a',
-            'muted-fg': '#94a3b8',
-            fg: '#f0f0f5',
-            primary: '#3b82f6',
-            success: '#22c55e',
-            warn: '#f59e0b',
-            danger: '#ef4444',
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    body { background: #0a0a0f; color: #f0f0f5; font-family: system-ui, sans-serif; }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-    input[type=number]::-webkit-inner-spin-button { opacity: 0.4; }
-    .fade { animation: fadeIn 0.15s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>מתכנן פיננסי</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#0a0a0f;color:#f0f0f5;min-height:100vh;direction:rtl}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0a0a0f}::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px}
+:root{--bg:#0a0a0f;--surface:#111118;--border:#1e293b;--muted:#1e1e2a;--muted-fg:#94a3b8;--fg:#f0f0f5;--primary:#3b82f6;--success:#22c55e;--warn:#f59e0b;--danger:#ef4444}
+.container{max-width:900px;margin:0 auto;padding:2rem 1rem}
+.container-md{max-width:720px;margin:0 auto;padding:2rem 1rem}
+.row{display:flex;align-items:center;gap:.75rem}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.col{display:flex;flex-direction:column;gap:.75rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem}
+@media(max-width:600px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:.75rem;overflow:hidden}
+.card-body{padding:1rem}
+.card-header{padding:.875rem 1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+.card-header:hover{background:rgba(255,255,255,.02)}
+.card-header h3{font-size:.875rem;font-weight:600;color:var(--fg)}
+.card-header p{font-size:.75rem;color:var(--muted-fg);margin-top:.1rem}
+.card-content{padding:1rem;border-top:1px solid var(--border);animation:fadeIn .15s ease}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:.75rem;padding:1rem}
+.stat-label{font-size:.75rem;color:var(--muted-fg);margin-bottom:.25rem}
+.stat-value{font-size:1.75rem;font-weight:700;color:var(--fg)}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:.5rem;font-size:.875rem;font-weight:500;cursor:pointer;border:none;transition:opacity .15s}
+.btn:hover{opacity:.85}.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-success{background:var(--success);color:#fff}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--muted-fg)}
+.btn-outline:hover{background:var(--muted);color:var(--fg)}
+.btn-danger{background:transparent;border:1px solid rgba(239,68,68,.4);color:var(--danger)}
+.btn-danger:hover{background:rgba(239,68,68,.1)}
+.btn-sm{padding:.375rem .75rem;font-size:.8125rem}
+.btn-pill{border-radius:9999px;padding:.625rem 1.5rem;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.form-group{display:flex;flex-direction:column;gap:.25rem}
+.form-label{font-size:.8125rem;color:var(--muted-fg)}
+input,textarea{background:var(--bg);border:1px solid var(--border);border-radius:.5rem;padding:.4375rem .75rem;font-size:.875rem;color:var(--fg);outline:none;width:100%;font-family:inherit}
+input:focus,textarea:focus{border-color:rgba(59,130,246,.5);box-shadow:0 0 0 2px rgba(59,130,246,.15)}
+input[type=number]{direction:ltr;text-align:left}
+input::placeholder,textarea::placeholder{color:var(--muted-fg)}
+textarea{resize:none}
+.li-row{display:flex;gap:.5rem;align-items:center;margin-bottom:.375rem}
+.li-row .li-label{flex:1}.li-row .li-amount{width:7rem}
+.li-delete{background:none;border:none;color:var(--muted-fg);cursor:pointer;font-size:.875rem;padding:.25rem;border-radius:.375rem;transition:color .15s}
+.li-delete:hover{color:var(--danger)}
+.add-row{background:none;border:none;color:var(--primary);cursor:pointer;font-size:.8125rem;margin-top:.25rem;padding:.25rem 0}
+.add-row:hover{opacity:.7}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:.625rem .75rem;border-radius:.5rem;margin-top:.75rem}
+.sum-row.positive{background:rgba(34,197,94,.1)}.sum-row.negative{background:rgba(239,68,68,.1)}
+.sum-label{font-weight:600;font-size:.875rem;color:var(--fg)}
+.sum-value{font-size:1.125rem;font-weight:700}
+.sum-value.pos{color:var(--success)}.sum-value.neg{color:var(--danger)}
+.col-total{display:flex;justify-content:space-between;padding:.5rem .25rem;border-top:1px solid var(--border);margin-top:.5rem;font-size:.875rem}
+.badge{display:inline-flex;align-items:center;padding:.2rem .625rem;border-radius:9999px;font-size:.75rem;font-weight:500}
+.badge-blue{background:rgba(59,130,246,.1);color:#93c5fd}
+.badge-warn{background:rgba(245,158,11,.1);color:#fbbf24}
+.badge-green{background:rgba(34,197,94,.1);color:#86efac}
+.badge-active{background:rgba(59,130,246,.1);color:var(--primary)}
+.badge-paused{background:var(--muted);color:var(--muted-fg)}
+.badge-completed{background:rgba(34,197,94,.1);color:var(--success)}
+.phase-dots{display:flex;gap:.25rem}
+.phase-dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--border)}
+.phase-dot.filled{background:var(--primary)}
+.prog-bar{height:.375rem;background:var(--border);border-radius:9999px;overflow:hidden}
+.prog-fill{height:100%;border-radius:9999px;transition:width .3s}
+.prog-fill.primary{background:var(--primary)}.prog-fill.success{background:var(--success)}
+.phase-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.25rem;margin-bottom:.75rem}
+.phase-tab{padding:.625rem .5rem;border-radius:.5rem;font-size:.875rem;font-weight:500;cursor:pointer;background:none;border:none;color:var(--muted-fg);text-align:center;transition:color .15s,background .15s;display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.phase-tab:hover{color:var(--fg)}
+.phase-tab.active-1{background:rgba(59,130,246,.1);color:#93c5fd}
+.phase-tab.active-2{background:rgba(245,158,11,.1);color:#fbbf24}
+.phase-tab.active-3{background:rgba(34,197,94,.1);color:#86efac}
+.phase-strips{display:flex;gap:.25rem}
+.phase-strip{flex:1;height:.375rem;border-radius:9999px;background:var(--border);transition:background .3s}
+.phase-strip.done{background:var(--primary)}
+.client-row{display:flex;align-items:center;gap:.75rem;padding:.875rem 1rem;border-bottom:1px solid rgba(30,41,59,.5);cursor:pointer;transition:background .15s}
+.client-row:last-child{border-bottom:none}.client-row:hover{background:rgba(255,255,255,.025)}
+.client-avatar{width:2.5rem;height:2.5rem;border-radius:50%;background:rgba(59,130,246,.2);color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.875rem;flex-shrink:0}
+.client-info{flex:1;min-width:0}.client-name{font-size:.875rem;font-weight:500;color:var(--fg)}
+.client-sub{font-size:.75rem;color:var(--muted-fg);margin-top:.1rem}
+.client-actions{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:50;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:.75rem;padding:1.5rem;width:100%;max-width:26rem;animation:fadeIn .15s ease}
+.edu-item{display:flex;align-items:center;gap:.75rem;padding:.625rem .75rem;border-radius:.5rem;cursor:pointer;transition:background .15s}
+.edu-item:hover{background:rgba(255,255,255,.03)}.edu-item.done{background:rgba(34,197,94,.07)}
+.edu-check{width:1rem;height:1rem;border-radius:.25rem;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.625rem;font-weight:700;transition:all .15s}
+.edu-check.done{background:var(--success);border-color:var(--success);color:#fff}
+.edu-text{font-size:.875rem;color:var(--muted-fg)}.edu-text.done{color:var(--fg)}
+.proj-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.proj-table th{text-align:right;padding:.5rem .75rem;font-size:.75rem;font-weight:500;color:var(--muted-fg);border-bottom:1px solid var(--border)}
+.proj-table th.num{text-align:left}
+.proj-table td{padding:.4375rem .75rem;border-bottom:1px solid rgba(30,41,59,.4)}
+.proj-table td.num{text-align:left;direction:ltr}
+.proj-table tr:hover td{background:rgba(255,255,255,.02)}
+.td-no{color:var(--muted-fg);font-size:.8125rem}.td-yes{color:var(--primary);font-weight:600;font-size:.8125rem}.td-diff{color:var(--success);font-weight:500;font-size:.8125rem}.td-years{font-weight:500}
+.alloc-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
+.alloc-label{font-size:.75rem;color:var(--muted-fg);width:8rem;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.alloc-track{flex:1;height:.5rem;background:var(--border);border-radius:9999px;overflow:hidden}
+.alloc-fill{height:100%;background:var(--primary);border-radius:9999px;transition:width .3s}
+.alloc-pct{font-size:.75rem;font-weight:500;width:2.5rem;text-align:left;direction:ltr;flex-shrink:0}
+.alloc-amt{font-size:.75rem;color:var(--muted-fg);width:6rem;text-align:left;direction:ltr;flex-shrink:0}
+.status-bar{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.status-btn{background:none;border:1px solid var(--border);color:var(--muted-fg);border-radius:.5rem;padding:.375rem .75rem;font-size:.8125rem;cursor:pointer;transition:all .15s}
+.status-btn:hover{background:var(--muted);color:var(--fg)}.status-btn.active{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);color:var(--primary)}
+.empty{text-align:center;padding:4rem 2rem}.empty .icon{font-size:3rem;margin-bottom:1rem}
+.empty h2{font-size:1.125rem;font-weight:600;margin-bottom:.5rem}.empty p{color:var(--muted-fg);font-size:.875rem;margin-bottom:1.5rem}
+.divider{border:none;border-top:1px solid var(--border);margin:.75rem 0}
+.text-muted{color:var(--muted-fg)}.text-sm{font-size:.875rem}.text-xs{font-size:.75rem}
+.fw-bold{font-weight:700}.fw-600{font-weight:600}
+.gap-1{gap:.25rem}.gap-2{gap:.5rem}
+.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}
+.flex{display:flex}.flex-1{flex:1}
+.section-title{font-size:.6875rem;font-weight:700;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.625rem}
+.sticky-save{position:sticky;bottom:1rem;display:flex;justify-content:center;margin-top:1.5rem;padding-bottom:.5rem;pointer-events:none}
+.sticky-save .btn{pointer-events:all}
+.back-btn{background:none;border:none;color:var(--muted-fg);cursor:pointer;font-size:.8125rem;display:flex;align-items:center;gap:.25rem;margin-bottom:.5rem;padding:0}
+.back-btn:hover{color:var(--fg)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.info-card{border-radius:.75rem;padding:1rem;border:1px solid}
+.info-card-1{border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.04)}
+.info-card-2{border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.04)}
+.info-card-3{border-color:rgba(34,197,94,.25);background:rgba(34,197,94,.04)}
+.info-card-title{font-size:.875rem;font-weight:700;margin-bottom:.375rem}
+.info-card-1 .info-card-title{color:#93c5fd}.info-card-2 .info-card-title{color:#fbbf24}.info-card-3 .info-card-title{color:#86efac}
+.info-card p{font-size:.75rem;color:var(--muted-fg);line-height:1.5}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2rem}
+.page-title{font-size:1.5rem;font-weight:700}.page-subtitle{font-size:.875rem;color:var(--muted-fg);margin-top:.25rem}
+</style>
 </head>
 <body>
-<div id="app">
-
-<!-- ─── ADD CLIENT MODAL ─────────────────────────────────────────────────── -->
-<div v-if="showAddModal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" @click.self="showAddModal=false">
-  <div class="bg-surface border border-border rounded-xl p-6 w-full max-w-md fade">
-    <div class="flex items-center justify-between mb-5">
-      <h2 class="text-lg font-bold text-fg">לקוח חדש</h2>
-      <button @click="showAddModal=false" class="text-muted-fg hover:text-fg text-xl leading-none">✕</button>
-    </div>
-    <div class="space-y-4">
-      <div>
-        <label class="block text-sm text-muted-fg mb-1">שם מלא *</label>
-        <input v-model.trim="newClient.name" type="text" placeholder="ישראל ישראלי"
-          class="w-full px-3 py-2 rounded-lg bg-bg border border-border text-fg placeholder:text-muted-fg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm" />
-      </div>
-      <div>
-        <label class="block text-sm text-muted-fg mb-1">אימייל</label>
-        <input v-model.trim="newClient.email" type="email" placeholder="israel@example.com" dir="ltr"
-          class="w-full px-3 py-2 rounded-lg bg-bg border border-border text-fg placeholder:text-muted-fg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm" />
-      </div>
-      <div>
-        <label class="block text-sm text-muted-fg mb-1">טלפון</label>
-        <input v-model.trim="newClient.phone" type="tel" placeholder="050-000-0000" dir="ltr"
-          class="w-full px-3 py-2 rounded-lg bg-bg border border-border text-fg placeholder:text-muted-fg focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm" />
-      </div>
-    </div>
-    <div class="flex gap-3 mt-5">
-      <button @click="showAddModal=false" class="flex-1 py-2 rounded-lg border border-border text-muted-fg hover:bg-muted transition-colors text-sm">ביטול</button>
-      <button @click="addClient" :disabled="!newClient.name" class="flex-1 py-2 rounded-lg bg-primary text-white font-medium hover:opacity-90 disabled:opacity-40 transition-opacity text-sm">הוסף לקוח</button>
-    </div>
-  </div>
-</div>
-
-<!-- ─── DELETE CONFIRM MODAL ────────────────────────────────────────────── -->
-<div v-if="confirmDeleteId" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" @click.self="confirmDeleteId=null">
-  <div class="bg-surface border border-danger/40 rounded-xl p-6 w-full max-w-sm fade text-center">
-    <div class="text-3xl mb-3">⚠️</div>
-    <h2 class="text-lg font-bold text-fg mb-2">למחוק את הלקוח?</h2>
-    <p class="text-sm text-muted-fg mb-5">פעולה זו אינה הפיכה. כל הנתונים יאבדו.</p>
-    <div class="flex gap-3">
-      <button @click="confirmDeleteId=null" class="flex-1 py-2 rounded-lg border border-border text-muted-fg hover:bg-muted text-sm">ביטול</button>
-      <button @click="deleteClient(confirmDeleteId)" class="flex-1 py-2 rounded-lg bg-danger text-white font-medium hover:opacity-90 text-sm">מחק לצמיתות</button>
-    </div>
-  </div>
-</div>
-
-<!-- ─── MAIN WRAPPER ─────────────────────────────────────────────────────── -->
-<div class="min-h-screen">
-
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <!-- LIST VIEW                                                          -->
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <div v-if="view==='list'" class="max-w-4xl mx-auto px-4 py-8 fade">
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-8">
-      <div>
-        <h1 class="text-2xl font-bold text-fg">🗂️ מתכנן פיננסי</h1>
-        <p class="text-sm text-muted-fg mt-1">ניהול לקוחות ותהליכי תכנון פיננסי</p>
-      </div>
-      <button @click="openAddModal" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white font-medium hover:opacity-90 transition-opacity text-sm">
-        + לקוח חדש
-      </button>
-    </div>
-
-    <!-- Stats -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-      <div class="bg-surface border border-border rounded-xl p-4">
-        <p class="text-xs text-muted-fg mb-1">סה"כ לקוחות</p>
-        <p class="text-2xl font-bold text-fg">{{ clients.length }}</p>
-      </div>
-      <div class="bg-surface border border-border rounded-xl p-4">
-        <p class="text-xs text-blue-400 mb-1">פגישה 1 — מיפוי</p>
-        <p class="text-2xl font-bold text-fg">{{ clients.filter(c=>c.phase===1).length }}</p>
-      </div>
-      <div class="bg-surface border border-border rounded-xl p-4">
-        <p class="text-xs text-warn mb-1">פגישות 2–3</p>
-        <p class="text-2xl font-bold text-fg">{{ clients.filter(c=>c.phase>=2).length }}</p>
-      </div>
-      <div class="bg-surface border border-border rounded-xl p-4">
-        <p class="text-xs text-success mb-1">הושלמו</p>
-        <p class="text-2xl font-bold text-fg">{{ clients.filter(c=>c.status==='completed').length }}</p>
-      </div>
-    </div>
-
-    <!-- Empty state -->
-    <div v-if="clients.length===0" class="bg-surface border border-border rounded-xl p-12 text-center">
-      <div class="text-5xl mb-4">👥</div>
-      <h2 class="text-lg font-semibold text-fg mb-2">אין לקוחות עדיין</h2>
-      <p class="text-sm text-muted-fg mb-6">הוסף את הלקוח הראשון כדי להתחיל תהליך תכנון פיננסי</p>
-      <button @click="openAddModal" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-white font-medium hover:opacity-90 text-sm">
-        + הוסף לקוח ראשון
-      </button>
-    </div>
-
-    <!-- Client list -->
-    <div v-else class="bg-surface border border-border rounded-xl overflow-hidden mb-6">
-      <div class="px-4 py-3 border-b border-border">
-        <p class="text-sm font-medium text-fg">רשימת לקוחות ({{ clients.length }})</p>
-      </div>
-      <div v-for="client in clients" :key="client.id" @click="openClient(client.id)"
-        class="flex items-center gap-3 px-4 py-3.5 hover:bg-muted/50 cursor-pointer border-b border-border/50 last:border-0 transition-colors">
-        <div class="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm shrink-0">
-          {{ client.name.charAt(0) }}
-        </div>
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-2">
-            <span class="text-sm font-medium text-fg">{{ client.name }}</span>
-            <span v-if="client.status==='completed'" class="text-xs text-success">✓</span>
-            <span v-else-if="client.status==='paused'" class="text-xs text-muted-fg">⏸</span>
-          </div>
-          <p class="text-xs text-muted-fg truncate">{{ client.email || client.phone || 'אין פרטי קשר' }}</p>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <div class="flex gap-0.5">
-            <div v-for="p in [1,2,3]" :key="p" :class="['w-2 h-2 rounded-full', p<=client.phase ? 'bg-primary' : 'bg-border']"></div>
-          </div>
-          <span :class="['text-xs px-2 py-0.5 rounded-full font-medium', phaseChipClass(client.phase)]">
-            פגישה {{ client.phase }}
-          </span>
-        </div>
-        <span class="text-muted-fg text-sm shrink-0">←</span>
-      </div>
-    </div>
-
-    <!-- Process info -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <div v-for="info in processInfo" :key="info.phase" :class="['border rounded-xl p-4', info.cardClass]">
-        <p :class="['text-sm font-bold mb-1', info.titleClass]">{{ info.title }}</p>
-        <p class="text-xs text-muted-fg leading-relaxed">{{ info.desc }}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <!-- DETAIL VIEW                                                        -->
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <div v-else-if="view==='detail' && currentClient" class="max-w-3xl mx-auto px-4 py-8 fade">
-
-    <!-- Back + Header -->
-    <div class="flex items-start justify-between mb-5">
-      <div>
-        <button @click="view='list'" class="text-xs text-muted-fg hover:text-fg flex items-center gap-1 mb-2 transition-colors">← חזרה לרשימה</button>
-        <h1 class="text-2xl font-bold text-fg">{{ currentClient.name }}</h1>
-        <p class="text-xs text-muted-fg mt-0.5" dir="ltr">{{ currentClient.email }}{{ currentClient.email && currentClient.phone ? ' · ' : '' }}{{ currentClient.phone }}</p>
-      </div>
-      <div class="flex items-center gap-2">
-        <span :class="['text-xs px-2.5 py-1 rounded-full font-medium', statusClass(currentClient.status)]">
-          {{ statusLabel(currentClient.status) }}
-        </span>
-        <button @click="saveClient" :class="['flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all', savedFlash ? 'bg-success text-white' : 'bg-primary text-white hover:opacity-90']">
-          {{ savedFlash ? '✓ נשמר' : '💾 שמור' }}
-        </button>
-      </div>
-    </div>
-
-    <!-- Phase tabs + progress -->
-    <div class="bg-surface border border-border rounded-xl p-4 mb-5">
-      <div class="grid grid-cols-3 gap-1 mb-3">
-        <button v-for="p in [1,2,3]" :key="p" @click="activeTab=p"
-          :class="['py-2 rounded-lg text-sm font-medium transition-colors', activeTab===p ? phaseTabActive(p) : 'text-muted-fg hover:text-fg']">
-          {{ p===1 ? '📊' : p===2 ? '📚' : '💼' }} פגישה {{ p }} — {{ phaseLabels[p] }}
-        </button>
-      </div>
-      <div class="flex gap-1 mb-2">
-        <div v-for="p in [1,2,3]" :key="p" :class="['flex-1 h-1.5 rounded-full', p<=currentClient.phase ? 'bg-primary' : 'bg-border']"></div>
-      </div>
-      <div class="flex items-center justify-between text-xs">
-        <span class="text-muted-fg">שלב: <span :class="phaseChipClass(currentClient.phase)" class="font-medium">פגישה {{ currentClient.phase }} — {{ phaseLabels[currentClient.phase] }}</span></span>
-        <button v-if="currentClient.phase<3" @click="advancePhase" class="text-primary hover:opacity-70 font-medium transition-opacity">
-          קדם לפגישה {{ currentClient.phase+1 }} →
-        </button>
-        <button v-else-if="currentClient.status!=='completed'" @click="setStatus('completed')" class="text-success hover:opacity-70 font-medium transition-opacity">
-          סמן כהושלם ✓
-        </button>
-      </div>
-    </div>
-
-    <!-- ─── PHASE 1: MAPPING ──────────────────────────────────────────── -->
-    <div v-if="activeTab===1" class="space-y-4 fade">
-
-      <!-- Cash flow -->
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('cashFlow')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right">
-            <p class="text-sm font-semibold text-fg">שלב 1 — תזרים</p>
-            <p class="text-xs text-muted-fg">הכנסות, הוצאות וחיסכון חודשי</p>
-          </div>
-          <span class="text-muted-fg text-sm">{{ openSections.cashFlow ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.cashFlow" class="px-4 pb-4 border-t border-border">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
-            <div>
-              <p class="text-xs font-bold text-success mb-2 uppercase">הכנסות</p>
-              <div v-for="(item,i) in edit.cashFlow.income" :key="i" class="flex gap-2 mb-1.5">
-                <input v-model="item.label" placeholder="תיאור" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <button @click="edit.cashFlow.income.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
-              </div>
-              <button @click="edit.cashFlow.income.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף הכנסה</button>
-              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
-                <span class="text-muted-fg">סה"כ הכנסות</span>
-                <span class="font-bold text-success">{{ formatILS(totalIncome) }}</span>
-              </div>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-danger mb-2 uppercase">הוצאות</p>
-              <div v-for="(item,i) in edit.cashFlow.expenses" :key="i" class="flex gap-2 mb-1.5">
-                <input v-model="item.label" placeholder="תיאור" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <button @click="edit.cashFlow.expenses.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
-              </div>
-              <button @click="edit.cashFlow.expenses.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף הוצאה</button>
-              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
-                <span class="text-muted-fg">סה"כ הוצאות</span>
-                <span class="font-bold text-danger">{{ formatILS(totalExpenses) }}</span>
-              </div>
-            </div>
-          </div>
-          <div :class="['mt-4 p-3 rounded-xl flex items-center justify-between', monthlySavings>=0 ? 'bg-success/10' : 'bg-danger/10']">
-            <span class="font-semibold text-fg">חיסכון חודשי נטו</span>
-            <span :class="['text-xl font-bold', monthlySavings>=0 ? 'text-success' : 'text-danger']">{{ formatILS(monthlySavings) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Balance sheet -->
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('balance')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right">
-            <p class="text-sm font-semibold text-fg">שלב 2 — מאזן</p>
-            <p class="text-xs text-muted-fg">נכסים, התחייבויות ושווי נקי</p>
-          </div>
-          <span class="text-muted-fg text-sm">{{ openSections.balance ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.balance" class="px-4 pb-4 border-t border-border">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
-            <div>
-              <p class="text-xs font-bold text-success mb-2 uppercase">נכסים</p>
-              <div v-for="(item,i) in edit.balanceSheet.assets" :key="i" class="flex gap-2 mb-1.5">
-                <input v-model="item.label" placeholder="שם נכס" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <button @click="edit.balanceSheet.assets.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
-              </div>
-              <button @click="edit.balanceSheet.assets.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף נכס</button>
-              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
-                <span class="text-muted-fg">סה"כ נכסים</span>
-                <span class="font-bold text-success">{{ formatILS(totalAssets) }}</span>
-              </div>
-            </div>
-            <div>
-              <p class="text-xs font-bold text-danger mb-2 uppercase">התחייבויות</p>
-              <div v-for="(item,i) in edit.balanceSheet.liabilities" :key="i" class="flex gap-2 mb-1.5">
-                <input v-model="item.label" placeholder="שם התחייבות" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <input v-model.number="item.amount" type="number" placeholder="0" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-                <button @click="edit.balanceSheet.liabilities.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
-              </div>
-              <button @click="edit.balanceSheet.liabilities.push({label:'',amount:0})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף התחייבות</button>
-              <div class="mt-2 pt-2 border-t border-border flex justify-between text-sm">
-                <span class="text-muted-fg">סה"כ התחייבויות</span>
-                <span class="font-bold text-danger">{{ formatILS(totalLiabilities) }}</span>
-              </div>
-            </div>
-          </div>
-          <div :class="['mt-4 p-3 rounded-xl flex items-center justify-between', netWorth>=0 ? 'bg-success/10' : 'bg-danger/10']">
-            <span class="font-semibold text-fg">שווי נקי</span>
-            <span :class="['text-xl font-bold', netWorth>=0 ? 'text-success' : 'text-danger']">{{ formatILS(netWorth) }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pension -->
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('pension')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right">
-            <p class="text-sm font-semibold text-fg">שלב 3 — פנסיה</p>
-            <p class="text-xs text-muted-fg">קרן פנסיה, קרן השתלמות ותחזית קצבה</p>
-          </div>
-          <span class="text-muted-fg text-sm">{{ openSections.pension ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.pension" class="px-4 pb-4 border-t border-border">
-          <div class="mt-4">
-            <p class="text-xs font-bold text-muted-fg mb-3 uppercase">קרן פנסיה</p>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">שם הקרן</label>
-                <input v-model="edit.pension.pensionFund.name" placeholder="מגדל, מנורה..." class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">יתרה (₪)</label>
-                <input v-model.number="edit.pension.pensionFund.balance" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">הפקדה חודשית (₪)</label>
-                <input v-model.number="edit.pension.pensionFund.monthlyContribution" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">דמי ניהול (%)</label>
-                <input v-model.number="edit.pension.pensionFund.managementFee" type="number" step="0.1" placeholder="0.5" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">מסלול השקעה</label>
-                <input v-model="edit.pension.pensionFund.track" placeholder="מניות, כללי..." class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-            </div>
-            <p class="text-xs font-bold text-muted-fg mb-3 uppercase">קרן השתלמות</p>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">יתרה (₪)</label>
-                <input v-model.number="edit.pension.trainingFund.balance" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">הפקדה חודשית (₪)</label>
-                <input v-model.number="edit.pension.trainingFund.monthlyContribution" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">דמי ניהול (%)</label>
-                <input v-model.number="edit.pension.trainingFund.managementFee" type="number" step="0.1" placeholder="0.5" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-            </div>
-            <div class="flex items-center gap-4 mb-4">
-              <div>
-                <label class="block text-xs text-muted-fg mb-1">גיל פרישה</label>
-                <input v-model.number="edit.pension.retirementAge" type="number" dir="ltr" class="w-20 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              </div>
-            </div>
-            <div>
-              <label class="block text-xs text-muted-fg mb-1">הערות פנסיה</label>
-              <textarea v-model="edit.pension.notes" rows="2" placeholder="פירוט, המלצות, הפניה לסוכן..." class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Wealth projection -->
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('wealth')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right">
-            <p class="text-sm font-semibold text-fg">שלב 4 — תחזית צמיחת הון</p>
-            <p class="text-xs text-muted-fg">הדמיית עושר לאורך עשרות שנים</p>
-          </div>
-          <span class="text-muted-fg text-sm">{{ openSections.wealth ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.wealth" class="px-4 pb-4 border-t border-border">
-          <div class="grid grid-cols-3 gap-3 mt-4 mb-4">
-            <div>
-              <label class="block text-xs text-muted-fg mb-1">הון ראשוני (₪)</label>
-              <input v-model.number="edit.wealthProjection.initialCapital" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-            </div>
-            <div>
-              <label class="block text-xs text-muted-fg mb-1">הוספה חודשית (₪)</label>
-              <input v-model.number="edit.wealthProjection.monthlyAddition" type="number" placeholder="0" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-            </div>
-            <div>
-              <label class="block text-xs text-muted-fg mb-1">תשואה שנתית (%)</label>
-              <input v-model.number="edit.wealthProjection.annualReturn" type="number" step="0.5" placeholder="7" dir="ltr" class="w-full px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-            </div>
-          </div>
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-border">
-                <th class="text-right py-2 px-2 text-xs text-muted-fg font-medium">שנה</th>
-                <th class="text-left py-2 px-2 text-xs text-muted-fg font-medium">ללא תשואה</th>
-                <th class="text-left py-2 px-2 text-xs text-primary font-medium">עם {{ edit.wealthProjection.annualReturn }}% תשואה</th>
-                <th class="text-left py-2 px-2 text-xs text-success font-medium">הפרש</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="row in projectionRows" :key="row.years" class="border-b border-border/40 hover:bg-muted/30">
-                <td class="py-1.5 px-2 text-right font-medium">{{ row.years }}</td>
-                <td class="py-1.5 px-2 text-left text-muted-fg text-xs" dir="ltr">{{ formatILS(row.noReturn) }}</td>
-                <td class="py-1.5 px-2 text-left font-semibold text-primary text-xs" dir="ltr">{{ formatILS(row.withReturn) }}</td>
-                <td class="py-1.5 px-2 text-left text-success font-medium text-xs" dir="ltr">+{{ formatILS(row.diff) }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="text-xs text-muted-fg mt-2">* להמחשה בלבד. אינו מהווה ייעוץ השקעות.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ─── PHASE 2: EDUCATION ────────────────────────────────────────── -->
-    <div v-if="activeTab===2" class="space-y-4 fade">
-      <div v-for="cat in educationCategories" :key="cat.key" class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('edu_'+cat.key)" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right">
-            <p class="text-sm font-semibold text-fg">{{ cat.icon }} {{ cat.label }}</p>
-            <p class="text-xs text-muted-fg">{{ doneCount(cat.key) }}/{{ cat.topics.length }} נושאים נדונו</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-16 h-1.5 bg-border rounded-full overflow-hidden">
-              <div class="h-full bg-success rounded-full transition-all" :style="{width: (doneCount(cat.key)/cat.topics.length*100)+'%'}"></div>
-            </div>
-            <span class="text-muted-fg text-sm">{{ openSections['edu_'+cat.key] ? '▲' : '▼' }}</span>
-          </div>
-        </button>
-        <div v-if="openSections['edu_'+cat.key]" class="px-4 pb-4 border-t border-border">
-          <div class="mt-3 space-y-1.5">
-            <label v-for="topic in cat.topics" :key="topic.id"
-              :class="['flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-colors', isDone(cat.key,topic.id) ? 'bg-success/10' : 'hover:bg-muted/50']">
-              <div @click="toggleTopic(cat.key,topic.id)"
-                :class="['w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 cursor-pointer transition-colors', isDone(cat.key,topic.id) ? 'bg-success border-success' : 'border-border']">
-                <span v-if="isDone(cat.key,topic.id)" class="text-white text-[10px] font-bold">✓</span>
-              </div>
-              <span :class="['text-sm', isDone(cat.key,topic.id) ? 'text-fg' : 'text-muted-fg']">{{ topic.label }}</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Summary -->
-      <div class="bg-surface border border-border rounded-xl p-4">
-        <p class="text-sm font-semibold text-fg mb-3">סיכום התקדמות לימוד</p>
-        <div v-for="cat in educationCategories" :key="cat.key" class="flex items-center gap-3 mb-2">
-          <span class="text-xs text-muted-fg w-28 text-right">{{ cat.label }}</span>
-          <div class="flex-1 h-2 bg-border rounded-full overflow-hidden">
-            <div class="h-full bg-success rounded-full transition-all" :style="{width: (doneCount(cat.key)/cat.topics.length*100)+'%'}"></div>
-          </div>
-          <span class="text-xs text-muted-fg w-10 text-left" dir="ltr">{{ doneCount(cat.key) }}/{{ cat.topics.length }}</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ─── PHASE 3: DECISIONS ────────────────────────────────────────── -->
-    <div v-if="activeTab===3" class="space-y-4 fade">
-
-      <!-- Asset allocation -->
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('allocation')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right">
-            <p class="text-sm font-semibold text-fg">הקצאת נכסים</p>
-            <p class="text-xs text-muted-fg">סה"כ מוקצה: {{ formatILS(totalAllocated) }}</p>
-          </div>
-          <span class="text-muted-fg text-sm">{{ openSections.allocation ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.allocation" class="px-4 pb-4 border-t border-border">
-          <div class="mt-4 space-y-2">
-            <div v-for="(item,i) in edit.allocation.allocations" :key="i" class="flex gap-2 items-center">
-              <input v-model="item.channel" placeholder="אפיק השקעה" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              <input v-model.number="item.amount" type="number" placeholder="סכום ₪" dir="ltr" class="w-28 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              <input v-model="item.notes" placeholder="הערות" class="flex-1 px-2.5 py-1.5 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50" />
-              <button @click="edit.allocation.allocations.splice(i,1)" class="text-muted-fg hover:text-danger transition-colors text-sm">✕</button>
-            </div>
-            <button @click="edit.allocation.allocations.push({channel:'',amount:0,notes:''})" class="text-xs text-primary hover:opacity-70 mt-1">+ הוסף אפיק</button>
-          </div>
-
-          <!-- Allocation breakdown -->
-          <div v-if="totalAllocated>0" class="mt-4 pt-4 border-t border-border">
-            <p class="text-xs text-muted-fg font-medium mb-3">פירוט אחוזים</p>
-            <div v-for="item in edit.allocation.allocations.filter(a=>a.amount>0)" :key="item.channel" class="flex items-center gap-3 mb-2">
-              <span class="text-xs text-muted-fg w-32 text-right truncate">{{ item.channel || 'אפיק' }}</span>
-              <div class="flex-1 h-2 bg-border rounded-full overflow-hidden">
-                <div class="h-full bg-primary rounded-full transition-all" :style="{width: (item.amount/totalAllocated*100)+'%'}"></div>
-              </div>
-              <span class="text-xs font-medium text-fg w-10 text-left" dir="ltr">{{ Math.round(item.amount/totalAllocated*100) }}%</span>
-              <span class="text-xs text-muted-fg w-24 text-left" dir="ltr">{{ formatILS(item.amount) }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Decisions notes -->
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('decisions')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right">
-            <p class="text-sm font-semibold text-fg">החלטות ומסקנות</p>
-            <p class="text-xs text-muted-fg">סיכום פגישה 3</p>
-          </div>
-          <span class="text-muted-fg text-sm">{{ openSections.decisions ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.decisions" class="px-4 pb-4 border-t border-border">
-          <textarea v-model="edit.allocation.generalNotes" rows="6" placeholder="נדל&quot;ן, שוק ההון, פנסיה, ביטוחים, הלוואות, משכנתא, מסלולים..." class="w-full mt-3 px-2.5 py-2 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
-        </div>
-      </div>
-    </div>
-
-    <!-- ─── MEETING NOTES & GENERAL (always visible) ──────────────────── -->
-    <div class="mt-5 space-y-4">
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('meetingNotes')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right"><p class="text-sm font-semibold text-fg">הערות פגישות</p><p class="text-xs text-muted-fg">יומן מפגשים</p></div>
-          <span class="text-muted-fg text-sm">{{ openSections.meetingNotes ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.meetingNotes" class="px-4 pb-4 border-t border-border">
-          <textarea v-model="edit.meetingNotes" rows="4" placeholder="תאריך, נושאים, משימות..." class="w-full mt-3 px-2.5 py-2 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
-        </div>
-      </div>
-
-      <div class="bg-surface border border-border rounded-xl overflow-hidden">
-        <button @click="toggleSection('generalNotes')" class="w-full flex items-center justify-between px-4 py-3 hover:bg-muted/30 transition-colors">
-          <div class="text-right"><p class="text-sm font-semibold text-fg">הערות כלליות</p><p class="text-xs text-muted-fg">מטרות, רקע אישי</p></div>
-          <span class="text-muted-fg text-sm">{{ openSections.generalNotes ? '▲' : '▼' }}</span>
-        </button>
-        <div v-if="openSections.generalNotes" class="px-4 pb-4 border-t border-border">
-          <textarea v-model="edit.generalNotes" rows="3" placeholder="מטרות הלקוח, מצב משפחתי, תכניות..." class="w-full mt-3 px-2.5 py-2 rounded-lg bg-bg border border-border text-sm text-fg placeholder:text-muted-fg focus:outline-none focus:ring-1 focus:ring-primary/50 resize-none" />
-        </div>
-      </div>
-    </div>
-
-    <!-- ─── STATUS + DELETE ───────────────────────────────────────────── -->
-    <div class="mt-5 bg-surface border border-border rounded-xl p-4">
-      <p class="text-xs text-muted-fg mb-3 font-medium uppercase tracking-wider">ניהול לקוח</p>
-      <div class="flex flex-wrap items-center gap-2">
-        <button v-for="s in ['active','paused','completed']" :key="s" @click="setStatus(s)"
-          :class="['px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors', currentClient.status===s ? 'bg-primary/10 border-primary/30 text-primary' : 'border-border text-muted-fg hover:bg-muted']">
-          {{ s==='active' ? '● פעיל' : s==='paused' ? '⏸ בהמתנה' : '✓ הושלם' }}
-        </button>
-        <button @click="confirmDeleteId=currentClient.id" class="mr-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-danger border border-danger/30 hover:bg-danger/10 transition-colors">
-          🗑 מחק לקוח
-        </button>
-      </div>
-    </div>
-
-    <!-- Floating save -->
-    <div class="sticky bottom-4 flex justify-center mt-5 pb-2">
-      <button @click="saveClient" :class="['flex items-center gap-2 px-6 py-2.5 rounded-full font-medium text-sm shadow-xl transition-all', savedFlash ? 'bg-success text-white' : 'bg-primary text-white hover:opacity-90']">
-        {{ savedFlash ? '✓ נשמר בהצלחה!' : '💾 שמור שינויים' }}
-      </button>
-    </div>
-  </div>
-
-</div><!-- end #app -->
-
+<div id="root"></div>
 <script>
-const { createApp, ref, reactive, computed, watch, onMounted } = Vue
+const SK='fp_v2';
+const load=()=>{try{return JSON.parse(localStorage.getItem(SK)||'[]')}catch{return[]}};
+const save=(d)=>localStorage.setItem(SK,JSON.stringify(d));
+const genId=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
+const S={clients:load(),view:'list',clientId:null,tab:1,openSections:{},savedFlash:false,confirmDelete:false,showAddModal:false,newName:'',newEmail:'',newPhone:'',edit:null};
+const dfCash=()=>({income:[{label:'משכורת',amount:0}],expenses:[{label:'שכירות / משכנתא',amount:0},{label:'מזון',amount:0},{label:'רכב',amount:0},{label:'חינוך',amount:0}]});
+const dfBalance=()=>({assets:[{label:'דירה',amount:0},{label:'קרן השתלמות',amount:0},{label:'חסכונות',amount:0}],liabilities:[{label:'משכנתא',amount:0}]});
+const dfPension=()=>({pensionFund:{name:'',balance:0,monthlyContribution:0,managementFee:0.5,track:''},trainingFund:{balance:0,monthlyContribution:0,managementFee:0.5},retirementAge:67,notes:''});
+const dfWealth=()=>({initialCapital:0,monthlyAddition:0,annualReturn:7});
+const dfEdu=()=>({moneyManagement:[],realEstate:[],stockMarket:[]});
+const dfAlloc=()=>({allocations:[{channel:'שוק ההון — מדדים/ETF',amount:0,notes:''},{channel:'נדל"ן',amount:0,notes:''},{channel:'קרן השתלמות',amount:0,notes:''},{channel:'פנסיה',amount:0,notes:''}],generalNotes:''});
+const clone=v=>JSON.parse(JSON.stringify(v));
+const EDU=[
+  {key:'moneyManagement',icon:'💰',label:'ניהול כסף',topics:[{id:'interest_inflation',label:'הקשר בין ריבית ואינפלציה'},{id:'real_nominal',label:'ריאלי ונומינלי'},{id:'current_account',label:'כמה כסף לשמור בעו"ש'},{id:'short_term',label:'פק"מ וקרן כספית — מתי ומה ההבדלים'},{id:'time_horizon',label:'התאמת אפיקים לטווח ההשקעה'},{id:'beginners',label:'אפיקים מתאימים לתחילת הדרך'},{id:'warnings',label:'ממה להיזהר בעולם הפיננסים'}]},
+  {key:'realEstate',icon:'🏠',label:'נדל"ן',topics:[{id:'re_purchase',label:'איך לרכוש נכון דירה להשקעה בישראל'},{id:'re_vs_living',label:'הבדלים בין דירה להשקעה ולמגורים'},{id:'re_tax_first',label:'הטבות מיסוי בדירה יחידה'},{id:'re_mortgage',label:'מתי ואיך לקחת משכנתא'},{id:'re_leverage',label:'כוח המינוף'},{id:'re_roi_calc',label:'חישוב תשואה ועלות משכנתא'},{id:'re_investor_escort',label:'מלווה משקיעים — מתי כדאי'},{id:'re_tax_second',label:'מיסים על דירה שנייה'},{id:'re_professionals',label:'אנשי מקצוע שאסור לוותר עליהם'},{id:'re_abroad',label:'נדל"ן בחו"ל — סיכויים וסיכונים'}]},
+  {key:'stockMarket',icon:'📈',label:'שוק ההון',topics:[{id:'sm_long_term',label:'עקרונות השקעה לטווח ארוך'},{id:'sm_passive',label:'תורת ההשקעה הפסיבית'},{id:'sm_account',label:'פתיחת חשבון מסחר עצמאי'},{id:'sm_first_buy',label:'ביצוע הרכישה הראשונה'},{id:'sm_etf',label:'מדדים ו-ETF — הבסיס'},{id:'sm_diversify',label:'פיזור השקעות נכון'}]},
+];
+const ils=n=>new Intl.NumberFormat('he-IL',{style:'currency',currency:'ILS',maximumFractionDigits:0}).format(n||0);
+const sumArr=arr=>arr.reduce((s,i)=>s+(+i.amount||0),0);
+function compound(cap,mon,rate,yrs){const r=rate/100/12,n=yrs*12;if(r===0)return cap+mon*n;return cap*Math.pow(1+r,n)+mon*(Math.pow(1+r,n)-1)/r}
+const PROJ_YEARS=[1,3,5,10,15,20,25,30];
+const PL={1:'מיפוי',2:'לימוד',3:'החלטות'};
+const SL={active:'פעיל',paused:'בהמתנה',completed:'הושלם'};
 
-// ─── STORAGE ─────────────────────────────────────────────────────────────────
-const STORAGE_KEY = 'fp_clients_v1'
-
-function loadClients() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') } catch { return [] }
+function mk(tag,attrs,...kids){
+  const el=document.createElement(tag);
+  for(const[k,v]of Object.entries(attrs||{})){
+    if(k==='class')el.className=v;
+    else if(k==='style')el.style.cssText=v;
+    else if(k.startsWith('on'))el.addEventListener(k.slice(2).toLowerCase(),v);
+    else el.setAttribute(k,String(v));
+  }
+  for(const c of kids.flat()){if(c==null||c===false)continue;el.appendChild(typeof c==='string'||typeof c==='number'?document.createTextNode(String(c)):c)}
+  return el;
 }
-function saveClientsToStorage(clients) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(clients))
+function inp(attrs){
+  const el=document.createElement('input');
+  for(const[k,v]of Object.entries(attrs||{})){
+    if(k==='class')el.className=v;
+    else if(k==='style')el.style.cssText=v;
+    else if(k==='onInput')el.addEventListener('input',v);
+    else el.setAttribute(k,String(v));
+  }
+  return el;
 }
-function genId() {
-  return Math.random().toString(36).slice(2) + Date.now().toString(36)
+
+function render(){
+  const root=document.getElementById('root');
+  root.innerHTML='';
+  root.appendChild(S.view==='list'?renderList():renderDetail());
+  if(S.showAddModal)root.appendChild(renderAddModal());
+  if(S.confirmDelete)root.appendChild(renderConfirmDelete());
 }
 
-// ─── DEFAULTS ─────────────────────────────────────────────────────────────────
-const defaultCashFlow = () => ({
-  income: [{ label: 'משכורת', amount: 0 }],
-  expenses: [
-    { label: 'שכירות / משכנתא', amount: 0 },
-    { label: 'מזון', amount: 0 },
-    { label: 'רכב', amount: 0 },
-    { label: 'חינוך', amount: 0 },
-  ],
-})
-const defaultBalance = () => ({
-  assets: [
-    { label: 'דירה', amount: 0 },
-    { label: 'קרן השתלמות', amount: 0 },
-    { label: 'חסכונות', amount: 0 },
-  ],
-  liabilities: [{ label: 'משכנתא', amount: 0 }],
-})
-const defaultPension = () => ({
-  pensionFund: { name: '', balance: 0, monthlyContribution: 0, managementFee: 0.5, track: '' },
-  trainingFund: { balance: 0, monthlyContribution: 0, managementFee: 0.5 },
-  retirementAge: 67,
-  notes: '',
-})
-const defaultWealth = () => ({ initialCapital: 0, monthlyAddition: 0, annualReturn: 7 })
-const defaultEducation = () => ({ moneyManagement: [], realEstate: [], stockMarket: [] })
-const defaultAllocation = () => ({
-  allocations: [
-    { channel: 'שוק ההון — מדדים/ETF', amount: 0, notes: '' },
-    { channel: 'נדל"ן', amount: 0, notes: '' },
-    { channel: 'קרן השתלמות', amount: 0, notes: '' },
-    { channel: 'פנסיה', amount: 0, notes: '' },
-  ],
-  generalNotes: '',
-})
+function renderList(){
+  const cl=S.clients;
+  const pc=p=>cl.filter(c=>c.phase===p).length;
+  const stats=mk('div',{class:'grid4 mb-4'},
+    sCard('סה"כ לקוחות',cl.length,''),
+    sCard('פגישה 1 — מיפוי',pc(1),'color:var(--primary)'),
+    sCard('פגישות 2–3',pc(2)+pc(3),'color:var(--warn)'),
+    sCard('הושלמו',cl.filter(c=>c.status==='completed').length,'color:var(--success)'),
+  );
+  function sCard(l,v,cs){return mk('div',{class:'stat-card'},mk('p',{class:'stat-label'},l),mk('p',{class:'stat-value',style:cs},String(v)))}
 
-function deepClone(v) { return JSON.parse(JSON.stringify(v)) }
+  let listEl;
+  if(!cl.length){
+    listEl=mk('div',{class:'card'},mk('div',{class:'empty'},mk('div',{class:'icon'},'👥'),mk('h2',{},'אין לקוחות עדיין'),mk('p',{},'הוסף את הלקוח הראשון להתחלת תהליך תכנון פיננסי'),mk('button',{class:'btn btn-primary',onclick:()=>openAddModal()},'+ הוסף לקוח ראשון')));
+  } else {
+    const rows=cl.map(c=>{
+      const pb=c.phase===1?'badge-blue':c.phase===2?'badge-warn':'badge-green';
+      const dots=mk('div',{class:'phase-dots'},...[1,2,3].map(p=>mk('div',{class:'phase-dot'+(p<=c.phase?' filled':'')})));
+      const row=mk('div',{class:'client-row'},
+        mk('div',{class:'client-avatar'},c.name.charAt(0)),
+        mk('div',{class:'client-info'},mk('span',{class:'client-name'},c.name+(c.status==='completed'?' ✓':'')),mk('p',{class:'client-sub'},c.email||c.phone||'אין פרטי קשר')),
+        mk('div',{class:'client-actions'},dots,mk('span',{class:'badge '+pb},'פגישה '+c.phase+' — '+PL[c.phase])),
+        mk('span',{class:'text-muted',style:'font-size:.875rem'},'←'),
+      );
+      row.addEventListener('click',()=>openClient(c.id));
+      return row;
+    });
+    listEl=mk('div',{class:'card mb-4'},mk('div',{class:'card-body'},mk('p',{class:'text-sm fw-600'},'רשימת לקוחות ('+cl.length+')')), ...rows);
+  }
+  const info=mk('div',{class:'grid3'},
+    mk('div',{class:'info-card info-card-1'},mk('div',{class:'info-card-title'},'📊 פגישה 1 — מיפוי'),mk('p',{},'מיפוי תזרים הכנסות/הוצאות, מאזן נכסים, נתוני פנסיה ותחזית צמיחת הון')),
+    mk('div',{class:'info-card info-card-2'},mk('div',{class:'info-card-title'},'📚 פגישה 2 — לימוד'),mk('p',{},'ניהול כסף, השקעות נדל"ן בישראל ובחו"ל, שוק ההון ותורת ההשקעה הפסיבית')),
+    mk('div',{class:'info-card info-card-3'},mk('div',{class:'info-card-title'},'💼 פגישה 3 — החלטות'),mk('p',{},'הקצאת נכסים, בניית תיק השקעות, החלטות נדל"ן ואפיקים בהתאם למטרות')),
+  );
+  return mk('div',{class:'container'},
+    mk('div',{class:'page-header'},mk('div',{},mk('h1',{class:'page-title'},'🗂️ מתכנן פיננסי'),mk('p',{class:'page-subtitle'},'ניהול לקוחות ותהליכי תכנון פיננסי')),mk('button',{class:'btn btn-primary',onclick:()=>openAddModal()},'+ לקוח חדש')),
+    stats,listEl,info,
+  );
+}
 
-// ─── EDUCATION CONTENT ────────────────────────────────────────────────────────
-const EDUCATION_CATS = [
-  {
-    key: 'moneyManagement', icon: '💰', label: 'ניהול כסף',
-    topics: [
-      { id: 'interest_inflation', label: 'הקשר בין ריבית ואינפלציה' },
-      { id: 'real_nominal', label: 'ריאלי ונומינלי' },
-      { id: 'current_account', label: 'כמה כסף לשמור בעו"ש' },
-      { id: 'short_term', label: 'פק"מ וקרן כספית — מתי ומה ההבדלים' },
-      { id: 'time_horizon', label: 'התאמת אפיקים לטווח ההשקעה' },
-      { id: 'beginners', label: 'אפיקים מתאימים לתחילת הדרך' },
-      { id: 'warnings', label: 'ממה להיזהר בעולם הפיננסים' },
-    ],
-  },
-  {
-    key: 'realEstate', icon: '🏠', label: 'נדל"ן',
-    topics: [
-      { id: 're_purchase', label: 'איך לרכוש נכון דירה להשקעה בישראל' },
-      { id: 're_vs_living', label: 'הבדלים בין דירה להשקעה ולמגורים' },
-      { id: 're_tax_first', label: 'הטבות מיסוי בדירה יחידה' },
-      { id: 're_mortgage', label: 'מתי ואיך לקחת משכנתא' },
-      { id: 're_leverage', label: 'כוח המינוף' },
-      { id: 're_roi_calc', label: 'חישוב תשואה ועלות משכנתא' },
-      { id: 're_investor_escort', label: 'מלווה משקיעים — מתי כדאי' },
-      { id: 're_tax_second', label: 'מיסים על דירה שנייה' },
-      { id: 're_professionals', label: 'אנשי מקצוע שאסור לוותר עליהם' },
-      { id: 're_abroad', label: 'נדל"ן בחו"ל — סיכויים וסיכונים' },
-    ],
-  },
-  {
-    key: 'stockMarket', icon: '📈', label: 'שוק ההון',
-    topics: [
-      { id: 'sm_long_term', label: 'עקרונות השקעה לטווח ארוך' },
-      { id: 'sm_passive', label: 'תורת ההשקעה הפסיבית' },
-      { id: 'sm_account', label: 'פתיחת חשבון מסחר עצמאי' },
-      { id: 'sm_first_buy', label: 'ביצוע הרכישה הראשונה' },
-      { id: 'sm_etf', label: 'מדדים ו-ETF — הבסיס' },
-      { id: 'sm_diversify', label: 'פיזור השקעות נכון' },
-    ],
-  },
-]
+function secCard(key,title,sub,contentFn){
+  const open=S.openSections[key]!==false;
+  const w=mk('div',{class:'card'});
+  const h3=mk('div',{class:'card-header'},mk('div',{},mk('h3',{},title),sub?mk('p',{},sub):mk('span',{})),mk('span',{class:'text-muted text-sm'},open?'▲':'▼'));
+  h3.addEventListener('click',()=>{S.openSections[key]=!open;render()});
+  w.appendChild(h3);
+  if(open){const cc=mk('div',{class:'card-content'});cc.appendChild(contentFn());w.appendChild(cc)}
+  return w;
+}
 
-// ─── VUE APP ──────────────────────────────────────────────────────────────────
-createApp({
-  data() {
-    return {
-      // Navigation
-      view: 'list', // 'list' | 'detail'
-      selectedClientId: null,
+function liEditor(arr,addLabel,onRender){
+  const frag=document.createDocumentFragment();
+  arr.forEach((item,i)=>{
+    const row=mk('div',{class:'li-row'});
+    const li=inp({class:'li-label',placeholder:'תיאור',value:item.label||'',onInput:e=>{arr[i].label=e.target.value}});
+    const am=inp({type:'number',class:'li-amount',placeholder:'0',value:String(item.amount||0),onInput:e=>{arr[i].amount=+e.target.value||0;onRender&&onRender()}});
+    const dl=mk('button',{class:'li-delete'},'✕');dl.addEventListener('click',()=>{arr.splice(i,1);render()});
+    row.append(li,am,dl);frag.appendChild(row);
+  });
+  const ab=mk('button',{class:'add-row'},'+ '+addLabel);ab.addEventListener('click',()=>{arr.push({label:'',amount:0});render()});
+  frag.appendChild(ab);return frag;
+}
 
-      // Clients
-      clients: loadClients(),
+function renderDetail(){
+  const c=S.clients.find(x=>x.id===S.clientId);
+  if(!c){S.view='list';return renderList()}
+  const e=S.edit;
+  const phaseBar=()=>{
+    const tabs=mk('div',{class:'phase-tabs'},...[1,2,3].map(p=>{const t=mk('div',{class:'phase-tab'+(S.tab===p?' active-'+p:'')},p===1?'📊':p===2?'📚':'💼','פגישה '+p+' — '+PL[p]);t.addEventListener('click',()=>{S.tab=p;render()});return t}));
+    const strips=mk('div',{class:'phase-strips'},...[1,2,3].map(p=>mk('div',{class:'phase-strip'+(p<=c.phase?' done':'')})));
+    const adv=c.phase<3?mk('button',{class:'btn btn-sm',style:'color:var(--primary);background:none;border:none'},'קדם לפגישה '+(c.phase+1)+' →'):c.status!=='completed'?mk('button',{class:'btn btn-sm',style:'color:var(--success);background:none;border:none'},'סמן כהושלם ✓'):mk('span',{});
+    if(c.phase<3)adv.addEventListener('click',()=>{c.phase++;save(S.clients);render()});
+    else if(c.status!=='completed')adv.addEventListener('click',()=>{c.status='completed';save(S.clients);render()});
+    const pb=mk('div',{class:'card mb-4'},mk('div',{class:'card-body',style:'padding-bottom:.75rem'},tabs,strips,mk('div',{class:'row-between',style:'margin-top:.5rem'},mk('span',{class:'text-xs text-muted'},'שלב: ',mk('b',{style:'color:'+(S.tab===1?'#93c5fd':S.tab===2?'#fbbf24':'#86efac')},'פגישה '+c.phase+' — '+PL[c.phase])),adv)));
+    return pb;
+  };
+  const hdr=()=>{
+    const scl=c.status==='completed'?'badge-completed':c.status==='paused'?'badge-paused':'badge-active';
+    const sb=mk('button',{class:'btn btn-sm '+(S.savedFlash?'btn-success':'btn-primary')},S.savedFlash?'✓ נשמר':'💾 שמור');
+    sb.addEventListener('click',saveClient);
+    const back=mk('button',{class:'back-btn'},'← חזרה לרשימה');back.addEventListener('click',()=>{S.view='list';render()});
+    return mk('div',{class:'page-header',style:'margin-bottom:1.25rem'},
+      mk('div',{},back,mk('h1',{class:'page-title'},c.name),mk('p',{class:'text-xs text-muted',style:'direction:ltr;text-align:right;margin-top:.25rem'},[c.email,c.phone].filter(Boolean).join(' · '))),
+      mk('div',{class:'row'},mk('span',{class:'badge '+scl},SL[c.status]),sb),
+    );
+  };
 
-      // Add modal
-      showAddModal: false,
-      newClient: { name: '', email: '', phone: '' },
+  const tc=S.tab===1?p1(e):S.tab===2?p2(e):p3(e);
 
-      // Delete confirm
-      confirmDeleteId: null,
+  const notesMtArea=(key,ph,rows)=>{const ta=mk('textarea',{rows:String(rows||3),placeholder:ph});ta.value=e[key];ta.addEventListener('input',ev=>{e[key]=ev.target.value});return ta};
+  const noteSecs=mk('div',{class:'col',style:'margin-top:1rem'},
+    secCard('meetingNotes','הערות פגישות','יומן מפגשים',()=>{const ta=notesMtArea('meetingNotes','תאריך, נושאים, משימות...',4);ta.style.marginTop='.75rem';return ta}),
+    secCard('generalNotes','הערות כלליות','מטרות, רקע אישי',()=>{const ta=notesMtArea('generalNotes','מטרות הלקוח, מצב משפחתי, תכניות...',3);ta.style.marginTop='.75rem';return ta}),
+  );
+  const stBtns=['active','paused','completed'].map(s=>{const b=mk('button',{class:'status-btn'+(c.status===s?' active':'')},s==='active'?'● פעיל':s==='paused'?'⏸ בהמתנה':'✓ הושלם');b.addEventListener('click',()=>{c.status=s;save(S.clients);render()});return b});
+  const delBtn=mk('button',{class:'btn btn-danger btn-sm',style:'margin-right:auto'},'🗑 מחק לקוח');delBtn.addEventListener('click',()=>{S.confirmDelete=true;render()});
+  const mgmt=mk('div',{class:'card',style:'margin-top:1rem'},mk('div',{class:'card-body'},mk('p',{class:'section-title'},'ניהול לקוח'),mk('div',{class:'status-bar'},...stBtns,delBtn)));
+  const svBtn=mk('button',{class:'btn btn-pill '+(S.savedFlash?'btn-success':'btn-primary')},S.savedFlash?'✓ נשמר בהצלחה!':'💾 שמור שינויים');svBtn.addEventListener('click',saveClient);
+  const stickyDiv=mk('div',{class:'sticky-save'},svBtn);
+  return mk('div',{class:'container-md'},hdr(),phaseBar(),tc,noteSecs,mgmt,stickyDiv);
+}
 
-      // Detail editing state
-      activeTab: 1,
-      savedFlash: false,
-      edit: {
-        cashFlow: defaultCashFlow(),
-        balanceSheet: defaultBalance(),
-        pension: defaultPension(),
-        wealthProjection: defaultWealth(),
-        education: defaultEducation(),
-        allocation: defaultAllocation(),
-        meetingNotes: '',
-        generalNotes: '',
-      },
-
-      // UI
-      openSections: {
-        cashFlow: true, balance: true, pension: false, wealth: false,
-        allocation: true, decisions: true, meetingNotes: false, generalNotes: false,
-        edu_moneyManagement: true, edu_realEstate: false, edu_stockMarket: false,
-      },
-
-      // Education categories (static)
-      educationCategories: EDUCATION_CATS,
-
-      // Process info cards
-      processInfo: [
-        {
-          phase: 1, icon: '📊', title: 'פגישה 1 — מיפוי',
-          cardClass: 'border-blue-400/30 bg-blue-400/5',
-          titleClass: 'text-blue-400',
-          desc: 'מיפוי תזרים הכנסות/הוצאות, מאזן נכסים, נתוני פנסיה ותחזית צמיחת הון',
-        },
-        {
-          phase: 2, icon: '📚', title: 'פגישה 2 — לימוד',
-          cardClass: 'border-warn/30 bg-warn/5',
-          titleClass: 'text-warn',
-          desc: 'ניהול כסף, השקעות נדל"ן בישראל ובחו"ל, שוק ההון ותורת ההשקעה הפסיבית',
-        },
-        {
-          phase: 3, icon: '💼', title: 'פגישה 3 — החלטות',
-          cardClass: 'border-success/30 bg-success/5',
-          titleClass: 'text-success',
-          desc: 'הקצאת נכסים, בניית תיק השקעות, החלטות נדל"ן ואפיקים בהתאם למטרות',
-        },
-      ],
-
-      // Phase labels
-      phaseLabels: { 1: 'מיפוי', 2: 'לימוד', 3: 'החלטות' },
+function p1(e){
+  const cf=secCard('cashFlow','שלב 1 — תזרים','הכנסות, הוצאות וחיסכון חודשי',()=>{
+    const ti=sumArr(e.cashFlow.income),te=sumArr(e.cashFlow.expenses),ms=ti-te;
+    const g=mk('div',{class:'grid2',style:'margin-bottom:.75rem'});
+    const lc=mk('div',{class:'col'},mk('p',{class:'section-title',style:'color:var(--success)'},'הכנסות'));
+    lc.appendChild(liEditor(e.cashFlow.income,'הוסף הכנסה',null));
+    lc.appendChild(mk('div',{class:'col-total'},mk('span',{class:'text-muted text-sm'},'סה"כ הכנסות'),mk('span',{style:'font-weight:700;color:var(--success)'},ils(ti))));
+    const rc=mk('div',{class:'col'},mk('p',{class:'section-title',style:'color:var(--danger)'},'הוצאות'));
+    rc.appendChild(liEditor(e.cashFlow.expenses,'הוסף הוצאה',null));
+    rc.appendChild(mk('div',{class:'col-total'},mk('span',{class:'text-muted text-sm'},'סה"כ הוצאות'),mk('span',{style:'font-weight:700;color:var(--danger)'},ils(te))));
+    g.append(lc,rc);
+    const sr=mk('div',{class:'sum-row '+(ms>=0?'positive':'negative')},mk('span',{class:'sum-label'},'חיסכון חודשי נטו'),mk('span',{class:'sum-value '+(ms>=0?'pos':'neg')},ils(ms)));
+    const f=document.createDocumentFragment();f.append(g,sr);return f;
+  });
+  const bs=secCard('balance','שלב 2 — מאזן','נכסים, התחייבויות ושווי נקי',()=>{
+    const ta=sumArr(e.balanceSheet.assets),tl=sumArr(e.balanceSheet.liabilities),nw=ta-tl;
+    const g=mk('div',{class:'grid2',style:'margin-bottom:.75rem'});
+    const ac=mk('div',{class:'col'},mk('p',{class:'section-title',style:'color:var(--success)'},'נכסים'));
+    ac.appendChild(liEditor(e.balanceSheet.assets,'הוסף נכס',null));
+    ac.appendChild(mk('div',{class:'col-total'},mk('span',{class:'text-muted text-sm'},'סה"כ נכסים'),mk('span',{style:'font-weight:700;color:var(--success)'},ils(ta))));
+    const lc=mk('div',{class:'col'},mk('p',{class:'section-title',style:'color:var(--danger)'},'התחייבויות'));
+    lc.appendChild(liEditor(e.balanceSheet.liabilities,'הוסף התחייבות',null));
+    lc.appendChild(mk('div',{class:'col-total'},mk('span',{class:'text-muted text-sm'},'סה"כ התחייבויות'),mk('span',{style:'font-weight:700;color:var(--danger)'},ils(tl))));
+    g.append(ac,lc);
+    const sr=mk('div',{class:'sum-row '+(nw>=0?'positive':'negative')},mk('span',{class:'sum-label'},'שווי נקי'),mk('span',{class:'sum-value '+(nw>=0?'pos':'neg')},ils(nw)));
+    const f=document.createDocumentFragment();f.append(g,sr);return f;
+  });
+  const pe=secCard('pension','שלב 3 — פנסיה','קרן פנסיה, קרן השתלמות',()=>{
+    const pf=e.pension.pensionFund,tf=e.pension.trainingFund;
+    function fi(lbl,get,set,tp='text'){const i=inp({type:tp,placeholder:lbl,value:String(get()||''),onInput:ev=>{set(tp==='number'?+ev.target.value||0:ev.target.value)}});return mk('div',{class:'form-group'},mk('label',{class:'form-label'},lbl),i)}
+    const pfg=mk('div',{class:'grid3 mb-4'},fi('שם הקרן',()=>pf.name,v=>pf.name=v),fi('יתרה (₪)',()=>pf.balance,v=>pf.balance=v,'number'),fi('הפקדה חודשית (₪)',()=>pf.monthlyContribution,v=>pf.monthlyContribution=v,'number'),fi('דמי ניהול (%)',()=>pf.managementFee,v=>pf.managementFee=v,'number'),fi('מסלול השקעה',()=>pf.track,v=>pf.track=v));
+    const tfg=mk('div',{class:'grid3 mb-4'},fi('יתרה (₪)',()=>tf.balance,v=>tf.balance=v,'number'),fi('הפקדה חודשית (₪)',()=>tf.monthlyContribution,v=>tf.monthlyContribution=v,'number'),fi('דמי ניהול (%)',()=>tf.managementFee,v=>tf.managementFee=v,'number'));
+    const ri=inp({type:'number',value:String(e.pension.retirementAge),style:'width:5rem',onInput:ev=>{e.pension.retirementAge=+ev.target.value||67}});
+    const ta=mk('textarea',{rows:'2',placeholder:'פירוט, המלצות, הפניה לסוכן פנסיוני...'});ta.value=e.pension.notes;ta.addEventListener('input',ev=>{e.pension.notes=ev.target.value});
+    const f=document.createDocumentFragment();
+    f.append(mk('p',{class:'section-title mb-3'},'קרן פנסיה'),pfg,mk('p',{class:'section-title mb-3'},'קרן השתלמות'),tfg,mk('div',{class:'form-group',style:'width:6rem;margin-bottom:1rem'},mk('label',{class:'form-label'},'גיל פרישה'),ri),mk('div',{class:'form-group'},mk('label',{class:'form-label'},'הערות פנסיה'),ta));
+    return f;
+  });
+  const wp=secCard('wealth','שלב 4 — תחזית צמיחת הון','ריבית דריבית לאורך שנים',()=>{
+    const w=e.wealthProjection;
+    function wi(lbl,get,set,step='100'){const i=inp({type:'number',step,placeholder:'0',value:String(get()||0),onInput:ev=>{set(+ev.target.value||0);refreshTable()}});return mk('div',{class:'form-group'},mk('label',{class:'form-label'},lbl),i)}
+    const tw=mk('div',{id:'proj-tbl'});
+    function refreshTable(){
+      const tbl=mk('table',{class:'proj-table'},mk('thead',{},mk('tr',{},mk('th',{},'שנה'),mk('th',{class:'num'},'ללא תשואה'),mk('th',{class:'num',style:'color:var(--primary)'},'עם '+w.annualReturn+'%'),mk('th',{class:'num',style:'color:var(--success)'},'הפרש'))),
+        mk('tbody',{},...PROJ_YEARS.map(y=>{const nr=w.initialCapital+w.monthlyAddition*y*12;const yr=compound(w.initialCapital,w.monthlyAddition,w.annualReturn,y);const df=yr-nr;return mk('tr',{},mk('td',{class:'td-years'},String(y)),mk('td',{class:'td-no num'},ils(nr)),mk('td',{class:'td-yes num'},ils(yr)),mk('td',{class:'td-diff num'},'+'+ils(df)))})));
+      tw.innerHTML='';tw.appendChild(tbl);
     }
-  },
+    refreshTable();
+    const inputs=mk('div',{class:'grid3',style:'margin-bottom:1rem'},wi('הון ראשוני (₪)',()=>w.initialCapital,v=>w.initialCapital=v),wi('הוספה חודשית (₪)',()=>w.monthlyAddition,v=>w.monthlyAddition=v),wi('תשואה שנתית (%)',()=>w.annualReturn,v=>w.annualReturn=v,'0.5'));
+    const f=document.createDocumentFragment();f.append(inputs,tw,mk('p',{class:'text-xs text-muted',style:'margin-top:.5rem'},'* להמחשה בלבד. אינו מהווה ייעוץ השקעות.'));return f;
+  });
+  return mk('div',{class:'col'},cf,bs,pe,wp);
+}
 
-  computed: {
-    currentClient() {
-      return this.clients.find(c => c.id === this.selectedClientId) || null
-    },
-    // Cash flow
-    totalIncome() { return this.edit.cashFlow.income.reduce((s, i) => s + (i.amount || 0), 0) },
-    totalExpenses() { return this.edit.cashFlow.expenses.reduce((s, i) => s + (i.amount || 0), 0) },
-    monthlySavings() { return this.totalIncome - this.totalExpenses },
-    // Balance sheet
-    totalAssets() { return this.edit.balanceSheet.assets.reduce((s, i) => s + (i.amount || 0), 0) },
-    totalLiabilities() { return this.edit.balanceSheet.liabilities.reduce((s, i) => s + (i.amount || 0), 0) },
-    netWorth() { return this.totalAssets - this.totalLiabilities },
-    // Allocation
-    totalAllocated() { return this.edit.allocation.allocations.reduce((s, a) => s + (a.amount || 0), 0) },
-    // Wealth projection
-    projectionRows() {
-      const { initialCapital, monthlyAddition, annualReturn } = this.edit.wealthProjection
-      return [1, 3, 5, 10, 15, 20, 25, 30].map(years => {
-        const n = years * 12
-        const r = annualReturn / 100 / 12
-        const withReturn = r === 0
-          ? initialCapital + monthlyAddition * n
-          : initialCapital * Math.pow(1 + r, n) + monthlyAddition * (Math.pow(1 + r, n) - 1) / r
-        const noReturn = initialCapital + monthlyAddition * n
-        return { years, withReturn, noReturn, diff: withReturn - noReturn }
-      })
-    },
-  },
+function p2(e){
+  const cats=EDU.map(cat=>{
+    const done=(e.education[cat.key]||[]).length;
+    return secCard('edu_'+cat.key,cat.icon+' '+cat.label,done+'/'+cat.topics.length+' נושאים נדונו',()=>{
+      const list=mk('div',{class:'col',style:'gap:.25rem;margin-top:.5rem'});
+      cat.topics.forEach(t=>{
+        const ok=(e.education[cat.key]||[]).includes(t.id);
+        const row=mk('div',{class:'edu-item'+(ok?' done':'')},mk('div',{class:'edu-check'+(ok?' done':'')},ok?'✓':''),mk('span',{class:'edu-text'+(ok?' done':'')},t.label));
+        row.addEventListener('click',()=>{const a=e.education[cat.key]||[];e.education[cat.key]=a.includes(t.id)?a.filter(x=>x!==t.id):[...a,t.id];render()});
+        list.appendChild(row);
+      });
+      return list;
+    });
+  });
+  const summary=mk('div',{class:'card'},mk('div',{class:'card-body'},mk('p',{class:'fw-600 text-sm mb-3'},'סיכום התקדמות לימוד'),
+    ...EDU.map(cat=>{const d=(e.education[cat.key]||[]).length,tot=cat.topics.length,pct=Math.round(d/tot*100);return mk('div',{class:'alloc-row'},mk('span',{class:'alloc-label'},cat.label),mk('div',{class:'alloc-track'},mk('div',{class:'alloc-fill',style:'width:'+pct+'%;background:var(--success)'})),mk('span',{class:'alloc-pct text-muted'},d+'/'+tot))})
+  ));
+  return mk('div',{class:'col'},...cats,summary);
+}
 
-  methods: {
-    // ── Navigation ────────────────────────────────────────────────────────────
-    openClient(id) {
-      this.selectedClientId = id
-      this.activeTab = 1
-      const c = this.clients.find(cl => cl.id === id)
-      if (!c) return
-      this.edit.cashFlow = deepClone(c.cashFlow || defaultCashFlow())
-      this.edit.balanceSheet = deepClone(c.balanceSheet || defaultBalance())
-      this.edit.pension = deepClone(c.pension || defaultPension())
-      this.edit.wealthProjection = deepClone(c.wealthProjection || defaultWealth())
-      this.edit.education = deepClone(c.education || defaultEducation())
-      this.edit.allocation = deepClone(c.allocation || defaultAllocation())
-      this.edit.meetingNotes = c.meetingNotes || ''
-      this.edit.generalNotes = c.notes || ''
-      this.view = 'detail'
-    },
+function p3(e){
+  const al=secCard('allocation','הקצאת נכסים',()=>{
+    const tot=e.allocation.allocations.reduce((s,a)=>s+(+a.amount||0),0);
+    return 'סה"כ מוקצה: '+ils(tot);
+  },()=>{
+    const tot=e.allocation.allocations.reduce((s,a)=>s+(+a.amount||0),0);
+    const rows=mk('div',{class:'col',style:'gap:.375rem'});
+    e.allocation.allocations.forEach((item,i)=>{
+      const row=mk('div',{class:'li-row'});
+      const ch=inp({class:'li-label',placeholder:'אפיק השקעה',value:item.channel||'',onInput:ev=>{item.channel=ev.target.value}});
+      const am=inp({type:'number',class:'li-amount',placeholder:'סכום ₪',value:String(item.amount||0),onInput:ev=>{item.amount=+ev.target.value||0;render()}});
+      const nt=inp({class:'li-label',placeholder:'הערות',value:item.notes||'',onInput:ev=>{item.notes=ev.target.value}});
+      const dl=mk('button',{class:'li-delete'},'✕');dl.addEventListener('click',()=>{e.allocation.allocations.splice(i,1);render()});
+      row.append(ch,am,nt,dl);rows.appendChild(row);
+    });
+    const ab=mk('button',{class:'add-row'},'+ הוסף אפיק');ab.addEventListener('click',()=>{e.allocation.allocations.push({channel:'',amount:0,notes:''});render()});
+    rows.appendChild(ab);
+    if(tot>0){
+      const bk=mk('div',{},mk('p',{class:'section-title',style:'margin-top:1rem;margin-bottom:.5rem'},'פירוט אחוזים'),
+        ...e.allocation.allocations.filter(a=>a.amount>0).map(a=>{const pct=Math.round(a.amount/tot*100);return mk('div',{class:'alloc-row'},mk('span',{class:'alloc-label'},a.channel||'אפיק'),mk('div',{class:'alloc-track'},mk('div',{class:'alloc-fill',style:'width:'+pct+'%'})),mk('span',{class:'alloc-pct'},pct+'%'),mk('span',{class:'alloc-amt'},ils(a.amount)))}));
+      const f=document.createDocumentFragment();f.append(rows,bk);return f;
+    }
+    return rows;
+  });
+  // Fix subtitle for allocation — it's dynamic so we do it differently
+  const dec=secCard('decisions','החלטות ומסקנות','סיכום פגישה 3',()=>{
+    const ta=mk('textarea',{rows:'6',placeholder:'נדל"ן, שוק ההון, פנסיה, ביטוחים, הלוואות, משכנתא, מסלולים...',style:'margin-top:.75rem'});
+    ta.value=e.allocation.generalNotes;ta.addEventListener('input',ev=>{e.allocation.generalNotes=ev.target.value});return ta;
+  });
+  return mk('div',{class:'col'},al,dec);
+}
 
-    // ── Add client ────────────────────────────────────────────────────────────
-    openAddModal() {
-      this.newClient = { name: '', email: '', phone: '' }
-      this.showAddModal = true
-    },
-    addClient() {
-      if (!this.newClient.name.trim()) return
-      const client = {
-        id: genId(),
-        name: this.newClient.name,
-        email: this.newClient.email || null,
-        phone: this.newClient.phone || null,
-        phase: 1,
-        status: 'active',
-        cashFlow: defaultCashFlow(),
-        balanceSheet: defaultBalance(),
-        pension: defaultPension(),
-        wealthProjection: defaultWealth(),
-        education: defaultEducation(),
-        allocation: defaultAllocation(),
-        meetingNotes: '',
-        notes: '',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      }
-      this.clients.push(client)
-      saveClientsToStorage(this.clients)
-      this.showAddModal = false
-      this.openClient(client.id)
-    },
+function renderAddModal(){
+  const ni=inp({placeholder:'ישראל ישראלי',value:S.newName,onInput:e=>S.newName=e.target.value});
+  const ei=inp({placeholder:'israel@example.com',dir:'ltr',value:S.newEmail,onInput:e=>S.newEmail=e.target.value});
+  const pi=inp({placeholder:'050-000-0000',dir:'ltr',value:S.newPhone,onInput:e=>S.newPhone=e.target.value});
+  const cnl=mk('button',{class:'btn btn-outline flex-1'},'ביטול');cnl.addEventListener('click',closeAdd);
+  const add=mk('button',{class:'btn btn-primary flex-1'},'הוסף לקוח');add.addEventListener('click',doAdd);
+  const modal=mk('div',{class:'modal'},mk('div',{class:'row-between mb-4'},mk('h2',{class:'fw-bold'},'לקוח חדש'),mk('button',{class:'btn btn-sm',style:'background:none;border:none;color:var(--muted-fg)',onclick:()=>closeAdd()},'✕')),mk('div',{class:'col',style:'margin-bottom:1.25rem'},mk('div',{class:'form-group'},mk('label',{class:'form-label'},'שם מלא *'),ni),mk('div',{class:'form-group'},mk('label',{class:'form-label'},'אימייל'),ei),mk('div',{class:'form-group'},mk('label',{class:'form-label'},'טלפון'),pi)),mk('div',{class:'row'},cnl,add));
+  modal.querySelector('.btn-sm').addEventListener('click',closeAdd);
+  const ov=mk('div',{class:'overlay'},modal);ov.addEventListener('click',e=>{if(e.target===ov)closeAdd()});
+  setTimeout(()=>ni.focus(),50);return ov;
+}
 
-    // ── Save client ───────────────────────────────────────────────────────────
-    saveClient() {
-      if (!this.currentClient) return
-      const idx = this.clients.findIndex(c => c.id === this.selectedClientId)
-      if (idx === -1) return
-      this.clients[idx] = {
-        ...this.clients[idx],
-        cashFlow: deepClone(this.edit.cashFlow),
-        balanceSheet: deepClone(this.edit.balanceSheet),
-        pension: deepClone(this.edit.pension),
-        wealthProjection: deepClone(this.edit.wealthProjection),
-        education: deepClone(this.edit.education),
-        allocation: deepClone(this.edit.allocation),
-        meetingNotes: this.edit.meetingNotes,
-        notes: this.edit.generalNotes,
-        updatedAt: new Date().toISOString(),
-      }
-      saveClientsToStorage(this.clients)
-      this.savedFlash = true
-      setTimeout(() => { this.savedFlash = false }, 2000)
-    },
+function renderConfirmDelete(){
+  const cnl=mk('button',{class:'btn btn-outline flex-1'},'ביטול');cnl.addEventListener('click',()=>{S.confirmDelete=false;render()});
+  const del=mk('button',{class:'btn flex-1',style:'background:var(--danger);color:#fff'},'מחק לצמיתות');del.addEventListener('click',()=>deleteClient(S.clientId));
+  const modal=mk('div',{class:'modal',style:'max-width:22rem;text-align:center'},mk('div',{style:'font-size:2rem;margin-bottom:.75rem'},'⚠️'),mk('h2',{class:'fw-bold',style:'margin-bottom:.5rem'},'למחוק את הלקוח?'),mk('p',{class:'text-muted text-sm',style:'margin-bottom:1.25rem'},'פעולה זו אינה הפיכה. כל הנתונים יאבדו.'),mk('div',{class:'row'},cnl,del));
+  const ov=mk('div',{class:'overlay'},modal);ov.addEventListener('click',e=>{if(e.target===ov){S.confirmDelete=false;render()}});
+  return ov;
+}
 
-    // ── Delete client ─────────────────────────────────────────────────────────
-    deleteClient(id) {
-      this.clients = this.clients.filter(c => c.id !== id)
-      saveClientsToStorage(this.clients)
-      this.confirmDeleteId = null
-      this.view = 'list'
-      this.selectedClientId = null
-    },
+function openAddModal(){S.newName='';S.newEmail='';S.newPhone='';S.showAddModal=true;render()}
+function closeAdd(){S.showAddModal=false;render()}
+function doAdd(){
+  if(!S.newName.trim())return;
+  const c={id:genId(),name:S.newName.trim(),email:S.newEmail.trim()||null,phone:S.newPhone.trim()||null,phase:1,status:'active',cashFlow:dfCash(),balanceSheet:dfBalance(),pension:dfPension(),wealthProjection:dfWealth(),education:dfEdu(),allocation:dfAlloc(),meetingNotes:'',notes:'',createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};
+  S.clients.push(c);save(S.clients);S.showAddModal=false;openClient(c.id);
+}
 
-    // ── Phase / Status ────────────────────────────────────────────────────────
-    advancePhase() {
-      if (!this.currentClient || this.currentClient.phase >= 3) return
-      const idx = this.clients.findIndex(c => c.id === this.selectedClientId)
-      this.clients[idx].phase++
-      saveClientsToStorage(this.clients)
-    },
-    setStatus(s) {
-      if (!this.currentClient) return
-      const idx = this.clients.findIndex(c => c.id === this.selectedClientId)
-      this.clients[idx].status = s
-      saveClientsToStorage(this.clients)
-    },
+function openClient(id){
+  const c=S.clients.find(x=>x.id===id);if(!c)return;
+  S.clientId=id;S.tab=1;S.savedFlash=false;
+  S.edit={cashFlow:clone(c.cashFlow||dfCash()),balanceSheet:clone(c.balanceSheet||dfBalance()),pension:clone(c.pension||dfPension()),wealthProjection:clone(c.wealthProjection||dfWealth()),education:clone(c.education||dfEdu()),allocation:clone(c.allocation||dfAlloc()),meetingNotes:c.meetingNotes||'',generalNotes:c.notes||''};
+  Object.assign(S.openSections,{cashFlow:true,balance:true,pension:false,wealth:false,allocation:true,decisions:true,meetingNotes:false,generalNotes:false,edu_moneyManagement:true,edu_realEstate:false,edu_stockMarket:false});
+  S.view='detail';render();
+}
 
-    // ── Education ─────────────────────────────────────────────────────────────
-    isDone(catKey, topicId) {
-      return (this.edit.education[catKey] || []).includes(topicId)
-    },
-    doneCount(catKey) {
-      return (this.edit.education[catKey] || []).length
-    },
-    toggleTopic(catKey, topicId) {
-      const arr = this.edit.education[catKey] || []
-      if (arr.includes(topicId)) {
-        this.edit.education[catKey] = arr.filter(t => t !== topicId)
-      } else {
-        this.edit.education[catKey] = [...arr, topicId]
-      }
-    },
+function saveClient(){
+  if(!S.clientId||!S.edit)return;
+  const i=S.clients.findIndex(c=>c.id===S.clientId);if(i===-1)return;
+  Object.assign(S.clients[i],{cashFlow:clone(S.edit.cashFlow),balanceSheet:clone(S.edit.balanceSheet),pension:clone(S.edit.pension),wealthProjection:clone(S.edit.wealthProjection),education:clone(S.edit.education),allocation:clone(S.edit.allocation),meetingNotes:S.edit.meetingNotes,notes:S.edit.generalNotes,updatedAt:new Date().toISOString()});
+  save(S.clients);S.savedFlash=true;render();setTimeout(()=>{S.savedFlash=false;render()},2000);
+}
 
-    // ── UI helpers ────────────────────────────────────────────────────────────
-    toggleSection(key) { this.openSections[key] = !this.openSections[key] },
+function deleteClient(id){
+  S.clients=S.clients.filter(c=>c.id!==id);save(S.clients);S.confirmDelete=false;S.view='list';S.clientId=null;render();
+}
 
-    phaseChipClass(phase) {
-      if (phase === 1) return 'text-blue-400 bg-blue-400/10'
-      if (phase === 2) return 'text-warn bg-warn/10'
-      return 'text-success bg-success/10'
-    },
-    phaseTabActive(p) {
-      if (p === 1) return 'bg-blue-400/10 text-blue-400'
-      if (p === 2) return 'bg-warn/10 text-warn'
-      return 'bg-success/10 text-success'
-    },
-    statusClass(s) {
-      if (s === 'completed') return 'bg-success/10 text-success'
-      if (s === 'paused') return 'bg-muted text-muted-fg'
-      return 'bg-primary/10 text-primary'
-    },
-    statusLabel(s) {
-      if (s === 'completed') return 'הושלם'
-      if (s === 'paused') return 'בהמתנה'
-      return 'פעיל'
-    },
+render();
 
-    // ── Formatting ────────────────────────────────────────────────────────────
-    formatILS(n) {
-      return new Intl.NumberFormat('he-IL', {
-        style: 'currency', currency: 'ILS', maximumFractionDigits: 0,
-      }).format(n || 0)
-    },
-  },
-}).mount('#app')
 </script>
 </body>
 </html>
