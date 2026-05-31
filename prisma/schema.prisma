@@ -56,6 +56,7 @@ model Project {
   communities   Community[]
   marketingFlows MarketingFlow[]
   metaAdAccounts MetaAdAccount[]
+  financialPlanningClients FinancialPlanningClient[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
@@ -441,4 +442,26 @@ model MetaCampaign {
   spend       String       @default("$0")
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+}
+
+// ─── Financial Planning ───
+model FinancialPlanningClient {
+  id                String   @id @default(cuid())
+  projectId         String
+  project           Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name              String
+  email             String?
+  phone             String?
+  notes             String?
+  phase             Int      @default(1)
+  status            String   @default("active")
+  cashFlow          String?
+  balanceSheet      String?
+  pensionData       String?
+  wealthProjection  String?
+  educationProgress String?
+  assetAllocation   String?
+  meetingNotes      String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
