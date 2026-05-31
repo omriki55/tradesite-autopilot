@@ -35,6 +35,7 @@ import {
   Award,
   ShoppingBag,
   GraduationCap,
+  PiggyBank,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -68,6 +69,7 @@ const marketingPages = [
   { label: 'Communities', icon: MessageCircle, href: 'communities' },
   { label: 'Marketing Flows', icon: GitBranch, href: 'marketing-flows' },
   { label: 'Meta Campaigns', icon: Target, href: 'meta-campaigns' },
+  { label: 'תכנון פיננסי', icon: PiggyBank, href: 'financial-planning' },
 ]
 
 const infrastructurePages = [

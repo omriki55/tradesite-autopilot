@@ -16,6 +16,7 @@ import { affiliatesRouter } from './routers/affiliates'
 import { communitiesRouter } from './routers/communities'
 import { flowsRouter } from './routers/flows'
 import { metaRouter } from './routers/meta'
+import { financialPlanningRouter } from './routers/financial-planning'
 
 export const appRouter = router({
   project: projectRouter,
@@ -35,6 +36,7 @@ export const appRouter = router({
   communities: communitiesRouter,
   flows: flowsRouter,
   meta: metaRouter,
+  financialPlanning: financialPlanningRouter,
 })
 
 export type AppRouter = typeof appRouter
